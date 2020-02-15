@@ -3,4 +3,12 @@ from key import key
 
 Decoder = Code(key)
 
-def
+
+def encrypt(psw):
+    """Шифрование пароля"""
+    res = Decoder.encrypt(bytes(psw))
+
+
+def decrypt(psw):
+    """Расифровка пароля"""
+    res = Decoder.decrypt(psw)
