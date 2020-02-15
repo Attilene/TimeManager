@@ -10,5 +10,5 @@ def encrypt(psw):
 
 
 def decrypt(psw):
-    """Расифровка пароля"""
+    """Расшифровка пароля"""
     res = Decoder.decrypt(psw)
