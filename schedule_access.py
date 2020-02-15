@@ -8,15 +8,11 @@ cur.execute("""CREATE TABLE IF NOT EXISTS users
 
 
 def add_user(log, psw):
-	prov = "SELECT * FROM users WHERE login=?"
-	cur.execute(prov, [(log)])
-	res = cur.fetchone()
-	if (res == None):
-		ins = "INSERT INTO users (login, pswd) VALUES (?, ?)"
-		cur.execute(ins, [(log), (psw)])
-		conn.commit()
-		cur.execute(f"CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(50), task VARCHAR(700))")
-		cur.execute(f"CREATE TABLE IF NOT EXISTS day_{log} (task VARCHAR(700), hour INTEGER, min INTEGER)")
+	ins = "INSERT INTO users (login, pswd) VALUES (?, ?)"
+	cur.execute(ins, [(log), (psw)])
+	conn.commit()
+	cur.execute(f"CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(50), task VARCHAR(700))")
+	cur.execute(f"CREATE TABLE IF NOT EXISTS day_{log} (task VARCHAR(700), hour INTEGER, min INTEGER)")
 
 
 def change_pass(log, psw):
@@ -25,23 +21,24 @@ def change_pass(log, psw):
 	conn.commit()
 
 
-#def del_user(log, psw):
+def del_user(log, psw):
+	clr = "DELETE FROM users WHERE login=?"
+	cur.execute(clr, [(log)])
+	conn.commit()
+	cur.execute(f"DROP TABLE IF EXISTS month_{log}")
+	cur.execute(f"DROP TABLE IF EXISTS day_{log}")
 
 
 def check_all(log, psw):
-	res = None
 	sel = "SELECT (pswd) FROM users WHERE login=?"
 	cur.execute(sel, [(log)])
-	res = cur.fetchone()
-	return res == (psw,)
+	return cur.fetchone() == (psw,)
 
 
 def check_log(log):
-	res = None
 	sel = "SELECT (login) FROM users WHERE login=?"
 	cur.execute(sel, [(log)])
-	res = cur.fetchone()
-	return res != None
+	return cur.fetchone() != None
 
 
 # log = 'kekno'
@@ -52,6 +49,7 @@ def check_log(log):
 # print(check_all(log, psw))
 # cur.execute("SELECT * FROM users")
 # print(cur.fetchall())
+# del_user(log, psw)
 # change_pass(log, 'qwerty')
 # cur.execute("SELECT * FROM users")
 # print(cur.fetchall())
