@@ -6,9 +6,9 @@ Decoder = Code(key)
 
 def encrypt(psw):
     """Шифрование пароля"""
-    res = Decoder.encrypt(bytes(psw))
+    return Decoder.encrypt(bytes(psw))
 
 
-def decrypt(psw):
+def decrypt(crypted_psw):
     """Расшифровка пароля"""
-    res = Decoder.decrypt(psw)
+    return Decoder.decrypt(crypted_psw)
