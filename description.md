@@ -20,7 +20,7 @@
 ****`description.md`**** 
     ## сводка проекта
     
-****`templates`**** 
+****`templates\ `**** 
     ## шаблоны HTML
 
 ****`crypting.py`**** 
