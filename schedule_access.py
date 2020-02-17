@@ -21,7 +21,12 @@ def change_pass(log, psw):
 	conn.commit()
 
 
-#def del_user(log, psw):
+def del_user(log):
+	clr = "DELETE FROM users WHERE login=?"
+	cur.execute(clr, [(log)])
+	conn.commit()
+	cur.execute(f"DROP TABLE IF EXISTS month_{log}")
+	cur.execute(f"DROP TABLE IF EXISTS day_{log}")
 
 
 def check_all(log, psw):
@@ -35,7 +40,7 @@ def check_log(log):
 	cur.execute(sel, [(log)])
 	return cur.fetchone() != None
 
-print(cur.fetchone())
+
 # log = 'kekno'
 # psw = 'real'
 # add_user(log, psw)
@@ -44,6 +49,7 @@ print(cur.fetchone())
 # print(check_all(log, psw))
 # cur.execute("SELECT * FROM users")
 # print(cur.fetchall())
+# del_user(log, psw)
 # change_pass(log, 'qwerty')
 # cur.execute("SELECT * FROM users")
 # print(cur.fetchall())
