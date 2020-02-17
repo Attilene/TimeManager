@@ -1,8 +1,9 @@
-from flask import Flask, request
+from flask import Flask
 tm = Flask(__name__)
 
 
 @tm.route('/')
+@tm.route('/home')
 def page_home():
     return
 
@@ -14,6 +15,16 @@ def page_cabinet():
 
 @tm.route('/login')
 def page_login():
+    return
+
+
+@tm.route('/cabinet/day')
+def page_day():
+    return
+
+
+@tm.route('/cabinet/month')
+def page_month():
     return
 
 
