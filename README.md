@@ -18,7 +18,7 @@
 ## Структура файлов
 **Корень `time_manager\ `**
 
-***`description.md`*** 
+***`README.md`*** 
     ## сводка проекта
 
 ***`schedule_access.py`*** 
