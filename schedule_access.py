@@ -53,4 +53,3 @@ def check_log(log):
 # change_pass(log, 'qwerty')
 # cur.execute("SELECT * FROM users")
 # print(cur.fetchall())
-
