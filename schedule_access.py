@@ -21,7 +21,7 @@ def change_pass(log, psw):
 	conn.commit()
 
 
-def del_user(log, psw):
+def del_user(log):
 	clr = "DELETE FROM users WHERE login=?"
 	cur.execute(clr, [(log)])
 	conn.commit()
