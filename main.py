@@ -3,15 +3,18 @@ tm = Flask(__name__)
 
 
 @tm.route('/')
-def home():
-    return 'Hello World'
+def page_home():
+    return
 
 
 @tm.route('/cabinet')
-def cabinet():
-    return 'Hello World'
+def page_cabinet():
+    return
 
 
+@tm.route('/login')
+def page_login():
+    return
 
 
 if __name__ == "__main__":
