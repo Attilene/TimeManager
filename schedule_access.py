@@ -39,7 +39,7 @@ def ret_day(log):
 	sel = f"SELECT * FROM day_{log}"
 	cur.execute(sel)
 	vyvod = cur.fetchall()
-	return tuple(sorted(vyvod, key = lambda x: x[0] * 60 + x[1]))
+	return list(sorted(vyvod, key = lambda x: x[0] * 60 + x[1]))
 
 def ret_month(log):
 	d = {'Январь':(0,31,), 'Февраль':(1,28,), 'Март':(2,31,), 'Апрель':(3,30,), 'Май':(4,31,), 'Июнь':(5,30,),
@@ -47,7 +47,7 @@ def ret_month(log):
 	sel = f"SELECT * FROM month_{log}"
 	cur.execute(sel)
 	vyvod = cur.fetchall()
-	return tuple(sorted(vyvod, key = lambda x: x[0] + d[x[1]][0] * d[x[1]][1]))
+	return list(sorted(vyvod, key = lambda x: x[0] + d[x[1]][0] * d[x[1]][1]))
 
 def add_day(log, hours, mins, task):
 	ins = f"INSERT INTO day_{log} (hours, mins, task) VALUES (?, ?, ?)"
