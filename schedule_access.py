@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("schedule.db")
+conn = sqlite3.connect(":memory:")
 cur = conn.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS users 
 	(login VARCHAR(200), pswd VARCHAR(200))""")
@@ -39,7 +39,7 @@ def ret_day(log):
 	sel = f"SELECT * FROM day_{log}"
 	cur.execute(sel)
 	vyvod = cur.fetchall()
-	return tuple(sorted(vyvod, key = lambda x:x[0] * x[1]))
+	return tuple(sorted(vyvod, key = lambda x:x[0] * 60 + x[1]))
 
 def ret_month(log):
 	sel = f"SELECT * FROM month_{log}"
@@ -71,4 +71,5 @@ add_day(log, 15, 30, 'just do it')
 add_day(log, 5, 30, 'lolkekchebureck')
 add_day(log, 18, 45, 'uuuuuuuu')
 add_day(log, 5, 40, 'sdfvgv')
+add_day(log, 4, 59, 'adsfdfsd')
 print(ret_day(log))
