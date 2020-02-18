@@ -1,20 +1,31 @@
-from flask import Flask, request
-
+from flask import Flask
 tm = Flask(__name__)
 
 
 @tm.route('/')
-# def home():
-#     return 'Hello World'
-def requestdata():
-    return "Hello! Your IP is {} and you are using {}: ".format(request.remote_addr,
-                                                                request.user_agent)
+@tm.route('/home')
+def page_home():
+    return
+
 
 @tm.route('/cabinet')
-def cabinet():
-    return 'Hello World'
+def page_cabinet():
+    return
 
 
+@tm.route('/login')
+def page_login():
+    return
+
+
+@tm.route('/cabinet/day')
+def page_day():
+    return
+
+
+@tm.route('/cabinet/month')
+def page_month():
+    return
 
 
 if __name__ == "__main__":
