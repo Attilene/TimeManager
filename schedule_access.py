@@ -3,15 +3,15 @@ import sqlite3
 conn = sqlite3.connect(":memory:")
 cur = conn.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS users 
-	(login VARCHAR(200), pswd VARCHAR(200))""")
+	(login VARCHAR(300), pswd VARCHAR(300))""")
 
 
 def add_user(log, psw):
 	ins = "INSERT INTO users (login, pswd) VALUES (?, ?)"
 	cur.execute(ins, [(log), (psw)])
 	conn.commit()
-	cur.execute(f"CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(50), task VARCHAR(700))")
-	cur.execute(f"CREATE TABLE IF NOT EXISTS day_{log} (hours INTEGER, mins INTEGER, task VARCHAR(700))")
+	cur.execute(f"CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(50), task VARCHAR(1000))")
+	cur.execute(f"CREATE TABLE IF NOT EXISTS day_{log} (hours INTEGER, mins INTEGER, task VARCHAR(1000))")
 
 def change_pass(log, psw):
 	sel = "UPDATE users SET pswd=? WHERE login=?"
