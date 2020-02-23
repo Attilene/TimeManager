@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect(":memory:")
+conn = sqlite3.connect("..//database//schedule.db")
 cur = conn.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS users 
 	(login VARCHAR(300), pswd VARCHAR(300))""")
