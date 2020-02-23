@@ -1,8 +1,8 @@
-from flask import Flask
-tm = Flask(__name__)
+from modules import *
 
 
-import modules
+
+
 
 if __name__ == "__main__":
     tm.run(debug=True)
