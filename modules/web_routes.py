@@ -1,5 +1,5 @@
 from flask import Flask
-tm = Flask(__name__)
+tm = Flask(__name__, template_folder="../templates")
 
 
 @tm.route('/')
