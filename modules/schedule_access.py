@@ -59,9 +59,15 @@ def add_month(log, digit, month, task):
 	cur.execute(ins, [(digit), (month.capitalize()), (task)])
 	conn.commit()
 
-#def del_day(log, <тут пока хз>):
+def del_day(log, hours, mins, task):
+	clr = f"DELETE FROM day_{log} WHERE hours = ? AND mins = ? AND task = ?"
+	cur.execute(clr, [(hours), (mins), (task)])
+	conn.commit()
 
-#def del_month(log, <тут пока хз>):
+def del_month(log, digit, month, task):
+	clr = f"DELETE FROM month_{log} WHERE digit = ? AND month = ? AND task = ?"
+	cur.execute(clr, [(digit), (month), (task)])
+	conn.commit()
 
 
 # log = 'kekno'
@@ -79,5 +85,9 @@ def add_month(log, digit, month, task):
 # add_month(log, 1, 'январь', 'sdfывавпрdgfs')
 # add_month(log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
 # add_month(log, 23, 'июнь', 'sdФВАЫВППfdgfs')
+# print(ret_month(log))
+# print(ret_day(log))
+# del_day(log, 5, 40, 'sdfvgv')
+# del_month(log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
 # print(ret_month(log))
 # print(ret_day(log))
