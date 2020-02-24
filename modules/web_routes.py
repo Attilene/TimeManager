@@ -1,6 +1,6 @@
 from flask import Flask
 tm = Flask(__name__, template_folder="../templates")
-
+img = "../img/"
 
 @tm.route('/')
 def page_home():
