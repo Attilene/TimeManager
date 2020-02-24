@@ -14,14 +14,11 @@ class User(object):
 		self.day = User.__ret_day(self)
 		self.month = User.__ret_month(self)
 
-
 	def __ret_lists(self):  # Вот заготовочка
 		return (1)
 
 	def __ret_day(self):
-		sel = f"SELECT * FROM day_{self.log}"
-		User.__cur.execute(sel)
-		vyvod = User.__cur.fetchall()
+		User.__cur.execute(f"SELECT * FROM day_{self.log}")
 		return list(sorted(User.__cur.fetchall(), key=lambda x: (x[0], x[1])))
 
 	def __ret_month(self):
@@ -88,17 +85,16 @@ class User(object):
 			self.month.remove((digit, month, task))
 
 
-now_user = User("T1MON", 'kdfjdkffj')
-now_user.add_month(23, 'январь', 'dfjfkdjf')
-now_user.add_month(24, 'январь', 'dfjfkdjf')
-now_user.add_month(25, 'январь', 'dfjfkdjf')
-now_user.add_day(22, 33, 'jdfkjf')
-now_user.add_day(23, 33, 'jdfkjf')
-now_user.add_day(24, 33, 'jdfkjf')
-print(now_user.day)
-print(now_user.month)
-
-
+# Мои тесты (Дима)
+# now_user = User("T1MON", 'kdfjdkffj')
+# now_user.add_month(23, 'январь', 'dfjfkdjf')
+# now_user.add_month(24, 'январь', 'dfjfkdjf')
+# now_user.add_month(25, 'январь', 'dfjfkdjf')
+# now_user.add_day(22, 33, 'jdfkjf')
+# now_user.add_day(23, 33, 'jdfkjf')
+# now_user.add_day(24, 33, 'jdfkjf')
+# print(now_user.day)
+# print(now_user.month)
 
 # self.log = 'kekno'
 # psw = 'real'
