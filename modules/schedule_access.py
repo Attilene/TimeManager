@@ -44,12 +44,12 @@ def ret_day(cur, log):
 	return list(sorted(vyvod, key = lambda x: x[0] * 60 + x[1]))
 
 def ret_month(cur, log):
-	d = {'Январь':(0,31,), 'Февраль':(1,28,), 'Март':(2,31,), 'Апрель':(3,30,), 'Май':(4,31,), 'Июнь':(5,30,),
-		 'Июль':(6,31,), 'Август':(7,31,), 'Сентябрь':(8,30,), 'Октябрь':(9,31,), 'Ноябрь':(10,30,), 'Декабрь':(11,31,)}
+	d = {'Январь': 0, 'Февраль': 31, 'Март': 59, 'Апрель': 90, 'Май': 120, 'Июнь': 151,
+		 'Июль': 181, 'Август': 212, 'Сентябрь': 243, 'Октябрь': 273, 'Ноябрь': 304, 'Декабрь': 334}
 	sel = f"SELECT * FROM month_{log}"
 	cur.execute(sel)
 	vyvod = cur.fetchall()
-	return list(sorted(vyvod, key = lambda x: x[0] + d[x[1]][0] * d[x[1]][1]))
+	return list(sorted(vyvod, key = lambda x: x[0] + d[x[1]]))
 
 def add_day(conn, cur, log, hours, mins, task):
 	ins = f"INSERT INTO day_{log} (hours, mins, task) VALUES (?, ?, ?)"
