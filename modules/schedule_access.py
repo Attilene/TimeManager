@@ -1,96 +1,123 @@
-import sqlite3
+class User(object):
+	import sqlite3
+	__conn = sqlite3.connect("../databases/schedule.db")
+	__cur = __conn.cursor()
+	__cur.execute("""CREATE TABLE IF NOT EXISTS users 
+					(login VARCHAR(300), psw VARCHAR(300))""")
+	__month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь', ]
+
+	def __init__(self, log, psw=None):
+		self.log = log
+		if not User.check_log(self):
+			User.__add_user(self, psw)
+		self.lists = User.__ret_lists(self)
+		self.day = User.__ret_day(self)
+		self.month = User.__ret_month(self)
 
 
-def create_table():
-	conn = sqlite3.connect("..//db//schedule.db")
-	cur = conn.cursor()
-	cur.execute("""CREATE TABLE IF NOT EXISTS users 
-		(login VARCHAR(300), pswd VARCHAR(300))""")
-	return conn, cur
+	def __ret_lists(self):  # Вот заготовочка
+		return (1)
 
-def add_user(conn, cur, log, psw):
-	ins = "INSERT INTO users (login, pswd) VALUES (?, ?)"
-	cur.execute(ins, [(log), (psw)])
-	conn.commit()
-	cur.execute(f"CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(50), task VARCHAR(1000))")
-	cur.execute(f"CREATE TABLE IF NOT EXISTS day_{log} (hours INTEGER, mins INTEGER, task VARCHAR(1000))")
+	def __ret_day(self):
+		sel = f"SELECT * FROM day_{self.log}"
+		User.__cur.execute(sel)
+		vyvod = User.__cur.fetchall()
+		return list(sorted(User.__cur.fetchall(), key=lambda x: (x[0], x[1])))
 
-def change_pass(conn, cur, log, psw):
-	sel = "UPDATE users SET pswd=? WHERE login=?"
-	cur.execute(sel, [(psw), (log)])
-	conn.commit()
+	def __ret_month(self):
+		User.__cur.execute(f"SELECT * FROM month_{self.log}")
+		return list(sorted(User.__cur.fetchall(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
-def del_user(conn, cur, log):
-	clr = "DELETE FROM users WHERE login=?"
-	cur.execute(clr, [(log)])
-	conn.commit()
-	cur.execute(f"DROP TABLE IF EXISTS month_{log}")
-	cur.execute(f"DROP TABLE IF EXISTS day_{log}")
+	def __add_user(self, psw):
+		ins = "INSERT INTO users (login, psw) VALUES (?, ?)"
+		User.__cur.execute(ins, [(self.log), (psw)])
+		User.__conn.commit()
+		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(50), task VARCHAR(1000))")
+		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS day_{self.log} (hours INTEGER, mins INTEGER, task VARCHAR(1000))")
 
-def check_all(cur, log, psw):
-	sel = "SELECT (pswd) FROM users WHERE login=?"
-	cur.execute(sel, [(log)])
-	return cur.fetchone() == (psw,)
+	def check_log(self):
+		sel = "SELECT (login) FROM users WHERE login=?"
+		User.__cur.execute(sel, [(self.log)])
+		return User.__cur.fetchone() is not None
 
-def check_log(cur, log):
-	sel = "SELECT (login) FROM users WHERE login=?"
-	cur.execute(sel, [(log)])
-	return cur.fetchone() != None
+	def change_pass(self, psw):
+		sel = "UPDATE users SET psw=? WHERE login=?"
+		User.__cur.execute(sel, [(psw), (self.log)])
+		User.__conn.commit()
 
-def ret_day(cur, log):
-	sel = f"SELECT * FROM day_{log}"
-	cur.execute(sel)
-	vyvod = cur.fetchall()
-	return list(sorted(vyvod, key = lambda x: x[0] * 60 + x[1]))
+	def del_user(self):
+		clr = "DELETE FROM users WHERE login=?"
+		User.__cur.execute(clr, [(self.log)])
+		User.__conn.commit()
+		User.__cur.execute(f"DROP TABLE IF EXISTS month_{self.log}")
+		User.__cur.execute(f"DROP TABLE IF EXISTS day_{self.log}")
 
-def ret_month(cur, log):
-	d = {'Январь':(0,31,), 'Февраль':(1,28,), 'Март':(2,31,), 'Апрель':(3,30,), 'Май':(4,31,), 'Июнь':(5,30,),
-		 'Июль':(6,31,), 'Август':(7,31,), 'Сентябрь':(8,30,), 'Октябрь':(9,31,), 'Ноябрь':(10,30,), 'Декабрь':(11,31,)}
-	sel = f"SELECT * FROM month_{log}"
-	cur.execute(sel)
-	vyvod = cur.fetchall()
-	return list(sorted(vyvod, key = lambda x: x[0] + d[x[1]][0] * d[x[1]][1]))
+	def check_all(self, psw):
+		sel = "SELECT (psw) FROM users WHERE login=?"
+		User.__cur.execute(sel, [(self.log)])
+		return User.__cur.fetchone() == (psw,)
 
-def add_day(conn, cur, log, hours, mins, task):
-	ins = f"INSERT INTO day_{log} (hours, mins, task) VALUES (?, ?, ?)"
-	cur.execute(ins, [(hours), (mins), (task)])
-	conn.commit()
+	def add_day(self, hours, mins, task):
+		if (hours, mins, task) not in self.day:
+			ins = f"INSERT INTO day_{self.log} (hours, mins, task) VALUES (?, ?, ?)"
+			User.__cur.execute(ins, [(hours), (mins), (task)])
+			User.__conn.commit()
+			self.day = User.__ret_day(self)
 
-def add_month(conn, cur, log, digit, month, task):
-	ins = f"INSERT INTO month_{log} (digit, month, task) VALUES (?, ?, ?)"
-	cur.execute(ins, [(digit), (month.capitalize()), (task)])
-	conn.commit()
+	def add_month(self, digit, month, task):
+		month = month.lower()
+		if (digit, month, task) not in self.month:
+			ins = f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)"
+			User.__cur.execute(ins, [(digit), (month), (task)])
+			User.__conn.commit()
+			self.month = User.__ret_month(self)
 
-def del_day(conn, cur, log, hours, mins, task):
-	clr = f"DELETE FROM day_{log} WHERE hours = ? AND mins = ? AND task = ?"
-	cur.execute(clr, [(hours), (mins), (task)])
-	conn.commit()
+	def del_day(self, hours, mins, task):
+		if (hours, mins, task) in self.day:
+			clr = f"DELETE FROM day_{self.log} WHERE hours = ? AND mins = ? AND task = ?"
+			User.__cur.execute(clr, [(hours), (mins), (task)])
+			User.__conn.commit()
+			self.day.remove((hours, mins, task))
 
-def del_month(conn, cur, log, digit, month, task):
-	clr = f"DELETE FROM month_{log} WHERE digit = ? AND month = ? AND task = ?"
-	cur.execute(clr, [(digit), (month), (task)])
-	conn.commit()
+	def del_month(self, digit, month, task):
+		month = month.lower()
+		if (digit, month, task) in self.month:
+			clr = f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?"
+			User.__cur.execute(clr, [(digit), (month), (task)])
+			User.__conn.commit()
+			self.month.remove((digit, month, task))
 
 
-# conn, cur = create_table()
-# log = 'kekno'
+now_user = User("T1MON", 'kdfjdkffj')
+now_user.add_month(23, 'январь', 'dfjfkdjf')
+now_user.add_month(24, 'январь', 'dfjfkdjf')
+now_user.add_month(25, 'январь', 'dfjfkdjf')
+now_user.add_day(22, 33, 'jdfkjf')
+now_user.add_day(23, 33, 'jdfkjf')
+now_user.add_day(24, 33, 'jdfkjf')
+print(now_user.day)
+print(now_user.month)
+
+
+
+# self.log = 'kekno'
 # psw = 'real'
-# add_user(conn, cur, log, psw)
+# add_user(conn, cur, self.log, psw)
 # add_user(conn, cur, 'kring','chebureck')
-# cur.execute("SELECT * FROM users")
-# print(cur.fetchall())
-# add_day(conn, cur, log, 15, 30, 'just do it')
-# add_day(conn, cur, log, 5, 30, 'lolkekchebureck')
-# add_day(conn, cur, log, 18, 45, 'uuuuuuuu')
-# add_day(conn, cur, log, 5, 40, 'sdfvgv')
-# add_day(conn, cur, log, 4, 59, 'adsfdfsd')
-# add_month(conn, cur, log, 13, 'февраль', 'sdfdgfs')
-# add_month(conn, cur, log, 1, 'январь', 'sdfывавпрdgfs')
-# add_month(conn, cur, log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
-# add_month(conn, cur, log, 23, 'июнь', 'sdФВАЫВППfdgfs')
-# print(ret_month(cur, log))
-# print(ret_day(cur, log))
-# del_day(conn, cur, log, 5, 40, 'sdfvgv')
-# del_month(conn, cur, log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
-# print(ret_month(cur, log))
-# print(ret_day(cur, log))
+# User.__cur.execute("SELECT * FROM users")
+# print(User.__cur.fetchall())
+# add_day(conn, cur, self.log, 15, 30, 'just do it')
+# add_day(conn, cur, self.log, 5, 30, 'lolkekchebureck')
+# add_day(conn, cur, self.log, 18, 45, 'uuuuuuuu')
+# add_day(conn, cur, self.log, 5, 40, 'sdfvgv')
+# add_day(conn, cur, self.log, 4, 59, 'adsfdfsd')
+# add_month(conn, cur, self.log, 13, 'февраль', 'sdfdgfs')
+# add_month(conn, cur, self.log, 1, 'январь', 'sdfывавпрdgfs')
+# add_month(conn, cur, self.log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
+# add_month(conn, cur, self.log, 23, 'июнь', 'sdФВАЫВППfdgfs')
+# print(ret_month(cur, self.log))
+# print(ret_day(cur, self.log))
+# del_day(conn, cur, self.log, 5, 40, 'sdfvgv')
+# del_month(conn, cur, self.log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
+# print(ret_month(cur, self.log))
+# print(ret_day(cur, self.log))
