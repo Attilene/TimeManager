@@ -13,18 +13,19 @@ class User(object):
 		self.list = User.__ret_list(self)
 		self.day = User.__ret_day(self)
 		self.month = User.__ret_month(self)
-		self.list = User.__ret_list(self)
 
 	def __ret_list(self):
 		dic = dict()
-		User.__cur.execute(f"SELECT (name) FROM list_{self.log}")
-		name = list(set(User.__cur.fetchall()))
-		print(name)
-		for i in range(len(name)):
-			User.__cur.execute(f"SELECT (task) FROM list_{self.log} WHERE name = ?", [(name[i])])
-			task  = tuple(User.__cur.fetchall())
-			dic.update({i:task})
-		return dict()
+		User.__cur.execute(f"SELECT * FROM list_{self.log}")
+		sel = list(sorted(User.__cur.fetchall(), key = lambda x: x[0]))
+		name = list({x[0] for x in sel})
+		for i in name:
+			task = list()
+			for j in sel:
+				if j[0] == i:
+					task.append(j[1])
+			dic.update({i: task})
+		return dic
 
 	def __ret_day(self):
 		User.__cur.execute(f"SELECT * FROM day_{self.log}")
@@ -80,11 +81,11 @@ class User(object):
 			self.month = User.__ret_month(self)
 
 	def add_list(self, name, task):
-		if (name, task) not in self.list:
-			ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
-			User.__cur.execute(ins, [(name), (task)])
-			User.__conn.commit()
-			self.list = User.__ret_list(self)
+		# if  not in self.list:
+		ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
+		User.__cur.execute(ins, [name, task])
+		User.__conn.commit()
+		self.list = User.__ret_list(self)
 
 	def del_day(self, hours, mins, task):
 		if (hours, mins, task) in self.day:
