@@ -62,21 +62,6 @@ class User(object):
 		User.__cur.execute(f"DROP TABLE IF EXISTS day_{self.log}")
 		User.__cur.execute(f"DROP TABLE IF EXISTS list_{self.log}")
 
-	# # def add_list(self, name):
-	# # 	if name not in self.lists:
-	# # 		ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
-	# # 		User.__cur.execute(ins, [name, 'empty'])
-	# # 		User.__conn.commit()
-	# # 		self.lists.update({name: []})
-	#
-	# def add_list(self, name, task):
-	#
-	# 	if task not in self.lists[name]:
-	# 		ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
-	# 		User.__cur.execute(ins, [name, task])
-	# 		User.__conn.commit()
-	# 		self.lists = User.__ret_list(self)
-
 	def add_list(self, name, task):
 		if (name, task) not in self.lists:
 			ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
