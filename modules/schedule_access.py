@@ -18,8 +18,7 @@ class User(object):
 		dic = dict()
 		User.__cur.execute(f"SELECT * FROM list_{self.log}")
 		sel = list(sorted(User.__cur.fetchall(), key = lambda x: x[0]))
-		name = list({x[0] for x in sel})
-		for i in name:
+		for i in list({x[0] for x in sel}):
 			task = list()
 			for j in sel:
 				if j[0] == i:
