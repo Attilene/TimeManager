@@ -17,11 +17,9 @@ class User(object):
 	def __ret_list(self):
 		User.__cur.execute(f"SELECT * FROM list_{self.log}")
 		lists = {}
-		try:
-			for name, task in User.__cur.fetchall():
-				if task == 'empty' or name not in lists: lists[name] = []
-				else: lists[name].append(task)
-		except TypeError: return {}
+		for name, task in User.__cur.fetchall():
+			if name in lists: lists[name].append(task)
+			else: lists[name] = [task]
 		for name in lists: lists[name] = sorted(lists[name])
 		return lists
 
@@ -63,15 +61,23 @@ class User(object):
 		User.__cur.execute(f"DROP TABLE IF EXISTS month_{self.log}")
 		User.__cur.execute(f"DROP TABLE IF EXISTS day_{self.log}")
 
-	def add_list(self, name):
-		if name not in self.lists:
-			ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
-			User.__cur.execute(ins, [name, 'empty'])
-			User.__conn.commit()
-			self.lists.update({name: []})
+	# # def add_list(self, name):
+	# # 	if name not in self.lists:
+	# # 		ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
+	# # 		User.__cur.execute(ins, [name, 'empty'])
+	# # 		User.__conn.commit()
+	# # 		self.lists.update({name: []})
+	#
+	# def add_list(self, name, task):
+	#
+	# 	if task not in self.lists[name]:
+	# 		ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
+	# 		User.__cur.execute(ins, [name, task])
+	# 		User.__conn.commit()
+	# 		self.lists = User.__ret_list(self)
 
-	def add_list_task(self, name, task):
-		if task not in self.lists[name]:
+	def add_list(self, name, task):
+		if (name, task) not in self.lists:
 			ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
 			User.__cur.execute(ins, [name, task])
 			User.__conn.commit()
@@ -143,11 +149,9 @@ class User(object):
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
 # now_user.add_month(24, 'январь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
-# now_user.add_list(1)
-# now_user.add_list(2)
-# now_user.add_list_task(1, 'dfjfkdjfdsfdgf')
-# now_user.add_list_task(2, 'dfjf')
-# now_user.add_list_task(1, 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+# now_user.add_list(1, 'dfjfkdjfdsfdgf')
+# now_user.add_list(2, 'dfjf')
+# now_user.add_list(1, 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
 # now_user.add_day(22, 33, 'jdfkjf')
 # now_user.add_day(24, 33, 'jdfkjf')
 # now_user.add_day(23, 33, 'jdfkjf')
