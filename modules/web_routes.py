@@ -1,6 +1,7 @@
 from flask import Flask
 tm = Flask(__name__, template_folder="../templates")
-img = "../img/"
+img = "../images/"
+css = "../styles/"
 
 @tm.route('/')
 def page_home():
