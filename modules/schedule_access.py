@@ -62,6 +62,7 @@ class User(object):
 		User.__conn.commit()
 		User.__cur.execute(f"DROP TABLE IF EXISTS month_{self.log}")
 		User.__cur.execute(f"DROP TABLE IF EXISTS day_{self.log}")
+		User.__cur.execute(f"DROP TABLE IF EXISTS list_{self.log}")
 
 	def add_list(self, name):
 		if name not in self.lists:
