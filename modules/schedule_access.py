@@ -6,7 +6,7 @@ class User(object):
 					(login VARCHAR(300), psw VARCHAR(300))""")
 	__month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь', ]
 
-	def __init__(self, log, psw = None):
+	def __init__(self, log, psw=None):
 		self.log = log
 		if not User.check_log(self):
 			User.__add_user(self, psw)
@@ -17,7 +17,7 @@ class User(object):
 	def __ret_list(self):
 		dic = dict()
 		User.__cur.execute(f"SELECT * FROM list_{self.log}")
-		sel = list(sorted(User.__cur.fetchall(), key = lambda x: x[0]))
+		sel = list(sorted(User.__cur.fetchall(), key=lambda x: x[0]))
 		for i in list({x[0] for x in sel}):
 			task = list()
 			for j in sel:
@@ -36,7 +36,7 @@ class User(object):
 
 	def __add_user(self, psw):
 		ins = "INSERT INTO users (login, psw) VALUES (?, ?)"
-		User.__cur.execute(ins, [(self.log), (psw)])
+		User.__cur.execute(ins, [self.log, psw])
 		User.__conn.commit()
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(50), task VARCHAR(1000))")
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS day_{self.log} (hours INTEGER, mins INTEGER, task VARCHAR(1000))")
@@ -44,30 +44,30 @@ class User(object):
 
 	def check_log(self):
 		sel = "SELECT (login) FROM users WHERE login=?"
-		User.__cur.execute(sel, [(self.log)])
+		User.__cur.execute(sel, [self.log])
 		return User.__cur.fetchone() is not None
 
 	def change_pass(self, psw):
 		sel = "UPDATE users SET psw=? WHERE login=?"
-		User.__cur.execute(sel, [(psw), (self.log)])
+		User.__cur.execute(sel, [psw, self.log])
 		User.__conn.commit()
 
 	def del_user(self):
 		clr = "DELETE FROM users WHERE login=?"
-		User.__cur.execute(clr, [(self.log)])
+		User.__cur.execute(clr, [self.log])
 		User.__conn.commit()
 		User.__cur.execute(f"DROP TABLE IF EXISTS month_{self.log}")
 		User.__cur.execute(f"DROP TABLE IF EXISTS day_{self.log}")
 
 	def check_all(self, psw):
 		sel = "SELECT (psw) FROM users WHERE login=?"
-		User.__cur.execute(sel, [(self.log)])
+		User.__cur.execute(sel, [self.log])
 		return User.__cur.fetchone() == (psw,)
 
 	def add_day(self, hours, mins, task):
 		if (hours, mins, task) not in self.day:
 			ins = f"INSERT INTO day_{self.log} (hours, mins, task) VALUES (?, ?, ?)"
-			User.__cur.execute(ins, [(hours), (mins), (task)])
+			User.__cur.execute(ins, [hours, mins, task])
 			User.__conn.commit()
 			self.day = User.__ret_day(self)
 
@@ -75,7 +75,7 @@ class User(object):
 		month = month.lower()
 		if (digit, month, task) not in self.month:
 			ins = f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)"
-			User.__cur.execute(ins, [(digit), (month), (task)])
+			User.__cur.execute(ins, [digit, month, task])
 			User.__conn.commit()
 			self.month = User.__ret_month(self)
 
@@ -89,7 +89,7 @@ class User(object):
 	def del_day(self, hours, mins, task):
 		if (hours, mins, task) in self.day:
 			clr = f"DELETE FROM day_{self.log} WHERE hours = ? AND mins = ? AND task = ?"
-			User.__cur.execute(clr, [(hours), (mins), (task)])
+			User.__cur.execute(clr, [hours, mins, task])
 			User.__conn.commit()
 			self.day.remove((hours, mins, task))
 
@@ -97,15 +97,22 @@ class User(object):
 		month = month.lower()
 		if (digit, month, task) in self.month:
 			clr = f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?"
-			User.__cur.execute(clr, [(digit), (month), (task)])
+			User.__cur.execute(clr, [digit, month, task])
 			User.__conn.commit()
 			self.month.remove((digit, month, task))
+
+	def del_list(self, name, task):
+		# if not in self.list:
+		clr = f"DELETE FROM list_{self.log} WHERE name = ? AND task = ?"
+		User.__cur.execute(clr, [name, task])
+		User.__conn.commit()
+		# self.list.pop(k)
 
 
 # Мои тесты (Дима)
 # now_user = User("T1MON", 'kdfjdkffj')
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
-# now_user.add_month(24, 'январь', 'dfjfkdjf')
+# now_user.add_month(24, 'декабрь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
 # now_user.add_list(1, 'dfjfkdjfdsfdgf')
 # now_user.add_list(2, 'dfjf')
