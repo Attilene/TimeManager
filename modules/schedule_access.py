@@ -103,19 +103,19 @@ class User(object):
 
 
 # Мои тесты (Дима)
-now_user = User("T1MON", 'kdfjdkffj')
-now_user.add_month(23, 'январь', 'dfjfkdjf')
-now_user.add_month(24, 'январь', 'dfjfkdjf')
-now_user.add_month(25, 'январь', 'dfjfkdjf')
-now_user.add_list(1, 'dfjfkdjfdsfdgf')
-now_user.add_list(2, 'dfjf')
-now_user.add_list(1, 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
-now_user.add_day(22, 33, 'jdfkjf')
-now_user.add_day(24, 33, 'jdfkjf')
-now_user.add_day(23, 33, 'jdfkjf')
-print(now_user.day)
-print(now_user.month)
-print(now_user.list)
+# now_user = User("T1MON", 'kdfjdkffj')
+# now_user.add_month(23, 'январь', 'dfjfkdjf')
+# now_user.add_month(24, 'январь', 'dfjfkdjf')
+# now_user.add_month(25, 'январь', 'dfjfkdjf')
+# now_user.add_list(1, 'dfjfkdjfdsfdgf')
+# now_user.add_list(2, 'dfjf')
+# now_user.add_list(1, 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+# now_user.add_day(22, 33, 'jdfkjf')
+# now_user.add_day(24, 33, 'jdfkjf')
+# now_user.add_day(23, 33, 'jdfkjf')
+# print(now_user.day)
+# print(now_user.month)
+# print(now_user.list)
 
 # self.log = 'kekno'
 # psw = 'real'
