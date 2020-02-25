@@ -6,16 +6,25 @@ class User(object):
 					(login VARCHAR(300), psw VARCHAR(300))""")
 	__month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь', ]
 
-	def __init__(self, log, psw=None):
+	def __init__(self, log, psw = None):
 		self.log = log
 		if not User.check_log(self):
 			User.__add_user(self, psw)
-		self.lists = User.__ret_lists(self)
+		self.list = User.__ret_list(self)
 		self.day = User.__ret_day(self)
 		self.month = User.__ret_month(self)
+		self.list = User.__ret_list(self)
 
-	def __ret_lists(self):  # Вот заготовочка
-		return (1)
+	def __ret_list(self):
+		dic = dict()
+		User.__cur.execute(f"SELECT (name) FROM list_{self.log}")
+		name = list(set(User.__cur.fetchall()))
+		print(name)
+		for i in range(len(name)):
+			User.__cur.execute(f"SELECT (task) FROM list_{self.log} WHERE name = ?", [(name[i])])
+			task  = tuple(User.__cur.fetchall())
+			dic.update({i:task})
+		return dict()
 
 	def __ret_day(self):
 		User.__cur.execute(f"SELECT * FROM day_{self.log}")
@@ -31,6 +40,7 @@ class User(object):
 		User.__conn.commit()
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(50), task VARCHAR(1000))")
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS day_{self.log} (hours INTEGER, mins INTEGER, task VARCHAR(1000))")
+		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))")
 
 	def check_log(self):
 		sel = "SELECT (login) FROM users WHERE login=?"
@@ -69,6 +79,13 @@ class User(object):
 			User.__conn.commit()
 			self.month = User.__ret_month(self)
 
+	def add_list(self, name, task):
+		if (name, task) not in self.list:
+			ins = f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)"
+			User.__cur.execute(ins, [(name), (task)])
+			User.__conn.commit()
+			self.list = User.__ret_list(self)
+
 	def del_day(self, hours, mins, task):
 		if (hours, mins, task) in self.day:
 			clr = f"DELETE FROM day_{self.log} WHERE hours = ? AND mins = ? AND task = ?"
@@ -86,15 +103,19 @@ class User(object):
 
 
 # Мои тесты (Дима)
-# now_user = User("T1MON", 'kdfjdkffj')
-# now_user.add_month(23, 'январь', 'dfjfkdjf')
-# now_user.add_month(24, 'январь', 'dfjfkdjf')
-# now_user.add_month(25, 'январь', 'dfjfkdjf')
-# now_user.add_day(22, 33, 'jdfkjf')
-# now_user.add_day(23, 33, 'jdfkjf')
-# now_user.add_day(24, 33, 'jdfkjf')
-# print(now_user.day)
-# print(now_user.month)
+now_user = User("T1MON", 'kdfjdkffj')
+now_user.add_month(23, 'январь', 'dfjfkdjf')
+now_user.add_month(24, 'январь', 'dfjfkdjf')
+now_user.add_month(25, 'январь', 'dfjfkdjf')
+now_user.add_list(1, 'dfjfkdjfdsfdgf')
+now_user.add_list(2, 'dfjf')
+now_user.add_list(1, 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+now_user.add_day(22, 33, 'jdfkjf')
+now_user.add_day(24, 33, 'jdfkjf')
+now_user.add_day(23, 33, 'jdfkjf')
+print(now_user.day)
+print(now_user.month)
+print(now_user.list)
 
 # self.log = 'kekno'
 # psw = 'real'
