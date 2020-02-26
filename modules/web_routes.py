@@ -1,17 +1,21 @@
-from flask import Flask
-tm = Flask(__name__, template_folder="../templates")
-img = "../images/"
-css = "../styles/"
+# Пути к ресурсам из папки проекта time_manager
+project = "../time_manager"
+html = "templates"
+img = "images"
+css = "styles"
+db = "databases"
+from flask import Flask, render_template
+tm = Flask(__name__, template_folder=f"../{html}", static_folder=project)
 
+# Пути
 @tm.route('/')
 def page_home():
-    return
+    return render_template("base.html", img=img, css=css, theme='light', color='blue')
 
 
 @tm.route('/cabinet')
 def page_cabinet():
     return
-
 
 @tm.route('/login')
 def page_login():
@@ -26,3 +30,7 @@ def page_day():
 @tm.route('/cabinet/month')
 def page_month():
     return
+
+@tm.route('/about')
+def page_about():
+    return 'about_page'
