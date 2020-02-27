@@ -1,13 +1,15 @@
-# Пути к ресурсам из папки проекта time_manager
-project = "../time_manager"
-html = "templates"
-img = "images"
-css = "styles"
+# Пути к ресурсам
+project = "../../time_manager"
+html = "../templates"
+img = "time_manager/images"
+css = "time_manager/styles"
 db = "databases"
-from flask import Flask, render_template
-tm = Flask(__name__, template_folder=f"../{html}", static_folder=project)
 
-# Пути
+from flask import Flask, render_template
+tm = Flask(__name__, template_folder=html, static_folder=project)
+
+
+# Адреса
 @tm.route('/')
 def page_home():
     return render_template("base.html", img=img, css=css, theme='light', color='blue')
