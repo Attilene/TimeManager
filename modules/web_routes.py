@@ -8,6 +8,7 @@ db = "databases"
 from flask import Flask, render_template
 tm = Flask(__name__, template_folder=html, static_folder=project)
 
+tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Адреса
 @tm.route('/')
