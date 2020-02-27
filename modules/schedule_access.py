@@ -146,27 +146,6 @@ class User(object):
 # print(now_user.day)
 # print(now_user.month)
 # print(now_user.lists)
-
+#
 # User._erase()
 
-# self.log = 'kekno'
-# psw = 'real'
-# add_user(conn, cur, self.log, psw)
-# add_user(conn, cur, 'kring','chebureck')
-# User.__cur.execute("SELECT * FROM users")
-# print(User.__cur.fetchall())
-# add_day(conn, cur, self.log, 15, 30, 'just do it')
-# add_day(conn, cur, self.log, 5, 30, 'lolkekchebureck')
-# add_day(conn, cur, self.log, 18, 45, 'uuuuuuuu')
-# add_day(conn, cur, self.log, 5, 40, 'sdfvgv')
-# add_day(conn, cur, self.log, 4, 59, 'adsfdfsd')
-# add_month(conn, cur, self.log, 13, 'февраль', 'sdfdgfs')
-# add_month(conn, cur, self.log, 1, 'январь', 'sdfывавпрdgfs')
-# add_month(conn, cur, self.log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
-# add_month(conn, cur, self.log, 23, 'июнь', 'sdФВАЫВППfdgfs')
-# print(ret_month(cur, self.log))
-# print(ret_day(cur, self.log))
-# del_day(conn, cur, self.log, 5, 40, 'sdfvgv')
-# del_month(conn, cur, self.log, 30, 'Сентябрь', 'sdfdgfsфцуыквгапть')
-# print(ret_month(cur, self.log))
-# print(ret_day(cur, self.log))
