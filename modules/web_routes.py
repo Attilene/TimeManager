@@ -8,32 +8,25 @@ db = "databases"
 from flask import Flask, render_template
 tm = Flask(__name__, template_folder=html, static_folder=project)
 
-tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
+
 
 # Адреса
 @tm.route('/')
 def page_home():
-    return render_template("base.html", img=img, css=css, theme='light', color='blue')
+    return render_template("login/base.html", partition='Домашняя', log='T1MON', img=img, css=css, theme='light', color='blue')
 
 
-@tm.route('/cabinet')
-def page_cabinet():
-    return
-
-@tm.route('/login')
-def page_login():
-    return
-
-
-@tm.route('/cabinet/day')
+@tm.route('/day')
 def page_day():
-    return
+    return 'day'
 
 
-@tm.route('/cabinet/month')
+@tm.route('/month')
 def page_month():
-    return
+    return 'month'
+
 
 @tm.route('/about')
 def page_about():
-    return 'about_page'
+    return 'about'
