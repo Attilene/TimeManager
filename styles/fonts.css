@@ -27,37 +27,3 @@
 		url('fonts/comfortaa_bold.ttf') format('truetype'), /* Safari, Android, iOS */
 		url('fonts/comfortaa_bold.svg#comfortaa_bold') format('svg'); /* Chrome < 4, Legacy iOS */
 }
-
-* {
-    font-family: Comfortaa, sans-serif ;
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	min-width: 500px;
-	min-height: 300px;
-}
-
-.static {
-	position: relative;
-	width: 100px;
-}
-
-header {
-	z-index: 100;
-	position: fixed;
-	width: 100%;
-	height: 50px;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-#wrap {
-
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	height: auto;
-	overflow: auto;
-}

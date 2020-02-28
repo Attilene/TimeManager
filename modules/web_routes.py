@@ -14,7 +14,7 @@ tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБ�
 # Адреса
 @tm.route('/')
 def page_home():
-    return render_template("login/base.html", partition='Домашняя', log='T1MON', img=img, css=css, theme='light', color='blue')
+    return render_template("login/base.html", partition='Домашняя', log='default', img=img, css=css, theme='light', color='blue')
 
 
 @tm.route('/day')
