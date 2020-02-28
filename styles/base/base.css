@@ -20,13 +20,32 @@ header {
 	border-bottom-right-radius: 20px;
 }
 
+header .left {
+	font-size: 30px;
+	color: white;
+	padding: 4px 0 0 20px;
+}
+
+header .left {
+	font-size: 30px;
+	color: white;
+	padding: 4px 0 0 20px;
+}
+
+header img {
+	max-height: 40px;
+	max-width: 40px;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
 .left a {float: left}
-.right a {float: right}
+.right a *, .right a {float: right}
 .center {justify-self: center}
 
 footer {
 	display: inline-grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: 1fr 2fr 1fr;
 	position: relative;
 	bottom: 0;
 	width: 100%;
@@ -34,3 +53,5 @@ footer {
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 }
+
+

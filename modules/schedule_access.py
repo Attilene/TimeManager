@@ -1,7 +1,10 @@
 class User(object):
 	import sqlite3
 	from web_routes import db
-	__conn = sqlite3.connect(f"{db}/schedule.db")
+	if __name__ == "__main__":
+		__conn = sqlite3.connect(f"../{db}/schedule.db")
+	else:
+		__conn = sqlite3.connect(f"{db}/schedule.db")
 	__cur = __conn.cursor()
 	__cur.execute("""CREATE TABLE IF NOT EXISTS users 
 					(login VARCHAR(300), psw VARCHAR(300))""")
