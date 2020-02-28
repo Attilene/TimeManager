@@ -40,7 +40,7 @@ class User(object):
 	def __add_user(self, psw):
 		User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", [self.log, psw, self.theme, self.color])
 		User.__conn.commit()
-		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(50), task VARCHAR(1000))")
+		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000))")
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000))")
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))")
 
@@ -58,12 +58,12 @@ class User(object):
 
 	def change_theme(self, theme):
 		self.theme = theme
-		User.__cur.execute("UPDATE users SET theme=?", [self.theme])
+		User.__cur.execute("UPDATE users SET theme=? WHERE login=?", [self.theme, self.log])
 		User.__conn.commit()
 
 	def change_color(self, color):
 		self.color = color
-		User.__cur.execute("UPDATE users SET color=?", [self.color])
+		User.__cur.execute("UPDATE users SET color=? WHERE login=?", [self.color, self.log])
 		User.__conn.commit()
 
 	def del_user(self):
@@ -93,7 +93,7 @@ class User(object):
 			self.month = User.__ret_month(self)
 
 	def del_list(self, name):
-		if (name) in self.lists:
+		if name in self.lists:
 			User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", name)
 			User.__conn.commit()
 			self.lists.remove(name)
@@ -129,7 +129,7 @@ class User(object):
 				User.__cur.execute(f"DROP TABLE IF EXISTS day_{log[0]}")
 		User.__cur.execute(f"DELETE from users")
 
-# Мои тесты (Дима)
+# Тесты (Артем и Дима)
 # User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
 # print(now_user.day)
@@ -152,6 +152,6 @@ class User(object):
 # print(now_user.theme, now_user.color, sep = ' ')
 # now_user.change_color('green')
 # print(now_user.theme, now_user.color, sep = ' ')
-#
+
 # User._erase()
 
