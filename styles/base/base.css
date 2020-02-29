@@ -1,4 +1,4 @@
-
+/*-------------Задание общих свойств----------*/
 body {
 	font-family: Comfortaa, sans-serif ;
 	margin: 0;
@@ -7,6 +7,13 @@ body {
 	padding: 50px 0 0;
 }
 
+.left a {float: left}
+.right a *, .right a {float: right}
+.center {justify-self: center}
+/*--------------------------------------------*/
+
+/*------------------Шапка---------------------*/
+/*-----------------Заголовок------------------*/
 header {
 	font-family: "Comfortaa Bold", sans-serif;
 	display: inline-grid;
@@ -21,28 +28,49 @@ header {
 }
 
 header .left {
+	transform: scale(0.95);
 	font-size: 30px;
 	color: white;
 	padding: 4px 0 0 20px;
+	transition: 0.3s;
+	width: 220px;
 }
 
-header .left {
+header .left::after {
+	content: 'Time Manager';
 	font-size: 30px;
 	color: white;
-	padding: 4px 0 0 20px;
+	transition: 0.3s;
+	width: 220px;
+	position: fixed;
+	left: 20px;
+	opacity: 0%;
+	transform: scale(0.8);
 }
 
+header .left:hover {
+	transform: scale(1);
+	transition: 0.1s;
+}
+
+header .left:hover::after{
+	transform: scale(1);
+	transition: 0.2s;
+	opacity: 100%;
+}
+
+/*--------------------------------------------*/
+
+/*--------------Пользователь------------------*/
 header img {
 	max-height: 40px;
 	max-width: 40px;
 	border-radius: 20px;
 	overflow: hidden;
 }
+/*--------------------------------------------*/
 
-.left a {float: left}
-.right a *, .right a {float: right}
-.center {justify-self: center}
-
+/*-------------------Футер--------------------*/
 footer {
 	display: inline-grid;
 	grid-template-columns: 1fr 2fr 1fr;
@@ -53,5 +81,4 @@ footer {
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 }
-
-
+/*--------------------------------------------*/
