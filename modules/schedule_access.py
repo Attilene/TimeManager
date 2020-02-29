@@ -129,7 +129,7 @@ class User(object):
 				User.__cur.execute(f"DROP TABLE IF EXISTS day_{log[0]}")
 		User.__cur.execute(f"DELETE from users")
 
-# Тесты (Артем и Дима)
+# Тесты (Артем и Дима(ахах, норм вписался))
 # User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
 # print(now_user.day)
