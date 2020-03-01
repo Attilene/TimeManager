@@ -38,8 +38,7 @@ header {
 	transition: 0.3s;
 }
 
-/*Опция для маленького окна*/
-@media (max-width: 1000px) {
+@media (max-width: 1000px) { /*Опции для маленького окна*/
 	header {grid-template-columns: 28% 1fr 1fr 1fr 5%}
 	header .right div {display: none}
 	header .right:hover {animation: pulse 0.5s ease-in-out 0s normal infinite;}
@@ -90,7 +89,7 @@ header .center {
 	transition: 0.3s;
 }
 
-header .center:hover { /*Наведение на блок профиля тут*/
+header .center:hover {
 	transform: scale(1.1);
 	background: rgba(255, 255, 255, 0.2);
 	text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
@@ -129,7 +128,7 @@ header .right img {
 	transition: 0.3s;
 }
 
-@media (min-width: 1001px) {
+@media (min-width: 1001px) { /* Анимации для большого окна*/
 	header .right:hover {
 		transform: scale(1.05);
 		background: rgba(255, 255, 255, 0.2);
