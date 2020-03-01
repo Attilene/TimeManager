@@ -7,6 +7,12 @@ body {
 	padding: 50px 0 0;
 }
 
+@keyframes pulse {
+	0%{transform: scale(1)}
+	70%{transform: scale(0.7)}
+	100%{transform: scale(1)}
+}
+
 a {text-decoration: none}
 .left a {float: left}
 .right a *, .right a {float: right}
@@ -17,8 +23,8 @@ a {text-decoration: none}
 header {
 	font-family: "Comfortaa Bold", sans-serif;
 	display: inline-grid;
-	grid-template-columns: 23% 1fr 1fr 1fr 23%;
-	grid-column-gap: 3%;
+	grid-template-columns: 25% 1fr 1fr 1fr 25%;
+	grid-column-gap: 4%;
 	position: fixed;
 	top: 0;
 	min-width: 750px;
@@ -29,9 +35,13 @@ header {
 	transition: 0.3s;
 }
 
+/*Опция для маленького окна*/
 @media (max-width: 1000px) {
-	header {grid-template-columns: 28% 1fr 1fr 1fr 7%;}
-	.name {display: none;}
+	header {grid-template-columns: 28% 1fr 1fr 1fr 5%}
+	header .right div {display: none}
+	header .right:hover {
+		animation: pulse 0.5s ease-in-out 0s normal infinite;
+	}
 }
 
 /*-----------------Заголовок------------------*/
@@ -76,19 +86,65 @@ header .center {
 	padding: 5px 0;
 	border-radius: 20px;
 	text-align: center;
+	transition: 0.3s;
 }
 
-header .center:hover{
+header .center:hover { /*Наведение на блок профиля тут*/
+	transform: scale(1.1);
 	background: rgba(255, 255, 255, 0.2);
+	text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+	transition: 0.2s;
 }
 /*--------------------------------------------*/
 
 /*--------------Пользователь------------------*/
-header img {
-	max-height: 40px;
-	max-width: 40px;
+header .right {
+	margin: 8px 9px 0 0;
+	padding: 1px 0;
+	height: 30px;
+	width: max-content;
 	border-radius: 20px;
+	justify-self: end;
+	transition: 0.3s;
+}
+
+header .right div{
+	color: white;
+	margin: 4px 10px 0 10vh;
+	font-size: 18px;
+	max-width: 75%;
 	overflow: hidden;
+	transition: 0.3s;
+}
+
+header .right img {
+	margin-top: -4px;
+	margin-right: -2px;
+	object-fit: cover;
+	overflow: hidden;
+	height: 38px;
+	width: 38px;
+	border-radius: 20px;
+	transition: 0.3s;
+}
+
+@media (min-width: 1001px) {
+	header .right:hover {
+		transform: scale(1.05);
+		background: rgba(255, 255, 255, 0.2);
+		margin-right: 15px;
+		text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+		transition: 0.2s;
+	}
+
+	header .right:hover div {
+		transition: 0.2s;
+	}
+
+	header .right:hover img {
+		transform: scale(0.65);
+		transition: 0.2s;
+	}
 }
 /*--------------------------------------------*/
 /*--------------------------------------------*/
