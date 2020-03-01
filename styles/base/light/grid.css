@@ -16,6 +16,7 @@ body {
 }
 
 a {text-decoration: none}
+footer a {color: white}
 .left a {float: left}
 .right a *, .right a {float: right}
 .center {justify-self: center}
@@ -159,5 +160,16 @@ footer {
 	height: 40px;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
+}
+
+footer span {
+	color: white;
+	margin: auto 10%;
+	transition: 0.3s;
+}
+
+footer span:hover {
+	transform: scale(1.1);
+	transition: 0.2s;
 }
 /*--------------------------------------------*/
