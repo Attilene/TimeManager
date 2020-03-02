@@ -6,6 +6,7 @@ css = "time_manager/styles"
 db = "databases"
 
 from flask import Flask, render_template
+from schedule_access import *
 tm = Flask(__name__, template_folder=html, static_folder=project)
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
@@ -33,3 +34,6 @@ def page_month():
 @tm.route('/about')
 def page_about():
     return 'about'
+
+@tm.route('/dfd')
+
