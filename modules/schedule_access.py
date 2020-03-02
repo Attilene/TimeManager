@@ -7,7 +7,7 @@ class User(object):
 	else:
 		__conn = sqlite3.connect(f"{db}/schedule.db")
 	__gen = generate_password_hash
-	__check = check_password_hash()
+	__check = check_password_hash
 	__cur = __conn.cursor()
 	__cur.execute("""CREATE TABLE IF NOT EXISTS users 
 					(login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color COLOR(30))""")
