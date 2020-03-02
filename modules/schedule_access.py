@@ -10,7 +10,7 @@ class User(object):
 	__check = check_password_hash
 	__cur = __conn.cursor()
 	__cur.execute("""CREATE TABLE IF NOT EXISTS users 
-					(login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color COLOR(30))""")
+					(login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))""")
 	__month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь', ]
 
 	def __init__(self, log, psw=None):
