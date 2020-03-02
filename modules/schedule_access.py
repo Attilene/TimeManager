@@ -1,10 +1,13 @@
 class User(object):
 	import sqlite3
 	from web_routes import db
+	from werkzeug.security import generate_password_hash, check_password_hash
 	if __name__ == "__main__":
 		__conn = sqlite3.connect(f"../{db}/schedule.db")
 	else:
 		__conn = sqlite3.connect(f"{db}/schedule.db")
+	__gen = generate_password_hash
+	__check = check_password_hash()
 	__cur = __conn.cursor()
 	__cur.execute("""CREATE TABLE IF NOT EXISTS users 
 					(login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color COLOR(30))""")
@@ -38,6 +41,7 @@ class User(object):
 		return list(sorted(User.__cur.fetchall(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
 	def __add_user(self, psw):
+		psw = User.__gen(psw)
 		User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", [self.log, psw, self.theme, self.color])
 		User.__conn.commit()
 		User.__cur.execute(f"CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000))")
@@ -50,9 +54,10 @@ class User(object):
 
 	def check_all(self, psw):
 		User.__cur.execute("SELECT (psw) FROM users WHERE login=?", [self.log])
-		return User.__cur.fetchone() == (psw,)
+		return User.__check(User.__cur.fetchone(), psw)
 
 	def change_pass(self, psw):
+		psw = User.__gen(psw)
 		User.__cur.execute("UPDATE users SET psw=? WHERE login=?", [psw, self.log])
 		User.__conn.commit()
 
