@@ -26,7 +26,7 @@
         <a class="center" href="/month">Дедлайны</a>
         <span class="right">
             <a>
-                <img src="{{ img }}/avatar/{{ log }}.png"
+                <img id="avatar" src="{{ img }}/avatar/{{ log }}.png"
                      src="{{ img }}/avatar/{{ log }}.jpg"
                      src="{{ img }}/avatar/{{ log }}.jpeg"
                      src="{{ img }}/avatar/{{ log }}.bmp"
@@ -37,7 +37,7 @@
         </span>
     </header>
 
-    {% include profile.html %}
+{#    {% include profile.html %}#}
 
     <main>
         {% block content %} {% endblock %}
