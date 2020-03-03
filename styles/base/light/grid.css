@@ -9,12 +9,6 @@ body {
 	min-width: 750px;
 }
 
-@keyframes pulse {
-	0%{transform: scale(1)}
-	70%{transform: scale(0.7)}
-	100%{transform: scale(1)}
-}
-
 html, body {height: 100%}
 a {text-decoration: none}
 header a {color: white}
@@ -43,7 +37,6 @@ header {
 @media (max-width: 1000px) { /*Опции для маленького окна*/
 	header {grid-template-columns: 28% 1fr 1fr 1fr 5%}
 	header .right div {display: none}
-	header .right:hover {animation: pulse 0.5s ease-in-out 0s normal infinite;}
 }
 
 /*-----------------Заголовок------------------*/
@@ -132,16 +125,37 @@ header .right img {
 	transition: 0.3s;
 }
 
+#set_icon {
+	pointer-events: none;
+	transform: scale(0.6);
+	opacity: 0;
+	height: 30px;
+	width: 30px;
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	transition: 0.3s;
+}
+
+@media (max-width: 1000px) {  /*Анимация для маленького окна*/
+	header .right:hover #set_icon {
+		transform: scale(1);
+		opacity: 70%;
+		transition: 0.3s;
+	}
+
+	header .right:hover #avatar {
+		filter: brightness(90%);
+		transition: 0.3s;
+	}
+}
+
 @media (min-width: 1001px) { /* Анимации для большого окна*/
 	header .right:hover {
 		transform: scale(1.05);
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
 		text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
-		transition: 0.2s;
-	}
-
-	header .right:hover div {
 		transition: 0.2s;
 	}
 
