@@ -34,6 +34,3 @@ def page_month():
 @tm.route('/about')
 def page_about():
     return 'about'
-
-@tm.route('/dfd')
-
