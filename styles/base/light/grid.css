@@ -1,15 +1,13 @@
 /*-------------Задание общих свойств----------*/
-* {
+html, body {
+	font-family: Comfortaa, sans-serif;
 	margin: 0;
 	padding: 0;
-}
-
-body {
-	font-family: Comfortaa, sans-serif;
+	width: 100%;
+	height: 100%;
 	min-width: 750px;
 }
 
-html, body {height: 100%}
 a {text-decoration: none}
 header a {color: white}
 footer a {color: white}
@@ -48,7 +46,7 @@ header .left {
 	padding: 4px 0 0 0;
 	width: 220px;
 	left: 4%;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 header .left::before {
@@ -59,17 +57,17 @@ header .left::before {
 	left: 0;
 	opacity: 0;
 	pointer-events: none;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 header .left:hover {
 	transform: scale(1);
-	transition: 0.2s;
+	transition: 0.2s ease;
 }
 
 header .left:hover::before{
 	transform: scale(1);
-	transition: 0.3s;
+	transition: 0.2s ease-out;
 	opacity: 100%;
 }
 /*--------------------------------------------*/
@@ -83,14 +81,14 @@ header .center {
 	padding: 5px 0;
 	border-radius: 20px;
 	text-align: center;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 header .center:hover {
 	transform: scale(1.1);
 	background: rgba(255, 255, 255, 0.2);
 	text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
-	transition: 0.2s;
+	transition: 0.2s ease;
 }
 /*--------------------------------------------*/
 
@@ -102,7 +100,7 @@ header .right {
 	width: max-content;
 	border-radius: 20px;
 	justify-self: end;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 header .right div{
@@ -111,7 +109,7 @@ header .right div{
 	font-size: 18px;
 	max-width: 75%;
 	overflow: hidden;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 header .right img {
@@ -122,7 +120,7 @@ header .right img {
 	height: 38px;
 	width: 38px;
 	border-radius: 20px;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 #set_icon {
@@ -134,19 +132,19 @@ header .right img {
 	position: absolute;
 	top: 13px;
 	right: 13px;
-	transition: 0.3s;
+	transition: 0.3s ease-in;
 }
 
 @media (max-width: 1000px) {  /*Анимация для маленького окна*/
 	header .right:hover #set_icon {
 		transform: scale(1);
 		opacity: 70%;
-		transition: 0.3s;
+		transition: 0.3s ease-out;
 	}
 
 	header .right:hover #avatar {
 		filter: brightness(90%);
-		transition: 0.3s;
+		transition: 0.3s ease-out;
 	}
 }
 
@@ -156,12 +154,12 @@ header .right img {
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
 		text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
-		transition: 0.2s;
+		transition: 0.2s ease;
 	}
 
 	header .right:hover img {
 		transform: scale(0.65);
-		transition: 0.2s;
+		transition: 0.2s ease;
 	}
 }
 /*--------------------------------------------*/
@@ -171,8 +169,6 @@ header .right img {
 footer {
 	display: inline-grid;
 	grid-template-columns: 1fr 2fr 1fr;
-	position: fixed;
-	bottom: 0;
 	min-width: 750px;
 	width: 100%;
 	height: 40px;
@@ -184,16 +180,18 @@ footer {
 footer span {
 	color: white;
 	margin: auto 10%;
-	transition: 0.3s;
+	transition: 0.3s ease-out;
 }
 
 footer span:hover {
 	transform: scale(1.1);
-	transition: 0.2s;
+	transition: 0.2s ease;
 }
 /*--------------------------------------------*/
 
 /*--------------Основной блок-----------------*/
 main {
-	padding: 50px 20px 40px 20px;
+	padding-top: 50px;
+	width: 100%;
+	min-height: calc(100% - 90px);
 }
