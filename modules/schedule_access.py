@@ -56,6 +56,14 @@ class User(object):
 		User.__cur.execute("SELECT (psw) FROM users WHERE login=?", [self.log])
 		return User.__check(User.__cur.fetchone(), psw)
 
+	def change_log(self, log):
+		User.__cur.execute("UPDATE users SET login=? WHERE login=?", [log, self.log])
+		User.__cur.execute(f"ALTER TABLE month_{self.log} RENAME TO month_{log}")
+		User.__cur.execute(f"ALTER TABLE day_{self.log} RENAME TO day_{log}")
+		User.__cur.execute(f"ALTER TABLE list_{self.log} RENAME TO list_{log}")
+		User.__conn.commit()
+		self.log = log
+
 	def change_pass(self, psw):
 		psw = User.__gen(psw)
 		User.__cur.execute("UPDATE users SET psw=? WHERE login=?", [psw, self.log])
@@ -138,6 +146,9 @@ class User(object):
 # Тесты (Артем и Дима(ахах, норм вписался))
 # User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
+# print(now_user.log)
+# now_user.change_log('ATTILENE')
+# print(now_user.log)
 # print(now_user.day)
 # print(now_user.month)
 # print(now_user.lists)
@@ -158,6 +169,7 @@ class User(object):
 # print(now_user.theme, now_user.color, sep = ' ')
 # now_user.change_color('green')
 # print(now_user.theme, now_user.color, sep = ' ')
-
+#
 # User._erase()
+
 
