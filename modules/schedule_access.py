@@ -138,7 +138,7 @@ class User(object):
     @staticmethod
     def _erase():
         """Стирание всех пользователей"""
-        User.__cur.execute(f"SELECT login FROM users")
+        User.__cur.execute("SELECT login FROM users")
         log_list = User.__cur.fetchall()
         if len(log_list) > 0:
             for log in log_list:
@@ -147,7 +147,7 @@ class User(object):
                 	DROP TABLE IF EXISTS month_{log[0]};
                 	DROP TABLE IF EXISTS day_{log[0]}
 				""")
-        User.__cur.execute(f"DELETE from users")
+        User.__cur.execute("DELETE FROM users")
 
 # Тесты (Артем и Дима(ахах, норм вписался))
 # User._erase()
