@@ -37,10 +37,16 @@
         </span>
     </header>
 
-    {% include "login/profile.html" %}
+{#    {% include "login/profile.html" %}#}
 
     <main>
-        {% block content %}  {% endblock %}
+        {% block content %}
+            <form action="/" method="POST">
+                <button type="submit" name="submit_button" value="red"></button>
+                <button type="submit" name="submit_button" value="blue"></button>
+            </form>
+        {% endblock %}
+    <span> {{ color }} </span>
     </main>
 
     <footer>

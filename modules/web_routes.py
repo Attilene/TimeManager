@@ -5,21 +5,33 @@ img = "time_manager/images"
 css = "time_manager/styles"
 db = "databases"
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from schedule_access import *
 tm = Flask(__name__, template_folder=html, static_folder=project)
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
 
+page = '/'
+
 
 # Адреса
-@tm.route('/')
+@tm.route('/', methods=['POST', 'GET'])
 def page_home():
-    return render_template("login/base.html", log='Test_user', img=img, css=css, theme='light', color='blue')
+    global page
+    color = 'blue'
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'red':
+            color = 'red'
+        elif request.form['submit_button'] == 'blue':
+            color = 'blue'
+
+    return render_template("login/base.html", log='Test_user', img=img, css=css, theme='light', color=color)
+
 
 @tm.route('/list')
 def page_list():
     return 'list'
+
 
 @tm.route('/day')
 def page_day():
