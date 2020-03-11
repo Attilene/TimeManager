@@ -7,10 +7,10 @@
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="{{ css }}/fonts.css" rel="stylesheet" type="text/css" />
     <link href="{{ css }}/base/{{ theme }}/grid.css" rel="stylesheet" type="text/css" />
-    <link href="{{ css }}/base/{{ theme }}/{{ color }}.css" rel="stylesheet" type="text/css" />
+    <link href="{{ css }}/colors/{{ color }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ css }}/profile/{{ theme }}/grid.css" rel="stylesheet" type="text/css" />
-    <link href="{{ css }}/profile/{{ theme }}/{{ color }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ img }}/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    {% block link %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -41,7 +41,7 @@
 
     <main>
         {% block content %}
-            <form action="/" method="POST">
+            <form action="{{ page }}" method="POST">
                 <button type="submit" name="submit_button" value="red"></button>
                 <button type="submit" name="submit_button" value="blue"></button>
             </form>

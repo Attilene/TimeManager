@@ -25,7 +25,7 @@ def page_home():
         elif request.form['submit_button'] == 'blue':
             color = 'blue'
 
-    return render_template("login/base.html", log='Test_user', img=img, css=css, theme='light', color=color)
+    return render_template("login/base.html", log='Test_user', img=img, css=css, theme='light', color=color, page = '/')
 
 
 @tm.route('/list')
