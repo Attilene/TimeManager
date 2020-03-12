@@ -158,7 +158,17 @@ class User(object):
         User.__cur.execute("DELETE FROM users")
         User.__conn.commit()
 
+
+def inj_check(req):
+    cl_el = ('#', '-', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"')
+    for el in cl_el:
+        if el in req:
+            return False
+    return True
+
+
 # Тесты (Артем и Дима(ахах, норм вписался))
+# print(inj_check('adsfghdffdsfgfdf'))
 # User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
 # now_user2 = User("T1MON", 'asdfss')
