@@ -15,6 +15,7 @@ page = '/'
 color = 'blue'
 theme = 'light'
 
+
 # Адреса
 @tm.route('/')
 def page_home():

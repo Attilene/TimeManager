@@ -1,0 +1,62 @@
+aside {
+    color: #fff;
+    position: fixed;
+    width: 250px;
+    height: min-content;
+    top: 60px;
+    right: 10px;
+    border-radius: 20px;
+}
+
+aside #edit_profile div {
+    margin: 9px 0;
+}
+
+aside #hat {
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 80px auto;
+}
+
+aside #hat img {
+    width: 60px;
+	min-height: 60px;
+    border-radius: 30px;
+    transition: 0.3s ease-out;
+}
+
+aside #hat #avatar {
+    overflow: hidden;
+	width: 60px;
+	height: 60px;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+aside #hat #avatar #float {z-index: -1}
+
+aside #hat #avatar #float {
+    font-family: "Comfortaa Bold", serif;
+    display: block;
+    position: absolute;
+    top: 33px;
+    left: 13px;
+    font-size: 11px;
+    opacity: 0;
+    transition: 0.3s ease-out;
+}
+
+aside #hat #avatar:hover #float {
+    z-index: 1;
+    opacity: 1;
+    transition: 0.2s ease;
+}
+
+aside #hat #avatar:hover img{
+    filter: brightness(0.8);
+    transition: 0.2s ease;
+}
+
+aside #hat #edit_profile {
+    padding: 5px;
+}
