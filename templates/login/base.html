@@ -6,9 +6,9 @@
     <meta name="keywords" content="time manager, time, schedule, время, тайм менеджер, расписание" />
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="{{ css }}/fonts.css" rel="stylesheet" type="text/css" />
-    <link href="{{ css }}/base/{{ theme }}/grid.css" rel="stylesheet" type="text/css" />
+    <link href="{{ css }}/base/{{ theme }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ css }}/colors/{{ color }}.css" rel="stylesheet" type="text/css" />
-    <link href="{{ css }}/profile/{{ theme }}/grid.css" rel="stylesheet" type="text/css" />
+    <link href="{{ css }}/profile/{{ theme }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ img }}/favicon.ico" rel="shortcut icon" type="image/x-icon">
     {% block link %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
@@ -37,16 +37,12 @@
         </span>
     </header>
 
-{#    {% include "login/profile.html" %}#}
+    <aside>{% include "login/profile.html" %}</aside>
 
     <main>
         {% block content %}
-            <form action="{{ page }}" method="POST">
-                <button type="submit" name="submit_button" value="red"></button>
-                <button type="submit" name="submit_button" value="blue"></button>
-            </form>
+
         {% endblock %}
-    <span> {{ color }} </span>
     </main>
 
     <footer>
