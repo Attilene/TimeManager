@@ -156,6 +156,7 @@ class User(object):
                 	DROP TABLE IF EXISTS day_{log[0]}
 				""")
         User.__cur.execute("DELETE FROM users")
+        User.__conn.commit()
 
 # Тесты (Артем и Дима(ахах, норм вписался))
 # User._erase()
