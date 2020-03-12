@@ -9,6 +9,7 @@ class User(object):
     __gen = generate_password_hash
     __check = check_password_hash
     __cur = __conn.cursor()
+    __users = []
     __cur.execute("CREATE TABLE IF NOT EXISTS users (login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))")
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь', ]
 
@@ -21,6 +22,10 @@ class User(object):
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
+
+    def __ret_users(self):
+        User.__cur.execute("SELECT (login) FROM users")
+        return list(sorted(User.__cur.fetchall()))
 
     def __ret_list(self):
         User.__cur.execute(f"SELECT * FROM list_{self.log}")
@@ -41,13 +46,15 @@ class User(object):
 
     def __add_user(self, psw):
         psw = User.__gen(psw)
-        User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", (self.log, psw, self.theme, self.color))
-        User.__conn.commit()
-        User.__cur.executescript(f"""
-			CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
-			CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
-			CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
-		""")
+        if (self.log,) not in User.__users:
+            User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", (self.log, psw, self.theme, self.color))
+            User.__conn.commit()
+            User.__cur.executescript(f"""
+                CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
+                CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
+                CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
+            """)
+            User.__users = User.__ret_users(self)
 
     def check_log(self):
         User.__cur.execute("SELECT (login) FROM users WHERE login=?", (self.log,))
@@ -58,14 +65,15 @@ class User(object):
         return User.__check(User.__cur.fetchone(), psw)
 
     def change_log(self, log):
-        User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
-        User.__cur.executescript(f"""
-			ALTER TABLE month_{self.log} RENAME TO month_{log};
-        	ALTER TABLE day_{self.log} RENAME TO day_{log};
-        	ALTER TABLE list_{self.log} RENAME TO list_{log}
-		""")
-        User.__conn.commit()
-        self.log = log
+        if (log,) not in User.__users:
+            User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
+            User.__cur.executescript(f"""
+                ALTER TABLE month_{self.log} RENAME TO month_{log};
+                ALTER TABLE day_{self.log} RENAME TO day_{log};
+                ALTER TABLE list_{self.log} RENAME TO list_{log}
+            """)
+            User.__conn.commit()
+            self.log = log
 
     def change_pass(self, psw):
         psw = User.__gen(psw)
@@ -111,7 +119,7 @@ class User(object):
             self.month = User.__ret_month(self)
 
     def del_list(self, name):
-        if name in self.lists:
+        if (name,) in self.lists:
             User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
             User.__conn.commit()
             self.lists.remove(name)
@@ -148,10 +156,23 @@ class User(object):
                 	DROP TABLE IF EXISTS day_{log[0]}
 				""")
         User.__cur.execute("DELETE FROM users")
+        User.__conn.commit()
+
+
+def inj_check(req):
+    cl_el = ('#', '-', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"')
+    for el in cl_el:
+        if el in req:
+            return False
+    return True
+
 
 # Тесты (Артем и Дима(ахах, норм вписался))
+# print(inj_check('adsfghdffdsfgfdf'))
 # User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
+# now_user2 = User("T1MON", 'asdfss')
+# now_user1 = User("TKACH", 'sfdsd')
 # print(now_user.log)
 # now_user.change_log('ATTILENE')
 # print(now_user.log)
