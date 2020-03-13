@@ -33,4 +33,4 @@ def page_month():
 
 @tm.route('/about')
 def page_about():
-    return render_template("about.html", css=css, img=img)
+    return render_template("about.html", css=css, img=img, theme='light', color='blue')
