@@ -31,9 +31,12 @@ class User(object):
         User.__cur.execute(f"SELECT * FROM list_{self.log}")
         lists = {}
         for name, task in User.__cur.fetchall():
-            if name in lists: lists[name].append(task)
-            else: lists[name] = [task]
-        for name in lists: lists[name] = sorted(lists[name])
+            if name in lists:
+                lists[name].append(task)
+            else:
+                lists[name] = [task]
+        for name in lists:
+            lists[name] = sorted(lists[name])
         return lists
 
     def __ret_day(self):
@@ -160,7 +163,7 @@ class User(object):
 
 
 def inj_check(req):
-    cl_el = ('#', '-', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"')
+    cl_el = ('#', '-', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"', '%')
     for el in cl_el:
         if el in req:
             return False
