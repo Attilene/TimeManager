@@ -126,7 +126,7 @@ header .right #avatar {
 #set_icon {
 	z-index: -1;
 	pointer-events: none;
-	transform: scale(0.6);
+	transform: scale(0.7);
 	opacity: 0;
 	height: 30px;
 	width: 30px;
@@ -187,7 +187,7 @@ footer span {
 }
 
 footer span:hover {
-	transform: scale(1.1);
+	transform: scale(1.07);
 	text-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
 	transition: 0.2s ease;
 }

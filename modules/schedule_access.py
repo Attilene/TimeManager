@@ -3,9 +3,9 @@ class User(object):
     from file_routes import db
     from werkzeug.security import generate_password_hash, check_password_hash
     if __name__ == "__main__":
-        __conn = sqlite3.connect(f"../{db}/schedule.db")
+        __conn = sqlite3.connect(f"../{db}/schedule.db", check_same_thread= False)
     else:
-        __conn = sqlite3.connect(f"{db}/schedule.db")
+        __conn = sqlite3.connect(f"{db}/schedule.db", check_same_thread= False)
     __gen = generate_password_hash
     __check = check_password_hash
     __cur = __conn.cursor()
