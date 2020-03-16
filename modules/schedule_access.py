@@ -17,8 +17,8 @@ class User(object):
         self.log = log
         if not User.check_log(self):
             User.__add_user(self, psw)
-            User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (self.log,))
-            self.theme = User.__cur.fetchone()
+        User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (self.log,))
+        self.theme = User.__cur.fetchone()
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
