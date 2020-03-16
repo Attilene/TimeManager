@@ -155,14 +155,14 @@ header .right #avatar {
 		transform: scale(1.05);
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
-		text-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+		text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 		transition: 0.2s ease;
 	}
 
 	header .right:hover img {
 		transform: scale(0.65);
 		transition: 0.2s ease-out;
-		text-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+		text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 	}
 }
 /*--------------------------------------------*/
@@ -188,7 +188,7 @@ footer span {
 
 footer span:hover {
 	transform: scale(1.07);
-	text-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 	transition: 0.2s ease;
 }
 /*--------------------------------------------*/

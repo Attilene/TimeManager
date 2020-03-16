@@ -8,13 +8,14 @@ aside {
     border-radius: 20px;
 }
 
-
+/*--------------Шапка------------------*/
 aside #hat {
     width: 100%;
     display: inline-grid;
     grid-template-columns: 80px auto;
 }
 
+/*---------------Левая часть--------------*/
 aside #hat #avatar {
     overflow: hidden;
 	width: 60px;
@@ -24,12 +25,8 @@ aside #hat #avatar {
 }
 
 aside #hat img:first-child {
-    position: relative;
-    right: 1px;
-    bottom: 1px;
-    width: 62px;
-	min-height: 62px;
-    border-radius: 30px;
+    width: 60px;
+	min-height: 60px;
     transition: 0.3s ease-out;
 }
 
@@ -56,10 +53,10 @@ aside #hat #avatar:hover #float {
     opacity: 70%;
     transition: 0.2s ease;
 }
+/*----------------------------------------------*/
 
-aside #hat #edit_profile {
-    padding-top: 5px;
-}
+/*--------------Правая часть------------------*/
+aside #hat #edit_profile {padding-top: 5px}
 
 aside #hat #edit_profile div {
     margin: 10px 10px 10px 5px;
@@ -73,6 +70,17 @@ aside #hat #edit_profile div {
 aside #hat #edit_profile div:hover {
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.2);
-	text-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
     transition: 0.2s ease;
+}
+/*----------------------------------------------*/
+
+/*----------------------------------------------*/
+aside menu {
+    background: white;
+    margin: 3px;
+    width: 204px;
+    min-height: 100px;
+    border-radius: 18px;
+
 }
