@@ -172,7 +172,7 @@ def inj_check(req):
 
 # Тесты (Артем и Дима(ахах, норм вписался))
 # print(inj_check('adsfghdffdsfgfdf'))
-# User._erase()
+User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
 # now_user2 = User("T1MON", 'asdfss')
 # now_user1 = User("TKACH", 'sfdsd')
