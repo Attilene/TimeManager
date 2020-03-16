@@ -1,6 +1,6 @@
 class User(object):
     import sqlite3
-    from web_routes import db
+    from front_web_routes import db
     from werkzeug.security import generate_password_hash, check_password_hash
     if __name__ == "__main__":
         __conn = sqlite3.connect(f"../{db}/schedule.db")
