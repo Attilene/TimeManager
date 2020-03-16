@@ -15,10 +15,10 @@ class User(object):
 
     def __init__(self, log, psw=None):
         self.log = log
-        self.theme = 'light'
-        self.color = 'blue'
         if not User.check_log(self):
             User.__add_user(self, psw)
+            User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (self.log,))
+            self.theme = User.__cur.fetchone()
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
@@ -50,7 +50,7 @@ class User(object):
     def __add_user(self, psw):
         psw = User.__gen(psw)
         if (self.log,) not in User.__users:
-            User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", (self.log, psw, self.theme, self.color))
+            User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", (self.log, psw, 'light', 'blue'))
             User.__conn.commit()
             User.__cur.executescript(f"""
                 CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
@@ -85,12 +85,7 @@ class User(object):
 
     def change_theme(self, theme):
         self.theme = theme
-        User.__cur.execute("UPDATE users SET theme=? WHERE login=?", (self.theme, self.log))
-        User.__conn.commit()
-
-    def change_color(self, color):
-        self.color = color
-        User.__cur.execute("UPDATE users SET color= ? WHERE login= ?", (self.color, self.log))
+        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
         User.__conn.commit()
 
     def del_user(self):
@@ -172,7 +167,7 @@ def inj_check(req):
 
 # Тесты (Артем и Дима(ахах, норм вписался))
 # print(inj_check('adsfghdffdsfgfdf'))
-User._erase()
+# User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
 # now_user2 = User("T1MON", 'asdfss')
 # now_user1 = User("TKACH", 'sfdsd')
@@ -196,8 +191,9 @@ User._erase()
 # print(now_user.day)
 # print(now_user.month)
 # print(now_user.lists)
-# print(now_user.theme, now_user.color, sep = ' ')
-# now_user.change_color('green')
-# print(now_user.theme, now_user.color, sep = ' ')
+# print(now_user.theme)
+# theme = ('light', 'green')
+# now_user.change_theme(theme)
+# print(*now_user.theme)
 #
 # User._erase()
