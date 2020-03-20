@@ -1,4 +1,6 @@
 /*-------------Задание общих свойств----------*/
+* {	outline: none;}
+
 html, body {
 	font-family: Comfortaa, sans-serif;
 	margin: 0;
