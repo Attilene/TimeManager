@@ -134,7 +134,7 @@ aside menu div.light:hover::before, aside menu div.dark:hover::before {
 
 /*-------------------Кнопочки-------------------*/
 aside menu form button {
-    z-index: 100;
+    z-index: 1;
     transform: scale(0.6);
     opacity: 0;
     padding: 0;
@@ -150,26 +150,40 @@ aside menu form button {
 aside menu div.theme:hover button {transform: scale(1); opacity:1; transition: 0.2s ease-out}
 aside menu form button:hover {border-width: 3px; transition: 0.1s ease-out}
 
-button.red {border: 12px solid #ff6464; left: 3px;}
-button.blue {border: 12px solid #6464ff; left: 37px;}
-button.green {border: 12px solid #46aa46; left: 71px;}
-button.purple {border: 12px solid #b450b4; left: 108px;}
-button.sky {border: 12px solid #55c0bb; left: 142px;}
-button.black {border: 12px solid #000; left: 176px;}
+aside button.red {border: 12px solid #ff6464; left: 3px;}
+aside button.blue {border: 12px solid #6464ff; left: 37px;}
+aside button.green {border: 12px solid #46aa46; left: 71px;}
+aside button.purple {border: 12px solid #b450b4; left: 108px;}
+aside button.sky {border: 12px solid #55c0bb; left: 142px;}
+aside button.black {border: 12px solid #000; left: 176px;}
 
-button.red::after {
+/*--------------Эффекты смены тем------------*/
+aside button:focus~button {opacity: 0}
+
+aside button::after {
+    z-index: 1000;
     transform: scale(0.1);
     opacity: 0;
     content: '';
     display: block;
     position: relative;
+    bottom: 80px;
     width: 1000%;
     height: 1000%;
     overflow: visible;
-    background: #ff6464;
     border-radius: 500%;
 }
 
-button.red:focus::after {z-index: 1000; opacity: 1; transform: scale(100); transition: transform 0.5s ease-in}
+aside button.red::after {right: 80px; background: #ff6464;}
+aside button.blue::after {right: 80px; background: #6464ff;}
+aside button.green::after {right: 80px; background: #46aa46;}
+aside button.purple::after {right: 80px; background: #b450b4;}
+aside button.sky::after {right: 80px; background: #55c0bb;}
+aside button.black::after {right: 80px; background: #000000;}
+
+aside button:focus::after {z-index: 1000; opacity: 1; transform: scale(100); transition: transform 0.5s ease-in}
 /*----------------------------------------------*/
+
+/*----------------------------------------------*/
+
 /*----------------------------------------------*/
