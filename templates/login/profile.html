@@ -1,10 +1,6 @@
 <div id="hat">
     <span id="avatar">
-        <img src="{{ img }}/avatar/{{ log }}.png"
-             src="{{ img }}/avatar/{{ log }}.jpg"
-             src="{{ img }}/avatar/{{ log }}.jpeg"
-             src="{{ img }}/avatar/{{ log }}.bmp"
-             src="{{ img }}/avatar/{{ log }}.gif">
+        <img src="{{ img }}/avatar/{{ log }}.jpg">
         <img id="float" src="{{ img }}/change_avatar.svg">
     </span>
     <span id="edit_profile">
@@ -14,23 +10,19 @@
 </div>
 <menu>
     <div class="theme light">
-        <form action="/change_theme" method="POST">
-                <button class='red' type="submit" name="send_color" value="light red"></button>
-                <button class='blue' type="submit" name="send_color" value="light blue"></button>
-                <button class='green' type="submit" name="send_color" value="light green"></button>
-                <button class='purple' type="submit" name="send_color" value="light purple"></button>
-                <button class='sky' type="submit" name="send_color" value="light sky"></button>
-                <button class='black' type="submit" name="send_color" value="light black"></button>
-        </form>
+        <button class='red'></button>
+        <button class='blue'></button>
+        <button class='green'></button>
+        <button class='purple'></button>
+        <button class='sky'></button>
+        <button class='black'></button>
     </div>
     <div class="theme dark">
-        <form action="/change_theme" method="POST">
-                <button class='red' type="submit" name="send_color" value="dark red"></button>
-                <button class='blue' type="submit" name="send_color" value="dark blue"></button>
-                <button class='green' type="submit" name="send_color" value="dark green"></button>
-                <button class='purple' type="submit" name="send_color" value="dark purple"></button>
-                <button class='sky' type="submit" name="send_color" value="dark sky"></button>
-                <button class='black' type="submit" name="send_color" value="dark black"></button>
-        </form>
+        <button class='red'></button>
+        <button class='blue'></button>
+        <button class='green'></button>
+        <button class='purple'></button>
+        <button class='sky'></button>
+        <button class='black'></button>
     </div>
 </menu>

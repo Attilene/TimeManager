@@ -6,16 +6,18 @@
     <meta name="keywords" content="time manager, time, schedule, время, тайм менеджер, расписание" />
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="{{ css }}/fonts.css" rel="stylesheet" type="text/css" />
-{#    <script type="text/javascript" src="{{ scr }}/script.js"></script>#}
+    <script type="text/javascript" src="{{ scr }}/jQuery.js"></script>
+    <script type="text/javascript" src="{{ scr }}/script.js"></script>
     <link href="{{ css }}/base/{{ theme[0] }}.css" rel="stylesheet" type="text/css" />
-    <link href="{{ css }}/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" />
+    <link href="{{ css }}/colors.css" rel="stylesheet" type="text/css">
+{#    <link href="{{ css }}/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" />#}
     <link href="{{ css }}/profile/{{ theme[0] }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ img }}/favicon.ico" rel="shortcut icon" type="image/x-icon">
     {% block link %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body>
+<body id={{ theme[1] }}>
     <header>
         <span class="left">
             <a href="/">
@@ -27,11 +29,7 @@
         <a class="center" href="/month">Дедлайны</a>
         <span class="right">
             <a>
-                <img id="avatar" src="{{ img }}/avatar/{{ log }}.png"
-                     src="{{ img }}/avatar/{{ log }}.jpg"
-                     src="{{ img }}/avatar/{{ log }}.jpeg"
-                     src="{{ img }}/avatar/{{ log }}.bmp"
-                     src="{{ img }}/avatar/{{ log }}.gif">
+                <img id="avatar" src="{{ img }}/avatar/{{ log }}.jpg"
                 <img id=set_icon src="{{ img }}/set_icon.svg">
                 <div>{{ log }}</div>
             </a>
