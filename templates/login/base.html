@@ -12,7 +12,7 @@
     <link href="{{ css }}/colors.css" rel="stylesheet" type="text/css">
 {#    <link href="{{ css }}/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" />#}
     <link href="{{ css }}/profile/{{ theme[0] }}.css" rel="stylesheet" type="text/css" />
-    <link href="{{ img }}/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ img }}/favicons/{{theme[1]}}.svg" rel="shortcut icon" type="image/x-icon">
     {% block link %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -29,7 +29,7 @@
         <a class="center" href="/month">Дедлайны</a>
         <span class="right">
             <a>
-                <img id="avatar" src="{{ img }}/avatar/{{ log }}.jpg"
+                <img id="avatar" src="{{ img }}/avatars/{{ log }}.jpg">
                 <img id=set_icon src="{{ img }}/set_icon.svg">
                 <div>{{ log }}</div>
             </a>

@@ -1,5 +1,5 @@
 from file_routes import *
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from schedule_access import *
 tm = Flask(__name__, template_folder=html, static_folder=project)
 
@@ -12,10 +12,10 @@ page = '/'
 
 
 # Исполняемые адреса
-@tm.route('/change_theme', methods=['POST', 'GET'])
+@tm.route('/change_theme', methods=['POST'])
 def change_theme():
-    now.change_theme(tuple(request.form['send_color'].split()))
-    return redirect(page)
+    now.change_theme(request.get_json().split())
+    return jsonify(success=True)
 
 
 # Видимые страницы
