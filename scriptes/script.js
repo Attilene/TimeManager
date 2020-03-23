@@ -11,6 +11,10 @@ function send(url, request) {
 
 jQuery(document).ready(function () {
 
+    $('header .right').on('click', function () {
+        $('aside').hide(1000);
+    })
+
     // Кнопки изменения цвета
     $('aside .theme button').on('click', function () {
         const theme = $('aside menu .theme').attr('class').split(' ')[1];
@@ -18,7 +22,7 @@ jQuery(document).ready(function () {
         $('html').attr('id', theme);
         $('body').attr('id', color);
         const favicon = $('head link[type="image/x-icon"]');
-        const favicon_href = favicon.attr('href').slice(0, favicon.attr('href').lastIndexOf('favicons'));
+        const favicon_href = favicon.attr('href').slice(0, favicon.attr('href').lastIndexOf('favicons') + 8);
         favicon.attr('href', `${favicon_href}/${color}.svg`);
         send('/change_theme', `${theme} ${color}`);
     });
