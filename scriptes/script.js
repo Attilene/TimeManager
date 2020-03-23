@@ -1,39 +1,26 @@
+function send(url, request) {
+    // Отправка JSON формы на сервер
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json',
+        url: url,
+        dataType: 'json',
+        data: JSON.stringify(request)
+    });
+}
+
 jQuery(document).ready(function () {
+
     // Кнопки изменения цвета
-    $('aside .light button.red').on('click', function () {
-        $('body').attr('id', 'red')
+    $('aside .theme button').on('click', function () {
+        const theme = $('aside menu .theme').attr('class').split(' ')[1];
+        const color = $(this).attr('class');
+        $('html').attr('id', theme);
+        $('body').attr('id', color);
+        const favicon = $('head link[type="image/x-icon"]');
+        const favicon_href = favicon.attr('href').slice(0, favicon.attr('href').lastIndexOf('favicons'));
+        favicon.attr('href', `${favicon_href}/${color}.svg`);
+        send('/change_theme', `${theme} ${color}`);
     });
-    $('aside .light button.blue').on('click', function () {
-        $('body').attr('id', 'blue')
-    });
-    $('aside .light button.green').on('click', function () {
-        $('body').attr('id', 'green')
-    });
-    $('aside .light button.purple').on('click', function () {
-        $('body').attr('id', 'purple')
-    });
-    $('aside .light button.sky').on('click', function () {
-        $('body').attr('id', 'sky')
-    });
-    $('aside .light button.black').on('click', function () {
-        $('body').attr('id', 'black')
-    });
-    $('aside .dark button.red').on('click', function () {
-        $('body').attr('id', 'red')
-    });
-    $('aside .dark button.blue').on('click', function () {
-        $('body').attr('id', 'blue')
-    });
-    $('aside .dark button.green').on('click', function () {
-        $('body').attr('id', 'green')
-    });
-    $('aside .dark button.purple').on('click', function () {
-        $('body').attr('id', 'purple')
-    });
-    $('aside .dark button.sky').on('click', function () {
-        $('body').attr('id', 'sky')
-    });
-    $('aside .dark button.black').on('click', function () {
-        $('body').attr('id', 'black')
-    });
+
 });
