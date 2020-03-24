@@ -31,7 +31,6 @@ header {
 	height: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
-	transition: 0.3s;
 }
 
 @media (max-width: 1000px) { /*Опции для маленького окна*/

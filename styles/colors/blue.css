@@ -1,0 +1,3 @@
+header, footer, aside {background: #6464ff; transition: background 0.5s}
+aside menu div.theme {border: 20px solid #6464ff}
+aside menu div.theme:hover {border: 3px solid #6464ff}
