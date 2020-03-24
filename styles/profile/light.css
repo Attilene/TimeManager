@@ -8,13 +8,8 @@ aside {
     top: 60px;
     right: 0px;
     border-radius: 20px;
-    transition: transform 0.3s ease-out;
 }
 
-aside:hover {
-    transform: scale(1.05);
-    transition: 0.2s ease;
-}
 /*--------------Шапка------------------*/
 aside #hat {
     width: 100%;
