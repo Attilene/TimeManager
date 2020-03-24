@@ -19,12 +19,17 @@ jQuery(document).ready(function () {
     var theme = roots.data('theme');
     var color = roots.data('color');
 
+
     // Анимация окна
+        $('main, footer').on('click', function () {
+        const aside = $('body aside');
+        if (aside.attr('class') === 'opened') {aside.removeClass('opened').animate({right: "0px", opacity: 0}, 200).fadeOut(0)}
+    });
+
     $('header .right').on('click', function () {
         const aside = $('body aside');
-        if (aside.attr('class') === 'opened') {aside.removeClass('opened').fadeOut(200).animate({top: "60px"},
-        )}
-        else {aside.fadeIn(300).addClass('opened')}
+        if (aside.attr('class') === 'opened') {aside.removeClass('opened').animate({right: "0px", opacity: 0}, 200).fadeOut(0)}
+        else {aside.addClass('opened').fadeIn(0).animate({right: "10px", opacity: 1}, 300)}
     });
 
     // Кнопки изменения цвета

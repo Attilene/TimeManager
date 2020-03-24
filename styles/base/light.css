@@ -31,6 +31,13 @@ header {
 	height: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
+	transition: 0.3s ease-out;
+}
+
+header:hover {
+	padding-top: 2px;
+	height: 54px;
+	transition: 0.2s ease;
 }
 
 @media (max-width: 1000px) { /*Опции для маленького окна*/
@@ -78,9 +85,9 @@ header .left:hover::before{
 header .center {
 	color: white;
 	width: 100%;
-	height: 20px;
-	margin: 9px 0 0 0;
-	padding: 5px 0;
+	height: 25px;
+	margin: 8px 0 0 0;
+	padding: 7px 0 3px 0;
 	border-radius: 20px;
 	text-align: center;
 	transition: 0.3s ease-out;
@@ -132,9 +139,9 @@ header .right #avatar {
 	opacity: 0;
 	height: 30px;
 	width: 30px;
-	position: absolute;
-	top: 9px;
-	right: 11px;
+	position: relative;
+	top: 0;
+	left: 34px;
 	transition: 0.3s ease-in;
 }
 
@@ -153,6 +160,8 @@ header .right #avatar {
 }
 
 @media (min-width: 1001px) { /* Анимации для большого окна*/
+	#set_icon {display: none}
+
 	header .right:hover {
 		transform: scale(1.05);
 		background: rgba(255, 255, 255, 0.2);
@@ -180,6 +189,13 @@ footer {
 	overflow: hidden;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
+	transition: 0.3s ease-out;
+}
+
+footer:hover {
+	margin-top: -4px;
+	height: 44px;
+	transition: 0.2s ease;
 }
 
 footer span {
@@ -197,8 +213,8 @@ footer span:hover {
 
 /*--------------Основной блок-----------------*/
 main {
-	padding-top: 50px;
-	width: 100%;
-	min-height: calc(100% - 90px);
+	padding: 70px 20px 20px 20px;
+	width: calc(100% - 40px);
+	min-height: calc(100% - 130px);
 }
 /*--------------------------------------------*/
