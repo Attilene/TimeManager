@@ -1,14 +1,12 @@
-aside, div.asidye {
-    /*display: block;*/
-    /*color: #fff;*/
-    /*position: fixed;*/
+aside {
+    display: none;
+    color: #fff;
+    position: fixed;
     width: 250px;
-    height: 400px;
-    background: #b450b4;
-    /*top: 60px;*/
-    /*right: 10px;*/
-    /*border-radius: 20px;*/
-    float: left;
+    height: min-content;
+    top: 60px;
+    right: 10px;
+    border-radius: 20px;
 }
 /*--------------Шапка------------------*/
 aside #hat {
@@ -153,8 +151,6 @@ aside button.green {border: 12px solid #46aa46; left: 90px;}
 aside button.purple {border: 12px solid #b450b4; left: 127px;}
 aside button.sky {border: 12px solid #55c0bb; left: 161px;}
 aside button.black {border: 12px solid #000; left: 195px;}
-
-
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/

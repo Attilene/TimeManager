@@ -12,8 +12,7 @@ function send(url, request) {
 jQuery(document).ready(function () {
 
     $('header .right').on('click', function () {
-        $('body aside').slideToggle(3000)
-        $('body div.asidye').slideToggle(3000)
+        $('body aside').fadeToggle(1000);
     });
 
     // Кнопки изменения цвета
