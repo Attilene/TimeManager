@@ -12,8 +12,9 @@ function send(url, request) {
 jQuery(document).ready(function () {
 
     $('header .right').on('click', function () {
-        $('aside').hide(1000);
-    })
+        $('body aside').slideToggle(3000)
+        $('body div.asidye').slideToggle(3000)
+    });
 
     // Кнопки изменения цвета
     $('aside .theme button').on('click', function () {

@@ -1,13 +1,15 @@
-aside {
-    color: #fff;
-    position: fixed;
+aside, div.asidye {
+    /*display: block;*/
+    /*color: #fff;*/
+    /*position: fixed;*/
     width: 250px;
-    height: min-content;
-    top: 60px;
-    right: 10px;
-    border-radius: 20px;
+    height: 400px;
+    background: #b450b4;
+    /*top: 60px;*/
+    /*right: 10px;*/
+    /*border-radius: 20px;*/
+    float: left;
 }
-
 /*--------------Шапка------------------*/
 aside #hat {
     width: 100%;

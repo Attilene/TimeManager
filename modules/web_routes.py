@@ -23,7 +23,7 @@ def change_theme():
 def page_home():
     global page
     page = request.path
-    return render_template("login/base.html", log=now.log, img=img, css=css, scr=scr, theme=now.theme, page='/')
+    return render_template("login/base.html", log=now.log, img=img, css=css, scr=scr, theme=now.theme, page='/', title='Главная')
 
 
 @tm.route('/list')

@@ -6,15 +6,14 @@
     <meta name="keywords" content="time manager, time, schedule, время, тайм менеджер, расписание" />
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="{{ css }}/fonts.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="{{ scr }}/jQuery.js"></script>
-    <script type="text/javascript" src="{{ scr }}/script.js"></script>
     <link href="{{ css }}/base/{{ theme[0] }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ css }}/colors.css" rel="stylesheet" type="text/css">
-{#    <link href="{{ css }}/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" />#}
     <link href="{{ css }}/profile/{{ theme[0] }}.css" rel="stylesheet" type="text/css" />
     <link href="{{ img }}/favicons/{{theme[1]}}.svg" rel="shortcut icon" type="image/x-icon">
+    <script type="text/javascript" src="{{ scr }}/jQuery.js"></script>
+    <script type="text/javascript" src="{{ scr }}/script.js"></script>
     {% block link %}{% endblock %}
-    <title>{% block title %}{% endblock %}</title>
+    <title>{{ title }}</title>
 </head>
 
 <body id={{ theme[1] }}>
@@ -37,7 +36,8 @@
     </header>
 
     <aside>{% include "login/profile.html" %}</aside>
-
+    <aside></aside>
+    <div class="asidye"></div>
     <main>
         {% block content %}
 
