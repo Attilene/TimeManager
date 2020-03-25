@@ -2,18 +2,22 @@ class User(object):
     import sqlite3
     from werkzeug.security import generate_password_hash, check_password_hash
     if __name__ == "__main__":
-        __conn = sqlite3.connect(f"../databases/schedule.db", check_same_thread=False)
+        __conn = sqlite3.connect(f"../databases/schedule.db")
     else:
         __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
     __gen = generate_password_hash
     __check = check_password_hash
     __cur = __conn.cursor()
-    __users = []
-    __cur.execute("CREATE TABLE IF NOT EXISTS users (login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))")
-    __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь', ]
+    __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
+                    'ноябрь', 'декабрь', ]
+    __authorization = False
 
     def __init__(self, log, psw=None):
-        self.log = log
+        User.__authorization = True
+        if inj_check(log):
+            self.log = log
+        else:
+            self.log = 'Test_user'
         if not User.check_log(self):
             User.__add_user(self, psw)
         User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (self.log,))
@@ -21,6 +25,7 @@ class User(object):
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
+        User.__authorization = True
 
     def __ret_users(self):
         User.__cur.execute("SELECT (login) FROM users")
@@ -48,15 +53,14 @@ class User(object):
 
     def __add_user(self, psw):
         psw = User.__gen(psw)
-        if (self.log,) not in User.__users:
-            User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)", (self.log, psw, 'light', 'blue'))
-            User.__conn.commit()
-            User.__cur.executescript(f"""
-                CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
-                CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
-                CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
-            """)
-            User.__users = User.__ret_users(self)
+        User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)",
+                           (self.log, psw, 'light', 'blue'))
+        User.__conn.commit()
+        User.__cur.executescript(f"""
+            CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
+            CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
+            CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
+        """)
 
     def check_log(self):
         User.__cur.execute("SELECT (login) FROM users WHERE login=?", (self.log,))
@@ -67,7 +71,7 @@ class User(object):
         return User.__check(User.__cur.fetchone(), psw)
 
     def change_log(self, log):
-        if (log,) not in User.__users:
+        if inj_check(log):
             User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
             User.__cur.executescript(f"""
                 ALTER TABLE month_{self.log} RENAME TO month_{log};
@@ -83,60 +87,65 @@ class User(object):
         User.__conn.commit()
 
     def change_theme(self, theme):
-        self.theme = theme
-        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
-        User.__conn.commit()
+        if inj_check(theme[0]) and inj_check(theme[1]):
+            self.theme = theme
+            User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
+            User.__conn.commit()
 
     def del_user(self):
         User.__cur.execute("DELETE FROM users WHERE login=?", (self.log,))
         User.__conn.commit()
         User.__cur.executescript(f"""
-			DROP TABLE IF EXISTS month_{self.log};
-        	DROP TABLE IF EXISTS day_{self.log};
-        	DROP TABLE IF EXISTS list_{self.log}
-		""")
+            DROP TABLE IF EXISTS month_{self.log};
+            DROP TABLE IF EXISTS day_{self.log};
+            DROP TABLE IF EXISTS list_{self.log}
+        """)
 
     def add_list(self, name, task):
-        if (name, task) not in self.lists:
+        if (name, task) not in self.lists and inj_check(name) and inj_check(task):
             User.__cur.execute(f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)", (name, task))
             User.__conn.commit()
             self.lists = User.__ret_list(self)
 
     def add_day(self, hour, minute, task):
-        if (hour, minute, task) not in self.day:
-            User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)", (hour, minute, task))
+        if (hour, minute, task) not in self.day and inj_check(task):
+            User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)",
+                               (hour, minute, task))
             User.__conn.commit()
             self.day = User.__ret_day(self)
 
     def add_month(self, digit, month, task):
         month = month.lower()
-        if (digit, month, task) not in self.month:
-            User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)", (digit, month, task))
+        if (digit, month, task) not in self.month and inj_check(task):
+            User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)",
+                               (digit, month, task))
             User.__conn.commit()
             self.month = User.__ret_month(self)
 
     def del_list(self, name):
-        if (name,) in self.lists:
+        if (name,) in self.lists and inj_check(name):
             User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
             User.__conn.commit()
-            self.lists.remove(name)
+            self.lists.pop(name)
 
     def del_list_task(self, name, task):
-        if task in self.lists[name] and task != 0:
+        if task in self.lists[name] and task != 0 and inj_check(name) and inj_check(task):
             User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ?", (name, task))
             User.__conn.commit()
             self.lists[name].remove(task)
 
     def del_day(self, hour, minute, task):
-        if (hour, minute, task) in self.day:
-            User.__cur.execute(f"DELETE FROM day_{self.log} WHERE hour = ? AND minute = ? AND task = ?", (hour, minute, task))
+        if (hour, minute, task) in self.day and inj_check(task):
+            User.__cur.execute(f"DELETE FROM day_{self.log} WHERE hour = ? AND minute = ? AND task = ?",
+                               (hour, minute, task))
             User.__conn.commit()
             self.day.remove((hour, minute, task))
 
     def del_month(self, digit, month, task):
         month = month.lower()
-        if (digit, month, task) in self.month:
-            User.__cur.execute(f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?", (digit, month, task))
+        if (digit, month, task) in self.month and inj_check(task):
+            User.__cur.execute(f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?",
+                               (digit, month, task))
             User.__conn.commit()
             self.month.remove((digit, month, task))
 
@@ -163,26 +172,21 @@ def inj_check(req):
             return False
     return True
 
-
-# Тесты (Артем и Дима(ахах, норм вписался))
-# print(inj_check('adsfghdffdsfgfdf'))
-# User._erase()
+# Создание таблицы-----------------------------------------------------------------------------------------
+# __cur.execute("CREATE TABLE IF NOT EXISTS users (login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))")
+# -----------------------------------------------------------------------------------------------------------
+# Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'kdfjdkffj')
-# now_user2 = User("T1MON", 'asdfss')
-# now_user1 = User("TKACH", 'sfdsd')
+# now_user2 = User("T1MON", 'asdfss') now_user1 = User("TKACH", 'sfdsd') print(
+# now_user.log) now_user.change_log('ATTILENE') print(now_user.log) print(now_user.day) print(now_user.month) print(
+# now_user.lists)
 # print(now_user.log)
-# now_user.change_log('ATTILENE')
-# print(now_user.log)
-# print(now_user.day)
-# print(now_user.month)
-# print(now_user.lists)
-#
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
 # now_user.add_month(24, 'январь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
-# now_user.add_list(1, 'dfjfkdjfdsfdgf')
-# now_user.add_list(2, 'dfjf')
-# now_user.add_list(1, 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+# now_user.add_list('1', 'dfjfkdjfdsfdgf')
+# now_user.add_list('2', 'dfjf')
+# now_user.add_list('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
 # now_user.add_day(22, 33, 'jdfkjf')
 # now_user.add_day(24, 33, 'jdfkjf')
 # now_user.add_day(23, 33, 'jdfkjf')

@@ -131,11 +131,10 @@ header .right #avatar {
 	pointer-events: none;
 	transform: scale(0.7);
 	opacity: 0;
-	height: 30px;
-	width: 30px;
+	height: 29px;
+	width: 29px;
 	position: absolute;
-	top: 9px;
-	right: 11px;
+	top: 1px; right: 2px;
 	transition-property: transform, opacity;
 	transition: 0.3s ease-in;
 }
@@ -143,7 +142,7 @@ header .right #avatar {
 @media (max-width: 1000px) {  /*Анимация для маленького окна*/
 	header .right:hover #set_icon {
 		z-index: 0;
-		transform: scale(1);
+		transform: scale(1.1);
 		opacity: 70%;
 		transition: 0.3s ease;
 	}
