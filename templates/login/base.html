@@ -2,22 +2,22 @@
 <html lang="ru">
 
 <head>
-    <meta id='roots' data-css="{{ css }}" data-img="{{ img }}" data-scr="{{ scr }}" data-theme="{{ theme[0] }}" data-color="{{ theme[1] }}"/>
+    <meta id='roots' data-theme="{{ theme[0] }}" data-color="{{ theme[1] }}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="keywords" content="time manager, time, schedule, время, тайм менеджер, расписание" />
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
-    <link href="{{ css }}/fonts.css" rel="stylesheet" type="text/css" />
-    <link href="{{ css }}/base/{{ theme[0] }}.css" rel="stylesheet" type="text/css" id="base_theme"/>
-    <link href="{{ css }}/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" id="color_choice"/>
-    <link href="{{ css }}/profile/{{ theme[0] }}.css" rel="stylesheet" type="text/css" id="profile_theme"/>
-    <link href="{{ img }}/favicons/{{theme[1]}}.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
-    <script type="text/javascript" src="{{ scr }}/jQuery.js"></script>
-    <script type="text/javascript" src="{{ scr }}/script.js"></script>
-    {% block link %}{% endblock %}
-    <title>{{ title }}</title>
+    <link href="time_manager/styles/fonts/fonts.css" rel="stylesheet" type="text/css" />
+    <link href="time_manager/styles/base.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/themes/{{ theme[0] }}.css" rel="stylesheet" type="text/css" id="theme_choice"/>
+    <link href="time_manager/styles/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" id="color_choice"/>
+    <link href="time_manager/images/favicons/{{theme[1]}}.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
+    <script type="text/javascript" src="time_manager/scriptes/jQuery.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/script.js"></script>
+    <title>Time Manager</title>
 </head>
 
-<body>
+<body id="preload">
     <header>
         <span class="left">
             <a href="/">
@@ -29,8 +29,8 @@
         <a class="center" href="/month">Дедлайны</a>
         <span class="right">
             <a>
-                <img id="avatar" src="{{ img }}/avatars/{{ log }}.jpg">
-                <img id=set_icon src="{{ img }}/set_icon.svg">
+                <img id="avatar" src="time_manager/images/avatars/{{ log }}.jpg">
+                <img id=set_icon src="time_manager/images/set_icon.svg">
                 <div>{{ log }}</div>
             </a>
         </span>

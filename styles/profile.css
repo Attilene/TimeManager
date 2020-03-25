@@ -1,12 +1,11 @@
 aside {
     display: none;
     opacity: 0;
-    color: #fff;
     position: fixed;
     width: 250px;
     height: min-content;
-    top: 60px;
-    right: 0px;
+    top: 50px;
+    right: 10px;
     border-radius: 20px;
 }
 
@@ -61,13 +60,11 @@ aside #hat #avatar:hover #float {
 aside #hat #edit_profile {padding-top: 5px}
 
 aside #hat #edit_profile div {
-    margin: 10px 10px 10px 5px;
+    margin: 8px 10px 8px 2px;
     padding: 2px 10px;
-    color: white;
-    font-family: "Comfortaa Bold", serif;
-    font-size: 14px;
+    font-size: 15px;
     width: max-content;
-    border-radius: 10px;
+    border-radius: 12px;
     transition: 0.3s ease-out;
 }
 
@@ -102,27 +99,23 @@ aside menu div.theme {
     transition: 0.15s ease-in;
 }
 
-aside menu div.light { background: white }
 aside menu div.light button {top: 23px}
-aside menu div.dark { background: darkgray }
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
-aside menu div.light::before {
-    color: white;
+aside menu div.theme::before {
     position: absolute;
+    pointer-events: none;
+    transition: 0.2s ease-in;
+}
+
+aside menu div.light::before {
     top: 25px; left: 57px;
     content: 'Светлая тема';
-    transition: 0.2s ease-in;
-    pointer-events: none;
 }
 
 aside menu div.dark::before {
-    color: white;
-    position: absolute;
     top: 75px; left: 65px;
     content: 'Тёмная тема';
-    transition: 0.2s ease-in;
-    pointer-events: none;
 }
 
 aside menu div.light:hover::before, aside menu div.dark:hover::before {
@@ -153,6 +146,7 @@ aside button.green {border: 12px solid #46aa46; left: 90px;}
 aside button.purple {border: 12px solid #b450b4; left: 127px;}
 aside button.sky {border: 12px solid #55c0bb; left: 161px;}
 aside button.black {border: 12px solid #000; left: 195px;}
+aside button.white {border: 12px solid #fff; left: 195px;}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/

@@ -1,14 +1,12 @@
-from file_routes import *
 from flask import Flask, render_template, request, redirect, jsonify
 from schedule_access import *
-tm = Flask(__name__, template_folder=html, static_folder=project)
+tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
 
 
 # Инициализация пользователя
 now = User('Test_user', '1234567890')
-page = '/'
 
 
 # Исполняемые адреса
@@ -21,9 +19,7 @@ def change_theme():
 # Видимые страницы
 @tm.route('/')
 def page_home():
-    global page
-    page = request.path
-    return render_template("login/base.html", log=now.log, img=img, css=css, scr=scr, theme=now.theme, page='/', title='Главная')
+    return render_template("login/base.html", log=now.log, theme=now.theme)
 
 
 @tm.route('/list')
