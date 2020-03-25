@@ -4,6 +4,3 @@ body {
     background: white;
     transition: background 0.5s;
 }
-
-aside menu div.light { background: white }
-aside menu div.dark { background: darkgray }
