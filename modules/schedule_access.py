@@ -4,7 +4,7 @@ class User(object):
     if __name__ == "__main__":
         __conn = sqlite3.connect(f"../databases/schedule.db")
     else:
-        __conn = sqlite3.connect(f"databases/schedule.db")
+        __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
     __gen = generate_password_hash
     __check = check_password_hash
     __cur = __conn.cursor()
