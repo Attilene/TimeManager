@@ -8,7 +8,6 @@ class User(object):
     __gen = generate_password_hash
     __check = check_password_hash
     __cur = __conn.cursor()
-
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
     __authorization = False
@@ -121,7 +120,7 @@ class User(object):
         if (name,) in self.lists:
             User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
             User.__conn.commit()
-            self.lists.remove(name)
+            self.lists.pop(name)
 
     def del_list_task(self, name, task):
         if task in self.lists[name] and task != 0:
@@ -143,9 +142,6 @@ class User(object):
                                (digit, month, task))
             User.__conn.commit()
             self.month.remove((digit, month, task))
-
-    def logout(self):
-        User.Collect
 
     @staticmethod
     def __erase():
