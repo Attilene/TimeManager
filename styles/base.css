@@ -203,3 +203,23 @@ main {
 /*--------------------------------------------*/
 
 #preload * {transition: none}
+
+/*--------------Блок-About--------------------*/
+#about header {
+	display: inline-grid;
+	grid-template-columns: 25% 71%;
+	grid-column-gap: 4%;
+	position: fixed;
+	top: 0;
+	min-width: 750px;
+	width: 100%;
+	height: 50px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	pointer-events: none;
+}
+
+@media (max-width: 1000px) { /*Опции для маленького окна*/
+	#about header {grid-template-columns: 75%  20%}
+	#about header .right div {display: none}
+}

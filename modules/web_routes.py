@@ -39,7 +39,7 @@ def page_month():
 
 @tm.route('/about')
 def page_about():
-    return render_template("about.html")
+    return render_template("about.html", log=now.log, theme=now.theme)
 
 
 
