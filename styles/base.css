@@ -206,7 +206,7 @@ main {
 /*--------------Блок-About--------------------*/
 #about header {
 	display: inline-grid;
-	grid-template-columns: 25% 71%;
+	grid-template-columns: 25% 1fr 25%;
 	grid-column-gap: 4%;
 	position: fixed;
 	top: 0;
@@ -219,6 +219,6 @@ main {
 }
 
 @media (max-width: 1000px) { /*Опции для маленького окна*/
-	#about header {grid-template-columns: 75%  20%}
+	#about header {grid-template-columns: 30% 1fr 28%}
 	#about header .right div {display: none}
 }
