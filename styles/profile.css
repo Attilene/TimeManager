@@ -98,8 +98,6 @@ aside menu div.theme {
     transition: 0.15s ease-in;
 }
 
-aside menu div.light { background: white}
-aside menu div.dark { background: darkgray}
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
