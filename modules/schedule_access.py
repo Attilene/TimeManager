@@ -22,6 +22,7 @@ class User(object):
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
+        User.__authorization = True
 
     def __ret_users(self):
         User.__cur.execute("SELECT (login) FROM users")
