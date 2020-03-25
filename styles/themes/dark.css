@@ -1,11 +1,7 @@
-* {color: #4b4b4b
-}
+* {color: #4b4b4b}
 
 body, aside menu {
     background: darkgray;
     transition: background 0.5s;
 }
 
-aside menu div.light { background: gray }
-aside menu div.dark { background: #3e3e3e
-}

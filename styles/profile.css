@@ -71,7 +71,6 @@ aside #hat #edit_profile div {
 aside #hat #edit_profile div:hover {
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.2);
-	text-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
     transition: 0.2s ease;
 }
 /*----------------------------------------------*/
@@ -99,6 +98,8 @@ aside menu div.theme {
     transition: 0.15s ease-in;
 }
 
+aside menu div.light { background: white}
+aside menu div.dark { background: darkgray}
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
