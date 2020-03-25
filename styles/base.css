@@ -222,3 +222,46 @@ main {
 	#about header {grid-template-columns: 30% 1fr 28%}
 	#about header .right div {display: none}
 }
+
+#about #developers {
+    margin: 40px auto;
+    border-radius: 20px;
+    width: 500px;
+    overflow: hidden;
+}
+
+#about #developers a {
+    margin: 15px;
+}
+
+#about #developers .ssilka {
+    margin: 15px;
+}
+
+
+#about #developers div{
+    margin: 10px;
+    text-align: center;
+}
+
+#about #developers img {
+    margin: 15px;
+    margin-bottom: 5px;
+	overflow: hidden;
+	width: 80px;
+	min-height: 80px;
+	border-radius: 50px;
+	transition-property: transform, filter;
+	transition: 0.3s ease-out;
+}
+
+#about #developers img:hover {
+    transform: scale(1.1);
+    transition: 0.4s;
+}
+
+#about #developers #artem{
+    float: left;
+}
+
+
