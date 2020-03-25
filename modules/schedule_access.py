@@ -2,9 +2,9 @@ class User(object):
     import sqlite3
     from werkzeug.security import generate_password_hash, check_password_hash
     if __name__ == "__main__":
-        __conn = sqlite3.connect(f"../databases/schedule.db", check_same_thread=False)
+        __conn = sqlite3.connect(f"../databases/schedule.db")
     else:
-        __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
+        __conn = sqlite3.connect(f"databases/schedule.db")
     __gen = generate_password_hash
     __check = check_password_hash
     __cur = __conn.cursor()
@@ -167,12 +167,12 @@ def inj_check(req):
     return True
 
 # Создание таблицы-----------------------------------------------------------------------------------------
-# __cur.execute("CREATE TABLE IF NOT EXISTS users (login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30),
-# color VARCHAR(30))") Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
+# __cur.execute("CREATE TABLE IF NOT EXISTS users (login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))")
+# -----------------------------------------------------------------------------------------------------------
+# Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'kdfjdkffj') now_user2 = User("T1MON", 'asdfss') now_user1 = User("TKACH", 'sfdsd') print(
 # now_user.log) now_user.change_log('ATTILENE') print(now_user.log) print(now_user.day) print(now_user.month) print(
 # now_user.lists)
-# -----------------------------------------------------------------------------------------------------------
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
 # now_user.add_month(24, 'январь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
