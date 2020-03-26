@@ -1,26 +1,44 @@
-function send(url, request) {
+var authorisation = false;
+var theme = 'light';
+var color = 'blue';
+
+function login() {
+    // Вход пользователя
+    var get_theme = get('/get_data');
+    var login = get_theme['login'];
+    theme = get_theme['theme'][0];
+    color = get_theme['theme'][1];
+    $('img#avatar').attr('src', `time_manager/images/avatars/${login}.jpg`);
+}
+
+function get(url, send_data=null, func=null) {
+    // Отправка JSON формы на сервер
+    return($.post(url, send_data, func))
+}
+
+function send(url, data) {
     // Отправка JSON формы на сервер
     $.ajax({
+        url: url,
         type: "POST",
         contentType: 'application/json',
-        url: url,
         dataType: 'json',
-        data: JSON.stringify(request)
+        data: JSON.stringify(data)
     });
 }
 
 jQuery(document).ready(function () {
 
-    // Получение данных от сервера
-    const roots = $('#roots');
-    var theme = roots.data('theme');
-    var color = roots.data('color');
+    console.log(get('/get_data', null,
+        ));
 
+    // Отключение анимации при перезагрузке
+    $('body').attr('id', 'preload')
     setTimeout(function () {
         $('#preload').removeAttr('id')
     }, 300);
 
-    // Анимация окна
+    // Анимация окна профиля
         $('main, header .left, header .center, footer').on('click', function () {
         const aside = $('body aside');
         if (aside.attr('class') === 'opened') {aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)}
@@ -31,6 +49,9 @@ jQuery(document).ready(function () {
         if (aside.attr('class') === 'opened') {aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)}
         else {aside.addClass('opened').fadeIn(0).animate({top: "60px", opacity: 1}, 300)}
     });
+
+
+
 
     // Кнопки изменения цвета
     $('aside .theme button').on('click', function () {

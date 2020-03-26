@@ -10,7 +10,6 @@ class User(object):
     __cur = __conn.cursor()
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
-    __authorization = False
 
     def __init__(self, log, psw=None):
         User.__authorization = True
@@ -22,7 +21,6 @@ class User(object):
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
-        User.__authorization = True
 
     def __ret_users(self):
         User.__cur.execute("SELECT (login) FROM users")

@@ -17,7 +17,7 @@ aside #hat {
 }
 
 /*---------------Левая часть--------------*/
-aside #hat #avatar {
+aside #hat .avatar {
     overflow: hidden;
 	width: 60px;
 	height: 60px;
@@ -31,7 +31,7 @@ aside #hat img:first-child {
     transition: 0.3s ease-out;
 }
 
-aside #hat #avatar #float {
+aside #hat .avatar #float {
     z-index: -1;
     transform: scale(0.8);
     position: absolute;
@@ -43,12 +43,12 @@ aside #hat #avatar #float {
     transition: 0.3s ease-out;
 }
 
-aside #hat #avatar:hover img:first-child {
+aside #hat .avatar:hover img:first-child {
     filter: blur(1px) brightness(0.9);
     transition: 0.3s ease;
 }
 
-aside #hat #avatar:hover #float {
+aside #hat .avatar:hover #float {
     z-index: 1;
     transform: scale(1);
     opacity: 70%;

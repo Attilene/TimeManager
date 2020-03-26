@@ -2,22 +2,22 @@
 <html lang="ru">
 
 <head>
-    <meta id='roots' data-theme="{{ theme[0] }}" data-color="{{ theme[1] }}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="keywords" content="time manager, time, schedule, время, тайм менеджер, расписание" />
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="time_manager/styles/fonts/fonts.css" rel="stylesheet" type="text/css" />
     <link href="time_manager/styles/base.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
-    <link href="time_manager/styles/themes/{{ theme[0] }}.css" rel="stylesheet" type="text/css" id="theme_choice"/>
-    <link href="time_manager/styles/colors/{{ theme[1] }}.css" rel="stylesheet" type="text/css" id="color_choice"/>
-    <link href="time_manager/images/favicons/{{ theme[1] }}.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
+    <link href="time_manager/styles/themes/light.css" rel="stylesheet" type="text/css" id="theme_choice"/>
+    <link href="time_manager/styles/colors/blue.css" rel="stylesheet" type="text/css" id="color_choice"/>
+    <link href="time_manager/images/favicons/blue.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
     <script type="text/javascript" src="time_manager/scriptes/jQuery.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/script.js"></script>
+        <script type="text/javascript" src="time_manager/scriptes/forms.js"></script>
     <title>Time Manager</title>
 </head>
 
-<body id="preload">
+<body>
     <header>
         <span class="left">
             <a href="/">
@@ -29,19 +29,18 @@
         <a class="center" href="/month">Дедлайны</a>
         <span class="right">
             <a>
-                <img id="avatar" src="time_manager/images/avatars/{{ log }}.jpg">
+                <img class="avatar">
                 <img id=set_icon src="time_manager/images/set_icon.svg">
-                <div>{{ log }}</div>
+                <div></div>
             </a>
         </span>
+        <span id="authorisation">Авторизация</span>
     </header>
 
-    <aside>{% include "login/profile.html" %}</aside>
+    <aside>{% include "profile.html" %}</aside>
 
     <main>
-        {% block content %}
 
-        {% endblock %}
     </main>
 
     <footer>
