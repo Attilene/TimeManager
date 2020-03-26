@@ -12,12 +12,14 @@ class User(object):
                     'ноябрь', 'декабрь', ]
     __authorization = False
 
-    def __init__(self, log, psw=None):
+    def __init__(self, log, email, psw=None):
         User.__authorization = True
-        if inj_check(log):
+        if inj_check(log) and inj_check(email):
             self.log = log
+            self.email = email
         else:
             self.log = 'Test_user'
+            self.email = 'test@test.ru'
         if not User.check_log(self):
             User.__add_user(self, psw)
         User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (self.log,))
@@ -53,8 +55,8 @@ class User(object):
 
     def __add_user(self, psw):
         psw = User.__gen(psw)
-        User.__cur.execute("INSERT INTO users (login, psw, theme, color) VALUES (?, ?, ?, ?)",
-                           (self.log, psw, 'light', 'blue'))
+        User.__cur.execute("INSERT INTO users (login, psw, email, theme, color) VALUES (?, ?, ?, ?, ?)",
+                           (self.log, psw, self.email, 'light', 'blue'))
         User.__conn.commit()
         User.__cur.executescript(f"""
             CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
@@ -85,6 +87,12 @@ class User(object):
         psw = User.__gen(psw)
         User.__cur.execute("UPDATE users SET psw=? WHERE login=?", (psw, self.log))
         User.__conn.commit()
+
+    def change_email(self, email):
+        if inj_check(email):
+            User.__cur.execute("UPDATE users SET email=? WHERE login=?", (email, self.log))
+            User.__conn.commit()
+            self.email = email
 
     def change_theme(self, theme):
         if inj_check(theme[0]) and inj_check(theme[1]):
@@ -173,14 +181,18 @@ def inj_check(req):
     return True
 
 # Создание таблицы-----------------------------------------------------------------------------------------
-# __cur.execute("CREATE TABLE IF NOT EXISTS users (login VARCHAR(200), psw VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))")
+# __cur.execute("""CREATE TABLE IF NOT EXISTS users
+#               (login VARCHAR(200), psw VARCHAR(200), email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))""")
 # -----------------------------------------------------------------------------------------------------------
 # Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
-# now_user = User("T1MON", 'kdfjdkffj')
+# now_user = User("T1MON", 'T1MON@yandex.ru', 'kdfjdkffj')
 # now_user2 = User("T1MON", 'asdfss') now_user1 = User("TKACH", 'sfdsd') print(
 # now_user.log) now_user.change_log('ATTILENE') print(now_user.log) print(now_user.day) print(now_user.month) print(
 # now_user.lists)
 # print(now_user.log)
+# print(now_user.email)
+# now_user.change_email('qwerty@mail.ru')
+# print(now_user.email)
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
 # now_user.add_month(24, 'январь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
