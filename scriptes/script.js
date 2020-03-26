@@ -8,7 +8,8 @@ function login() {
     var login = get_theme['login'];
     theme = get_theme['theme'][0];
     color = get_theme['theme'][1];
-    $('img#avatar').attr('src', `time_manager/images/avatars/${login}.jpg`);
+    $('header .right img.avatar').attr('src', `time_manager/images/avatars/${login}.jpg`);
+    $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/${login}.jpg`);
 }
 
 function get(url, send_data=null, func=null) {
