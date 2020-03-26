@@ -8,6 +8,7 @@
     <link href="time_manager/styles/fonts/fonts.css" rel="stylesheet" type="text/css" />
     <link href="time_manager/styles/base.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/authorisation.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/themes/light.css" rel="stylesheet" type="text/css" id="theme_choice"/>
     <link href="time_manager/styles/colors/blue.css" rel="stylesheet" type="text/css" id="color_choice"/>
     <link href="time_manager/images/favicons/blue.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
@@ -18,7 +19,7 @@
 </head>
 
 <body>
-    <header>
+    <header class="logout">
         <span class="left">
             <a href="/">
                 Time Manager
@@ -29,7 +30,7 @@
         <a class="center" href="/month">Дедлайны</a>
         <span class="right">
             <a>
-                <img class="avatar">
+                <img class="avatar" src="time_manager/images/avatars/default.jpg">
                 <img id=set_icon src="time_manager/images/set_icon.svg">
                 <div></div>
             </a>
@@ -37,7 +38,7 @@
         <span id="authorisation">Авторизация</span>
     </header>
 
-    <aside></aside>
+    <aside class="logout"></aside>
 
     <main>
 

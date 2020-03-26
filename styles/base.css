@@ -11,9 +11,6 @@ html, body {
 }
 
 a {text-decoration: none}
-.left a {float: left}
-.right a *, .right a {float: right}
-.center {justify-self: center}
 
 #preload * {transition: none}
 /*--------------------------------------------*/
@@ -77,6 +74,7 @@ header .left:hover::before{
 
 /*------------------Разделы-------------------*/
 header .center {
+	display: none;
 	width: 100%;
 	height: 20px;
 	margin: 9px 0 0 0;
@@ -95,7 +93,10 @@ header .center:hover {
 /*--------------------------------------------*/
 
 /*--------------Пользователь------------------*/
-header .right, #authorisation {
+header .right a *, header .right a {float: right}
+
+header .right {
+	display: none;
 	transform: scale(1);
 	margin: 8px 9px 0 0;
 	padding: 1px 0;
@@ -170,16 +171,6 @@ header .right .avatar {
 }
 /*--------------------------------------------*/
 
-/*-------------Авторизация--------------------*/
-#authorisation {display: none}
-#authorisation:hover {
-		transform: scale(1.1);
-		background: rgba(255, 255, 255, 0.2);
-		margin-right: 15px;
-		transition: 0.2s ease;
-	}
-/*--------------------------------------------*/
-
 /*--------------------------------------------*/
 
 /*-------------------Футер--------------------*/
@@ -195,15 +186,19 @@ footer {
 }
 
 footer span {
+	width: max-content;
 	margin: auto 10%;
 	transition-property: transform;
 	transition: 0.3s ease-out;
 }
 
 footer span:hover {
-	transform: scale(1.07);
+	transform: scale(1.1);
 	transition: 0.2s ease;
 }
+
+footer .center {justify-self: center}
+footer .right {justify-self: right}
 /*--------------------------------------------*/
 
 /*--------------Основной блок-----------------*/

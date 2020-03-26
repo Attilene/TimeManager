@@ -2,18 +2,8 @@ var authorisation = false;
 var theme = 'light';
 var color = 'blue';
 
-function login() {
-    // Вход пользователя
-    var get_theme = get('/get_data');
-    var login = get_theme['login'];
-    theme = get_theme['theme'][0];
-    color = get_theme['theme'][1];
-    $('header .right img.avatar').attr('src', `time_manager/images/avatars/${login}.jpg`);
-    $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/${login}.jpg`);
-}
-
 function get(url, send_data=null, func=null) {
-    // Отправка JSON формы на сервер
+    // Получение JSON формы с сервера
     return($.post(url, send_data, func))
 }
 
@@ -26,6 +16,23 @@ function send(url, data) {
         dataType: 'json',
         data: JSON.stringify(data)
     });
+}
+
+function login() {
+    // Вход пользователя
+    var user_date = get('/get_data');
+    var login = get_theme['login'];
+    theme = get_theme['theme'][0];
+    color = get_theme['theme'][1];
+    // Загрузка аватара
+    $.ajax({
+        url: `../images/avatars/${login}.jpg`,
+        success: function() {
+            $('header .right img.avatar').attr('src', `time_manager/images/avatars/${login}.jpg`);
+            $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/${login}.jpg`);
+        }
+    });
+
 }
 
 jQuery(document).ready(function () {
@@ -45,14 +52,11 @@ jQuery(document).ready(function () {
         if (aside.attr('class') === 'opened') {aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)}
     });
 
-    $('header .right').on('click', function () {
+    $('header .right, header #authorisation').on('click', function () {
         const aside = $('body aside');
         if (aside.attr('class') === 'opened') {aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)}
         else {aside.addClass('opened').fadeIn(0).animate({top: "60px", opacity: 1}, 300)}
     });
-
-
-
 
     // Кнопки изменения цвета
     $('aside .theme button').on('click', function () {
