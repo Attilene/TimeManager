@@ -3,6 +3,6 @@ aside menu div.theme {border: 20px solid #fff}
 aside menu div.theme:hover {border: 3px solid #fff}
 #about #developers {border: 0px solid #fff}
 
-header .center:hover {background: rgba(0, 0, 0, 0.1);}
+header .center:hover, #about #developers a:hover {background: rgba(0, 0, 0, 0.1)}
 @media (min-width: 1001px) { header .right:hover {background: rgba(0, 0, 0, 0.1)}}
-aside #hat #edit_profile div:hover {background: rgba(0, 0, 0, 0.1);}
+aside #hat #edit_profile div:hover {background: rgba(0, 0, 0, 0.1)
