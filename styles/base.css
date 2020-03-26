@@ -226,7 +226,7 @@ main {
 #about #developers {
     margin: 40px auto;
     border-radius: 20px;
-    width: 500px;
+    width: 1120px;
     overflow: hidden;
 }
 
@@ -240,8 +240,10 @@ main {
     text-align: center;
 }
 
-#about #developers .content{
-
+#about #developers a:hover {
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.2);
+	transition: 0.2s ease;
 }
 
 #about #developers img {
@@ -261,7 +263,9 @@ main {
 }
 
 #about #developers .devep{
-    width: 200px;
+    margin-right: 2px;
+    margin-left: 2px;
+    width: 220px;
     float: left;
 }
 
