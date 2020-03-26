@@ -230,23 +230,23 @@ main {
     overflow: hidden;
 }
 
-#about #developers a {
-    margin: 15px;
-}
-
 #about #developers .ssilka {
-    margin: 15px;
+    margin: 10px;
 }
 
 
 #about #developers div{
-    margin: 10px;
+    margin: 15px;
     text-align: center;
+}
+
+#about #developers .content{
+
 }
 
 #about #developers img {
     margin: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 	overflow: hidden;
 	width: 80px;
 	min-height: 80px;
@@ -260,7 +260,8 @@ main {
     transition: 0.4s;
 }
 
-#about #developers #artem{
+#about #developers .devep{
+    width: 200px;
     float: left;
 }
 
