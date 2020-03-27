@@ -101,9 +101,8 @@ class User(object):
             User.__conn.commit()
 
     def change_avatar(self, change):
-        if change:
-            User.__cur.execute("UPDATE users SET avatar=? WHERE login=?", (change, self.log))
-            User.__conn.commit()
+        User.__cur.execute("UPDATE users SET avatar=? WHERE login=?", (change, self.log))
+        User.__conn.commit()
         User.__cur.execute("SELECT (avatar) FROM users WHERE login=?", (self.log,))
         return User.__cur.fetchone()[0]
 
