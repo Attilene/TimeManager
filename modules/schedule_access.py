@@ -55,8 +55,8 @@ class User(object):
 
     def __add_user(self, psw):
         psw = User.__gen(psw)
-        User.__cur.execute("INSERT INTO users (login, psw, email, theme, color) VALUES (?, ?, ?, ?, ?)",
-                           (self.log, psw, self.email, 'light', 'blue'))
+        User.__cur.execute("INSERT INTO users (login, psw, email, theme, color, avatar) VALUES (?, ?, ?, ?, ?, ?)",
+                           (self.log, psw, self.email, 'light', 'blue', False))
         User.__conn.commit()
         User.__cur.executescript(f"""
             CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
@@ -99,6 +99,13 @@ class User(object):
             self.theme = theme
             User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
             User.__conn.commit()
+
+    def change_avatar(self, change):
+        if change:
+            User.__cur.execute("UPDATE users SET avatar=? WHERE login=?", (change, self.log))
+            User.__conn.commit()
+        User.__cur.execute("SELECT (avatar) FROM users WHERE login=?", (self.log,))
+        return User.__cur.fetchone()[0]
 
     def del_user(self):
         User.__cur.execute("DELETE FROM users WHERE login=?", (self.log,))
@@ -182,7 +189,8 @@ def inj_check(req):
 
 # Создание таблицы-----------------------------------------------------------------------------------------
 # __cur.execute("""CREATE TABLE IF NOT EXISTS users
-#               (login VARCHAR(200), psw VARCHAR(200), email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30))""")
+#                   (login VARCHAR(200), psw VARCHAR(200),
+#                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN)""")
 # -----------------------------------------------------------------------------------------------------------
 # Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'T1MON@yandex.ru', 'kdfjdkffj')
@@ -193,6 +201,7 @@ def inj_check(req):
 # print(now_user.email)
 # now_user.change_email('qwerty@mail.ru')
 # print(now_user.email)
+# print(now_user.change_avatar(False))
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
 # now_user.add_month(24, 'январь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
