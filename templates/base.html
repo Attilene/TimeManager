@@ -21,9 +21,7 @@
 <body>
     <header class="logout">
         <span class="left">
-            <a href="/">
-                Time Manager
-            </a>
+            <a>Time Manager</a>
         </span>
         <a class="center" href="/list">Списки</a>
         <a class="center" href="/day">Расписание</a>
@@ -39,15 +37,14 @@
     </header>
 
     <aside class="logout"></aside>
+    <div id="wrapper">
+        <main></main>
 
-    <main>
-
-    </main>
-
-    <footer>
-        <span class="left" title="Союз Советских Социалистических Рептилоидов">Проект СССР</span>
-        <span class="center" title="Ну сказал же, что не защищены, ну чего ты ещё добиваешься?!">Все права защищены(нет) &copy; 2020 г.</span>
-        <span class="right" title="Коронавирус пытался нас заразить, но мы заразили его трояном"><a href="{{ url_for('page_about') }}">Разработчики</a></span>
-    </footer>
+        <footer>
+            <span class="left" title="Союз Советских Социалистических Рептилоидов">Проект СССР</span>
+            <span class="center" title="Ну сказал же, что не защищены, ну чего ты ещё добиваешься?!">Все права защищены(нет) &copy; 2020 г.</span>
+            <span class="right" title="Коронавирус пытался нас заразить, но Касперский нас защитил"><a href="{{ url_for('page_about') }}">Разработчики</a></span>
+        </footer>
+    </div>
 </body>
 </html>

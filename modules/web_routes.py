@@ -4,28 +4,42 @@ tm = Flask(__name__, template_folder="../templates", static_folder="../../time_m
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
 
-now = False
-now = User('Test_user', '1234567890')
+# Очистка тестового пользователя
+now = User('Guest')
+now.del_user()
+now = User('Guest', 'День рождения Сталина')
 
 
 # Запросы
-@tm.route('/get_data', methods=['POST'])
-def get():
+@tm.route('/login', methods=['POST'])
+def login():
+    global now
+    now = User(request.get_json())
     return jsonify({
         "login": now.log,
-        "theme": now.theme
+        "theme": now.theme[0],
+        "color": now.theme[1],
+        "avatar": now.avatar
     })
 
+
+@tm.route('/get_page', methods=['POST'])
+def get_page():
+    """Отсылка HTML шаблонов"""
+    page = request.get_json()
+    return render_template(f'{page}.html')
 
 
 @tm.route('/change_theme', methods=['POST'])
 def change_theme():
+    """Изменение темы"""
     now.change_theme(request.get_json().split())
     return jsonify(success=True)
 
 
 @tm.route('/logout', methods=['POST'])
 def logout():
+    """Выход пользователя"""
     global now
     now = False
     return jsonify(success=True)
@@ -33,23 +47,17 @@ def logout():
 
 @tm.route('/delete', methods=['POST'])
 def delete():
+    """Удаление учётной записи"""
     global now
     now.del_user()
     now = False
     return jsonify(success=True)
 
 
-@tm.route('/authorisation', methods=['POST'])
-def authorisation():
-    global now
-    now = User(**(request.get_json()))
-    return jsonify(success=True)
-
-
 # Страницы
 @tm.route('/')
 def page_home():
-    return render_template("base.html", login=now.log, theme=now.theme)
+    return render_template("base.html")
 
 
 @tm.route('/list')

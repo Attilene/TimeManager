@@ -1,4 +1,5 @@
 aside {
+    z-index: 1000;
     display: none;
     opacity: 0;
     position: fixed;

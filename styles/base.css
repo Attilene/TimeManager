@@ -12,13 +12,13 @@ html, body {
 
 a {text-decoration: none}
 
-#preload * {transition: none}
+#preload * {transition: none; pointer-events: none}
 /*--------------------------------------------*/
 
 /*------------------Шапка---------------------*/
 header {
 	display: inline-grid;
-	grid-template-columns: 25% 1fr 1fr 1fr 25%;
+	grid-template-columns: 20% 1fr 1fr 1fr 20%;
 	grid-column-gap: 4%;
 	position: fixed;
 	top: 0;
@@ -32,19 +32,18 @@ header {
 
 header * {pointer-events: visible}
 
-@media (max-width: 1000px) { /*Опции для маленького окна*/
-	header {grid-template-columns: 28% 1fr 1fr 1fr 5%}
+@media (max-width: 1200px) { /*Опции для маленького окна*/
+	header {grid-template-columns: 30% 1fr 1fr 1fr 5%; grid-column-gap: 2%}
 	header .right div {display: none}
 }
 
 /*-----------------Заголовок------------------*/
 header .left {
-	position: relative;
 	transform: scale(0.95);
 	font-size: 30px;
-	padding: 4px 0 0 0;
+	margin-left: 15px;
+	padding-top: 4px;
 	width: 220px;
-	left: 4%;
 	transition-property: transform;
 	transition: transform 0.3s ease-out;
 }
@@ -74,8 +73,7 @@ header .left:hover::before{
 
 /*------------------Разделы-------------------*/
 header .center {
-	display: none;
-	width: 100%;
+	width: 90%;
 	height: 20px;
 	margin: 9px 0 0 0;
 	padding: 5px 0;
@@ -96,7 +94,6 @@ header .center:hover {
 header .right a *, header .right a {float: right}
 
 header .right {
-	display: none;
 	transform: scale(1);
 	margin: 8px 9px 0 0;
 	padding: 1px 0;
@@ -132,20 +129,20 @@ header .right .avatar {
 #set_icon {
 	z-index: -1;
 	pointer-events: none;
-	transform: scale(0.7);
+	transform: scale(0.6);
 	opacity: 0;
-	height: 29px;
-	width: 29px;
+	height: 36px;
+	width: 36px;
 	position: absolute;
-	top: 1px; right: 2px;
+	top: -2px; right: -1px;
 	transition-property: transform, opacity;
 	transition: 0.3s ease-in;
 }
 
-@media (max-width: 1000px) {  /*Анимация для маленького окна*/
+@media (max-width: 1200px) {  /*Анимация для маленького окна*/
 	header .right:hover #set_icon {
 		z-index: 0;
-		transform: scale(1.1);
+		transform: scale(1);
 		opacity: 70%;
 		transition: 0.3s ease;
 	}
@@ -156,7 +153,7 @@ header .right .avatar {
 	}
 }
 
-@media (min-width: 1001px) { /* Анимации для большого окна*/
+@media (min-width: 1201px) { /* Анимации для большого окна*/
 	header .right:hover {
 		transform: scale(1.05);
 		background: rgba(255, 255, 255, 0.2);
@@ -202,9 +199,26 @@ footer .right {justify-self: right}
 /*--------------------------------------------*/
 
 /*--------------Основной блок-----------------*/
-main {
-	padding: 70px 20px 20px 20px;
-	width: calc(100% - 40px);
-	min-height: calc(100% - 130px);
+#wrapper {
+	z-index: 1;
+	width: 100%;
+	position: absolute;
+	top: 50px;
+	height: calc(100% - 50px);
+	overflow: auto;
 }
+
+main {
+	min-height: calc(100% - 40px);
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+/*--------------------------------------------*/
+
+/*----------Настройка скроллбара--------------*/
+::-webkit-scrollbar{width: 10px}
+::-webkit-scrollbar-button {display: none}
+::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0.2);border-radius: 5px;}
+::-webkit-scrollbar-thumb {border-radius: 5px;}
 /*--------------------------------------------*/
