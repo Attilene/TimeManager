@@ -10,11 +10,12 @@ now.del_user()
 del now
 now = User('Guest', 'best_team@gmail.com', 'День рождения Сталина')
 
+
 # Запросы
 @tm.route('/login', methods=['POST'])
 def login():
     global now
-    now = User(request.get_json())
+    # now = User(request.get_json())
     return jsonify({
         "login": now.log,
         "theme": now.theme[0],
