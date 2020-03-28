@@ -94,6 +94,7 @@ class User(object):
     def change_avatar(self, change):
         User.__cur.execute("UPDATE users SET avatar=? WHERE login=?", (change, self.log))
         User.__conn.commit()
+        User.avatar = change
 
     def del_user(self):
         User.__cur.execute("DELETE FROM users WHERE login=?", (self.log,))
