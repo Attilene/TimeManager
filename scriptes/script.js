@@ -14,15 +14,21 @@ function insert(selector, file_name) {
     });
 }
 
-function get(url, send_data=null) {
+function get(url, current_value=null, send_data=null) {
     // Получение JSON формы с сервера
-    return($.ajax({
-        url: url,
-        type: "POST",
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify(send_data)
-    }))
+
+    $.post()
+
+    // var jq = ($.ajax({
+    //     url: url,
+    //     type: "POST",
+    //     contentType: 'application/json',
+    //     dataType: 'json',
+    //     data: JSON.stringify(send_data),
+    //     success: function (data) {
+    //         current_value = data
+    //     }
+    // }));
 }
 
 function send(url, data) {
@@ -38,10 +44,11 @@ function send(url, data) {
 
 function authorisation(login) {
     // Вход пользователя
-    user_data = get('/login', login);
-    user_data['login'] = login;
+    console.log(get('/login', login))
+    // get('/login', user_data, login);
+    console.log(user_data);
     // Установка имени пользователя
-    // $.('header .right')
+    $('header .right a div').text(user_data['login']);
     // Загрузка аватара
     $.ajax({
         url: `time_manager/images/avatars/${user_data['login']}.jpg`,
@@ -64,7 +71,7 @@ function authorisation(login) {
 // Активаторы
 jQuery(document).ready(function () {
     // Вход тестового пользователя
-    $('header .left').on('click', function () {if ($.isEmptyObject(user_data)) {authorisation('Guest')}});
+    $(document).on('click', 'header .left', function () {if ($.isEmptyObject(user_data)) {authorisation('Guest')}});
     // Выпадание окна профиля
     $(document).on('click', 'main, header .left, header .center, footer', function () {
         const aside = $('body aside');
@@ -80,20 +87,17 @@ jQuery(document).ready(function () {
         console.log(user_data);
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
-        console.log(new_theme, new_color);
         if (new_theme !== user_data['theme']) {
             console.log(new_theme, user_data['theme']);
             $('link#theme_choice').attr('href', `time_manager/styles/themes/${new_theme}.css`);
         }
         if (new_color !== user_data['color']) {$('link#favicon_choice').attr('href', `time_manager/images/favicons/${new_color}.svg`);
             $('link#color_choice').attr('href', `time_manager/styles/colors/${new_color}.css`);
-            console.log(2)
         }
         if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
             send('/change_theme', `${new_theme} ${new_color}`);
             user_data['theme'] = new_theme;
             user_data['color'] = new_color;
-            console.log(3)
         }
     });
 });

@@ -7,8 +7,8 @@ tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБ�
 # Очистка тестового пользователя
 now = User('Guest')
 now.del_user()
-now = User('Guest', 'День рождения Сталина')
-
+del now
+now = User('Guest', 'best_team@gmail.com', 'День рождения Сталина')
 
 # Запросы
 @tm.route('/login', methods=['POST'])
@@ -19,7 +19,7 @@ def login():
         "login": now.log,
         "theme": now.theme[0],
         "color": now.theme[1],
-        "avatar": now.avatar
+        "avatar": now.avatar()
     })
 
 
@@ -41,7 +41,12 @@ def change_theme():
 def logout():
     """Выход пользователя"""
     global now
-    now = False
+    if now.log == 'Guest':
+        now = User('Guest')
+        now.del_user()
+        del now
+        now = User('Guest', 'best_team@gmail.com', 'День рождения Сталина')
+    del now
     return jsonify(success=True)
 
 
@@ -50,7 +55,7 @@ def delete():
     """Удаление учётной записи"""
     global now
     now.del_user()
-    now = False
+    del now
     return jsonify(success=True)
 
 

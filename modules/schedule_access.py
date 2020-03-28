@@ -2,7 +2,7 @@ class User(object):
     import sqlite3
     from werkzeug.security import generate_password_hash, check_password_hash
     if __name__ == "__main__":
-        __conn = sqlite3.connect(f"../databases/schedule.db")
+        __conn = sqlite3.connect(f"../databases/schedule.db", check_same_thread=False)
     else:
         __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
     __gen = generate_password_hash
@@ -11,16 +11,15 @@ class User(object):
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
 
-    def __init__(self, log, email, psw=None):
+    def __init__(self, log, email=None, psw=None):
         User.__authorization = True
-        if inj_check(log) and inj_check(email):
-            self.log = log
-            self.email = email
-        else:
-            self.log = 'Test_user'
-            self.email = 'test@test.ru'
+        self.log = log
         if not User.check_log(self):
+            self.email = email
             User.__add_user(self, psw)
+        else:
+            User.__cur.execute("SELECT email FROM users WHERE login=?", (self.log,))
+            self.email = User.__cur.fetchone()
         User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (self.log,))
         self.theme = User.__cur.fetchone()
         self.lists = User.__ret_list(self)
@@ -71,15 +70,14 @@ class User(object):
         return User.__check(User.__cur.fetchone(), psw)
 
     def change_log(self, log):
-        if inj_check(log):
-            User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
-            User.__cur.executescript(f"""
-                ALTER TABLE month_{self.log} RENAME TO month_{log};
-                ALTER TABLE day_{self.log} RENAME TO day_{log};
-                ALTER TABLE list_{self.log} RENAME TO list_{log}
-            """)
-            User.__conn.commit()
-            self.log = log
+        User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
+        User.__cur.executescript(f"""
+            ALTER TABLE month_{self.log} RENAME TO month_{log};
+            ALTER TABLE day_{self.log} RENAME TO day_{log};
+            ALTER TABLE list_{self.log} RENAME TO list_{log}
+        """)
+        User.__conn.commit()
+        self.log = log
 
     def change_pass(self, psw):
         psw = User.__gen(psw)
@@ -87,19 +85,17 @@ class User(object):
         User.__conn.commit()
 
     def change_email(self, email):
-        if inj_check(email):
-            User.__cur.execute("UPDATE users SET email=? WHERE login=?", (email, self.log))
-            User.__conn.commit()
-            self.email = email
+        User.__cur.execute("UPDATE users SET email=? WHERE login=?", (email, self.log))
+        User.__conn.commit()
+        self.email = email
 
     def change_theme(self, theme):
-        if inj_check(theme[0]) and inj_check(theme[1]):
-            self.theme = theme
-            User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
-            User.__conn.commit()
+        self.theme = theme
+        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
+        User.__conn.commit()
 
-    def change_avatar(self, change):
-        if change is not None:
+    def avatar(self, change=None):
+        if not(change is None):
             User.__cur.execute("UPDATE users SET avatar=? WHERE login=?", (change, self.log))
             User.__conn.commit()
         User.__cur.execute("SELECT (avatar) FROM users WHERE login=?", (self.log,))
@@ -115,13 +111,13 @@ class User(object):
         """)
 
     def add_list(self, name, task):
-        if (name, task) not in self.lists and inj_check(name) and inj_check(task):
+        if (name, task) not in self.lists:
             User.__cur.execute(f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)", (name, task))
             User.__conn.commit()
             self.lists = User.__ret_list(self)
 
     def add_day(self, hour, minute, task):
-        if (hour, minute, task) not in self.day and inj_check(task):
+        if (hour, minute, task) not in self.day:
             User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)",
                                (hour, minute, task))
             User.__conn.commit()
@@ -129,26 +125,26 @@ class User(object):
 
     def add_month(self, digit, month, task):
         month = month.lower()
-        if (digit, month, task) not in self.month and inj_check(task):
+        if (digit, month, task) not in self.month:
             User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)",
                                (digit, month, task))
             User.__conn.commit()
             self.month = User.__ret_month(self)
 
     def del_list(self, name):
-        if (name,) in self.lists and inj_check(name):
+        if (name,) in self.lists:
             User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
             User.__conn.commit()
             self.lists.pop(name)
 
     def del_list_task(self, name, task):
-        if task in self.lists[name] and task != 0 and inj_check(name) and inj_check(task):
+        if task in self.lists[name] and task != 0:
             User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ?", (name, task))
             User.__conn.commit()
             self.lists[name].remove(task)
 
     def del_day(self, hour, minute, task):
-        if (hour, minute, task) in self.day and inj_check(task):
+        if (hour, minute, task) in self.day:
             User.__cur.execute(f"DELETE FROM day_{self.log} WHERE hour = ? AND minute = ? AND task = ?",
                                (hour, minute, task))
             User.__conn.commit()
@@ -156,7 +152,7 @@ class User(object):
 
     def del_month(self, digit, month, task):
         month = month.lower()
-        if (digit, month, task) in self.month and inj_check(task):
+        if (digit, month, task) in self.month:
             User.__cur.execute(f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?",
                                (digit, month, task))
             User.__conn.commit()
