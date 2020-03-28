@@ -44,6 +44,7 @@ header .left {
 	margin-left: 15px;
 	padding-top: 4px;
 	width: 220px;
+	cursor: pointer;
 	transition-property: transform;
 	transition: transform 0.3s ease-out;
 }
@@ -175,6 +176,8 @@ footer {
 	display: inline-grid;
 	grid-template-columns: 1fr 2fr 1fr;
 	min-width: 750px;
+	position: fixed;
+	bottom: 0;
 	width: 100%;
 	height: 40px;
 	overflow: hidden;
@@ -200,26 +203,26 @@ footer .right {justify-self: right}
 
 /*--------------Основной блок-----------------*/
 #wrapper {
-	z-index: 1;
+	height: calc(100% - 90px);
 	width: 100%;
 	position: absolute;
 	top: 50px;
-	height: calc(100% - 50px);
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 main {
-	height: 5000px;
-	min-height: calc(100% - 40px);
 	margin: 0;
 	padding: 0;
+	min-height: 100%;
 	width: 100%;
+	height: 1000px;
 }
 /*--------------------------------------------*/
 
 /*----------Настройка скроллбара--------------*/
-::-webkit-scrollbar{width: 10px}
+::-webkit-scrollbar{width: 10px;}
 ::-webkit-scrollbar-button {display: none}
-::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0.2);border-radius: 5px;}
+::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0)}
 ::-webkit-scrollbar-thumb {border-radius: 5px;}
 /*--------------------------------------------*/

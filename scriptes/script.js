@@ -1,5 +1,6 @@
 var user_logined = false;
-var user_data = {};
+var user_data = {'theme': 'light', 'color': 'blue'};
+var page_data = {'theme': 'light', 'color': 'blue'};
 
 $.ajaxSetup({
     type: 'POST',
@@ -76,7 +77,7 @@ function activators() {
         }
         if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
             console.log(4);
-            send('/change_theme', `${new_theme} ${new_color}`);
+            if (user_logined) {send('/change_theme', `${new_theme} ${new_color}`)};
             user_data['theme'] = new_theme;
             user_data['color'] = new_color;
         }
@@ -87,6 +88,7 @@ function authorisation(login, password) {
     // Вход пользователя
     // Запрос
     user_logined = true;
+    page_data = {...user_data};
     get('/login', [login, password], function (data) {
         user_data = data;
         // Установка имени пользователя
