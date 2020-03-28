@@ -65,18 +65,14 @@ function activators() {
     $(document).on('click', 'aside .theme button', function () {
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
-        console.log(2, user_data['theme'], new_theme, new_theme !== user_data['theme']);
         if (new_theme !== user_data['theme']) {
-            console.log(new_theme, user_data['theme']);
             $('link#theme_choice').attr('href', `time_manager/styles/themes/${new_theme}.css`);
         }
-        console.log(3, user_data['color'], new_color, new_color !== user_data['color']);
         if (new_color !== user_data['color']) {
             $('link#favicon_choice').attr('href', `time_manager/images/favicons/${new_color}.svg`);
             $('link#color_choice').attr('href', `time_manager/styles/colors/${new_color}.css`);
         }
         if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
-            console.log(4);
             if (user_logined) {send('/change_theme', `${new_theme} ${new_color}`)};
             user_data['theme'] = new_theme;
             user_data['color'] = new_color;
