@@ -7,15 +7,17 @@ tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБ�
 User.guest_reset()
 now = None
 
+
 # Запросы
 @tm.route('/login', methods=['POST'])
 def login():
-    now = User(request.get_json())
+    global now
+    now = User(*request.get_json())
     return jsonify({
         "login": now.log,
         "theme": now.theme[0],
         "color": now.theme[1],
-        "avatar": now.avatar()
+        "avatar": now.avatar
     })
 
 

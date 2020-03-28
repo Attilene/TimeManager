@@ -39,60 +39,55 @@ function send(url, data) {
 
 function activators() {
     // Функционал нажатий
-    {
-        jQuery(document).ready(function () {
-            // Вход тестового пользователя
-            $(document).on('click', 'header .left', function () {
-                if (!user_logined) {
-                    authorisation('Guest')
-                }
-            });
-            // Выпадание окна профиля
-            $(document).on('click', 'main, header .left, header .center, footer', function () {
-                const aside = $('body aside');
-                if (aside.hasClass('opened')) {
-                    aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
-                }
-            });
-            $(document).on('click', 'header .right, header #authorisation', function () {
-                const aside = $('body aside');
-                if (aside.hasClass('opened')) {
-                    aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
-                } else {
-                    aside.addClass('opened').fadeIn(0).animate({top: "60px", opacity: 1}, 300)
-                }
-            });
-            // Кнопки изменения цвета
-            $(document).on('click', 'aside .theme button', function () {
-                const new_theme = $(this).attr('class').split(' ')[0];
-                const new_color = $(this).attr('class').split(' ')[1];
-                console.log(2, user_data['theme'], new_theme, new_theme !== user_data['theme']);
-                if (new_theme !== user_data['theme']) {
-                    console.log(new_theme, user_data['theme']);
-                    $('link#theme_choice').attr('href', `time_manager/styles/themes/${new_theme}.css`);
-                }
-                console.log(3, user_data['color'], new_color, new_color !== user_data['color']);
-                if (new_color !== user_data['color']) {
-                    $('link#favicon_choice').attr('href', `time_manager/images/favicons/${new_color}.svg`);
-                    $('link#color_choice').attr('href', `time_manager/styles/colors/${new_color}.css`);
-                }
-                if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
-                    console.log(4);
-                    send('/change_theme', `${new_theme} ${new_color}`);
-                    user_data['theme'] = new_theme;
-                    user_data['color'] = new_color;
-                }
-            });
-        })
-    }
+    // Вход тестового пользователя
+    $(document).on('click', 'header .left', function () {
+        if (!user_logined) {
+            authorisation('Guest', 'Год рождения Сталина')
+        }
+    });
+    // Выпадание окна профиля
+    $(document).on('click', 'main, header .left, header .center, footer', function () {
+        const aside = $('body aside');
+        if (aside.hasClass('opened')) {
+            aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
+        }
+    });
+    $(document).on('click', 'header .right, header #authorisation', function () {
+        const aside = $('body aside');
+        if (aside.hasClass('opened')) {
+            aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
+        } else {
+            aside.addClass('opened').fadeIn(0).animate({top: "60px", opacity: 1}, 300)
+        }
+    });
+    // Кнопки изменения цвета
+    $(document).on('click', 'aside .theme button', function () {
+        const new_theme = $(this).attr('class').split(' ')[0];
+        const new_color = $(this).attr('class').split(' ')[1];
+        console.log(2, user_data['theme'], new_theme, new_theme !== user_data['theme']);
+        if (new_theme !== user_data['theme']) {
+            console.log(new_theme, user_data['theme']);
+            $('link#theme_choice').attr('href', `time_manager/styles/themes/${new_theme}.css`);
+        }
+        console.log(3, user_data['color'], new_color, new_color !== user_data['color']);
+        if (new_color !== user_data['color']) {
+            $('link#favicon_choice').attr('href', `time_manager/images/favicons/${new_color}.svg`);
+            $('link#color_choice').attr('href', `time_manager/styles/colors/${new_color}.css`);
+        }
+        if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
+            console.log(4);
+            send('/change_theme', `${new_theme} ${new_color}`);
+            user_data['theme'] = new_theme;
+            user_data['color'] = new_color;
+        }
+    });
 }
 
-function authorisation(login) {
-
+function authorisation(login, password) {
     // Вход пользователя
-    // Запрос данных
+    // Запрос
     user_logined = true;
-    get('/login', login, function (data) {
+    get('/login', [login, password], function (data) {
         user_data = data;
         // Установка имени пользователя
         $('header .right a div').text(user_data['login']);
