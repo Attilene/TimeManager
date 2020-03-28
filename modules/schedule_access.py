@@ -6,12 +6,13 @@ class User(object):
     else:
         __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
     __gen = generate_password_hash
-    __check = check_password_hash
+    __check_psw = check_password_hash
     __cur = __conn.cursor()
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
 
-    def __init__(self, log, email=None, psw=None):
+    def __init__(self, log, psw, email=None):
+        assert email is None and not(User.check_all(log, psw)), 'Неверный пароль'
         User.__authorization = True
         self.log = log
         if not User.check_log(self):
@@ -65,9 +66,6 @@ class User(object):
         User.__cur.execute("SELECT (login) FROM users WHERE login=?", (self.log,))
         return User.__cur.fetchone() is not None
 
-    def check_all(self, psw):
-        User.__cur.execute("SELECT (psw) FROM users WHERE login=?", (self.log,))
-        return User.__check(User.__cur.fetchone(), psw)
 
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
@@ -159,6 +157,11 @@ class User(object):
             self.month.remove((digit, month, task))
 
     @staticmethod
+    def check_all(log, psw):
+        User.__cur.execute("SELECT (psw) FROM users WHERE login=?", (log,))
+        return User.__check_psw(User.__cur.fetchone(), psw)
+
+    @staticmethod
     def _erase():
         """Стирание всех пользователей"""
         User.__cur.execute("SELECT login FROM users")
@@ -181,11 +184,18 @@ def inj_check(req):
             return False
     return True
 
+
 # Создание таблицы-----------------------------------------------------------------------------------------
 # __cur.execute("""CREATE TABLE IF NOT EXISTS users
 #                   (login VARCHAR(200), psw VARCHAR(200),
 #                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN)""")
 # -----------------------------------------------------------------------------------------------------------
+
+now = User('Guest', 'Год рождения Сталина')
+now.del_user()
+del now
+now = User('Guest', 'dff', 'Год рождения Сталина')
+print(User.check_all('Guest', 'Год рождения Сталина'))
 # Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'T1MON@yandex.ru', 'kdfjdkffj')
 # now_user2 = User("T1MON", 'asdfss') now_user1 = User("TKACH", 'sfdsd') print(
