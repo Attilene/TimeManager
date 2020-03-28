@@ -4,18 +4,13 @@ tm = Flask(__name__, template_folder="../templates", static_folder="../../time_m
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
 
-# Очистка тестового пользователя
-now = User('Guest')
-now.del_user()
-del now
-now = User('Guest', 'best_team@gmail.com', 'День рождения Сталина')
-
+User.guest_reset()
+now = None
 
 # Запросы
 @tm.route('/login', methods=['POST'])
 def login():
-    global now
-    # now = User(request.get_json())
+    now = User(request.get_json())
     return jsonify({
         "login": now.log,
         "theme": now.theme[0],
@@ -83,7 +78,7 @@ def page_month():
 
 @tm.route('/about')
 def page_about():
-    return render_template("about.html", log=now.log, theme=now.theme)
+    return render_template("about.html")
 
 
 

@@ -209,6 +209,7 @@ footer .right {justify-self: right}
 }
 
 main {
+	height: 5000px;
 	min-height: calc(100% - 40px);
 	margin: 0;
 	padding: 0;
