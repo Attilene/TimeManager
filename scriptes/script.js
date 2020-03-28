@@ -11,6 +11,15 @@ $.ajaxSetup({
   }
 });
 
+function change_theme(theme) {
+    $('link#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
+}
+
+function change_color(color) {
+    $('link#favicon_choice').attr('href', `time_manager/images/favicons/${color}.svg`);
+    $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
+}
+
 function insert(selector, file_name) {
     // Получение HTML шаблона
     $.ajax({
@@ -65,15 +74,10 @@ function activators() {
     $(document).on('click', 'aside .theme button', function () {
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
-        if (new_theme !== user_data['theme']) {
-            $('link#theme_choice').attr('href', `time_manager/styles/themes/${new_theme}.css`);
-        }
-        if (new_color !== user_data['color']) {
-            $('link#favicon_choice').attr('href', `time_manager/images/favicons/${new_color}.svg`);
-            $('link#color_choice').attr('href', `time_manager/styles/colors/${new_color}.css`);
-        }
+        if (new_theme !== user_data['theme']) {change_theme(new_theme)}
+        if (new_color !== user_data['color']) {change_color(new_color)}
         if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
-            if (user_logined) {send('/change_theme', `${new_theme} ${new_color}`)};
+            if (user_logined) {send('/change_theme', `${new_theme} ${new_color}`)}
             user_data['theme'] = new_theme;
             user_data['color'] = new_color;
         }
@@ -87,6 +91,9 @@ function authorisation(login, password) {
     page_data = {...user_data};
     get('/login', [login, password], function (data) {
         user_data = data;
+        // Установка пользовательской темы
+        if (user_data['theme'] !== page_data['theme']) {change_theme(user_data['theme'])}
+        if (user_data['color'] !== page_data['color']) {change_color(user_data['color'])}
         // Установка имени пользователя
         $('header .right a div').text(user_data['login']);
         // Загрузка аватара
