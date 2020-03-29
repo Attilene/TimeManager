@@ -8,13 +8,16 @@ $.ajaxSetup({
   }
 });
 
-function insert(selector, file_name) {
+function insert_page(selector, file_name, func=null) {
     // Получение HTML шаблона
     $.ajax({
         url: '/get_page',
         dataType: 'html',
         data: `"${file_name}"`,
-        success: function (data) {$(selector).html(data)}
+        success: function (data) {
+            if (func !== null) {$(selector).html(func)}
+            else {$(selector).html(data)}
+        }
     });
 }
 
