@@ -1,3 +1,14 @@
+function change_theme(theme) {
+    // Смена темы на сервере
+    $('link#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
+}
+
+function change_color(color) {
+    // Смена цвета на сервере
+    $('link#favicon_choice').attr('href', `time_manager/images/favicons/${color}.svg`);
+    $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
+}
+
 function actions() {
     // Функционал нажатий
     // Вход тестового пользователя
@@ -7,12 +18,14 @@ function actions() {
         }
     });
     // Выпадание окна профиля
+    // Сворачивание при клике в другой зоне
     $(document).on('click', 'main, header .left, header .center, footer', function () {
         const aside = $('body aside');
         if (aside.hasClass('opened')) {
             aside.removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
         }
     });
+    // Переключатель сворачивания
     $(document).on('click', 'header .right, header #authorisation', function () {
         const aside = $('body aside');
         if (aside.hasClass('opened')) {

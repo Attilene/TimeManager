@@ -1,4 +1,3 @@
-
 function authorisation(login, password) {
     // Вход пользователя
     // Запрос

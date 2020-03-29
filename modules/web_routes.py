@@ -3,6 +3,7 @@ from schedule_access import *
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
+tm.config['TEMPLATES_AUTO_RELOAD'] = False
 
 User.guest_reset()
 now = None

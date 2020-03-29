@@ -8,17 +8,6 @@ $.ajaxSetup({
   }
 });
 
-function change_theme(theme) {
-    // Смена темы на сервере
-    $('link#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
-}
-
-function change_color(color) {
-    // Смена цвета на сервере
-    $('link#favicon_choice').attr('href', `time_manager/images/favicons/${color}.svg`);
-    $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
-}
-
 function insert(selector, file_name) {
     // Получение HTML шаблона
     $.ajax({
