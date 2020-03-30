@@ -1,0 +1,99 @@
+#developers p, #developers h2, #developers h3 {text-align: center; transition: 0.3s ease-out}
+#developers p:hover, #developers h2:hover, #developers h3:hover {transform: scale(1.1); transition: 0.2s ease}
+
+#developers {
+    display: grid;
+    grid-template-rows: calc(30px + 10%) auto;
+    margin: 5vh auto;
+    border-radius: 20px;
+    width: 70%; min-width: 750px;
+    height: 70vh; min-height:400px;
+    overflow: hidden;
+}
+
+#developers div.name {
+    width: 100%;
+    position: relative;
+    top: calc(50% - 45px);
+}
+#developers hr.main_line {border-radius: 2px; width: 350px; margin-top: -8px}
+#dev_list span hr {border-radius: 2px; width: 60%}
+
+#dev_list {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: 10% calc(60px + 20%) auto;
+    width: 100%;
+}
+
+#dev_list h3 {
+    margin: 0;
+}
+
+#dev_list img {
+    height: calc(4vw + 8vh); min-height: 120px;
+    border-radius: 100px;
+    justify-self: center;
+    transition: 0.3s ease-out;
+}
+
+#dev_list img:hover {
+    border-radius: calc(1.5vw + 2vh);
+    transform: scale(1.1);
+    transition: 0.2s ease;
+}
+
+/*
+#developers img {
+    margin: 15px;
+    margin-bottom: 0px;
+	overflow: hidden;
+	width: 80px;
+	min-height: 80px;
+	border-radius: 50px;
+	transition-property: transform, filter;
+	transition: 0.3s ease-out;
+}
+
+#developers img:hover {
+    transform: scale(1.1);
+    border-radius: 30px;
+    transition: 0.2s ease;
+}*/
+/*
+#developers h2 {
+    text-align: center;
+    transition: 0.3s ease-out
+}
+
+#developers h2:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+
+#developers img {
+    margin: 15px;
+    margin-bottom: 0px;
+	overflow: hidden;
+	width: 80px;
+	min-height: 80px;
+	border-radius: 50px;
+	transition-property: transform, filter;
+	transition: 0.3s ease-out;
+}
+
+#developers img:hover {
+    transform: scale(1.1);
+    border-radius: 30px;
+    transition: 0.2s ease;
+}
+
+#developers hr.main_line {
+    position: relative;
+    bottom: 5px;
+    width: 350px;
+    border-radius: 2px;
+}
+*/

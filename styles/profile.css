@@ -134,6 +134,7 @@ aside menu button {
     height: 24px;
     background: none;
     border-radius: 15px;
+    cursor: pointer;
     transition: 0.2s ease-out;
 }
 

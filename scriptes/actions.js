@@ -11,7 +11,7 @@ function change_color(color) {
 
 function toggle_menu(click, menu) {
     // Сворачивание при клике в другой зоне
-    $(document).on('click', `main, header .left, header .center, footer`, function () {
+    $(document).on('click', 'main, header .left, header .center, footer', function () {
         if ($(menu).hasClass('opened')) {
             $(menu).removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
         }
@@ -67,6 +67,21 @@ function authorisation(login, password) {
     })
 }
 
+function page_on(click, page) {
+    $(document).ready(function () {
+        $(document).on('click', click, function() {
+            $('main').css({display: 'block', transition: 'none'}).animate({top: '20px', opacity: 0}, 100, 'linear');
+            insert_page('main', page);
+            $('main').animate({bottom: 0, opacity: 1}, 0);
+        })
+    })
+}
+
+function connect_pages() {
+
+    page_on('footer .right', 'about')
+}
+
 function actions() {
     // Функционал нажатий
     // Вход тестового пользователя
@@ -75,8 +90,6 @@ function actions() {
             authorisation('Guest', 'Год рождения Сталина')
         }
     });
-
-
     // Кнопки изменения цвета
     $(document).on('click', 'aside .theme button', function () {
         const new_theme = $(this).attr('class').split(' ')[0];
