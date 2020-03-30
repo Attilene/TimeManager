@@ -33,14 +33,14 @@
 }
 
 #dev_list img {
-    height: calc(4vw + 8vh); min-height: 120px;
+    height: 20%; min-height: 120px;
     border-radius: 100px;
     justify-self: center;
     transition: 0.3s ease-out;
 }
 
 #dev_list img:hover {
-    border-radius: calc(1.5vw + 2vh);
+    border-radius: 10%;
     transform: scale(1.1);
     transition: 0.2s ease;
 }
