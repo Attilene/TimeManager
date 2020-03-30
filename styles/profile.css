@@ -134,7 +134,7 @@ aside menu button {
     height: 24px;
     background: none;
     border-radius: 15px;
-    transition: 0.2s;
+    transition: 0.2s ease-out;
 }
 
 aside menu div.theme:hover button {transform: scale(1); opacity:1; transition: 0.2s ease-out}
@@ -150,3 +150,5 @@ aside button.white {border: 12px solid #fff; left: 195px;}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/
+
+aside menu div.theme button:active {transform: scale(0.6); transition: 0.2s ease} /*Эффект нажатий*/

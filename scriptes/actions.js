@@ -11,7 +11,7 @@ function change_color(color) {
 
 function toggle_menu(click, menu) {
     // Сворачивание при клике в другой зоне
-    $(document).on('click', 'main, header .left, header .center, footer', function () {
+    $(document).on('click', `main, header .left, header .center, footer`, function () {
         if ($(menu).hasClass('opened')) {
             $(menu).removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
         }
@@ -61,7 +61,7 @@ function authorisation(login, password) {
         $('#authorisation').animate({top: '10px', opacity: 0}, 0).fadeOut(0);
         // Замена меню
         $('aside').detach();
-        $('header').after('<aside class="logout"></aside>');
+        $('header').after("<aside></aside>");
         insert_page('aside', "profile");
         toggle_menu('header .right', 'aside')
     })

@@ -7,7 +7,7 @@ header.logout {
 header.logout .center, header.logout .right {display: none}
 header.logout #authorisation {display: block;}
 
-header #authorisation span{
+#authorisation span{
 	text-align: center;
 	position: absolute;
 	top: 10px;
@@ -20,18 +20,20 @@ header #authorisation span{
 	transition:  0.3s ease-out;
 }
 
-header #authorisation span:hover {
+#authorisation span:hover {
 		transform: scale(1.1);
 		background: rgba(255, 255, 255, 0.2);
 		transition: 0.2s ease;
 	}
 
-header #authorisation span#login {
+#authorisation span#login {
 	right: calc(145px + 4%);
 	width: calc(45px + 3%);
 }
 
-header #authorisation span#register {
+#authorisation span#register {
 	right: 20px;
 	width: calc(110px + 3%);
 }
+
+#authorisation span:active {transform: scale(0.9); transition: 0.2s ease}

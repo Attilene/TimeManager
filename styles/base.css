@@ -80,6 +80,7 @@ header .center {
 	padding: 5px 0;
 	border-radius: 20px;
 	text-align: center;
+	cursor: pointer;
 	transition-property: transform, background;
 	transition: 0.3s ease-out;
 }
@@ -218,6 +219,9 @@ main {
 	width: 100%;
 }
 /*--------------------------------------------*/
+
+header .left:active, header .center:active, header .right:active, footer span:active {
+	transform: scale(0.9); transition: 0.2s ease} /*Эффект нажатий*/
 
 /*----------Настройка скроллбара--------------*/
 ::-webkit-scrollbar{width: 10px;}
