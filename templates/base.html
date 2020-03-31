@@ -26,9 +26,9 @@
         <span class="left">
             <a>Time Manager</a>
         </span>
-        <a class="center">Списки</a>
-        <a class="center">Расписание</a>
-        <a class="center">Дедлайны</a>
+        <a class="center" id="button_lists">Списки</a>
+        <a class="center" id="button_day">Расписание</a>
+        <a class="center" id="button_month">Дедлайны</a>
         <span class="right">
             <a>
                 <img class="avatar" src="time_manager/images/avatars/default.jpg">
@@ -47,16 +47,17 @@
     <aside id="register_menu">{% include 'menu/register.html' %}</aside>
 
     <div id="wrapper">
-        <main class="page_help">{% include 'help.html' %}</main>
-        <main class="page_day"></main>
-        <main class="page_month"></main>
-        <main class="page_about"></main>
+        <main id="page_help" class="opened">{% include 'help.html' %}</main>
+        <main id="page_lists"><div style="background: red; width: 500px; height: 500px; "></div></main>
+        <main id="page_day"><div style="background: #00ff13; width: 500px; height: 500px; "></div></main>
+        <main id="page_month"><div style="background: #ff00b5; width: 500px; height: 500px; "></div></main>
+        <main id="page_about">{% include 'about.html' %}</main>
     </div>
 
     <footer>
         <span class="left" title="Союз Советских Социалистических Рептилоидов">Проект СССР</span>
         <span class="center" title="Ну сказал же, что не защищены, ну чего ты ещё добиваешься?!">Все права защищены(нет) &copy; 2020 г.</span>
-        <span class="right" title="Установили Касперский и не паримся насчёт короновируса"><a>Разработчики</a></span>
+        <span class="right" id="button_about" title="Установили Касперский и не паримся насчёт короновируса"><a>Разработчики</a></span>
     </footer>
 </body>
 </html>

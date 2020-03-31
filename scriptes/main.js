@@ -20,8 +20,9 @@ jQuery(document).ready(function () {
         if ($('aside').hasClass('opened')) {$('aside.opened').removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)}
     });
     // Отключение анимации при перезагрузке
-    $('body').attr('id', 'preload');
-    setTimeout(function () {$('#preload').removeAttr('id')}, 100);
+    $('body').addClass('preload');
+    setTimeout(function () {$('body').removeClass('preload')}, 10);
     // Подключение кнопок
-    actions();
+    connect_actions();
+    connect_pages();
 });

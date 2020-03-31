@@ -37,9 +37,7 @@ function authorisation(login, password) {
             'theme': page_data['theme'],
             'color': page_data['color'],
             'avatar': data['avatar']
-            };
-            change_theme(user_data['theme']);
-            change_color(user_data['color']);
+            }
         }
         else {
             user_data = data;
@@ -68,19 +66,26 @@ function authorisation(login, password) {
     })
 }
 
-function change_page(click, page) {
+function connect_pages() {
     // Смена страницы
     $(document).ready(function () {
-        $(document).on('click', click, function() {
+        $(document).on('click', 'header .center, footer .right', function() {
+            var page = $(this).attr('id').slice(7);
             if (page !== now_page) {
-                $('main.now_page').animate({top:'20px', opacity:0}).fadeOut(0).removeClass('now_page');
-                $(`main.page${page}`).fadeIn(0).addClass('now_page');
+                $(`main#page_${page}`).css({overflow: 'hidden'});
+                $(`main#page_${now_page}`).addClass('closed');
+                setTimeout(function () {
+                    $(`main#page_${now_page}`).removeAttr('class style');
+                    now_page = page;
+                    $('#wrapper').css({overflow: ''});
+                }, 300);
+                $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             }
         })
     })
 }
 
-function actions() {
+function connect_actions() {
     // Функционал нажатий
     // Вход тестового пользователя
     $(document).on('click', 'header .left', function () {
