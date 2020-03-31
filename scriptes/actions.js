@@ -70,9 +70,11 @@ function connect_pages() {
     // Смена страницы
     $(document).ready(function () {
         $(document).on('click', 'header .center, footer .right', function() {
-            var page = $(this).attr('id').slice(7);
+            const page = $(this).attr('id').slice(7);
             if (page !== now_page) {
-                $(`main#page_${now_page}`).addClass('closed');
+                const temp = now_page;
+                now_page = page;
+                $(`main#page_${temp}`).addClass('closed');
                 setTimeout(function () {
                     $(`main#page_${now_page}`).removeAttr('class style');
                     now_page = page;
