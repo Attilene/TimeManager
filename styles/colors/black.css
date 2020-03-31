@@ -1,4 +1,4 @@
-header, footer, aside, div.name, #dev_list {background: #000; transition: background 0.5s}
+header, footer, aside, #dev_head, .card_head, .card {background: #000; transition: background 0.5s}
 aside menu div.theme {border: 20px solid #000}
 aside menu div.theme:hover {border: 3px solid #000}
 

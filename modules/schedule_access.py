@@ -69,7 +69,6 @@ class User(object):
             CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
         """)
 
-
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
         User.__conn.commit()

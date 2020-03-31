@@ -1,25 +1,45 @@
 #developers {
+    margin: 5vh auto;
     height: max-content;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 5%;
-    grid-template-rows: 20% 10% 70%;
+    grid-template-rows: 15% 15% 70%;
 }
 
-@media (min-width: 1500px) {#developers {width: 60%; margin: auto;}}
-@media (min-width: 1000px) and (max-width: 1500px) {#developers {width: 80%; margin: auto;}}
+@media (min-width: 1500px) {#developers {width: 60%; margin: auto}}
+@media (min-width: 1000px) and (max-width: 1500px) {#developers {width: 80%; margin: auto}}
 @media (max-width: 1000px) {#developers {width: 100%; margin:0}}
+
+#developers .card hr {border-radius: 2px; width: 90%}
 
 #dev_head {
     grid-column: 1/6;
+    border-radius: 20px;
+    justify-self: center;
+    padding: 0 10px;
 }
 
-#developers .card, #developers .card_head {justify-self: center}
+#developers .card p, #developers .card, #developers .card_head {
+    text-align: center;
+    border-radius: 20px;
+    padding: 0 5px;
+}
 
 
+#developers img {
+    margin: 15px;
+    width: 100px;
+    border-radius: 50px;
+    justify-self: center;
+    transition: 0.3s ease-out;
+}
 
-
-#developers img {width: 100px}
+#developers img:hover {
+    border-radius: 10%;
+    transform: scale(1.1);
+    transition: 0.2s ease;
+}
 /*#developers p, #developers h2, #developers h3 {text-align: center; transition: 0.3s ease-out}*/
 /*#developers p:hover, #developers h2:hover, #developers h3:hover {transform: scale(1.1); transition: 0.2s ease}*/
 
