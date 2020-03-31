@@ -1,4 +1,4 @@
-header, footer, aside , #developers{background: #fff; transition: background 0.5s}
+header, footer, aside , div.name, #dev_list {background: #fff; transition: background 0.5s}
 aside menu div.theme {border: 20px solid #fff}
 aside menu div.theme:hover {border: 3px solid #fff}
 
