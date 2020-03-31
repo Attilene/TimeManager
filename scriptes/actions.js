@@ -72,12 +72,10 @@ function connect_pages() {
         $(document).on('click', 'header .center, footer .right', function() {
             var page = $(this).attr('id').slice(7);
             if (page !== now_page) {
-                $(`main#page_${page}`).css({overflow: 'hidden'});
                 $(`main#page_${now_page}`).addClass('closed');
                 setTimeout(function () {
                     $(`main#page_${now_page}`).removeAttr('class style');
                     now_page = page;
-                    $('#wrapper').css({overflow: ''});
                 }, 300);
                 $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             }
