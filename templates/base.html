@@ -42,8 +42,15 @@
         </span>
     </header>
 
+    <aside id="profile_menu">{% include 'menu/profile.html' %}</aside>
+    <aside id="login_menu">{% include 'menu/login.html' %}</aside>
+    <aside id="register_menu">{% include 'menu/register.html' %}</aside>
+
     <div id="wrapper">
-    <main></main>
+        <main class="page_help">{% include 'help.html' %}</main>
+        <main class="page_day"></main>
+        <main class="page_month"></main>
+        <main class="page_about"></main>
     </div>
 
     <footer>

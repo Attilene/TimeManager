@@ -31,16 +31,21 @@ function authorisation(login, password) {
     user_logined = true;
     page_data = {...user_data};
     get('/login', [login, password], function (data) {
+        // Синхронизация данных
         if (data['login'] === 'Guest') {user_data = {
             'login': data['login'],
             'theme': page_data['theme'],
             'color': page_data['color'],
             'avatar': data['avatar']
-        }}
-        else {user_data = data}
-        // Установка пользовательской темы
-        if (user_data['theme'] !== page_data['theme']) {change_theme(user_data['theme'])}
-        if (user_data['color'] !== page_data['color']) {change_color(user_data['color'])}
+            };
+            change_theme(user_data['theme']);
+            change_color(user_data['color']);
+        }
+        else {
+            user_data = data;
+            if (user_data['theme'] !== page_data['theme']) {change_theme(user_data['theme'])}
+            if (user_data['color'] !== page_data['color']) {change_color(user_data['color'])}
+        }
         // Установка имени пользователя
         $('header .right a div').text(user_data['login']);
         // Загрузка аватара
@@ -56,30 +61,23 @@ function authorisation(login, password) {
         $('header').removeClass('logout');
         $('#authorisation').css({display: 'block', transition: 'none'}).animate({top: '20px', opacity: 0}, 100, 'linear').fadeOut(0);
         $('header .center, header .right').css({position: 'relative', bottom: '10px', opacity: 0});
-        $('header .center').fadeIn(0).animate({bottom: 0, opacity: 1}, 0);
-        $('header .right').fadeIn(0).animate({bottom: 0, opacity: 1}, 0);
+        $('header .center, header .right').fadeIn(0).animate({bottom: 0, opacity: 1}, 0);
         $('#authorisation').animate({top: '10px', opacity: 0}, 0).fadeOut(0);
         // Замена меню
-        $('aside').detach();
-        $('header').after("<aside></aside>");
-        insert_page('aside', "profile");
-        toggle_menu('header .right', 'aside')
+        toggle_menu('header .right', 'aside#profile_menu')
     })
 }
 
-function page_on(click, page) {
+function change_page(click, page) {
+    // Смена страницы
     $(document).ready(function () {
         $(document).on('click', click, function() {
-            $('main').css({display: 'block', transition: 'none'}).animate({top: '20px', opacity: 0}, 100, 'linear');
-            insert_page('main', page);
-            $('main').animate({bottom: 0, opacity: 1}, 0);
+            if (page !== now_page) {
+                $('main.now_page').animate({top:'20px', opacity:0}).fadeOut(0).removeClass('now_page');
+                $(`main.page${page}`).fadeIn(0).addClass('now_page');
+            }
         })
     })
-}
-
-function connect_pages() {
-
-    page_on('footer .right', 'about')
 }
 
 function actions() {
@@ -97,10 +95,9 @@ function actions() {
         if (new_theme !== user_data['theme']) {change_theme(new_theme)}
         if (new_color !== user_data['color']) {change_color(new_color)}
         if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
-            if (user_logined) {if (user_data['login'] !== 'Guest')
+            if (user_logined)
             {send('/change_theme', `${new_theme} ${new_color}`)}}
-            user_data['theme'] = new_theme;
-            user_data['color'] = new_color;
-        }
+        user_data['theme'] = new_theme;
+        user_data['color'] = new_color;
     });
 }

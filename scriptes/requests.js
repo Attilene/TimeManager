@@ -15,9 +15,6 @@ function insert_page(selector, file_name, func=null) {
         dataType: 'html',
         data: `"${file_name}"`,
         success: function (data) {
-            console.log(data);
-            console.log(selector);
-            console.log(file_name);
             if (func !== null) {$(selector).html(func)}
             else {$(selector).html(data)}
         }
