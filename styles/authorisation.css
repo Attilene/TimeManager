@@ -26,12 +26,12 @@ header.logout #authorisation {display: block;}
 		transition: 0.2s ease;
 	}
 
-#authorisation span#login {
+#authorisation span#button_login {
 	right: calc(145px + 4%);
 	width: calc(45px + 3%);
 }
 
-#authorisation span#register {
+#authorisation span#button_register {
 	right: 20px;
 	width: calc(110px + 3%);
 }

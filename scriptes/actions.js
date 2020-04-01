@@ -9,21 +9,71 @@ function change_color(color) {
     $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
 }
 
-function toggle_menu(click, menu) {
+function toggle_menu() {
     // Сворачивание при клике в другой зоне
     $(document).on('click', 'main, header .left, header .center, footer', function () {
-        if ($(menu).hasClass('opened')) {
-            $(menu).removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
+        if ($('aside').hasClass('opened')) {
+            $('aside.opened').addClass('closed');
+            setTimeout(function () {$('aside.closed').removeAttr('class style')}, 100);
         }
     });
-    // Переключатель сворачивания
-    $(document).on('click', click, function () {
-        if ($(menu).hasClass('opened')) {
-            $(menu).removeClass('opened').animate({top: "50px", opacity: 0}, 200).fadeOut(0)
-        } else {
-            $(menu).addClass('opened').fadeIn(0).animate({top: "60px", opacity: 1}, 300)
+    // Показ и скрытие меню
+    $(document).on('click', 'header .right, #authorisation span', function () {
+        const menu = '#' + $(this).attr('id').slice(7) + '_menu';
+        if ($('aside').hasClass('opened')) {
+            if ($(menu).hasClass('opened')) {
+                $(menu).addClass('closed');
+                setTimeout(function () {$(menu).removeAttr('class style')}, 100)
+            }
+            else {
+                const temp = 'aside#' + $('aside.opened').attr('id');
+                $(temp).addClass('closed');
+                setTimeout(function () {
+                    $(temp).removeAttr('class style');
+                    $(menu).fadeIn(0, function () {$(this).addClass('opened')})
+                }, 100)
+            }
         }
-    })}
+        else {$(menu).fadeIn(0, function () {$(this).addClass('opened')})}
+    })
+
+}
+
+function connect_pages() {
+    // Смена страницы
+    $(document).on('click', 'header .center, footer .right', function() {
+        const page = $(this).attr('id').slice(7);
+        if (page !== now_page) {
+            const temp = now_page;
+            now_page = page;
+            $(`main#page_${temp}`).addClass('closed');
+            setTimeout(function () {$('main.closed').removeAttr('class style')}, 100);
+            $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
+        }
+    })
+}
+
+function connect_actions() {
+    // Функционал нажатий
+    // Вход тестового пользователя
+    $(document).on('click', 'header .left', function () {
+        if (!user_logined) {
+            authorisation('Guest', 'Год рождения Сталина')
+        }
+    });
+    // Кнопки изменения цвета
+    $(document).on('click', 'aside .theme button', function () {
+        const new_theme = $(this).attr('class').split(' ')[0];
+        const new_color = $(this).attr('class').split(' ')[1];
+        if (new_theme !== user_data['theme']) {change_theme(new_theme)}
+        if (new_color !== user_data['color']) {change_color(new_color)}
+        if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
+            if (user_logined)
+            {send('/change_theme', `${new_theme} ${new_color}`)}}
+        user_data['theme'] = new_theme;
+        user_data['color'] = new_color;
+    });
+}
 
 function authorisation(login, password) {
     // Вход пользователя
@@ -61,48 +111,6 @@ function authorisation(login, password) {
         $('header .center, header .right').css({position: 'relative', bottom: '10px', opacity: 0});
         $('header .center, header .right').fadeIn(0).animate({bottom: 0, opacity: 1}, 0);
         $('#authorisation').animate({top: '10px', opacity: 0}, 0).fadeOut(0);
-        // Замена меню
-        toggle_menu('header .right', 'aside#profile_menu')
     })
 }
 
-function connect_pages() {
-    // Смена страницы
-    $(document).ready(function () {
-        $(document).on('click', 'header .center, footer .right', function() {
-            const page = $(this).attr('id').slice(7);
-            if (page !== now_page) {
-                const temp = now_page;
-                now_page = page;
-                $(`main#page_${temp}`).addClass('closed');
-                setTimeout(function () {
-                    $(`main#page_${now_page}`).removeAttr('class style');
-                    now_page = page;
-                }, 300);
-                $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
-            }
-        })
-    })
-}
-
-function connect_actions() {
-    // Функционал нажатий
-    // Вход тестового пользователя
-    $(document).on('click', 'header .left', function () {
-        if (!user_logined) {
-            authorisation('Guest', 'Год рождения Сталина')
-        }
-    });
-    // Кнопки изменения цвета
-    $(document).on('click', 'aside .theme button', function () {
-        const new_theme = $(this).attr('class').split(' ')[0];
-        const new_color = $(this).attr('class').split(' ')[1];
-        if (new_theme !== user_data['theme']) {change_theme(new_theme)}
-        if (new_color !== user_data['color']) {change_color(new_color)}
-        if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
-            if (user_logined)
-            {send('/change_theme', `${new_theme} ${new_color}`)}}
-        user_data['theme'] = new_theme;
-        user_data['color'] = new_color;
-    });
-}

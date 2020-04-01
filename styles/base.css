@@ -236,7 +236,7 @@ main.opened {
 	opacity: 1;
 	top: 0;
 	transition-property: top, opacity;
-	transition: 0.2s ease-in;
+	transition: 0.2s ease;
 }
 
 main.closed {
@@ -244,7 +244,7 @@ main.closed {
 	opacity: 0;
 	top: 20px;
 	transition-property: top, opacity;
-	transition: 0.2s ease-out;
+	transition: 0.1s ease-out;
 }
 /*--------------------------------------------*/
 
