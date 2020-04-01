@@ -14,7 +14,8 @@ function toggle_menu() {
     $(document).on('click', 'main, header .left, header .center, footer', function () {
         if ($('aside').hasClass('opened')) {
             $('aside.opened').addClass('closed');
-            setTimeout(function () {$('aside.closed').removeAttr('class style')}, 100);
+            const close_time = parseFloat($('aside.closed').css("transition-duration").slice(0, -1)) * 1000;
+            setTimeout(function () {$('aside.closed').removeAttr('class style')}, close_time);
         }
     });
     // Показ и скрытие меню
@@ -23,15 +24,17 @@ function toggle_menu() {
         if ($('aside').hasClass('opened')) {
             if ($(menu).hasClass('opened')) {
                 $(menu).addClass('closed');
-                setTimeout(function () {$(menu).removeAttr('class style')}, 100)
+                const close_time = parseFloat($(menu).css("transition-duration").slice(0, -1)) * 1000;
+                setTimeout(function () {$(menu).removeAttr('class style')}, close_time)
             }
             else {
                 const temp = 'aside#' + $('aside.opened').attr('id');
                 $(temp).addClass('closed');
+                const close_time = parseFloat($(temp).css("transition-duration").slice(0, -1)) * 1000;
                 setTimeout(function () {
                     $(temp).removeAttr('class style');
                     $(menu).fadeIn(0, function () {$(this).addClass('opened')})
-                }, 100)
+                }, close_time)
             }
         }
         else {$(menu).fadeIn(0, function () {$(this).addClass('opened')})}
@@ -47,7 +50,8 @@ function connect_pages() {
             const temp = now_page;
             now_page = page;
             $(`main#page_${temp}`).addClass('closed');
-            setTimeout(function () {$('main.closed').removeAttr('class style')}, 100);
+            const close_time = parseFloat($('main.closed').css("transition-duration").slice(0, -1)) * 1000;
+            setTimeout(function () {$('main.closed').removeAttr('class style')}, close_time);
             $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
         }
     })
