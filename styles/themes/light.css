@@ -1,5 +1,5 @@
 * {color: white}
-body {background: white}
+body , aside menu {background: white}
 aside menu div.light {background: white}
 aside menu div.dark {background: darkgray}
 #developers hr {border: 2px solid white}
