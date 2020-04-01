@@ -7,11 +7,11 @@
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="time_manager/styles/fonts/fonts.css" rel="stylesheet" type="text/css" />
     <link href="time_manager/styles/base.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/themes/light.css" rel="stylesheet" type="text/css" id="theme_choice"/>
+    <link href="time_manager/styles/colors/blue.css" rel="stylesheet" type="text/css" id="color_choice"/>
     <link href="time_manager/styles/authorisation.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/about.css" rel="stylesheet" type="text/css"/>
-    <link href="time_manager/styles/themes/light.css" rel="stylesheet" type="text/css" id="theme_choice"/>
-    <link href="time_manager/styles/colors/blue.css" rel="stylesheet" type="text/css" id="color_choice"/>
     <link href="time_manager/images/favicons/blue.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
     <script type="text/javascript" src="time_manager/scriptes/jQuery.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/requests.js"></script>
@@ -48,9 +48,9 @@
 
     <div id="wrapper">
         <main id="page_help" class="opened">{% include 'about.html' %}</main>
-        <main id="page_lists"><div style="background: red; width: 500px; height: 500px; "></div></main>
-        <main id="page_day"><div style="background: #00ff13; width: 500px; height: 500px; "></div></main>
-        <main id="page_month"><div style="background: #ff00b5; width: 500px; height: 500px; "></div></main>
+        <main id="page_lists"></main>
+        <main id="page_day"></main>
+        <main id="page_month"></main>
         <main id="page_about">{% include 'about.html' %}</main>
     </div>
 

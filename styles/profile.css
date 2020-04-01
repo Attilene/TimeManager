@@ -73,7 +73,6 @@ aside #hat #edit_profile div:hover {
 /*---------------Менюшка----------------------*/
 aside menu {
     position: relative;
-    background: white;
     margin: 4px;
     padding: 5px 0;
     width: 242px;
@@ -125,6 +124,7 @@ aside menu button {
     cursor: pointer;
 }
 
+aside menu div.theme:hover {border-width: 3px;}
 aside menu div.theme:hover button {transform: scale(1); opacity:1}
 aside menu button:hover {border-width: 3px}
 
@@ -135,15 +135,16 @@ aside menu button.purple {border: 12px solid #b450b4; left: 127px;}
 aside menu button.sky {border: 12px solid #55c0bb; left: 161px;}
 aside menu button.black {border: 12px solid #000; left: 195px;}
 aside menu button.white {border: 12px solid #fff; left: 195px;}
+
+aside menu button:hover {border-width: 3px}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/
 
-/*-----------------Анимации-------------------*/
-/*-----------------Возврат----------------*/
+/*-----------------Анимации--------------------*/
+/*-----------------Возврат---------------------*/
 aside #hat img:first-child, aside #hat .avatar #float, aside #hat .avatar:hover img:first-child,
-aside #hat #edit_profile div {
-	transition: 0.3s ease-out}
+aside #hat #edit_profile div {transition: 0.3s ease-out}
 aside menu div.theme {transition: 0.15s ease-in}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu button {transition: 0.2s ease-out}

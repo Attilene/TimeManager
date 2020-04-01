@@ -184,6 +184,8 @@ main {
 /*--------------------------------------------*/
 
 /*-----------------Анимации-------------------*/
+body, aside menu {transition: background 0.5s}
+header, footer, aside, div.name, #dev_list {transition: background 0.5s}
 /*-----------------Возврат(время)-------------*/
 header .left, header .center, header .right, header .right .avatar, footer span {
 	transition-property: transform, background;

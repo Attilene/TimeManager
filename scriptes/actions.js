@@ -10,14 +10,6 @@ function change_color(color) {
 }
 
 function toggle_menu() {
-    // Сворачивание при клике в другой зоне
-    $(document).on('click', 'main, header .left, header .center, footer', function () {
-        if ($('aside').hasClass('opened')) {
-            $('aside.opened').addClass('closed');
-            const close_time = parseFloat($('aside.closed').css("transition-duration").slice(0, -1)) * 1000;
-            setTimeout(function () {$('aside.closed').removeAttr('class style')}, close_time);
-        }
-    });
     // Показ и скрытие меню
     $(document).on('click', 'header .right, #authorisation span', function () {
         const menu = '#' + $(this).attr('id').slice(7) + '_menu';
@@ -37,7 +29,17 @@ function toggle_menu() {
                 }, close_time)
             }
         }
-        else {$(menu).fadeIn(0, function () {$(this).addClass('opened')})}
+        else {
+            $(menu).fadeIn(0, function () {$(this).addClass('opened')});
+            // Сворачивание при клике в другой зоне
+            $(document).on('click', 'main, header .left, header .center, footer', function () {
+                if ($('aside').hasClass('opened')) {
+                    $('aside.opened').addClass('closed');
+                    const close_time = parseFloat($('aside.closed').css("transition-duration").slice(0, -1)) * 1000;
+                    setTimeout(function () {$('aside.closed').removeAttr('class style')}, close_time);
+                }
+            });
+        }
     })
 
 }

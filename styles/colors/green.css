@@ -1,6 +1,5 @@
-header, footer, aside, #about, div.name, #dev_list {background: #44aa24; transition: background 0.5s}
+header, footer, aside, #about, div.name, #dev_list {background: #44aa24}
 aside menu div.theme {border: 20px solid #46aa46}
-aside menu div.theme:hover {border: 3px solid #46aa46}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(70, 170, 70, 0.5)}
 ::-webkit-scrollbar-thumb:hover{background-color:#46aa46}

@@ -1,5 +1,5 @@
 * {color: #4b4b4b}
-body, aside menu {background: darkgray; transition: background 0.5s}
-aside menu div.light { background: #cccccc}
-aside menu div.dark { background: gray}
+body, aside menu {background: darkgray}
+aside menu div.light {background: #cccccc}
+aside menu div.dark {background: gray}
 #developers hr.main_line {border: 2px solid gray}
