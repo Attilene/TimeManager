@@ -19,6 +19,8 @@ html, body {
 a {text-decoration: none}
 #preload * {transition: none; pointer-events: none}
 
+/*Курсор*/
+header .left, header .center, header .right, footer span  {cursor: pointer}
 
 /*----------Настройка скроллбара--------------*/
 ::-webkit-scrollbar{width: 10px;}
@@ -54,7 +56,6 @@ header .left {
 	font-size: 27px;
 	margin: 7px 0 0 19px;
 	width: 220px;
-	cursor: pointer;
 }
 
 header .left:hover {transform: scale(1.1) skewX(-10deg)}
@@ -67,7 +68,6 @@ header .center {
 	padding: 5px 0;
 	border-radius: 20px;
 	text-align: center;
-	cursor: pointer;
 }
 
 header .center:hover {
@@ -85,7 +85,6 @@ header .right {
 	width: max-content;
 	border-radius: 20px;
 	justify-self: end;
-	cursor: pointer;
 }
 
 header .right div{
@@ -150,11 +149,7 @@ footer {
 	border-top-right-radius: 20px;
 }
 
-footer span {
-	width: max-content;
-	margin: auto 10%;
-	cursor: pointer;
-}
+footer span {width: max-content; margin: auto 10%;}
 
 footer span:hover {transform: scale(1.1)}
 

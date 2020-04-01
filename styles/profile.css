@@ -1,3 +1,6 @@
+/*Курсор*/
+aside menu button  {cursor: pointer}
+
 aside {
     display: none;
     opacity: 0;
@@ -117,11 +120,11 @@ aside menu button {
     opacity: 0;
     padding: 0;
     position: absolute;
+    box-sizing: border-box;
     width: 24px;
     height: 24px;
     background: none;
     border-radius: 15px;
-    cursor: pointer;
 }
 
 aside menu div.theme:hover {border-width: 3px;}
