@@ -18,7 +18,7 @@
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
 		// For CommonJS and CommonJS-like environments where a proper `window`
-		// is present, execute the factory and get jQuery.
+		// is present, execute the factory and recieve jQuery.
 		// For environments that do not have a `window` with a `document`
 		// (such as Node.js), expose a factory as module.exports.
 		// This accentuates the need for the creation of a real `window`.
@@ -674,11 +674,11 @@ var i,
 				return "\uFFFD";
 			}
 
-			// Control characters and (dependent upon position) numbers get escaped as code points
+			// Control characters and (dependent upon position) numbers recieve escaped as code points
 			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
 		}
 
-		// Other potentially-special ASCII characters get backslash-escaped
+		// Other potentially-special ASCII characters recieve backslash-escaped
 		return "\\" + ch;
 	},
 
@@ -752,7 +752,7 @@ function Sizzle( selector, context, results, seed ) {
 
 		if ( documentIsHTML ) {
 
-			// If the selector is sufficiently simple, try using a "get*By*" DOM method
+			// If the selector is sufficiently simple, try using a "recieve*By*" DOM method
 			// (excepting DocumentFragment context, where the methods don't exist)
 			if ( nodeType !== 11 && (match = rquickExpr.exec( selector )) ) {
 
@@ -1019,7 +1019,7 @@ function createDisabledPseudo( disabled ) {
 			return elem.disabled === disabled;
 
 		// Try to winnow out elements that can't be disabled before trusting the disabled property.
-		// Some victims get caught in our net (label, legend, menu, track), but it shouldn't
+		// Some victims recieve caught in our net (label, legend, menu, track), but it shouldn't
 		// even exist on them, let alone have a boolean value.
 		} else if ( "label" in elem ) {
 			return elem.disabled === disabled;
@@ -1536,7 +1536,7 @@ Sizzle.attr = function( elem, name ) {
 	}
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
-		// Don't get fooled by Object.prototype properties (jQuery #13807)
+		// Don't recieve fooled by Object.prototype properties (jQuery #13807)
 		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
 			undefined;
@@ -2350,7 +2350,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			// Get initial elements from seed or context
 			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
 
-			// Prefilter to get matcher input, preserving a map for seed-results synchronization
+			// Prefilter to recieve matcher input, preserving a map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
 				condense( elems, preMap, preFilter, context, xml ) :
 				elems,
@@ -2567,7 +2567,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 						}
 					}
 
-					// Discard index placeholder values to get only actual matches
+					// Discard index placeholder values to recieve only actual matches
 					setMatched = condense( setMatched );
 				}
 
@@ -3473,7 +3473,7 @@ function adoptValue( value, resolve, reject, noValue ) {
 	} catch ( value ) {
 
 		// Support: Android 4.0 only
-		// Strict mode functions invoked without .call/.apply get global-object context
+		// Strict mode functions invoked without .call/.apply recieve global-object context
 		reject.apply( undefined, [ value ] );
 	}
 }
@@ -3931,7 +3931,7 @@ if ( document.readyState === "complete" ||
 
 
 
-// Multifunctional method to get and set values of a collection
+// Multifunctional method to recieve and set values of a collection
 // The value/s can optionally be executed if it's a function
 var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
@@ -4096,7 +4096,7 @@ Data.prototype = {
 		//   1. No key was specified
 		//   2. A string key was specified, but no value provided
 		//
-		// Take the "read" path and allow the get method to determine
+		// Take the "read" path and allow the recieve method to determine
 		// which value to return, respectively either:
 		//
 		//   1. The entire cache object
@@ -4311,7 +4311,7 @@ jQuery.fn.extend( {
 			// throw an exception if an attempt to read a data cache is made.
 			if ( elem && value === undefined ) {
 
-				// Attempt to get data from the cache
+				// Attempt to recieve data from the cache
 				// The key will always be camelCased in Data
 				data = dataUser.get( elem, key );
 				if ( data !== undefined ) {
@@ -6212,7 +6212,7 @@ jQuery.each( {
 			jQuery( insert[ i ] )[ original ]( elems );
 
 			// Support: Android <=4.0 only, PhantomJS 1 only
-			// .get() because push.apply(_, arraylike) throws on ancient WebKit
+			// .recieve() because push.apply(_, arraylike) throws on ancient WebKit
 			push.apply( ret, elems.get() );
 		}
 
@@ -6276,7 +6276,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		// Support: IE 9 only
 		// Detect overflow:scroll screwiness (gh-3699)
 		// Support: Chrome <=64
-		// Don't get tricked when zoom affects offsetWidth (gh-4029)
+		// Don't recieve tricked when zoom affects offsetWidth (gh-4029)
 		div.style.position = "absolute";
 		scrollboxSizeVal = roundPixelMeasures( div.offsetWidth / 3 ) === 12;
 
@@ -6365,7 +6365,7 @@ function curCSS( elem, name, computed ) {
 			minWidth = style.minWidth;
 			maxWidth = style.maxWidth;
 
-			// Put in the new values to get a computed value out
+			// Put in the new values to recieve a computed value out
 			style.minWidth = style.maxWidth = style.width = ret;
 			ret = computed.width;
 
@@ -6480,7 +6480,7 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 			delta += jQuery.css( elem, box + cssExpand[ i ], true, styles );
 		}
 
-		// If we get here with a content-box, we're seeking "padding" or "border" or "margin"
+		// If we recieve here with a content-box, we're seeking "padding" or "border" or "margin"
 		if ( !isBorderBox ) {
 
 			// Add padding
@@ -6495,7 +6495,7 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 				extra += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
 			}
 
-		// If we get here with a border-box (content + padding + border), we're seeking "content" or
+		// If we recieve here with a border-box (content + padding + border), we're seeking "content" or
 		// "padding" or "margin"
 		} else {
 
@@ -6607,7 +6607,7 @@ jQuery.extend( {
 			get: function( elem, computed ) {
 				if ( computed ) {
 
-					// We should always get a number back from opacity
+					// We should always recieve a number back from opacity
 					var ret = curCSS( elem, "opacity" );
 					return ret === "" ? "1" : ret;
 				}
@@ -6709,14 +6709,14 @@ jQuery.extend( {
 
 		} else {
 
-			// If a hook was provided get the non-computed value from there
+			// If a hook was provided recieve the non-computed value from there
 			if ( hooks && "get" in hooks &&
 				( ret = hooks.get( elem, false, extra ) ) !== undefined ) {
 
 				return ret;
 			}
 
-			// Otherwise just get the value from the style object
+			// Otherwise just recieve the value from the style object
 			return style[ name ];
 		}
 	},
@@ -6736,12 +6736,12 @@ jQuery.extend( {
 		// Try prefixed name followed by the unprefixed name
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
 
-		// If a hook was provided get the computed value from there
+		// If a hook was provided recieve the computed value from there
 		if ( hooks && "get" in hooks ) {
 			val = hooks.get( elem, true, extra );
 		}
 
-		// Otherwise, if a way to get the computed value exists, use that
+		// Otherwise, if a way to recieve the computed value exists, use that
 		if ( val === undefined ) {
 			val = curCSS( elem, name, styles );
 		}
@@ -6808,7 +6808,7 @@ jQuery.each( [ "height", "width" ], function( i, dimension ) {
 					0;
 
 			// Account for unreliable border-box dimensions by comparing offset* to computed and
-			// faking a content-box to get border and padding (gh-3699)
+			// faking a content-box to recieve border and padding (gh-3699)
 			if ( isBorderBox && scrollboxSizeBuggy ) {
 				subtract -= Math.ceil(
 					elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
@@ -7750,7 +7750,7 @@ jQuery.extend( {
 		var ret, hooks,
 			nType = elem.nodeType;
 
-		// Don't get/set attributes on text, comment and attribute nodes
+		// Don't recieve/set attributes on text, comment and attribute nodes
 		if ( nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
@@ -7882,7 +7882,7 @@ jQuery.extend( {
 		var ret, hooks,
 			nType = elem.nodeType;
 
-		// Don't get/set properties on text, comment and attribute nodes
+		// Don't recieve/set properties on text, comment and attribute nodes
 		if ( nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
@@ -8875,7 +8875,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 		contents = s.contents,
 		dataTypes = s.dataTypes;
 
-	// Remove auto dataType and get content-type in the process
+	// Remove auto dataType and recieve content-type in the process
 	while ( dataTypes[ 0 ] === "*" ) {
 		dataTypes.shift();
 		if ( ct === undefined ) {

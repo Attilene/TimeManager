@@ -21,7 +21,7 @@ function insert_page(selector, file_name, func=null) {
     });
 }
 
-function get(url, send_data=null, success=null) {
+function receive(url, send_data=null, success=null) {
     // Получение JSON формы с сервера
     return($.ajax({
         url: url,
@@ -30,10 +30,11 @@ function get(url, send_data=null, success=null) {
     }))
 }
 
-function send(url, data) {
+function send(url, data, func=null) {
     // Отправка JSON формы на сервер
     $.ajax({
         url: url,
-        data: JSON.stringify(data)
+        data: JSON.stringify(data),
+        complete: func
     });
 }

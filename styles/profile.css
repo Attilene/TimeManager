@@ -1,5 +1,5 @@
 /*Курсор*/
-aside menu button  {cursor: pointer}
+/*aside menu button {cursor: pointer}*/
 
 aside {
     box-shadow: -3px 3px 6px rgba(0, 0, 0, 0.2);
@@ -128,9 +128,23 @@ aside menu button {
     border-radius: 15px;
 }
 
+aside menu button::before { /*Оптимизация клик зоны*/
+    display: none;
+    content: '';
+    z-index: 11;
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+}
+
+
+
 aside menu div.theme:hover {border-width: 3px;}
 aside menu div.theme:hover button {transform: scale(1); opacity:1}
-aside menu button:hover {border-width: 3px}
 
 aside menu button.red {border: 12px solid #ff6464; left: 22px;}
 aside menu button.blue {border: 12px solid #6464ff; left: 56px;}
@@ -141,6 +155,19 @@ aside menu button.black {border: 12px solid #000; left: 195px;}
 aside menu button.white {border: 12px solid #fff; left: 195px;}
 
 aside menu button:hover {border-width: 3px}
+
+/*Выбранная тема*/
+aside menu div.theme button.choice {border-width: 3px}
+aside menu div.theme button.choice::after {
+    z-index: 12;
+    content: '';
+    width: 0; height: 0;
+    position: absolute;
+    top: 3px; left: 3px;
+    border: inherit;
+    border-width: 6px;
+    border-radius: 6px;
+}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/
@@ -161,6 +188,8 @@ aside menu button:hover {transition: 0.1s ease-out}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 aside menu div.theme button:active {transform: scale(0.6); transition: 0.2s ease}
+aside menu button:active::before {display: block}
+aside menu button.choice:active::before {display: none}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 

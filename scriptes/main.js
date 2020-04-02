@@ -1,6 +1,5 @@
 var user_logined = false;
 var user_data = {'theme': 'light', 'color': 'blue'};
-var page_data = {'theme': 'light', 'color': 'blue'};
 var now_page = 'help';
 
 

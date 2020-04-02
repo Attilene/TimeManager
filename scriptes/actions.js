@@ -1,41 +1,55 @@
-function change_theme(theme) {
-    // Смена темы на сервере
-    $('link#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
+function close_time(selector) {
+    return (parseFloat($(selector).css("transition-duration").slice(0, -1)) * 1000)
 }
 
-function change_color(color) {
-    // Смена цвета на сервере
-    $('link#favicon_choice').attr('href', `time_manager/images/favicons/${color}.svg`);
-    $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
+function hide_click (area) {
+    // Сворачивание при клике в другой зоне
+    $(document).one('click', function (event){
+        if ($(area).hasClass('opened')) {
+            const temp = $(`${area}.opened`);
+            if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
+                hide_click(area)
+            }
+            if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) &&
+                !($('#authorisation span, header .right').is(event.target))) {
+                $(`${area}.opened`).addClass('closed');
+                // Сбор мусора
+                setTimeout(function () {
+                    $(`${area}.closed`).removeClass('opened closed').css({display: ''})
+                }, close_time(`${area}.closed`));
+            }
+        }
+    });
+}
+
+function change_theme(theme, color) {
+    if ((theme !== user_data['theme']) || (color !== user_data['color'])) {
+        const temp_theme = user_data['theme'];
+        const temp_color = user_data['color'];
+        $('link#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
+        $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
+        $(`aside menu .theme button.${temp_theme}.${temp_color}`).removeClass('choice');
+        $(`aside menu .theme button.${theme}.${color}`).addClass('choice');
+        user_data['theme'] = theme;
+        user_data['color'] = color;
+    }
 }
 
 function toggle_menu() {
     // Показ и скрытие меню
-    function hide_click () {
-        // Сворачивание при клике в другой зоне
-        $(document).one('click', function (event){
-                if ($('aside').hasClass('opened')) {const temp = $("aside.opened");
-                if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) && !($('#authorisation span, header .right').is(event.target))) {
-                    $('aside.opened').addClass('closed');
-                    const close_time = parseFloat($('aside.closed').css("transition-duration").slice(0, -1)) * 1000;
-                    // Сбор мусора
-                    setTimeout(function () {$('aside.closed').removeAttr('class style')}, close_time);
-                }}
-        });
-    }
+
     $(document).on('click', 'header .right, #authorisation span', function () {
         const menu = '#' + $(this).attr('id').slice(7) + '_menu';
         if ($('aside').hasClass('opened')) {
             if ($(menu).hasClass('opened')) {
                 $(menu).addClass('closed');
-                const close_time = parseFloat($(menu).css("transition-duration").slice(0, -1)) * 1000;
                 // Сбор мусора
-                setTimeout(function () {$(menu).removeAttr('class style')}, close_time)
+                setTimeout(function () {$(menu).removeClass('opened closed').css({display: ''})}, close_time(menu))
             }
         }
         else {
             $(menu).fadeIn(0, function () {$(this).addClass('opened')});
-            hide_click();
+            hide_click('aside');
         }
     })
 
@@ -49,17 +63,22 @@ function connect_pages() {
             const temp = now_page;
             now_page = page;
             $(`main#page_${temp}`).addClass('closed');
-            const close_time = parseFloat($('main.closed').css("transition-duration").slice(0, -1)) * 1000;
             $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             // Сбор мусора
             setTimeout(function () {
                 $('main.closed').removeAttr('class style');
-            }, close_time);
+            }, close_time('main.closed'));
         }
     })
 }
 
 function connect_actions() {
+    // Возврат выхода при клике вне зоны
+    $(document).on('click', 'aside.opened', function () {
+
+    });
+    // Указатель выбранной темы
+    $(`aside menu .theme button.${user_data['theme']}.${user_data['color']}`).addClass('choice');
     // Функционал нажатий
     // Вход тестового пользователя
     $(document).on('click', 'header .left', function () {
@@ -71,33 +90,24 @@ function connect_actions() {
     $(document).on('click', 'aside .theme button', function () {
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
-        if (new_theme !== user_data['theme']) {change_theme(new_theme)}
-        if (new_color !== user_data['color']) {change_color(new_color)}
-        if ((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) {
-            if (user_logined)
-            {send('/change_theme', `${new_theme} ${new_color}`)}}
-        user_data['theme'] = new_theme;
-        user_data['color'] = new_color;
+        if (((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) && (user_logined)) {
+            send('/change_theme', `${new_theme} ${new_color}`, change_theme(new_theme, new_color))
+        }
+        else {change_theme(new_theme, new_color)}
     });
 }
 
 function authorisation(login, password) {
     // Вход пользователя
     // Запрос
-    page_data = {...user_data};
-    get('/login', [login, password], function (data) {
+    receive('/login', [login, password], function (data) {
         // Синхронизация данных
-        if (data['login'] === 'Guest') {user_data = {
-            'login': data['login'],
-            'theme': page_data['theme'],
-            'color': page_data['color'],
-            'avatar': data['avatar']
-            }
+        if (data['login'] === 'Guest') {
+            user_data['login'] = 'Guest'
         }
         else {
             user_data = data;
-            if (user_data['theme'] !== page_data['theme']) {change_theme(user_data['theme'])}
-            if (user_data['color'] !== page_data['color']) {change_color(user_data['color'])}
+            change_theme(user_data['theme'], user_data['color']);
         }
         if (!(user_logined)) {
             // Установка имени пользователя и аватарки
@@ -115,11 +125,10 @@ function authorisation(login, password) {
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
             $('header').removeClass('logout');
-            const close_time = parseFloat($('#authorisation').css("transition-duration").slice(0, -1)) * 1000;
             // Сбор мусора
             setTimeout(function () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
-            }, close_time);
+            }, close_time('#authorisation'));
         }
         user_logined = true;
     });
