@@ -124,8 +124,7 @@ class User(object):
     def add_month(self, digit, month, task):
         month = month.lower()
         if (digit, month, task) not in self.month:
-            User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)",
-                            (digit, month, task))
+            User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)", (digit, month, task))
             User.__conn.commit()
             self.month = User.__ret_month(self)
 

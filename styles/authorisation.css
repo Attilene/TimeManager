@@ -1,36 +1,61 @@
-header.logout .center, header.logout .right {display: none}
-header.logout #authorisation {display: block;}
+/*Курсор*/
+#authorisation span{cursor: pointer}
+
 
 #authorisation span{
 	text-align: center;
-	position: absolute;
-	top: 10px;
+	margin: 10px 20px 10px 2%;
+	padding: 4px calc(10px + 4%);
 	height: 20px;
-	padding: 4px 0;
 	border-radius: 20px;
-	justify-self: right;
-	cursor: pointer;
-	transition-property: transform, background;
-	transition:  0.3s ease-out;
+	float: right;
 }
 
-#authorisation span:hover {
-		transform: scale(1.1);
-		background: rgba(255, 255, 255, 0.2);
-		transition: 0.2s ease;
-	}
+#authorisation span:hover {transform: scale(1.1); background: rgba(255, 255, 255, 0.2);}
 
-#authorisation span#button_login {
-	right: calc(145px + 4%);
-	width: calc(45px + 3%);
+/*-----------------Анимации--------------------*/
+/*-----------------Возврат---------------------*/
+#authorisation span {transition:  0.2s ease-out}
+/*--------------------------------------------*/
+/*-----------------При наведени---------------*/
+#authorisation span:hover {transition: 0.1s ease;}
+/*--------------------------------------------*/
+/*-----------------При нажатии----------------*/
+#authorisation span:active {transform: scale(0.9); transition: 0.1s ease}
+/*--------------------------------------------*/
+/*--------------------------------------------*/
+
+/*---------------Открытие---------------------*/
+header .center, header .right {
+	display: block;
+	z-index: 21;
+	position: relative;
+	bottom: 0;
+	opacity: 1;
+	transition: 0.2s ease-out;
 }
 
-#authorisation span#button_register {
-	right: 20px;
-	width: calc(110px + 3%);
+header.logout .center, header.logout .right {
+	display: none;
+	bottom: 10px;
+	opacity: 0;
+	transition: 0.1s ease-out;
 }
 
-#authorisation span:active {
-	transform: scale(0.9);
-	transition: 0.2s ease;
+#authorisation {
+	display: none;
+	z-index: 30;
+	position: absolute;
+	width: 50%; height: 50px;
+	right: 0; top: 20px;
+	opacity: 0;
+	transition: 0.1s ease-out;
 }
+
+header.logout #authorisation {
+	display: block;
+	top: 0;
+	opacity: 1;
+	transition: 0.2s ease-out;
+}
+/*--------------------------------------------*/

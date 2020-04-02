@@ -13,6 +13,7 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 	min-width: 750px;
 }
 
@@ -32,6 +33,7 @@ header .left, header .center, header .right, footer span  {cursor: pointer}
 /*--------------------------------------------*/
 /*------------------Шапка---------------------*/
 header {
+	z-index: 20;
 	display: inline-grid;
 	grid-template-columns: 20% 1fr 1fr 1fr 20%;
 	grid-column-gap: 4%;
@@ -42,10 +44,7 @@ header {
 	height: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
-	pointer-events: none;
 }
-
-header * {pointer-events: visible}
 
 @media (max-width: 1200px) { /*Опции для маленького окна*/
 	header {grid-template-columns: 30% 1fr 1fr 1fr 5%; grid-column-gap: 2%}
@@ -70,10 +69,7 @@ header .center {
 	text-align: center;
 }
 
-header .center:hover {
-	transform: scale(1.1);
-	background: rgba(255, 255, 255, 0.2);
-}
+header .center:hover {transform: scale(1.1); background: rgba(255, 255, 255, 0.2)}
 /*--------------------------------------------*/
 /*--------------Пользователь------------------*/
 header .right a *, header .right a {float: right}
@@ -88,7 +84,7 @@ header .right {
 }
 
 header .right div{
-	margin: 4px 10px 0 3vh;
+	margin: 4px 10px;
 	font-size: 18px;
 	max-width: 75%;
 	overflow: hidden;
@@ -116,7 +112,7 @@ header .right .avatar {
 
 @media (max-width: 1200px) {  /*Анимация для маленького окна*/
 	header .right:hover #set_icon {
-		z-index: 0;
+		z-index: 30;
 		transform: scale(1);
 		opacity: 60%;
 	}
@@ -137,6 +133,7 @@ header .right .avatar {
 /*--------------------------------------------*/
 /*-------------------Футер--------------------*/
 footer {
+	z-index: 20;
 	display: inline-grid;
 	grid-template-columns: 1fr 2fr 1fr;
 	min-width: 750px;
@@ -157,24 +154,16 @@ footer .center {justify-self: center}
 footer .right {justify-self: right}
 /*--------------------------------------------*/
 /*--------------Основной блок-----------------*/
-#wrapper {
-	height: calc(100% - 90px);
-	width: 100%;
-	position: absolute;
-	top: 50px;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
 main {
 	display: none;
 	opacity: 0;
 	position: absolute;
-	top: -20px;
+	top: 30px;
 	left: 0;
-	min-height: 100%;
+	height: calc(100% - 90px);
 	width: 100%;
 	padding: 0;
+	overflow: auto;
 }
 /*--------------------------------------------*/
 
@@ -182,10 +171,8 @@ main {
 body, aside menu {transition: background 0.5s}
 header, footer, aside, div.name, #dev_list {transition: background 0.5s}
 /*-----------------Возврат(время)-------------*/
-header .left, header .center, header .right, header .right .avatar, footer span {
-	transition-property: transform, background;
-	transition: 0.2s ease-out}
-#set_icon {transition-property: transform, opacity; transition: 0.2s ease-out}
+header .left, header .center, header .right, header .right .avatar, footer span {transition: 0.2s ease-out}
+#set_icon {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {
@@ -209,19 +196,17 @@ header .right:active {transform: scale(0.95)}
 
 /*---------------Открытие---------------------*/
 main.opened {
-	z-index: 500;
+	z-index: 5;
 	display: block;
 	opacity: 1;
-	top: 0;
-	transition-property: top, opacity;
+	top: 50px;
 	transition: 0.2s ease;
 }
 
 main.closed {
-	z-index: 499;
+	z-index: 4;
 	opacity: 0;
-	top: 20px;
-	transition-property: top, opacity;
+	top: 70px;
 	transition: 0.1s ease-out;
 }
 /*--------------------------------------------*/

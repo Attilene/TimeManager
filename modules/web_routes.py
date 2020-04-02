@@ -39,12 +39,8 @@ def change_theme():
 def logout():
     """Выход пользователя"""
     global now
-    if now.log == 'Guest':
-        now = User('Guest')
-        now.del_user()
-        del now
-        now = User('Guest', 'best_team@gmail.com', 'День рождения Сталина')
-    del now
+    now = None
+    if now.log == 'Guest': User.guest_reset()
     return jsonify(success=True)
 
 
@@ -60,7 +56,7 @@ def delete():
 # Страницы
 @tm.route('/')
 def page_home():
-    return render_template("base.html")
+    return render_template("base.html", theme='light', color='blue')
 
 
 @tm.route('/list')

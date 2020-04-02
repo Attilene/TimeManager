@@ -11,34 +11,31 @@ function change_color(color) {
 
 function toggle_menu() {
     // Показ и скрытие меню
+    function hide_click () {
+        // Сворачивание при клике в другой зоне
+        $(document).one('click', function (event){
+                if ($('aside').hasClass('opened')) {const temp = $("aside.opened");
+                if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) && !($('#authorisation span, header .right').is(event.target))) {
+                    $('aside.opened').addClass('closed');
+                    const close_time = parseFloat($('aside.closed').css("transition-duration").slice(0, -1)) * 1000;
+                    // Сбор мусора
+                    setTimeout(function () {$('aside.closed').removeAttr('class style')}, close_time);
+                }}
+        });
+    }
     $(document).on('click', 'header .right, #authorisation span', function () {
         const menu = '#' + $(this).attr('id').slice(7) + '_menu';
         if ($('aside').hasClass('opened')) {
             if ($(menu).hasClass('opened')) {
                 $(menu).addClass('closed');
                 const close_time = parseFloat($(menu).css("transition-duration").slice(0, -1)) * 1000;
+                // Сбор мусора
                 setTimeout(function () {$(menu).removeAttr('class style')}, close_time)
-            }
-            else {
-                const temp = 'aside#' + $('aside.opened').attr('id');
-                $(temp).addClass('closed');
-                const close_time = parseFloat($(temp).css("transition-duration").slice(0, -1)) * 1000;
-                setTimeout(function () {
-                    $(temp).removeAttr('class style');
-                    $(menu).fadeIn(0, function () {$(this).addClass('opened')})
-                }, close_time)
             }
         }
         else {
             $(menu).fadeIn(0, function () {$(this).addClass('opened')});
-            // Сворачивание при клике в другой зоне
-            $(document).on('click', 'main, header .left, header .center, footer', function () {
-                if ($('aside').hasClass('opened')) {
-                    $('aside.opened').addClass('closed');
-                    const close_time = parseFloat($('aside.closed').css("transition-duration").slice(0, -1)) * 1000;
-                    setTimeout(function () {$('aside.closed').removeAttr('class style')}, close_time);
-                }
-            });
+            hide_click();
         }
     })
 
@@ -53,8 +50,11 @@ function connect_pages() {
             now_page = page;
             $(`main#page_${temp}`).addClass('closed');
             const close_time = parseFloat($('main.closed').css("transition-duration").slice(0, -1)) * 1000;
-            setTimeout(function () {$('main.closed').removeAttr('class style')}, close_time);
             $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
+            // Сбор мусора
+            setTimeout(function () {
+                $('main.closed').removeAttr('class style');
+            }, close_time);
         }
     })
 }
@@ -84,7 +84,6 @@ function connect_actions() {
 function authorisation(login, password) {
     // Вход пользователя
     // Запрос
-    user_logined = true;
     page_data = {...user_data};
     get('/login', [login, password], function (data) {
         // Синхронизация данных
@@ -100,23 +99,30 @@ function authorisation(login, password) {
             if (user_data['theme'] !== page_data['theme']) {change_theme(user_data['theme'])}
             if (user_data['color'] !== page_data['color']) {change_color(user_data['color'])}
         }
-        // Установка имени пользователя
-        $('header .right a div').text(user_data['login']);
-        // Загрузка аватара
-        if (user_data['avatar']) {
-            $('header .right img.avatar').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
-            $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
+        if (!(user_logined)) {
+            // Установка имени пользователя и аватарки
+            $('header .right a div').text(user_data['login']);
+            // Загрузка аватара
+            if (user_data['avatar']) {
+                $('header .right img.avatar').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
+                $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
+            }
+            else {
+                $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
+                $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
+            }
+            // Появление кнопок
+            $('#authorisation').css({display: 'block'});
+            $('header .center, header .right').fadeIn(0);
+            $('header').removeClass('logout');
+            const close_time = parseFloat($('#authorisation').css("transition-duration").slice(0, -1)) * 1000;
+            // Сбор мусора
+            setTimeout(function () {
+                $('#authorisation, header .center, header .right').removeAttr('style')
+            }, close_time);
         }
-        else {
-            $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
-            $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
-        }
-        // Появление кнопок
-        $('header').removeClass('logout');
-        $('#authorisation').css({display: 'block', transition: 'none'}).animate({top: '20px', opacity: 0}, 100, 'linear').fadeOut(0);
-        $('header .center, header .right').css({position: 'relative', bottom: '10px', opacity: 0});
-        $('header .center, header .right').fadeIn(0).animate({bottom: 0, opacity: 1}, 0);
-        $('#authorisation').animate({top: '10px', opacity: 0}, 0).fadeOut(0);
-    })
+        user_logined = true;
+    });
+
 }
 
