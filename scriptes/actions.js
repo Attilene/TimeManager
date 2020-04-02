@@ -59,9 +59,8 @@ function connect_pages() {
     // Смена страницы
     $(document).on('click', 'header .center, footer .right', function() {
         const page = $(this).attr('id').slice(7);
-        if (page !== now_page) {
-            const temp = now_page;
-            now_page = page;
+        const temp = $('main.opened').attr('id').slice(5);
+        if (page !== temp) {
             $(`main#page_${temp}`).addClass('closed');
             $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             // Сбор мусора
@@ -111,7 +110,7 @@ function authorisation(login, password) {
         }
         if (!(user_logined)) {
             // Установка имени пользователя и аватарки
-            $('header .right a div').text(user_data['login']);
+            $('header .right a div.nickname').text(user_data['login']);
             // Загрузка аватара
             if (user_data['avatar']) {
                 $('header .right img.avatar').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);

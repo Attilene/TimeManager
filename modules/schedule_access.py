@@ -211,7 +211,7 @@ class User(object):
 
 
 
-def inj_check(req):
+def inj_check(req): # TODO: Переделать
     cl_el = ('#', '-', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"', '%')
     for el in cl_el:
         if el in req:

@@ -9,6 +9,7 @@
 
 html, body {
 	font-family: "Comfortaa Bold", sans-serif;
+	font-size: 16px;
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -52,8 +53,8 @@ header {
 }
 /*-----------------Заголовок------------------*/
 header .left {
-	font-size: 27px;
-	margin: 7px 0 0 19px;
+	font-size: 1.8em;
+	margin: 6px 0 0 19px;
 	width: 220px;
 }
 
@@ -85,7 +86,7 @@ header .right {
 
 header .right div{
 	margin: 4px 10px;
-	font-size: 18px;
+	font-size: 1.125em;
 	max-width: 75%;
 	overflow: hidden;
 }

@@ -1,6 +1,5 @@
-/*Курсор*/
+/*-----------------Верх--------------------*/
 #authorisation span{cursor: pointer}
-
 
 #authorisation span{
 	text-align: center;
@@ -12,6 +11,20 @@
 }
 
 #authorisation span:hover {transform: scale(1.1); background: rgba(255, 255, 255, 0.2);}
+/*--------------------------------------------*/
+
+/*------------------Меню----------------------*/
+#authorisation_menu {width: 300px}
+
+#authorisation_menu div.hat {
+	/*font-size: ;*/
+}
+
+#authorisation_menu menu {width: 292px}
+
+
+
+/*--------------------------------------------*/
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
