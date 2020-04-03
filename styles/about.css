@@ -60,6 +60,7 @@
 }
 
 #developers img:hover {
+    box-shadow: 0 3px 7px black;
     border-radius: 30px;
     transform: scale(1.1);
     transition: 0.2s ease;
