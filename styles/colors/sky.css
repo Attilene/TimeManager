@@ -2,4 +2,7 @@ header, footer, aside, div.name, #dev_list {background: #55c0bb}
 aside menu div.theme {border: 20px solid #55c0bb}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(85, 192, 187, 0.5)}
-::-webkit-scrollbar-thumb:hover{background-color:#55c0bb}
+::-webkit-scrollbar-thumb:hover{background-color: #55c0bb}
+
+@-webkit-keyframes autofill {to {background: rgba(85, 192, 187, 0.5)}}
+#authorisation_menu input {background: rgba(85, 192, 187, 0.5);border: 18px solid #55c0bb}

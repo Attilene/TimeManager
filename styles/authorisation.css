@@ -1,3 +1,9 @@
+input:-webkit-autofill { /*Убирание желтого фона*/
+	-webkit-animation-name: autofill;
+	-webkit-animation-fill-mode: both;
+	-webkit-text-fill-color: white !important;
+}
+
 /*-----------------Верх--------------------*/
 #authorisation span{cursor: pointer}
 
@@ -16,12 +22,59 @@
 /*------------------Меню----------------------*/
 #authorisation_menu {width: 300px}
 
-#authorisation_menu div.hat {
-	/*font-size: ;*/
+#authorisation_menu .hat {
+	z-index: 11;
+	font-size: 1.5em;
+	text-align: center;
+	padding-top: 5px;
+	width: 100%; height: 0;
+	position: absolute;
+	opacity: 0;
 }
 
-#authorisation_menu menu {width: 292px}
+#authorisation_menu.login div.login, #authorisation_menu.register div.register {
+	height: 40px;
+	opacity: 1;
+}
 
+#authorisation_menu menu {
+	margin-top: 4px;
+	padding: 5px 0;
+	width: 292px
+}
+
+#authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 40px;}
+
+#authorisation_menu input {
+	font-family: "Comfortaa Bold", sans-serif;
+	font-size: 1em;
+	padding: 0 30px 0 5px;
+	box-sizing: border-box;
+	margin: 5px 5%;
+	width: 90%;
+	height: 36px;
+	border: 18px solid blue;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.2)
+}
+
+#authorisation_menu input:focus {
+	border-width: 3px;
+	border-radius: 13px;
+}
+
+
+/*#authorisation_menu div::before { !*Расходящийся фон инпутов*!*/
+/*	z-index: 12;*/
+/*	box-sizing: border-box;*/
+/*	width: inherit;*/
+/*	height: inherit;*/
+/*	content: '';*/
+/*	border: 18px solid red;*/
+/*	border-radius: 18px;*/
+/*	position: absolute;*/
+/*	top: 0; left: 0;*/
+/*}*/
 
 
 /*--------------------------------------------*/
@@ -45,7 +98,6 @@ header .center, header .right {
 	position: relative;
 	bottom: 0;
 	opacity: 1;
-	transition: 0.2s ease-out;
 }
 
 header.logout .center, header.logout .right {
