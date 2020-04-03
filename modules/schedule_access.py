@@ -12,7 +12,10 @@ class User(object):
                     'ноябрь', 'декабрь', ]
 
     def __init__(self, log, psw, email=None):
-        if email is None:
+        if (email is None) or (log is None):
+            if log is None:
+                User.__cur.execute("SELECT login FROM users WHERE email=?", (email,))
+                log = User.__cur.fetchone()[0]
             assert User.check_all(log, psw), 'Неверный пароль'
             self.log = log
             User.__cur.execute("SELECT email FROM users WHERE login=?", (log,))
@@ -176,13 +179,13 @@ class User(object):
         return User('Guest', 'Год рождения Сталина', 'best_team@best_mail_box.ru')
 
     @staticmethod
-    def check_log(log):
-        User.__cur.execute("SELECT (login) FROM users WHERE login=?", (log,))
+    def check_log(log, email=None):
+        User.__cur.execute("SELECT (login) FROM users WHERE login=? OR email=?", (log, email))
         return User.__cur.fetchone() is not None
 
     @staticmethod
-    def check_all(log, psw):
-        User.__cur.execute("SELECT (psw) FROM users WHERE login=?", (log,))
+    def check_all(log, psw, email=None):
+        User.__cur.execute("SELECT (psw) FROM users WHERE login=? or email=?", (log, email))
         return User.__check_psw(User.__cur.fetchone()[0], psw)
 
     @staticmethod
