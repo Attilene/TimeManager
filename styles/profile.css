@@ -94,28 +94,19 @@ aside menu div.theme {
     box-sizing: border-box;
 }
 
-aside menu div.theme:hover {border-width: 3px;}
-
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
-aside menu div.theme::before {
-    position: absolute;
-    pointer-events: none;
-}
+aside menu div.theme::before {position: absolute; pointer-events: none}
+aside menu div.theme:hover::before {opacity: 0}
 
 aside menu div.light::before {
-    top: 25px; left: 57px;
     content: 'Светлая тема';
-}
+    top: 25px; left: 57px}
 
 aside menu div.dark::before {
-    top: 75px;
-    left: 65px;
     content: 'Тёмная тема';
-}
-
-aside menu div.theme:hover::before {opacity: 0}
+    top: 75px; left: 65px}
 /*----------------------------------------------*/
 
 /*-------------------Кнопочки-------------------*/
@@ -158,16 +149,21 @@ aside menu button:hover {border-width: 3px}
 
 /*Выбранная тема*/
 aside menu div.theme button.choice {border-width: 3px}
-aside menu div.theme button.choice::after {
+aside menu div.theme button::after {
+    transform: scale(0.1);
+    opacity: 0;
     z-index: 12;
     content: '';
     width: 0; height: 0;
     position: absolute;
-    top: 3px; left: 3px;
+     top: 3px; left: 3px;
     border: inherit;
     border-width: 6px;
     border-radius: 6px;
+    transition: none;
 }
+
+aside menu div.theme button.choice::after {opacity: 1; transform: scale(1)}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/
@@ -176,18 +172,17 @@ aside menu div.theme button.choice::after {
 /*-----------------Возврат---------------------*/
 aside #hat img:first-child, aside #hat .avatar #float, aside #hat .avatar:hover img:first-child,
 aside #hat #edit_profile div {transition: 0.3s ease-out}
-aside menu div.theme {transition: 0.1s ease-in}
-aside menu div.theme::before {transition: 0.1s ease-in}
-aside menu button {transition: 0.1s ease-out}
+aside menu div.theme::before {transition: 0.2s ease-in}
+aside menu button, aside menu div.theme button.choice::after {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
 aside #hat .avatar:hover #float, aside #hat #edit_profile div:hover{transition: 0.2s ease}
-aside menu div.theme:hover::before {transition: 0.08s ease-in}
-aside menu div.theme:hover button {transition: 0.15s ease-out}
-aside menu button:hover {transition: 0.6s ease-out}
+aside menu div.theme:hover::before {transition: 0.1s ease-in}
+aside menu div.theme:hover button {transition: 0.2s ease-out}
+aside menu div.theme:hover button:hover {transition: 0.1s ease-out}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-aside menu div.theme button:active {transform: scale(0.6); transition: 0.2s ease}
+aside menu div.theme button:active {transform: scale(0.7); transition: 0.1s ease}
 aside menu button:active::before {display: block}
 aside menu button.choice:active::before {display: none}
 /*--------------------------------------------*/

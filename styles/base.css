@@ -70,7 +70,11 @@ header .center {
 	text-align: center;
 }
 
-header .center:hover {transform: scale(1.1); background: rgba(255, 255, 255, 0.2)}
+header .center:hover {
+	transform: scale(1.1);
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+	background: rgba(255, 255, 255, 0.2);
+}
 /*--------------------------------------------*/
 /*--------------Пользователь------------------*/
 header .right a *, header .right a {float: right}
@@ -124,6 +128,7 @@ header .right .avatar {
 @media (min-width: 1200px) { /* Анимации для большого окна*/
 	header .right:hover {
 		transform: scale(1.05);
+		text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
 	}
@@ -169,8 +174,11 @@ main {
 /*--------------------------------------------*/
 
 /*-----------------Анимации-------------------*/
-body, aside menu {transition: background 0.5s}
-header, footer, aside, div.name, #dev_list {transition: background 0.5s}
+/*-----------------Смена тем------------------*/
+body, aside menu, header, footer, aside, div.name, #dev_list, aside div.theme {
+	transition-property: background, border-color;
+	transition: 0.5s}
+/*--------------------------------------------*/
 /*-----------------Возврат(время)-------------*/
 header .left, header .center, header .right, header .right .avatar, footer span {transition: 0.2s ease-out}
 #set_icon {transition: 0.2s ease-out}

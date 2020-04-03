@@ -4,7 +4,7 @@ function close_time(selector) {
 
 function hide_click (area) {
     // Сворачивание при клике в другой зоне
-    $(document).one('click', function (event){
+    $(document).one('mousedown', function (event){
         if ($(area).hasClass('opened')) {
             const temp = $(`${area}.opened`);
             if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
@@ -12,7 +12,7 @@ function hide_click (area) {
             }
             if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) &&
                 !($('#authorisation span, header .right').is(event.target))) {
-                $(`${area}.opened`).addClass('closed');
+                temp.addClass('closed');
                 // Сбор мусора
                 setTimeout(function () {
                     $(`${area}.closed`).removeClass('opened closed').css({display: ''})
@@ -38,7 +38,7 @@ function change_theme(theme, color) {
 function toggle_menu() {
     // Показ и скрытие меню
 
-    $(document).on('click', 'header .right, #authorisation span', function () {
+    $(document).on('mousedown', 'header .right, #authorisation span', function () {
         const menu = '#' + $(this).attr('id').slice(7) + '_menu';
         if ($('aside').hasClass('opened')) {
             if ($(menu).hasClass('opened')) {
@@ -57,7 +57,7 @@ function toggle_menu() {
 
 function connect_pages() {
     // Смена страницы
-    $(document).on('click', 'header .center, footer .right', function() {
+    $(document).on('mousedown', 'header .center, footer .right', function() {
         const page = $(this).attr('id').slice(7);
         const temp = $('main.opened').attr('id').slice(5);
         if (page !== temp) {
@@ -72,21 +72,17 @@ function connect_pages() {
 }
 
 function connect_actions() {
-    // Возврат выхода при клике вне зоны
-    $(document).on('click', 'aside.opened', function () {
-
-    });
     // Указатель выбранной темы
     $(`aside menu .theme button.${user_data['theme']}.${user_data['color']}`).addClass('choice');
     // Функционал нажатий
     // Вход тестового пользователя
-    $(document).on('click', 'header .left', function () {
+    $(document).on('mousedown', 'header .left', function () {
         if (!user_logined) {
             authorisation('Guest', 'Год рождения Сталина')
         }
     });
     // Кнопки изменения цвета
-    $(document).on('click', 'aside .theme button', function () {
+    $(document).on('mousedown', 'aside .theme button', function () {
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
         if (((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) && (user_logined)) {

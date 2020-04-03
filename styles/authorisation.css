@@ -16,79 +16,101 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 	float: right;
 }
 
-#authorisation span:hover {transform: scale(1.1); background: rgba(255, 255, 255, 0.2);}
+#authorisation span:hover {
+	transform: scale(1.1);
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+	background: rgba(255, 255, 255, 0.2);
+
+}
 /*--------------------------------------------*/
 
 /*------------------Меню----------------------*/
 #authorisation_menu {width: 300px}
 
 #authorisation_menu .hat {
+	opacity: 0;
 	z-index: 11;
 	font-size: 1.5em;
 	text-align: center;
-	padding-top: 5px;
-	width: 100%; height: 0;
+	line-height: 30px;
+	top: 10px;
+	padding: 0 20px;
+	width: max-content; height: 30px;
 	position: absolute;
-	opacity: 0;
+	overflow: hidden;
 }
 
-#authorisation_menu.login div.login, #authorisation_menu.register div.register {
-	height: 40px;
-	opacity: 1;
-}
+#authorisation_menu .hat.login {left: 95px}
+#authorisation_menu .hat.register {left: 45px}
+#authorisation_menu.login .hat.login {opacity: 1}
+#authorisation_menu.register .hat.register {opacity: 1}
+
 
 #authorisation_menu menu {
+	z-index: 12;
 	margin-top: 4px;
 	padding: 5px 0;
 	width: 292px
 }
 
-#authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 40px;}
+#authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 50px;}
+#authorisation_menu.register menu {padding: 8px 0}
 
 #authorisation_menu input {
 	font-family: "Comfortaa Bold", sans-serif;
 	font-size: 1em;
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	padding: 0 30px 0 5px;
 	box-sizing: border-box;
-	margin: 5px 5%;
+	margin: 0 5%;
 	width: 90%;
 	height: 36px;
-	border: 18px solid blue;
+	opacity: 0;
 	border-radius: 18px;
-	background: rgba(255, 255, 255, 0.2)
+	overflow: hidden;
 }
 
-#authorisation_menu input:focus {
+#authorisation_menu form {
+	z-index: 14;
+	position: relative;
+	top: 10px;
+}
+
+#authorisation_menu.register form {top: 0}
+
+#authorisation_menu .hidden {
+	border-width: 0;
+	height: 0;
+	margin: 0 5%;
+	pointer-events: none;
+}
+
+#authorisation_menu.register menu input {margin: 8px 5%;}
+
+#authorisation_menu.register .hidden {
 	border-width: 3px;
-	border-radius: 13px;
+	height: 36px;
+	pointer-events: visible;
 }
 
-
-/*#authorisation_menu div::before { !*Расходящийся фон инпутов*!*/
-/*	z-index: 12;*/
-/*	box-sizing: border-box;*/
-/*	width: inherit;*/
-/*	height: inherit;*/
-/*	content: '';*/
-/*	border: 18px solid red;*/
-/*	border-radius: 18px;*/
-/*	position: absolute;*/
-/*	top: 0; left: 0;*/
-/*}*/
-
-
+#authorisation_menu input:focus, #authorisation_menu input.fill {border-radius: 13px}
 /*--------------------------------------------*/
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
 #authorisation span {transition:  0.2s ease-out}
+#authorisation_menu {transition: 0.2s ease-in-out}
+#authorisation_menu.register form {transition: 0.2s ease-in-out}
+#authorisation_menu input {transition: 0.2s ease-in}
+#authorisation_menu menu input.hidden {transition: 0.2s ease-in}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
-#authorisation span:hover {transition: 0.1s ease;}
+#authorisation span:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 #authorisation span:active {transform: scale(0.9); transition: 0.1s ease}
 /*--------------------------------------------*/
+#authorisation_menu input:focus {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 
 /*---------------Открытие---------------------*/

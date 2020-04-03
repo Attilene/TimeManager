@@ -1,10 +1,10 @@
 header, footer, aside, div.name, #dev_list {background: #46aa46}
 aside menu div.theme {border: 3px solid #46aa46}
+aside menu div.theme::before {color: #46aa46}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(70, 170, 70, 0.5)}
 ::-webkit-scrollbar-thumb:hover{background-color: #46aa46}
 
 @-webkit-keyframes autofill {to {background: rgba(70, 170, 70, 0.5)}}
-#authorisation_menu input {background: rgba(70, 170, 70, 0.5);border: 18px solid #6464ff}
-
-aside menu div.theme::before {color: #46aa46}
+#authorisation_menu input {background: #6464ff; border: 18px solid #6464ff}
+#authorisation_menu input:focus, #authorisation_menu input.fill {background: rgba(70, 170, 70, 0.5)}
