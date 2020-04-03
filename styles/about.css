@@ -40,16 +40,19 @@
 
 .card_head {
     font-size: 25px;
-    line-height: 60px;
+    line-height: 12px;
     text-align: center;
     padding: 0;
     height: 60px;
     border-radius: 30px;
 }
 
-#Rasim {line-height: 30px; font-size: 25px}
+#Rasim {line-height: 30px}
+#Rasim p {margin: 0}
 
 #developers .card p, #developers .card {text-align: center; border-radius: 30px}
+#developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}
+#developers p:hover, #developers h2:hover, #developers h3:hover {transform: scale(1.05); transition: 0.2s ease}
 
 #developers img {
     margin: 15px;
