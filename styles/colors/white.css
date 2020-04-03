@@ -1,5 +1,5 @@
 header, footer, aside , div.name, #dev_list {background: #fff}
-aside menu div.theme {border: 20px solid #fff}
+aside menu div.theme {border: 3px solid #fff}
 
 header .center:hover {background: rgba(0, 0, 0, 0.1)}
 @media (min-width: 1001px) { header .right:hover {background: rgba(0, 0, 0, 0.1)}}
@@ -12,3 +12,4 @@ aside #hat #edit_profile div:hover {background: rgba(0, 0, 0, 0.1)}
 @-webkit-keyframes autofill {to {background: rgba(255, 255, 255, 0.5)}}
 #authorisation_menu input {background: rgba(255, 255, 255, 0.5);border: 18px solid #fff}
 
+aside menu div.theme::before {color: #fff}
