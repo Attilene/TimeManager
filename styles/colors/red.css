@@ -8,3 +8,4 @@ aside menu div.theme::before {color: #ff6464}
 @-webkit-keyframes autofill {to {background: rgba(255, 100, 100, 0.5)}}
 #authorisation_menu input {background: #ff6464; border: 18px solid #ff6464}
 #authorisation_menu input:focus, #authorisation_menu input.fill {background: rgba(255, 100, 100, 0.5)}
+

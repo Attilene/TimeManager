@@ -11,19 +11,4 @@ jQuery(document).ready(function () {
     connect_actions();
     connect_pages();
     toggle_menu();
-    // for (let i = 0; i < 5; i + 1) {
-    //     setTimeout( function () {
-    //         $('#authorisation_menu').removeClass('login register')
-    //     }, i * 4 * 1000);
-    //     setTimeout( function () {
-    //         $('#authorisation_menu').addClass('login')
-    //     }, (i * 4 + 1) * 1000);
-    //     setTimeout( function () {
-    //         $('#authorisation_menu').removeClass('login register')
-    //     }, (i * 4 + 2) * 1000);
-    //     setTimeout( function () {
-    //         $('#authorisation_menu').addClass('register')
-    //     }, (i * 4 + 3) * 1000);
-    // }
-
 });

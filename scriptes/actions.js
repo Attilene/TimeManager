@@ -1,12 +1,13 @@
 function close_time(selector) {
-    return (parseFloat($(selector).css("transition-duration").slice(0, -1)) * 1000)
+    if (typeof selector === "string") {selector = $(selector)}
+    return (parseFloat(selector.css("transition-duration").slice(0, -1)) * 1000)
 }
 
 function hide_click (area) {
     // Сворачивание при клике в другой зоне
     $(document).one('mousedown', function (event){
         if ($(area).hasClass('opened')) {
-            const temp = $(`${area}.opened`);
+            let temp = $(`${area}.opened`);
             if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
                 hide_click(area)
             }
@@ -24,10 +25,10 @@ function hide_click (area) {
 
 function change_theme(theme, color) {
     if ((theme !== user_data['theme']) || (color !== user_data['color'])) {
-        const temp_theme = user_data['theme'];
-        const temp_color = user_data['color'];
-        $('link#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
-        $('link#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
+        let temp_theme = user_data['theme'];
+        let temp_color = user_data['color'];
+        $('#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
+        $('#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
         $(`aside menu .theme button.${temp_theme}.${temp_color}`).removeClass('choice');
         $(`aside menu .theme button.${theme}.${color}`).addClass('choice');
         user_data['theme'] = theme;
@@ -37,7 +38,6 @@ function change_theme(theme, color) {
 
 function toggle_menu() {
     // Показ и скрытие меню
-
     $(document).on('mousedown', 'header .right, #authorisation span', function () {
         const menu = '#' + $(this).attr('id').slice(7) + '_menu';
         if ($('aside').hasClass('opened')) {
@@ -49,6 +49,8 @@ function toggle_menu() {
         }
         else {
             $(menu).fadeIn(0, function () {$(this).addClass('opened')});
+            if ($(this).attr('id') === 'button_authorisation') {
+                connect_authorisation()}
             hide_click('aside');
         }
     })
@@ -57,12 +59,12 @@ function toggle_menu() {
 
 function connect_pages() {
     // Смена страницы
-    $(document).on('mousedown', 'header .center, footer .right', function() {
+    $('header .center, footer .right').on('mousedown', function() {
         const page = $(this).attr('id').slice(7);
-        const temp = $('main.opened').attr('id').slice(5);
+        let temp = $('main.opened').attr('id').slice(5);
         if (page !== temp) {
-            $(`main#page_${temp}`).addClass('closed');
-            $(`main#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
+            $(`#page_${temp}`).addClass('closed');
+            $(`#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             // Сбор мусора
             setTimeout(function () {
                 $('main.closed').removeAttr('class style');
@@ -110,11 +112,11 @@ function authorisation(login, password) {
             // Загрузка аватара
             if (user_data['avatar']) {
                 $('header .right img.avatar').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
-                $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
+                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
             }
             else {
                 $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
-                $('aside #hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
+                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
             }
             // Появление кнопок
             $('#authorisation').css({display: 'block'});

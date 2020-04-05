@@ -13,4 +13,5 @@ header .center:hover {background: rgba(0, 0, 0, 0.1)}
 @media (min-width: 1001px) { header .right:hover {background: rgba(0, 0, 0, 0.1)}}
 aside #hat #edit_profile div:hover {background: rgba(0, 0, 0, 0.1)}
 aside menu div.theme::before {color: #fff}
-header a.center:hover, header span.right:hover, aside#authorisation_menu menu input {text-shadow: none}
+header a.center:hover, header span.right:hover, aside#authorisation_menu menu input, #authorisation_menu label[for=remember_me] {
+    text-shadow: none}

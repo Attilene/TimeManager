@@ -4,6 +4,7 @@ tm = Flask(__name__, template_folder="../templates", static_folder="../../time_m
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
 
+
 User.guest_reset()
 now = None
 
@@ -33,6 +34,20 @@ def change_theme():
     """Изменение темы"""
     now.change_theme(request.get_json().split())
     return jsonify(success=True)
+
+
+@tm.route('/check_user', methods=['POST'])
+def form_user():
+    """Проверка существования пользователя"""
+    temp = request.get_json()['name']
+    if '@' in temp: str(User.check_user(temp, temp)).lower()
+    return str(User.check_user(temp)).lower()
+
+
+@tm.route('/check_email', methods=['POST'])
+def form_email():
+    """Проверка существования пользователя"""
+    return str(User.check_email(request.get_json()['email'])).lower()
 
 
 @tm.route('/logout', methods=['POST'])
