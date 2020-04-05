@@ -16,20 +16,18 @@ class User(object):
                       email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN, salt VARCHAR(20))""")
     authorisation = False
 
+
     def __init__(self, log):
         self.log = log
         User.__cur.execute("SELECT (email, theme, color, avatar, salt) FROM users WHERE login=?", (log,))
         self.email, self.avatar, self.theme, self.color, self.salt,  = User.__cur.fetchone()
         User.authorisation = True
-        self.lists = User.__ret_list(self)
+        self.lists = User.__ret_lists(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
 
-    def __ret_users(self):
-        User.__cur.execute("SELECT (login) FROM users")
-        return list(sorted(User.__cur.fetchall()))
-
-    def __ret_list(self):
+    # Возврат данных из БД #
+    def __ret_lists(self):
         User.__cur.execute(f"SELECT * FROM list_{self.log}")
         lists = {}
         for name, task in User.__cur.fetchall():
@@ -49,6 +47,7 @@ class User(object):
         User.__cur.execute(f"SELECT * FROM month_{self.log}")
         return list(sorted(User.__cur.fetchall(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
+    # Изменение данных пользователя #
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
         User.__conn.commit()
@@ -59,18 +58,18 @@ class User(object):
         """)
         self.log = log
 
-    def change_pass(self, psw):
-        User.__cur.execute("UPDATE users SET psw=? WHERE login=?", (psw, self.log))
-        User.__conn.commit()
-
     def change_email(self, email):
         User.__cur.execute("UPDATE users SET email=? WHERE login=?", (email, self.log))
         User.__conn.commit()
         self.email = email
 
-    def change_theme(self, theme):
-        self.theme = theme
-        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
+    def change_pass(self, psw):
+        User.__cur.execute("UPDATE users SET psw=? WHERE login=?", (psw, self.log))
+        User.__conn.commit()
+
+    def change_theme(self, theme, color):
+        self.theme, self.color = theme, color
+        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (theme, color, self.log))
         User.__conn.commit()
 
     def change_avatar(self, change):
@@ -86,25 +85,24 @@ class User(object):
             DROP TABLE IF EXISTS list_{self.log}
         """)
 
+    # Работа с данными #
+    # Добавление #
     def add_list(self, name, task):
         if (name, task) not in self.lists:
             User.__cur.execute(f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)", (name, task))
             User.__conn.commit()
-            self.lists = User.__ret_list(self)
+            self.lists = User.__ret_lists(self)
 
     def add_day(self, hour, minute, task):
-        if (hour, minute, task) not in self.day:
-            User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)",
-                               (hour, minute, task))
-            User.__conn.commit()
-            self.day = User.__ret_day(self)
+        User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)", (hour, minute, task))
+        User.__conn.commit()
+        self.day = User.__ret_day(self)
 
     def add_month(self, digit, month, task):
         month = month.lower()
-        if (digit, month, task) not in self.month:
-            User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)", (digit, month, task))
-            User.__conn.commit()
-            self.month = User.__ret_month(self)
+        User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)", (digit, month, task))
+        User.__conn.commit()
+        self.month = User.__ret_month(self)
 
     def del_list(self, name):
         if (name,) in self.lists:
@@ -154,16 +152,10 @@ class User(object):
         """)
         return User(log)
 
-
     @staticmethod
     def check_user(log, email=None):
         if email is None: User.__cur.execute("SELECT (login) FROM users WHERE login=?", (log,))
         else: User.__cur.execute("SELECT (login) FROM users WHERE login=? or email=?", (log, email))
-        return User.__cur.fetchone() is not None
-
-    @staticmethod
-    def check_email(email):
-        User.__cur.execute("SELECT (email) FROM users WHERE email=?", (email,))
         return User.__cur.fetchone() is not None
 
     @staticmethod
