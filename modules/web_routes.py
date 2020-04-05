@@ -21,6 +21,13 @@ def login():
         "avatar": now.avatar
     })
 
+@tm.route('/register', methods=['POST'])
+def register():
+    import string,random
+    salt = ''.join(random.choices(string.printable, 20))
+
+
+
 
 @tm.route('/get_page', methods=['POST'])
 def get_page():
@@ -40,8 +47,11 @@ def change_theme():
 def form_user():
     """Проверка существования пользователя"""
     temp = request.get_json()['name']
-    if '@' in temp: str(User.check_user(temp, temp)).lower()
-    return str(User.check_user(temp)).lower()
+    if '@' in temp: exist = User.check_user(temp, temp)
+    else: exist = User.check_user(temp)
+    if exist: pass
+
+
 
 
 @tm.route('/check_email', methods=['POST'])

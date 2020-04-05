@@ -6,6 +6,10 @@ function connect_authorisation () {
     var in_pass = $('#form_password');
     var in_repass = $('#form_repass');
 
+    function hash(psw, salt) {
+        return encrypt(psw + salt)
+    }
+
     function fade_change(field, func) {
         if (typeof field === "string") {field = $(field)}
         field.addClass('change');
@@ -91,7 +95,10 @@ function connect_authorisation () {
     in_login.on('textchange', function () {
         if (!check_empty(in_login)) {
             receive('/check_user', {'name': in_login.val()}, function (data) {
-                if (data) {change_auth('login')}
+                if (data['exist']) {
+                    change_auth('login')
+                    data['salt']
+                }
                 else {change_auth('register')}
             })
         }

@@ -1,5 +1,9 @@
+from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
+import sqlite3
+from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
+
+
 class User(object):
-    import sqlite3
     if __name__ == "__main__":
         __conn = sqlite3.connect(f"../databases/schedule.db", check_same_thread=False)
     else:
@@ -7,30 +11,16 @@ class User(object):
     __cur = __conn.cursor()
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
+    __cur.execute("""CREATE TABLE IF NOT EXISTS users
+                      (login VARCHAR(200), psw VARCHAR(200),
+                      email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN, salt VARCHAR(20))""")
+    authorisation = False
 
-    def __init__(self, log, psw, email=None):
-        if (email is None) or (log is None):
-            if log is None:
-                User.__cur.execute("SELECT login FROM users WHERE email=?", (email,))
-                log = User.__cur.fetchone()[0]
-            assert User.check_all(log, psw), 'Неверный пароль'
-            self.log = log
-            User.__cur.execute("SELECT email FROM users WHERE login=?", (log,))
-            self.email = User.__cur.fetchone()[0]
-            User.__cur.execute("SELECT avatar FROM users WHERE login=?", (log,))
-            self.avatar = User.__cur.fetchone()[0]
-        else:
-            self.log = log
-            self.email = email
-            if User.check_user(log):
-                User.__cur.execute("SELECT avatar FROM users WHERE login=?", (log,))
-                self.avatar = User.__cur.fetchone()[0]
-            else:
-                self.avatar = False
-                User.__add_user(self, psw)
-        User.__authorization = True
-        User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (log,))
-        self.theme = User.__cur.fetchone()
+    def __init__(self, log):
+        self.log = log
+        User.__cur.execute("SELECT (email, theme, color, avatar, salt) FROM users WHERE login=?", (log,))
+        self.email, self.avatar, self.theme, self.color, self.salt,  = User.__cur.fetchone()
+        User.authorisation = True
         self.lists = User.__ret_list(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
@@ -58,17 +48,6 @@ class User(object):
     def __ret_month(self):
         User.__cur.execute(f"SELECT * FROM month_{self.log}")
         return list(sorted(User.__cur.fetchall(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
-
-    def __add_user(self, psw):
-        User.__cur.execute("INSERT INTO users (login, psw, email, theme, color, avatar) VALUES (?, ?, ?, ?, ?, ?)",
-                           (self.log, psw, self.email, 'light', 'blue', False))
-        User.__conn.commit()
-        User.__cur.executescript(f"""
-            CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
-            CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
-            CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
-        """)
-
 
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
@@ -163,16 +142,18 @@ class User(object):
     #         return User.__cur.fetchone() is not None
 
     @staticmethod
-    def guest_reset():
-        if User.check_user('Guest'):
-            User.__cur.execute("DELETE FROM users WHERE login='Guest'")
-            User.__conn.commit()
-            User.__cur.executescript(f"""
-                        DROP TABLE IF EXISTS month_Guest;
-                        DROP TABLE IF EXISTS day_Guest;
-                        DROP TABLE IF EXISTS list_Guest
-                    """)
-        return User('Guest', 'Год рождения Сталина', 'best_team@best_mail_box.ru')
+    def registration(log, psw, email, theme, color):
+        User.__cur.execute(
+            "INSERT INTO users (login, psw, email, theme, color, avatar, salt) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (log, psw, email, theme, color, False, gen_salt(20)))
+        User.__conn.commit()
+        User.__cur.executescript(f"""
+            CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
+            CREATE TABLE IF NOT EXISTS day_{log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
+            CREATE TABLE IF NOT EXISTS list_{log} (name INTEGER, task VARCHAR(1000))
+        """)
+        return User(log)
+
 
     @staticmethod
     def check_user(log, email=None):
@@ -191,6 +172,19 @@ class User(object):
         return User.__cur.fetchone()[0] == psw
 
     @staticmethod
+    def guest_reset():
+        """Обновление гостевой записи"""
+        if User.check_user('Guest'):
+            User.__cur.execute("DELETE FROM users WHERE login='Guest'")
+            User.__conn.commit()
+            User.__cur.executescript(f"""
+                        DROP TABLE IF EXISTS month_Guest;
+                        DROP TABLE IF EXISTS day_Guest;
+                        DROP TABLE IF EXISTS list_Guest
+                    """)
+        return User.registration('Guest', 'Год рождения Сталина', 'best_team@best_mail_box.ru', 'light', 'blue')
+
+    @staticmethod
     def _erase():
         """Стирание всех пользователей"""
         User.__cur.execute("SELECT login FROM users")
@@ -206,8 +200,6 @@ class User(object):
     if __name__ == "__main__":
         __cur.execute("""CREATE TABLE IF NOT EXISTS users(login VARCHAR(200), psw VARCHAR(200), 
         email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN)""")
-        guest_reset()
-
 
 
 def inj_check(req): # TODO: Переделать
@@ -221,7 +213,7 @@ def inj_check(req): # TODO: Переделать
 # Создание таблицы-----------------------------------------------------------------------------------------
 # __cur.execute("""CREATE TABLE IF NOT EXISTS users
 #                   (login VARCHAR(200), psw VARCHAR(200),
-#                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN)""")
+#                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN, salt VARCHAR(20))""")
 # -----------------------------------------------------------------------------------------------------------
 # Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'T1MON@yandex.ru', 'kdfjdkffj')
