@@ -146,10 +146,11 @@ form#user label {
 	width: max-content; height: 36px;
 	line-height: 36px;
 	padding: 0 20px;
-	right: 300px;
+	right: 200px;
 	border-radius: 18px;
 	overflow: hidden;
 	opacity: 0;
+	pointer-events: none;
 }
 
 #authorisation_menu.register label[for=form_login] {top: 8px}
@@ -158,9 +159,16 @@ form#user label {
 #authorisation_menu.register label[for=form_repass] {top: 164px}
 
 #authorisation_menu label.change {opacity: 0}
-#authorisation_menu label.achive {right: 310px; opacity: 1; z-index: 25; background: rgba(85, 176, 85, 0.8);}
+#authorisation_menu label.achive, #authorisation_menu label.warning {
+	right: 310px;
+	opacity: 1;
+	z-index: 25;
+	pointer-events: visible;
+}
+
+#authorisation_menu label.achive {background: rgba(85, 176, 85, 0.8);}
+#authorisation_menu label.warning {background: rgba(255, 100, 100, 0.8)}
 #authorisation_menu label.achive:hover {background: rgb(85, 176, 85);}
-#authorisation_menu label.warning {right: 310px; opacity: 1; z-index: 25; background: rgba(255, 100, 100, 0.8);}
 #authorisation_menu label.warning:hover {background: #ff6464;}
 
 /*--------------------------------------------*/

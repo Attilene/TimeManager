@@ -24,15 +24,15 @@ function hide_click (area) {
 }
 
 function change_theme(theme, color) {
-    if ((theme !== user_data['theme']) || (color !== user_data['color'])) {
-        let temp_theme = user_data['theme'];
-        let temp_color = user_data['color'];
+    if ((theme !== user_data.theme) || (color !== user_data.color)) {
+        let temp_theme = user_data.theme;
+        let temp_color = user_data.color;
         $('#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
         $('#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
         $(`aside menu .theme button.${temp_theme}.${temp_color}`).removeClass('choice');
         $(`aside menu .theme button.${theme}.${color}`).addClass('choice');
-        user_data['theme'] = theme;
-        user_data['color'] = color;
+        user_data.theme = theme;
+        user_data.color = color;
     }
 }
 
@@ -75,12 +75,12 @@ function connect_pages() {
 
 function connect_actions() {
     // Указатель выбранной темы
-    $(`aside menu .theme button.${user_data['theme']}.${user_data['color']}`).addClass('choice');
+    $(`aside menu .theme button.${user_data.theme}.${user_data.color}`).addClass('choice');
     // Функционал нажатий
     // Вход тестового пользователя
     $(document).on('mousedown', 'header .left', function () {
         if (!user_logined) {
-            authorisation('Guest', 'Год рождения Сталина')
+            guest_auth()
         }
     });
     // Кнопки изменения цвета
@@ -88,9 +88,11 @@ function connect_actions() {
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
         if (((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) && (user_logined)) {
-            send('/change_theme', `${new_theme} ${new_color}`, change_theme(new_theme, new_color))
+            if (user_data.login !== 'Guest') {
+                send('/change_theme', `${new_theme} ${new_color}`)
+            }
         }
-        else {change_theme(new_theme, new_color)}
+        change_theme(new_theme, new_color)
     });
 }
 
@@ -99,36 +101,58 @@ function authorisation(login, password) {
     // Запрос
     receive('/login', [login, password], function (data) {
         // Синхронизация данных
-        if (data['login'] === 'Guest') {
-            user_data['login'] = 'Guest'
+        user_data = data;
+        change_theme(data.theme, data.color);
+        // Установка имени пользователя и аватарки
+        $('header .right a div.nickname').text(login);
+        // Загрузка аватара
+        if (data.avatar) {
+            $('header .right img.avatar').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
+            $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
         }
         else {
-            user_data = data;
-            change_theme(user_data['theme'], user_data['color']);
+            $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
+            $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
         }
-        if (!(user_logined)) {
-            // Установка имени пользователя и аватарки
-            $('header .right a div.nickname').text(user_data['login']);
-            // Загрузка аватара
-            if (user_data['avatar']) {
-                $('header .right img.avatar').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
-                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/${user_data['login']}.jpg`);
-            }
-            else {
-                $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
-                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
-            }
-            // Появление кнопок
-            $('#authorisation').css({display: 'block'});
-            $('header .center, header .right').fadeIn(0);
-            $('header').removeClass('logout');
-            // Сбор мусора
-            setTimeout(function () {
-                $('#authorisation, header .center, header .right').removeAttr('style')
-            }, close_time('#authorisation'));
-        }
+        // Появление кнопок
+        $('#authorisation').css({display: 'block'});
+        $('header .center, header .right').fadeIn(0);
+        $('header').removeClass('logout');
+        // Сбор мусора
+        setTimeout(function () {
+            $('#authorisation, header .center, header .right').removeAttr('style')
+        }, close_time('#authorisation'));
         user_logined = true;
     });
-
 }
 
+function guest_auth() {
+    user_data = {'login': 'Guest', 'theme': 'light', 'color': 'blue'};
+    // Установка имени пользователя и аватарки
+    $('header .right a div.nickname').text('Guest');
+    // Загрузка аватара
+    $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
+    $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
+    // Появление кнопок
+    $('#authorisation').css({display: 'block'});
+    $('header .center, header .right').fadeIn(0);
+    $('header').removeClass('logout');
+    // Сбор мусора
+    setTimeout(function () {
+        $('#authorisation, header .center, header .right').removeAttr('style')
+    }, close_time('#authorisation'));
+    user_logined = true;
+}
+
+function registration(login, email, password) {
+    let salt = gen_salt(20);
+    let hashed_pass = encrypt(password + salt);
+    send('/register', {
+        'log':     login,
+        'email':   email,
+        'psw':     hashed_pass,
+        'theme':   user_data.theme,
+        'color':   user_data.color,
+        'salt':    salt
+    })
+}
