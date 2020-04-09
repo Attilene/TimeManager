@@ -19,7 +19,7 @@
     #dev_head {width: 60%;}
 }
 @media (max-width: 1200px) {
-    #developers {width: 100%; margin: calc(55vh - 250px) auto}
+    #developers {width: 100%; grid-gap: 2%;}
     #dev_head {width: 70%;}
 }
 
