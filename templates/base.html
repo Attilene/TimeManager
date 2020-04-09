@@ -7,14 +7,17 @@
     <meta name="description" content="Этот сайт поможет вам наиболее оптимально распределить время" />
     <link href="time_manager/styles/fonts/fonts.css" rel="stylesheet" type="text/css" />
     <link href="time_manager/styles/base.css" rel="stylesheet" type="text/css"/>
-    <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
-    <link href="time_manager/styles/authorisation.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/themes/light.css" rel="stylesheet" type="text/css" id="theme_choice"/>
     <link href="time_manager/styles/colors/blue.css" rel="stylesheet" type="text/css" id="color_choice"/>
+    <link href="time_manager/styles/authorisation.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/about.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/images/favicons/blue.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
     <script type="text/javascript" src="time_manager/scriptes/jQuery.js"></script>
-    <script type="text/javascript" src="time_manager/scriptes/script.js"></script>
-        <script type="text/javascript" src="time_manager/scriptes/forms.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/requests.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/forms.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/actions.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/main.js"></script>
     <title>Time Manager</title>
 </head>
 
@@ -23,9 +26,9 @@
         <span class="left">
             <a>Time Manager</a>
         </span>
-        <a class="center" href="/list">Списки</a>
-        <a class="center" href="/day">Расписание</a>
-        <a class="center" href="/month">Дедлайны</a>
+        <a class="center" id="button_lists">Списки</a>
+        <a class="center" id="button_day">Расписание</a>
+        <a class="center" id="button_month">Дедлайны</a>
         <span class="right">
             <a>
                 <img class="avatar" src="time_manager/images/avatars/default.jpg">
@@ -33,19 +36,28 @@
                 <div></div>
             </a>
         </span>
-        <span id="authorisation">Авторизация</span>
+        <span id="authorisation">
+            <span id="login">Вход</span>
+            <span id="register">Регистрация</span>
+        </span>
     </header>
 
-    <aside class="logout"></aside>
+    <aside id="profile_menu">{% include 'menu/profile.html' %}</aside>
+    <aside id="login_menu">{% include 'menu/login.html' %}</aside>
+    <aside id="register_menu">{% include 'menu/register.html' %}</aside>
 
     <div id="wrapper">
-    <main></main>
+        <main id="page_help" class="opened">{% include 'about.html' %}</main>
+        <main id="page_lists"></main>
+        <main id="page_day"></main>
+        <main id="page_month"></main>
+        <main id="page_about">{% include 'about.html' %}</main>
     </div>
 
     <footer>
         <span class="left" title="Союз Советских Социалистических Рептилоидов">Проект СССР</span>
         <span class="center" title="Ну сказал же, что не защищены, ну чего ты ещё добиваешься?!">Все права защищены(нет) &copy; 2020 г.</span>
-        <span class="right" title="Коронавирус пытался нас заразить, но Касперский нас защитил"><a href="/about">Разработчики</a></span>
+        <span class="right" id="button_about" title="Установили Касперский и не паримся насчёт короновируса"><a>Разработчики</a></span>
     </footer>
 </body>
 </html>

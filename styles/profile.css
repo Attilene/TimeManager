@@ -81,7 +81,6 @@ aside #hat #edit_profile div:hover {
 /*---------------Менюшка----------------------*/
 aside menu {
     position: relative;
-    background: white;
     margin: 4px;
     padding: 5px 0;
     width: 242px;
@@ -134,7 +133,8 @@ aside menu button {
     height: 24px;
     background: none;
     border-radius: 15px;
-    transition: 0.2s;
+    cursor: pointer;
+    transition: 0.2s ease-out;
 }
 
 aside menu div.theme:hover button {transform: scale(1); opacity:1; transition: 0.2s ease-out}
@@ -150,3 +150,5 @@ aside button.white {border: 12px solid #fff; left: 195px;}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/
+
+aside menu div.theme button:active {transform: scale(0.6); transition: 0.2s ease} /*Эффект нажатий*/

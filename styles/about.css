@@ -1,0 +1,77 @@
+#developers * {padding: 0}
+#developers #dev_head, #developers .card_head {font-family: "Comfortaa Bold", sans-serif}
+
+#developers {
+    margin: 10vh auto;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5%;
+    grid-template-rows: 15% 15% 70%;
+}
+
+@media (min-width: 1500px) {
+    #developers {width: 75%}
+    #dev_head {width: 50%}
+}
+@media (min-width: 1200px) and (max-width: 1500px) {
+    #developers {width: 90%}
+    #dev_head {width: 60%;}
+}
+@media (max-width: 1200px) {
+    #developers {width: 100%; margin: calc(55vh - 250px) auto}
+    #dev_head {width: 70%;}
+}
+
+#dev_head {
+    font-size: 36px;
+    text-align: center;
+    grid-column: 1/6;
+    height: 60px;
+    justify-self: center;
+    border-radius: 30px;
+}
+
+#dev_head p {
+    position: relative;
+    margin: 0;
+    top: 5px;
+}
+
+.card_head {
+    font-size: 25px;
+    line-height: 12px;
+    text-align: center;
+    padding: 0;
+    height: 60px;
+    border-radius: 30px;
+}
+
+#Rasim {line-height: 30px}
+#Rasim p {margin: 0}
+
+#developers .card p, #developers .card {text-align: center; border-radius: 30px}
+#developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}
+#developers p:hover, #developers h2:hover, #developers h3:hover {transform: scale(1.05); transition: 0.2s ease}
+
+#developers img {
+    margin: 15px;
+    width: 100px;
+    border-radius: 50px;
+    justify-self: center;
+    transition: 0.3s ease-out;
+}
+
+#developers img:hover {
+    box-shadow: 0 3px 7px black;
+    border-radius: 30px;
+    transform: scale(1.1);
+    transition: 0.2s ease;
+}
+
+#developers .card hr {
+    border-radius: 2px;
+    width: 50%;
+    height: 0
+}
+

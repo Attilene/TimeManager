@@ -1,5 +1,11 @@
 /*-------------Задание общих свойств----------*/
-* {	outline: none}
+* {	outline: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 html, body {
 	font-family: "Comfortaa Bold", sans-serif;
@@ -80,6 +86,7 @@ header .center {
 	padding: 5px 0;
 	border-radius: 20px;
 	text-align: center;
+	cursor: pointer;
 	transition-property: transform, background;
 	transition: 0.3s ease-out;
 }
@@ -188,6 +195,7 @@ footer {
 footer span {
 	width: max-content;
 	margin: auto 10%;
+	cursor: pointer;
 	transition-property: transform;
 	transition: 0.3s ease-out;
 }
@@ -212,12 +220,35 @@ footer .right {justify-self: right}
 }
 
 main {
-	margin: 0;
-	padding: 0;
+	display: none;
+	opacity: 0;
+	position: absolute;
+	top: -20px;
+	left: 0;
 	min-height: 100%;
 	width: 100%;
+	padding: 0;
+}
+
+main.opened {
+	z-index: 500;
+	display: block;
+	opacity: 1;
+	top: 0;
+	transition-property: top, opacity;
+	transition: 0.2s ease-in;
+}
+
+main.closed {
+	z-index: 499;
+	opacity: 0;
+	top: 20px;
+	transition-property: top, opacity;
+	transition: 0.2s ease-out;
 }
 /*--------------------------------------------*/
+
+header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(0.9); transition: 0.2s ease} /*Эффект нажатий*/
 
 /*----------Настройка скроллбара--------------*/
 ::-webkit-scrollbar{width: 10px;}

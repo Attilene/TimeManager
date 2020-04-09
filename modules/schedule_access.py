@@ -15,15 +15,19 @@ class User(object):
         if email is None:
             assert User.check_all(log, psw), 'Неверный пароль'
             self.log = log
-            User.__cur.execute("SELECT email FROM users WHERE login=?", (self.log,))
+            User.__cur.execute("SELECT email FROM users WHERE login=?", (log,))
             self.email = User.__cur.fetchone()[0]
-            User.__cur.execute("SELECT avatar FROM users WHERE login=?", (self.log,))
+            User.__cur.execute("SELECT avatar FROM users WHERE login=?", (log,))
             self.avatar = User.__cur.fetchone()[0]
         else:
             self.log = log
             self.email = email
-            self.avatar = False
-            User.__add_user(self, psw)
+            if User.check_log(log):
+                User.__cur.execute("SELECT avatar FROM users WHERE login=?", (log,))
+                self.avatar = User.__cur.fetchone()[0]
+            else:
+                self.avatar = False
+                User.__add_user(self, psw)
         User.__authorization = True
         User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (log,))
         self.theme = User.__cur.fetchone()
@@ -64,7 +68,6 @@ class User(object):
             CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
             CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
         """)
-
 
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
@@ -153,6 +156,14 @@ class User(object):
             User.__conn.commit()
             self.month.remove((digit, month, task))
 
+    # @staticmethod     # TODO: Не доделано
+    # def restore(email):
+    #     User.__cur.execute("SELECT (login, ) FROM users WHERE email=?", (email,))
+    #     if email is None:
+    #         return User.__cur.fetchone()[0]
+    #     else:
+    #         return User.__cur.fetchone() is not None
+
     @staticmethod
     def guest_reset():
         if User.check_log('Guest'):
@@ -174,6 +185,12 @@ class User(object):
     def check_all(log, psw):
         User.__cur.execute("SELECT (psw) FROM users WHERE login=?", (log,))
         return User.__check_psw(User.__cur.fetchone()[0], psw)
+
+    @staticmethod
+    def check_email(email=None):
+        User.__cur.execute("SELECT (login) FROM users WHERE email=?", (email,))
+        if email is None: return User.__cur.fetchone()[0]
+        else: return User.__cur.fetchone() is not None
 
     @staticmethod
     def _erase():
