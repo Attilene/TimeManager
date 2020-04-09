@@ -1,45 +1,38 @@
+from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
+import sqlite3
+from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
+
+
 class User(object):
-    import sqlite3
-    from werkzeug.security import generate_password_hash, check_password_hash
     if __name__ == "__main__":
         __conn = sqlite3.connect(f"../databases/schedule.db", check_same_thread=False)
     else:
         __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
-    __gen_psw = generate_password_hash
-    __check_psw = check_password_hash
     __cur = __conn.cursor()
+    __cur.execute("""
+            CREATE TABLE IF NOT EXISTS users(
+                login      VARCHAR(200), 
+                email      VARCHAR(200), 
+                password   VARCHAR(200), 
+                theme      VARCHAR(30), 
+                color      VARCHAR(30), 
+                avatar     BOOLEAN, 
+                salt       VARCHAR(50))
+                """)
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
+    authorisation = False
 
-    def __init__(self, log, psw, email=None):
-        if email is None:
-            assert User.check_all(log, psw), 'Неверный пароль'
-            self.log = log
-            User.__cur.execute("SELECT email FROM users WHERE login=?", (log,))
-            self.email = User.__cur.fetchone()[0]
-            User.__cur.execute("SELECT avatar FROM users WHERE login=?", (log,))
-            self.avatar = User.__cur.fetchone()[0]
-        else:
-            self.log = log
-            self.email = email
-            if User.check_log(log):
-                User.__cur.execute("SELECT avatar FROM users WHERE login=?", (log,))
-                self.avatar = User.__cur.fetchone()[0]
-            else:
-                self.avatar = False
-                User.__add_user(self, psw)
-        User.__authorization = True
-        User.__cur.execute("SELECT theme, color FROM users WHERE login=?", (log,))
-        self.theme = User.__cur.fetchone()
-        self.lists = User.__ret_list(self)
+    def __init__(self, log_email):
+        User.__cur.execute("SELECT login, email, theme, color, avatar, salt FROM users WHERE login=? OR email=?", (log_email, log_email,))
+        self.log, self.email, self.theme, self.color, self.avatar, self.salt = User.__cur.fetchone()
+        self.lists = User.__ret_lists(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
+        User.authorisation = True
 
-    def __ret_users(self):
-        User.__cur.execute("SELECT (login) FROM users")
-        return list(sorted(User.__cur.fetchall()))
-
-    def __ret_list(self):
+    # Возврат данных из БД #
+    def __ret_lists(self):
         User.__cur.execute(f"SELECT * FROM list_{self.log}")
         lists = {}
         for name, task in User.__cur.fetchall():
@@ -59,16 +52,7 @@ class User(object):
         User.__cur.execute(f"SELECT * FROM month_{self.log}")
         return list(sorted(User.__cur.fetchall(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
-    def __add_user(self, psw):
-        User.__cur.execute("INSERT INTO users (login, psw, email, theme, color, avatar) VALUES (?, ?, ?, ?, ?, ?)",
-                           (self.log, User.__gen_psw(psw), self.email, 'light', 'blue', False))
-        User.__conn.commit()
-        User.__cur.executescript(f"""
-            CREATE TABLE IF NOT EXISTS month_{self.log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
-            CREATE TABLE IF NOT EXISTS day_{self.log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
-            CREATE TABLE IF NOT EXISTS list_{self.log} (name INTEGER, task VARCHAR(1000))
-        """)
-
+    # Изменение данных пользователя #
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login=? WHERE login=?", (log, self.log))
         User.__conn.commit()
@@ -79,25 +63,23 @@ class User(object):
         """)
         self.log = log
 
-    def change_pass(self, psw):
-        psw = User.__gen_psw(psw)
-        User.__cur.execute("UPDATE users SET psw=? WHERE login=?", (psw, self.log))
-        User.__conn.commit()
-
     def change_email(self, email):
         User.__cur.execute("UPDATE users SET email=? WHERE login=?", (email, self.log))
         User.__conn.commit()
         self.email = email
 
-    def change_theme(self, theme):
-        self.theme = theme
-        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (*self.theme, self.log))
+    def change_pass(self, psw):
+        User.__cur.execute("UPDATE users SET password=? WHERE login=?", (psw, self.log))
+        User.__conn.commit()
+
+    def change_theme(self, theme, color):
+        self.theme, self.color = theme, color
+        User.__cur.execute("UPDATE users SET theme=?, color=? WHERE login=?", (theme, color, self.log))
         User.__conn.commit()
 
     def change_avatar(self, change):
         User.__cur.execute("UPDATE users SET avatar=? WHERE login=?", (change, self.log))
         User.__conn.commit()
-        User.avatar = change
 
     def del_user(self):
         User.__cur.execute("DELETE FROM users WHERE login=?", (self.log,))
@@ -108,38 +90,31 @@ class User(object):
             DROP TABLE IF EXISTS list_{self.log}
         """)
 
+    # Работа с данными #
+    # Добавление #
     def add_list(self, name, task):
         if (name, task) not in self.lists:
             User.__cur.execute(f"INSERT INTO list_{self.log} (name, task) VALUES (?, ?)", (name, task))
             User.__conn.commit()
-            self.lists = User.__ret_list(self)
+            self.lists = User.__ret_lists(self)
 
     def add_day(self, hour, minute, task):
-        if (hour, minute, task) not in self.day:
-            User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)",
-                               (hour, minute, task))
-            User.__conn.commit()
-            self.day = User.__ret_day(self)
+        User.__cur.execute(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)", (hour, minute, task))
+        User.__conn.commit()
+        self.day = User.__ret_day(self)
 
     def add_month(self, digit, month, task):
         month = month.lower()
-        if (digit, month, task) not in self.month:
-            User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)",
-                            (digit, month, task))
-            User.__conn.commit()
-            self.month = User.__ret_month(self)
+        User.__cur.execute(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)", (digit, month, task))
+        User.__conn.commit()
+        self.month = User.__ret_month(self)
 
-    def del_list(self, name):
-        if (name,) in self.lists:
-            User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
-            User.__conn.commit()
-            self.lists.pop(name)
-
-    def del_list_task(self, name, task):
-        if task in self.lists[name] and task != 0:
-            User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ?", (name, task))
-            User.__conn.commit()
-            self.lists[name].remove(task)
+    # Удаление #
+    def del_list(self, name, task):
+        User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ?", (name, task))
+        User.__conn.commit()
+        self.lists[name].remove(task)
+        if len(self.lists[name]) == 0: del self.lists[name]
 
     def del_day(self, hour, minute, task):
         if (hour, minute, task) in self.day:
@@ -156,7 +131,20 @@ class User(object):
             User.__conn.commit()
             self.month.remove((digit, month, task))
 
-    # @staticmethod     # TODO: Не доделано
+    @staticmethod
+    def check_user(log_email):
+        """Проверка существования пользователя"""
+        User.__cur.execute("SELECT (salt) FROM users WHERE login=? or email=?", (log_email, log_email))
+        return User.__cur.fetchone()
+
+    @staticmethod
+    def check_psw(log_email, psw):
+        """Проверка правильности пароля"""
+        User.__cur.execute("SELECT (password, salt) FROM users WHERE login=? or email=?", (log_email, log_email))
+        temp = User.__cur.fetchone()
+        return check_password_hash(temp[0], psw + temp[1])
+
+    # @staticmethod TODO: Доделать
     # def restore(email):
     #     User.__cur.execute("SELECT (login, ) FROM users WHERE email=?", (email,))
     #     if email is None:
@@ -165,8 +153,23 @@ class User(object):
     #         return User.__cur.fetchone() is not None
 
     @staticmethod
-    def guest_reset():
-        if User.check_log('Guest'):
+    def registration(log, email, psw, theme, color, salt):
+        """Регистрация"""
+        hashed_psw = generate_password_hash(psw + salt)
+        User.__cur.execute(
+            "INSERT INTO users (login, email, password, theme, color, avatar, salt) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (log, email, hashed_psw, theme, color, False, salt))
+        User.__conn.commit()
+        User.__cur.executescript(f"""
+            CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task VARCHAR(1000));
+            CREATE TABLE IF NOT EXISTS day_{log} (hour INTEGER, minute INTEGER, task VARCHAR(1000));
+            CREATE TABLE IF NOT EXISTS list_{log} (name INTEGER, task VARCHAR(1000))
+        """)
+
+    @staticmethod
+    def guest_reset():  # TODO: Убрать позже
+        """Обновление гостевой записи"""
+        if User.check_user('Guest'):
             User.__cur.execute("DELETE FROM users WHERE login='Guest'")
             User.__conn.commit()
             User.__cur.executescript(f"""
@@ -174,23 +177,7 @@ class User(object):
                         DROP TABLE IF EXISTS day_Guest;
                         DROP TABLE IF EXISTS list_Guest
                     """)
-        return User('Guest', 'Год рождения Сталина', 'best_team@best_mail_box.ru')
-
-    @staticmethod
-    def check_log(log):
-        User.__cur.execute("SELECT (login) FROM users WHERE login=?", (log,))
-        return User.__cur.fetchone() is not None
-
-    @staticmethod
-    def check_all(log, psw):
-        User.__cur.execute("SELECT (psw) FROM users WHERE login=?", (log,))
-        return User.__check_psw(User.__cur.fetchone()[0], psw)
-
-    @staticmethod
-    def check_email(email=None):
-        User.__cur.execute("SELECT (login) FROM users WHERE email=?", (email,))
-        if email is None: return User.__cur.fetchone()[0]
-        else: return User.__cur.fetchone() is not None
+        return User.registration('Guest', 'best_team@best_mail_box.ru', 'Год рождения Сталина', 'light', 'blue')
 
     @staticmethod
     def _erase():
@@ -205,25 +192,12 @@ class User(object):
         User.__cur.execute("DELETE FROM users")
         User.__conn.commit()
 
-    if __name__ == "__main__":
-        __cur.execute("""CREATE TABLE IF NOT EXISTS users(login VARCHAR(200), psw VARCHAR(200), 
-        email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN)""")
-        guest_reset()
-
-
-
-def inj_check(req):
-    cl_el = ('#', '-', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"', '%')
-    for el in cl_el:
-        if el in req:
-            return False
-    return True
 
 
 # Создание таблицы-----------------------------------------------------------------------------------------
 # __cur.execute("""CREATE TABLE IF NOT EXISTS users
 #                   (login VARCHAR(200), psw VARCHAR(200),
-#                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN)""")
+#                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN, salt VARCHAR(20))""")
 # -----------------------------------------------------------------------------------------------------------
 # Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'T1MON@yandex.ru', 'kdfjdkffj')

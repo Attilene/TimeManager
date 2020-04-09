@@ -9,20 +9,32 @@
 
 html, body {
 	font-family: "Comfortaa Bold", sans-serif;
+	font-size: 16px;
 	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 	min-width: 750px;
 }
 
 a {text-decoration: none}
-
 #preload * {transition: none; pointer-events: none}
+
+/*Курсор*/
+header .left, header .center, header .right, footer span  {cursor: pointer}
+
+/*----------Настройка скроллбара--------------*/
+::-webkit-scrollbar{width: 10px;}
+::-webkit-scrollbar-button {display: none}
+::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0)}
+::-webkit-scrollbar-thumb {border-radius: 5px;}
 /*--------------------------------------------*/
 
+/*--------------------------------------------*/
 /*------------------Шапка---------------------*/
 header {
+	z-index: 20;
 	display: inline-grid;
 	grid-template-columns: 20% 1fr 1fr 1fr 20%;
 	grid-column-gap: 4%;
@@ -33,51 +45,21 @@ header {
 	height: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
-	pointer-events: none;
 }
-
-header * {pointer-events: visible}
 
 @media (max-width: 1200px) { /*Опции для маленького окна*/
 	header {grid-template-columns: 30% 1fr 1fr 1fr 5%; grid-column-gap: 2%}
 	header .right div {display: none}
 }
-
 /*-----------------Заголовок------------------*/
 header .left {
-	transform: scale(0.95);
-	font-size: 30px;
-	margin-left: 15px;
-	padding-top: 4px;
+	font-size: 1.8em;
+	margin: 6px 0 0 19px;
 	width: 220px;
-	cursor: pointer;
-	transition-property: transform;
-	transition: transform 0.3s ease-out;
 }
 
-header .left::before {
-	content: 'Time Manager';
-	transform: scale(0.8);
-	position: fixed;
-	left: 0;
-	opacity: 0;
-	pointer-events: none;
-	transition-property: transform, opacity;
-	transition: 0.3s ease-out;
-}
-
-header .left:hover {
-	transform: scale(1);
-	transition: 0.2s ease;
-}
-
-header .left:hover::before{
-	transform: scale(1);
-	opacity: 100%;
-	transition: 0.2s ease-out;
-}
+header .left:hover {transform: scale(1.1) skewX(-10deg)}
 /*--------------------------------------------*/
-
 /*------------------Разделы-------------------*/
 header .center {
 	width: 90%;
@@ -86,41 +68,31 @@ header .center {
 	padding: 5px 0;
 	border-radius: 20px;
 	text-align: center;
-	cursor: pointer;
-	transition-property: transform, background;
-	transition: 0.3s ease-out;
 }
 
 header .center:hover {
 	transform: scale(1.1);
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	background: rgba(255, 255, 255, 0.2);
-	transition: 0.2s ease;
 }
 /*--------------------------------------------*/
-
 /*--------------Пользователь------------------*/
 header .right a *, header .right a {float: right}
 
 header .right {
-	transform: scale(1);
 	margin: 8px 9px 0 0;
 	padding: 1px 0;
 	height: 30px;
 	width: max-content;
 	border-radius: 20px;
 	justify-self: end;
-	cursor: pointer;
-	transition-property: transform, background;
-	transition: 0.3s ease-out;
 }
 
 header .right div{
-	margin: 4px 10px 0 3vh;
-	font-size: 18px;
+	margin: 4px 10px;
+	font-size: 1.125em;
 	max-width: 75%;
 	overflow: hidden;
-	transition-property: transform;
-	transition: 0.3s ease-out;
 }
 
 header .right .avatar {
@@ -130,8 +102,6 @@ header .right .avatar {
 	width: 38px;
 	min-height: 38px;
 	border-radius: 20px;
-	transition-property: transform, filter;
-	transition: 0.3s ease-out;
 }
 
 #set_icon {
@@ -143,43 +113,33 @@ header .right .avatar {
 	width: 36px;
 	position: absolute;
 	top: -2px; right: -1px;
-	transition-property: transform, opacity;
-	transition: 0.3s ease-in;
 }
 
 @media (max-width: 1200px) {  /*Анимация для маленького окна*/
 	header .right:hover #set_icon {
-		z-index: 0;
+		z-index: 30;
 		transform: scale(1);
-		opacity: 70%;
-		transition: 0.3s ease;
+		opacity: 60%;
 	}
 
-	header .right:hover .avatar {
-		filter: brightness(90%);
-		transition: 0.3s ease-out;
-	}
+	header .right:hover .avatar {filter: brightness(90%)}
 }
 
-@media (min-width: 1201px) { /* Анимации для большого окна*/
+@media (min-width: 1200px) { /* Анимации для большого окна*/
 	header .right:hover {
 		transform: scale(1.05);
+		text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
-		transition: 0.2s ease;
 	}
 
-	header .right:hover img {
-		transform: scale(0.65);
-		transition: 0.2s ease-out;
-	}
+	header .right:hover img {transform: scale(0.65);}
 }
 /*--------------------------------------------*/
-
 /*--------------------------------------------*/
-
 /*-------------------Футер--------------------*/
 footer {
+	z-index: 20;
 	display: inline-grid;
 	grid-template-columns: 1fr 2fr 1fr;
 	min-width: 750px;
@@ -192,67 +152,70 @@ footer {
 	border-top-right-radius: 20px;
 }
 
-footer span {
-	width: max-content;
-	margin: auto 10%;
-	cursor: pointer;
-	transition-property: transform;
-	transition: 0.3s ease-out;
-}
+footer span {width: max-content; margin: auto 10%;}
 
-footer span:hover {
-	transform: scale(1.1);
-	transition: 0.2s ease;
-}
+footer span:hover {transform: scale(1.1)}
 
 footer .center {justify-self: center}
 footer .right {justify-self: right}
 /*--------------------------------------------*/
-
 /*--------------Основной блок-----------------*/
-#wrapper {
-	height: calc(100% - 90px);
-	width: 100%;
-	position: absolute;
-	top: 50px;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
 main {
 	display: none;
 	opacity: 0;
 	position: absolute;
-	top: -20px;
+	top: 30px;
 	left: 0;
-	min-height: 100%;
+	height: calc(100% - 90px);
 	width: 100%;
 	padding: 0;
-}
-
-main.opened {
-	z-index: 500;
-	display: block;
-	opacity: 1;
-	top: 0;
-	transition-property: top, opacity;
-	transition: 0.2s ease-in;
-}
-
-main.closed {
-	z-index: 499;
-	opacity: 0;
-	top: 20px;
-	transition-property: top, opacity;
-	transition: 0.2s ease-out;
+	overflow: auto;
 }
 /*--------------------------------------------*/
 
-header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(0.9); transition: 0.2s ease} /*Эффект нажатий*/
+/*-----------------Анимации-------------------*/
+/*-----------------Смена тем------------------*/
+body, aside menu, header, footer, aside, div.name, #dev_list, aside div.theme {
+	transition-property: background, border-color;
+	transition: 0.5s}
+/*--------------------------------------------*/
+/*-----------------Возврат(время)-------------*/
+header .left, header .center, header .right, header .right .avatar, footer span {transition: 0.2s ease-out}
+#set_icon {transition: 0.2s ease-out}
+/*--------------------------------------------*/
+/*-----------------При наведени(время)--------*/
+header .left:hover, header .center:hover, header .right:hover, footer span:hover {
+	transition: 0.1s ease;}
+@media (max-width: 1200px) {
+	header .right:hover #set_icon {transition: 0.2s ease}
+	header .right:hover .avatar {transition: 0.2s ease-out}}
+@media (min-width: 1201px) {
+	header .right:hover {transition: 0.1s ease}
+	header .right:hover img {transition: 0.1s ease-out}}
+/*--------------------------------------------*/
+/*-----------------При нажатии----------------*/
+header .left:active, header .center:active, header .right:active, footer span:active {
+	transform: scale(1);
+	transition: 0.1s ease}
+header .left:active {transform: skewX(-10deg)}
+header .right:active {transform: scale(0.95)}
+@media (max-width: 1200px) {header .right:active {transform: scale(0.85)}}
+/*--------------------------------------------*/
+/*--------------------------------------------*/
 
-/*----------Настройка скроллбара--------------*/
-::-webkit-scrollbar{width: 10px;}
-::-webkit-scrollbar-button {display: none}
-::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0)}
-::-webkit-scrollbar-thumb {border-radius: 5px;}
+/*---------------Открытие---------------------*/
+main.opened {
+	z-index: 5;
+	display: block;
+	opacity: 1;
+	top: 50px;
+	transition: 0.2s ease;
+}
+
+main.closed {
+	z-index: 4;
+	opacity: 0;
+	top: 70px;
+	transition: 0.1s ease-out;
+}
 /*--------------------------------------------*/

@@ -1,5 +1,8 @@
 * {color: white}
-body, aside menu {background: white; transition: background 0.5s}
-aside menu div.light { background: white}
-aside menu div.dark { background: darkgray}
+body , aside menu {background: white}
+aside menu div.light {background: white}
+aside menu div.dark {background: #cdcdcd}
 #developers hr {border: 2px solid white}
+@-webkit-keyframes autofill {to {color: white}}
+#authorisation_menu input::placeholder {color: rgba(255, 255, 255, 0.8)}
+#authorisation_menu.login #checkbox_remember_me:checked~#remember_me {border: 3px solid white}

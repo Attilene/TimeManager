@@ -1,66 +1,84 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
+from hashlib import sha256
+
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
 
-User.guest_reset()
 now = None
 
 
 # Запросы
+@tm.route('/check_user', methods=['POST'])
+def req_check_user():
+    """Проверка существования пользователя"""
+    temp = User.check_user(request.get_json())
+    return jsonify(temp)
+
+
+@tm.route('/check_password', methods=['POST'])
+def req_check_password():
+    return jsonify(User.check_psw(**request.get_json()))
+
+
 @tm.route('/login', methods=['POST'])
-def login():
+def req_login():
     global now
-    now = User(*request.get_json())
-    return jsonify({
-        "login": now.log,
-        "theme": now.theme[0],
-        "color": now.theme[1],
-        "avatar": now.avatar
-    })
+    psw, salt = request.get_json()
+    if User.check_psw(*request.get_json()):
+        now = User(request.get_json()['login'])
+        return jsonify({
+            "login": now.log,
+            "theme": now.theme,
+            "color": now.color,
+            "avatar": now.avatar
+        })
+    else: return jsonify(False)
+
+
+@tm.route('/register', methods=['POST'])
+def req_register():
+    User.registration(**request.get_json)
+    return jsonify(True)
 
 
 @tm.route('/get_page', methods=['POST'])
-def get_page():
+def req_get_page():
     """Отсылка HTML шаблонов"""
     page = request.get_json()
     return render_template(f'{page}.html')
 
 
 @tm.route('/change_theme', methods=['POST'])
-def change_theme():
+def req_change_theme():
     """Изменение темы"""
     now.change_theme(request.get_json().split())
-    return jsonify(success=True)
+    return jsonify(True)
 
 
 @tm.route('/logout', methods=['POST'])
-def logout():
+def req_logout():
     """Выход пользователя"""
     global now
-    if now.log == 'Guest':
-        now = User('Guest')
-        now.del_user()
-        del now
-        now = User('Guest', 'best_team@gmail.com', 'День рождения Сталина')
-    del now
-    return jsonify(success=True)
+    now = None
+    if now.log == 'Guest': User.guest_reset()
+    return jsonify(True)
 
 
-@tm.route('/delete', methods=['POST'])
-def delete():
+@tm.route('/delete_user', methods=['POST'])
+def req_delete_user():
     """Удаление учётной записи"""
     global now
     now.del_user()
     del now
-    return jsonify(success=True)
+    return jsonify(True)
 
 
 # Страницы
 @tm.route('/')
 def page_home():
-    return render_template("base.html")
+    return render_template("base.html", theme='light', color='blue')
 
 
 @tm.route('/list')

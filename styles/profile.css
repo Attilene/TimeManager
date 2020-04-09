@@ -1,15 +1,19 @@
+/*Курсор*/
+/*aside menu button {cursor: pointer}*/
+
 aside {
-    z-index: 1000;
+    z-index: 10;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
     display: none;
     opacity: 0;
     position: fixed;
-    width: 250px;
-    height: min-content;
+    height: max-content;
     top: 50px;
     right: 10px;
     border-radius: 20px;
 }
 
+aside#profile_menu {width: 250px}
 /*--------------Шапка------------------*/
 aside #hat {
     width: 100%;
@@ -29,7 +33,6 @@ aside #hat .avatar {
 aside #hat img:first-child {
     width: 60px;
 	min-height: 60px;
-    transition: 0.3s ease-out;
 }
 
 aside #hat .avatar #float {
@@ -41,19 +44,16 @@ aside #hat .avatar #float {
     width: 40px;
     height: 40px;
     opacity: 0;
-    transition: 0.3s ease-out;
 }
 
 aside #hat .avatar:hover img:first-child {
     filter: blur(1px) brightness(0.9);
-    transition: 0.3s ease;
 }
 
 aside #hat .avatar:hover #float {
     z-index: 1;
     transform: scale(1);
-    opacity: 70%;
-    transition: 0.2s ease;
+    opacity: 60%;
 }
 /*----------------------------------------------*/
 
@@ -63,16 +63,14 @@ aside #hat #edit_profile {padding-top: 5px}
 aside #hat #edit_profile div {
     margin: 8px 10px 8px 2px;
     padding: 2px 10px;
-    font-size: 15px;
+    font-size: 0.94em;
     width: max-content;
     border-radius: 12px;
-    transition: 0.3s ease-out;
 }
 
 aside #hat #edit_profile div:hover {
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.2);
-    transition: 0.2s ease;
 }
 /*----------------------------------------------*/
 
@@ -82,11 +80,11 @@ aside #hat #edit_profile div:hover {
 aside menu {
     position: relative;
     margin: 4px;
-    padding: 5px 0;
-    width: 242px;
     min-height: 100px;
     border-radius: 16px;
 }
+
+aside#profile_menu menu {width: 242px; padding: 5px 0}
 
 aside menu div.theme {
     margin: 10px auto;
@@ -95,32 +93,21 @@ aside menu div.theme {
     height: 40px;
     border-radius: 20px;
     box-sizing: border-box;
-    transition: 0.15s ease-in;
 }
 
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
-aside menu div.theme::before {
-    position: absolute;
-    pointer-events: none;
-    transition: 0.2s ease-in;
-}
+aside menu div.theme::before {position: absolute; pointer-events: none}
+aside menu div.theme:hover::before {opacity: 0}
 
 aside menu div.light::before {
-    top: 25px; left: 57px;
     content: 'Светлая тема';
-}
+    top: 25px; left: 57px}
 
 aside menu div.dark::before {
-    top: 75px; left: 65px;
     content: 'Тёмная тема';
-}
-
-aside menu div.light:hover::before, aside menu div.dark:hover::before {
-    opacity: 0;
-    transition: 0.1s ease-in;
-}
+    top: 75px; left: 65px}
 /*----------------------------------------------*/
 
 /*-------------------Кнопочки-------------------*/
@@ -129,26 +116,92 @@ aside menu button {
     opacity: 0;
     padding: 0;
     position: absolute;
+    box-sizing: border-box;
     width: 24px;
     height: 24px;
     background: none;
     border-radius: 15px;
-    cursor: pointer;
-    transition: 0.2s ease-out;
 }
 
-aside menu div.theme:hover button {transform: scale(1); opacity:1; transition: 0.2s ease-out}
-aside menu button:hover {border-width: 3px; transition: 0.1s ease-out}
+aside menu button::before { /*Оптимизация клик зоны*/
+    display: none;
+    content: '';
+    z-index: 11;
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+}
 
-aside button.red {border: 12px solid #ff6464; left: 22px;}
-aside button.blue {border: 12px solid #6464ff; left: 56px;}
-aside button.green {border: 12px solid #46aa46; left: 90px;}
-aside button.purple {border: 12px solid #b450b4; left: 127px;}
-aside button.sky {border: 12px solid #55c0bb; left: 161px;}
-aside button.black {border: 12px solid #000; left: 195px;}
-aside button.white {border: 12px solid #fff; left: 195px;}
+aside menu div.theme:hover button {transform: scale(1); opacity:1}
+
+aside menu button.red {border: 12px solid #ff6464; left: 22px;}
+aside menu button.blue {border: 12px solid #6464ff; left: 56px;}
+aside menu button.green {border: 12px solid #46aa46; left: 90px;}
+aside menu button.purple {border: 12px solid #b450b4; left: 127px;}
+aside menu button.sky {border: 12px solid #55c0bb; left: 161px;}
+aside menu button.black {border: 12px solid #000; left: 195px;}
+aside menu button.white {border: 12px solid #fff; left: 195px;}
+
+aside menu button:hover {border-width: 3px}
+
+/*Выбранная тема*/
+aside menu div.theme button.choice {border-width: 3px}
+aside menu div.theme button::after {
+    transform: scale(0.1);
+    opacity: 0;
+    z-index: 12;
+    content: '';
+    width: 0; height: 0;
+    position: absolute;
+     top: 3px; left: 3px;
+    border: inherit;
+    border-width: 6px;
+    border-radius: 6px;
+    transition: none;
+}
+
+aside menu div.theme button.choice::after {opacity: 1; transform: scale(1)}
 /*----------------------------------------------*/
 
 /*----------------------------------------------*/
 
-aside menu div.theme button:active {transform: scale(0.6); transition: 0.2s ease} /*Эффект нажатий*/
+/*-----------------Анимации--------------------*/
+/*-----------------Возврат---------------------*/
+aside #hat img:first-child, aside #hat .avatar #float, aside #hat .avatar:hover img:first-child,
+aside #hat #edit_profile div {transition: 0.3s ease-out}
+aside menu div.theme::before {transition: 0.2s ease-in}
+aside menu button, aside menu div.theme button.choice::after {transition: 0.2s ease-out}
+/*--------------------------------------------*/
+/*-----------------При наведени---------------*/
+aside #hat .avatar:hover #float, aside #hat #edit_profile div:hover{transition: 0.2s ease}
+aside menu div.theme:hover::before {transition: 0.1s ease-in}
+aside menu div.theme:hover button {transition: 0.2s ease-out}
+aside menu div.theme:hover button:hover {transition: 0.1s ease-out}
+/*--------------------------------------------*/
+/*-----------------При нажатии----------------*/
+aside menu div.theme button:active {transform: scale(0.7); transition: 0.1s ease}
+aside menu button:active::before {display: block}
+aside menu button.choice:active::before {display: none}
+/*--------------------------------------------*/
+/*--------------------------------------------*/
+
+/*---------------Открытие---------------------*/
+aside.opened {
+    z-index: 10;
+	display: block;
+	opacity: 1;
+	top: 60px;
+	transition: 0.15s ease-in;
+}
+
+aside.closed {
+	z-index: 9;
+	opacity: 0;
+	top: 50px;
+	transition: 0.1s ease-out;
+}
+/*--------------------------------------------*/

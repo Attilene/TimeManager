@@ -1,39 +1,245 @@
-header.logout {
-	display: inline-grid;
-	grid-template-columns: 1fr 2fr;
-	grid-column-gap: 0;
+input:-webkit-autofill { /*Убирание желтого фона*/
+	-webkit-animation-name: autofill;
+	-webkit-animation-fill-mode: both;
+	-webkit-text-fill-color: white !important;
 }
 
-header.logout .center, header.logout .right {display: none}
-header.logout #authorisation {display: block;}
+/*-----------------Верх--------------------*/
+#authorisation span{cursor: pointer}
 
 #authorisation span{
 	text-align: center;
-	position: absolute;
-	top: 10px;
+	margin: 10px 20px 10px 2%;
+	padding: 4px calc(10px + 4%);
 	height: 20px;
-	padding: 4px 0;
 	border-radius: 20px;
-	justify-self: right;
-	cursor: pointer;
-	transition-property: transform, background;
-	transition:  0.3s ease-out;
+	float: right;
 }
 
 #authorisation span:hover {
-		transform: scale(1.1);
-		background: rgba(255, 255, 255, 0.2);
-		transition: 0.2s ease;
-	}
+	transform: scale(1.1);
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+	background: rgba(255, 255, 255, 0.2);
 
-#authorisation span#login {
-	right: calc(145px + 4%);
-	width: calc(45px + 3%);
+}
+/*--------------------------------------------*/
+
+/*------------------Меню----------------------*/
+#authorisation_menu {width: 300px}
+/*------------------Шапка----------------------*/
+#authorisation_menu .hat {
+	opacity: 0;
+	z-index: -1;
+	font-size: 1.5em;
+	text-align: center;
+	line-height: 30px;
+	top: 10px;
+	padding: 0 20px;
+	width: max-content; height: 30px;
+	border-radius: 15px;
+	position: absolute;
+	overflow: hidden;
+	pointer-events: none;
 }
 
-#authorisation span#register {
-	right: 20px;
-	width: calc(110px + 3%);
+#authorisation_menu .hat:hover {transform: scale(1.1)}
+#authorisation_menu .hat.login {left: 95px}
+#authorisation_menu .hat.register {left: 45px}
+#authorisation_menu.login .hat.login, #authorisation_menu.register .hat.register {
+	z-index: 11;
+	opacity: 1;
+	pointer-events: visible;
+}
+/*--------------------------------------------*/
+/*-----------------Меню и форма---------------*/
+#authorisation_menu menu {
+	z-index: 15;
+	margin-top: 4px;
+	padding: 5px 0;
+	width: 292px
 }
 
-#authorisation span:active {transform: scale(0.9); transition: 0.2s ease}
+#authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 50px}
+#authorisation_menu.login {padding-bottom: 40px}
+
+form#user {
+	z-index: 16;
+	position: relative;
+	top: 10px;
+}
+
+#authorisation_menu.register form#user {top: 0}
+/*--------------------------------------------*/
+/*----------------Инпуты----------------------*/
+#authorisation_menu input {
+	font-family: "Comfortaa Bold", sans-serif;
+	font-size: 1em;
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin: 0 5%;
+	width: 90%;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 18px;
+	overflow: hidden;
+}
+
+#authorisation_menu input.fill {padding-right: 30px}
+
+#authorisation_menu input.hidden {
+	opacity: 0;
+	border-width: 0;
+	height: 0;
+	margin: 0 5%;
+	pointer-events: none;
+}
+
+#authorisation_menu.register menu input {margin: 8px 5%}
+
+#authorisation_menu.register input.hidden {
+	opacity: 1;
+	border-width: 3px;
+	height: 36px;
+	pointer-events: visible;
+}
+
+#authorisation_menu menu form input.warning.fill {border-color: rgba(255, 100, 100, 0.5)
+}
+#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: none}
+#authorisation_menu input:disabled::placeholder {text-indent: 8px}
+#authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
+/*-----------------Кнопочки-------------------*/
+#authorisation_menu menu button {
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+	background: #8588ff;
+	position: absolute;
+	right: 11px;
+	width: 46px; height: 46px;
+	border: none;
+	border-radius: 23px;
+}
+
+#erase_login {top: -5px}
+#show_pass {top: 51px}
+
+#erase_email {top: 55px}
+#show_repass {top: 159px}
+#authorisation_menu.login #erase_login {top: -5px}
+#authorisation_menu.login #show_pass {top: 51px}
+#authorisation_menu.register #erase_login {top: 3px}
+#authorisation_menu.register #show_pass {top: 107px}
+
+#authorisation_menu input#form_login.fill+button, #authorisation_menu.register input#form_email.fill+button,
+#authorisation_menu input#form_password.fill+button, #authorisation_menu.register input#form_repass.fill+button{
+	opacity: 1;
+	pointer-events: visible;
+	z-index: 17;}
+/*--------------------------------------------*/
+/*--------------------------------------------*/
+/*-----------------Подсказки------------------*/
+#authorisation_menu input::placeholder {opacity: 1; text-indent: 5px}
+#authorisation_menu input:focus::placeholder {opacity: 0}
+form#user label {
+	z-index: 9;
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	width: max-content; height: 36px;
+	line-height: 36px;
+	padding: 0 20px;
+	right: 290px;
+	border-radius: 18px;
+	overflow: hidden;
+	opacity: 0;
+	pointer-events: none;
+}
+
+#authorisation_menu.register label[for=form_login] {top: 8px}
+#authorisation_menu.register label[for=form_email] {top: 60px}
+#authorisation_menu.register label[for=form_password] {top: 112px}
+#authorisation_menu.register label[for=form_repass] {top: 164px}
+
+#authorisation_menu label.achive {background: rgba(85, 176, 85, 0.8);}
+#authorisation_menu label.warning {background: rgba(255, 100, 100, 0.8)}
+#authorisation_menu menu form#user label.change {opacity: 0}
+
+#authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
+	right: 310px;
+	opacity: 1;
+}
+/*--------------------------------------------*/
+/*-----------------Запоминть меня---------------------*/
+#checkbox_remember_me {display: none}
+
+#remember_me {
+	z-index: 13;
+	position: absolute;
+	padding: 0 10px;
+	left: 68px; bottom: 8px;
+	border: 0 solid transparent;
+	border-radius: 20px;
+	pointer-events: none;
+}
+
+#remember_me:hover {transform: scale(1.05); background: rgba(255, 255, 255, 0.2);}
+
+#authorisation_menu.login #remember_me {pointer-events: visible; bottom: -32px}
+#authorisation_menu.login #checkbox_remember_me:checked~label {
+	bottom: -35px;
+	left: 65px;
+	border-width: 3px;
+}
+/*--------------------------------------------*/
+/*--------------------------------------------*/
+
+/*-----------------Анимации--------------------*/
+/*-----------------Возврат---------------------*/
+#authorisation span {transition: 0.2s ease-out}
+#authorisation_menu * {transition:  0.15s ease-in-out}
+#remember_me {transition-timing-function: ease-in}
+#authorisation_menu form label {transition: 0.3s}
+/*--------------------------------------------*/
+/*-----------------При наведени---------------*/
+#authorisation span:hover {transition: 0.1s ease}
+/*--------------------------------------------*/
+/*-----------------При нажатии----------------*/
+#authorisation span:active {transform: scale(0.9); transition: 0.1s ease}
+/*--------------------------------------------*/
+#authorisation_menu input:focus {transition: 0.2s ease-out}
+/*--------------------------------------------*/
+
+/*---------------Открытие---------------------*/
+header .center, header .right {
+	display: block;
+	z-index: 21;
+	position: relative;
+	bottom: 0;
+	opacity: 1;
+}
+
+header.logout .center, header.logout .right {
+	display: none;
+	bottom: 10px;
+	opacity: 0;
+	transition: 0.1s ease-out;
+}
+
+#authorisation {
+	display: none;
+	z-index: 30;
+	position: absolute;
+	width: 50%; height: 50px;
+	right: 0; top: 20px;
+	opacity: 0;
+	transition: 0.1s ease-out;
+}
+
+header.logout #authorisation {
+	display: block;
+	top: 0;
+	opacity: 1;
+	transition: 0.2s ease-out;
+}
+/*--------------------------------------------*/
