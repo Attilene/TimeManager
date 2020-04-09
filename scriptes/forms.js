@@ -19,7 +19,7 @@ function connect_authorisation () {
         if (typeof field === "string") {field = $(field)}
         field.addClass('change');
         setTimeout(function () {
-            func(field);
+            func();
             field.removeClass('change');
         }, close_time(field))
     }
@@ -33,7 +33,7 @@ function connect_authorisation () {
         }
         else {
             if (!label.hasClass(type) || label.text() !== text) {
-                    fade_change(label, function (it) {it.text(text).removeClass('warning achive').addClass(type)})
+                    fade_change(label, function () {label.text(text).removeClass('warning achive').addClass(type)})
             }
         }
     }
@@ -55,13 +55,9 @@ function connect_authorisation () {
         return false
     }
 
-    function check_for_repass() {
-        if (!($('#user label').hasClass('warning')) && in_login.val() !== '' && in_pass.val() !== '' && in_email.val() !== '') {
-            in_repass.removeAttr('disabled');
-            console.log(7890)
-        }
+    function toggle_repass(toggle='off') {
+        if (toggle === 'on') { if (!$('#user label').hasClass('warning')) {in_repass.removeAttr('disabled')}}
         else {
-            console.log(123);
             if (in_repass.attr('disabled') !== 'disabled') {
                 in_repass.removeClass('fill');
                 setTimeout(function () {
@@ -71,6 +67,40 @@ function connect_authorisation () {
                 }, close_time(in_repass));
             }
         }
+        //
+        //
+        // if (!in_login.prev().hasClass('warning') &&
+        //     !in_email.prev().hasClass('warning') &&
+        //     !in_pass.prev().hasClass('warning') &&
+        //     in_login.val() !== '' &&
+        //     in_pass.val() !== '' &&
+        //     in_email.val() !== '') {
+        //     in_repass.removeAttr('disabled');
+        //     console.log('всё поля в норме');
+        //     console.log(!in_login.prev().hasClass('warning'));
+        //     console.log(!in_email.prev().hasClass('warning'));
+        //     console.log(!in_pass.prev().hasClass('warning'));
+        //     console.log(in_login.val() !== '');
+        //     console.log(in_email.val() !== '');
+        //     console.log(in_pass.val() !== '');
+        // }
+        // else {
+        //     console.log('ошибки');
+        //     console.log(!in_login.prev().hasClass('warning'));
+        //     console.log(!in_email.prev().hasClass('warning'));
+        //     console.log(!in_pass.prev().hasClass('warning'));
+        //     console.log(in_login.val() !== '');
+        //     console.log(in_email.val() !== '');
+        //     console.log(in_pass.val() !== '');
+        //     if (in_repass.attr('disabled') !== 'disabled') {
+        //         in_repass.removeClass('fill');
+        //         setTimeout(function () {
+        //             fade_change(in_repass, function () {
+        //                 in_repass.attr('disabled', 'disabled').val('')
+        //             })
+        //         }, close_time(in_repass));
+        //     }
+        // }
     }
 
     function check_repass() {
@@ -111,11 +141,9 @@ function connect_authorisation () {
         switch (menu) {
             case 'empty':
                 in_pass.val('').removeClass('fill').attr('disabled', 'disabled');
-                in_repass.val('').removeClass('fill').attr('disabled', 'disabled');
                 break;
             case 'login':
                 in_pass.removeAttr('disabled');
-                in_repass.val('').removeClass('fill').attr('disabled', 'disabled');
                 break;
             case 'register':
                 in_pass.removeAttr('disabled');
@@ -136,7 +164,6 @@ function connect_authorisation () {
                 empty_func();
                 check_empty()
             }
-            check_for_repass();
         });
     }
 
@@ -192,12 +219,12 @@ function connect_authorisation () {
                     warning(in_login, 'Пользователь существует', 'achive');
                     fade_change(in_login, function () {in_login.val(temp)});
                     change_auth('login');
-                    salt = data[0]
+                    salt = data[0];
                 }
             })
         }
         else {
-            warning(in_email, 'Некорректный формат почты')
+            warning(in_email, 'Некорректный формат почты');
         }
     }, function () {
         check_empty();
@@ -207,7 +234,28 @@ function connect_authorisation () {
     act_field(in_pass, function () {
         if (check_cor_pass()) {
             if ($('#authorisation_menu').hasClass('login')) {check_pass()}
+            else {in_repass.removeAttr('disabled')}
         }
+        else {
+            if (in_repass.attr('disabled') !== 'disabled') {
+                in_repass.removeClass('fill');
+                setTimeout(function () {
+                    fade_change(in_repass, function () {
+                        in_repass.attr('disabled', 'disabled').val('')
+                    })
+                }, close_time(in_repass));
+            }
+        }
+    }, function () {
+        warning();
+        if (in_repass.attr('disabled') !== 'disabled') {
+                in_repass.removeClass('fill');
+                setTimeout(function () {
+                    fade_change(in_repass, function () {
+                        in_repass.attr('disabled', 'disabled').val('')
+                    })
+                }, close_time(in_repass));
+            }
     });
 
 

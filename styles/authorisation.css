@@ -106,8 +106,7 @@ form#user {
 
 #authorisation_menu menu form input.warning.fill {border-color: rgba(255, 100, 100, 0.5)
 }
-#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: none}
-#authorisation_menu input:disabled::placeholder {text-indent: 8px}
+#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
 #authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
 /*-----------------Кнопочки-------------------*/
 #authorisation_menu menu button {
@@ -141,7 +140,6 @@ form#user {
 /*--------------------------------------------*/
 /*-----------------Подсказки------------------*/
 #authorisation_menu input::placeholder {opacity: 1; text-indent: 5px}
-#authorisation_menu input:focus::placeholder {opacity: 0}
 form#user label {
 	z-index: 9;
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -149,9 +147,8 @@ form#user label {
 	width: max-content; height: 36px;
 	line-height: 36px;
 	padding: 0 20px;
-	right: 290px;
+	right: 295px;
 	border-radius: 18px;
-	overflow: hidden;
 	opacity: 0;
 	pointer-events: none;
 }
@@ -163,12 +160,12 @@ form#user label {
 
 #authorisation_menu label.achive {background: rgba(85, 176, 85, 0.8);}
 #authorisation_menu label.warning {background: rgba(255, 100, 100, 0.8)}
-#authorisation_menu menu form#user label.change {opacity: 0}
 
 #authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
 	right: 310px;
 	opacity: 1;
 }
+#authorisation_menu menu form#user label.change {opacity: 0}
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #checkbox_remember_me {display: none}
@@ -199,7 +196,6 @@ form#user label {
 #authorisation span {transition: 0.2s ease-out}
 #authorisation_menu * {transition:  0.15s ease-in-out}
 #remember_me {transition-timing-function: ease-in}
-#authorisation_menu form label {transition: 0.3s}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
 #authorisation span:hover {transition: 0.1s ease}
