@@ -1,14 +1,22 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
+from hashlib import sha256
+
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
 tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
-
 
 now = None
 
 
 # Запросы
+@tm.route('/check_user', methods=['POST'])
+def req_check_user():
+    """Проверка существования пользователя"""
+    temp = User.check_user(request.get_json())
+    return jsonify(temp)
+
+
 @tm.route('/check_password', methods=['POST'])
 def req_check_password():
     return jsonify(User.check_psw(**request.get_json()))
@@ -17,6 +25,7 @@ def req_check_password():
 @tm.route('/login', methods=['POST'])
 def req_login():
     global now
+    psw, salt = request.get_json()
     if User.check_psw(*request.get_json()):
         now = User(request.get_json()['login'])
         return jsonify({
@@ -46,13 +55,6 @@ def req_change_theme():
     """Изменение темы"""
     now.change_theme(request.get_json().split())
     return jsonify(True)
-
-
-@tm.route('/check_user', methods=['POST'])
-def req_check_user():
-    """Проверка существования пользователя"""
-    temp = User.check_user(request.get_json())
-    return jsonify(temp)
 
 
 @tm.route('/logout', methods=['POST'])

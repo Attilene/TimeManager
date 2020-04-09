@@ -2,6 +2,7 @@
 /*aside menu button {cursor: pointer}*/
 
 aside {
+    z-index: 10;
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
     display: none;
     opacity: 0;

@@ -141,7 +141,8 @@ class User(object):
     def check_psw(log_email, psw):
         """Проверка правильности пароля"""
         User.__cur.execute("SELECT (password, salt) FROM users WHERE login=? or email=?", (log_email, log_email))
-        return check_password_hash(User.__cur.fetchone()[0], psw + User.__cur.fetchone()[1])
+        temp = User.__cur.fetchone()
+        return check_password_hash(temp[0], psw + temp[1])
 
     # @staticmethod TODO: Доделать
     # def restore(email):

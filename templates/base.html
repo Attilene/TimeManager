@@ -14,8 +14,8 @@
     <link href="time_manager/styles/colors/{{ color }}.css" rel="stylesheet" type="text/css" id="color_choice"/>
     <link href="time_manager/images/favicons/blue.svg" rel="shortcut icon" type="image/x-icon" id="favicon_choice"/>
     <script type="text/javascript" src="time_manager/scriptes/jQuery.js"></script>
-    <script type="text/javascript" src="time_manager/scriptes/TextChange.js"></script>
-    <script type="text/javascript" src="time_manager/scriptes/SHA-256.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/RSA.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/encrypt.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/requests.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/actions.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/forms.js"></script>
@@ -45,7 +45,7 @@
     </header>
 
     <aside id="profile_menu">{% include 'profile.html' %}</aside>
-    <aside id="authorisation_menu">{% include 'authorisation.html' %}</aside>
+    <aside class='empty' id="authorisation_menu">{% include 'authorisation.html' %}</aside>
 
     <main id="page_help" class="opened">{% include 'about.html' %}</main>
     <main id="page_lists"></main>

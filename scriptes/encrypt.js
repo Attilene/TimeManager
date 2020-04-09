@@ -191,12 +191,18 @@
     }
 })();
 
+
 function gen_salt(len) {
-    chrs = 'abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789';
-    var str = '';
-    for (var i = 0; i < len; i++) {
-        var pos = Math.floor(Math.random() * chrs.length);
-        str += chrs.substring(pos,pos+1);
+    const chrs = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let salt = '';
+    for (let i = 0; i < len; i++) {
+        let pos = Math.floor(Math.random() * chrs.length);
+        salt += chrs.substring(pos, pos + 1);
     }
-    return str;
+    return salt;
 }
+
+function pass_pack(pass, salt) {
+    return encrypt(encrypt(pass) + salt)
+}
+

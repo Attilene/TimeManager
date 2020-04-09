@@ -3,6 +3,7 @@ $.ajaxSetup({
     type: 'POST',
     dataType: 'json',
     contentType: 'application/json',
+    statuscode: function(html) {alert(html)},
     error: function(jqXHR, textStatus, errorThrown) {
     console.log('Ошибка: ' + textStatus + ' | ' + errorThrown, jqXHR);
   }

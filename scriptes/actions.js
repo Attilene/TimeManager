@@ -145,7 +145,6 @@ function guest_auth() {
 }
 
 function registration(login, email, password) {
-    let salt = gen_salt(20);
     let hashed_pass = encrypt(password + salt);
     send('/register', {
         'log':     login,
