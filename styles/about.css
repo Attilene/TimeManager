@@ -46,6 +46,11 @@
     border-radius: 30px;
 }
 
+#developers .card {padding: 0 10px 30px 10px}
+
+#developers .card p {margin: 10px}
+@media (min-width: 1500px) {#developers .card p {margin: 20px}  }
+
 #Rasim {line-height: 30px}
 #Rasim p {margin: 0}
 
@@ -55,15 +60,16 @@
 
 #developers img {
     margin: 15px;
-    width: 100px;
-    border-radius: 50px;
+    margin-top: 20px;
+    width: calc(5vh + 5vw); min-width: 100px;
+    border-radius: 50%;
     justify-self: center;
     transition: 0.3s ease-out;
 }
 
 #developers img:hover {
     box-shadow: 0 3px 7px black;
-    border-radius: 30px;
+    border-radius: 30%;
     transform: scale(1.1);
     transition: 0.2s ease;
 }
