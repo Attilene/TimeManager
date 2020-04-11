@@ -202,7 +202,7 @@ form#user label {
 #authorisation span:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#authorisation span:active {transform: scale(0.9); transition: 0.1s ease}
+#authorisation span:active {transform: scale(1); transition: 0.1s ease}
 /*--------------------------------------------*/
 #authorisation_menu input:focus {transition: 0.2s ease-out}
 /*--------------------------------------------*/

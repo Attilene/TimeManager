@@ -274,12 +274,8 @@ function connect_authorisation () {
         $('#user label.warning').next().addClass('warning');
         setTimeout(function () {
             $('#user label.warning').next().removeClass('warning');
-        }, 300)
+        }, 400)
     }
 });
-
-    fields.on('submit', function () {
-        $('#user label.warning').next().addClass('warning')
-    })
 }
 
