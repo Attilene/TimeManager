@@ -81,3 +81,4 @@
     height: 0
 }
 
+#dev_head, .card_head, .card {transition: background 0.5s}

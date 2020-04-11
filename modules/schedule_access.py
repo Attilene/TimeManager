@@ -15,7 +15,7 @@ class User(object):
                 theme      VARCHAR(30), 
                 color      VARCHAR(30), 
                 avatar     BOOLEAN, 
-                salt       VARCHAR(50))
+                salt       VARCHAR(128))
                 """)
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]

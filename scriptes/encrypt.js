@@ -5,6 +5,16 @@ function sha_256(text) {
     return  md.digest().toHex()
 }
 
+function gen_salt() {
+    const chrs = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let salt = '';
+    for (let i = 0; i < 64; i++) {
+        let pos = Math.floor(Math.random() * chrs.length);
+        salt += chrs.substring(pos, pos + 1);
+    }
+    return sha_256(salt);
+}
+
 function gen_hash(psw, salt) {return sha_256(sha_256(psw) + salt)}
 
 function pack_psw(psw, salt, public_key) {

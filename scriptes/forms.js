@@ -28,8 +28,7 @@ function connect_authorisation () {
         if (typeof field === "string") {field = $(field)}
         let label = field.prev();
         if (text == null) {
-            label.removeClass('achive warning');
-            setTimeout(function () {label.text('')}, close_time(label))
+            label.removeClass('achive warning').addClass('warning').text('Поле не должно быть пустым')
         }
         else {
             if (!label.hasClass(type) || label.text() !== text) {
@@ -51,7 +50,12 @@ function connect_authorisation () {
         if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
         else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры')}
         else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы')}
-        else {warning(in_pass); return true}
+        else {let test = !RegExp('[a-zA-Zа-яА-Я0-9]+').test(in_pass.val());
+            let len = in_pass.val().length;
+            if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
+            else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
+            else if (len < 20 || len < 16 && test) {warning(in_pass, 'Очень надежный пароль', 'achive')}
+            return true}
         return false
     }
 
@@ -105,9 +109,9 @@ function connect_authorisation () {
 
     function check_repass() {
         let pass = in_pass.val();
-        let hashed_pass = pass_pack(pass, salt);
+        let hashed_pass = '12345';  //pass_pack(pass, salt);
         if (in_pass.val() === in_repass.val()) {
-            warning(in_repass);
+            warning(in_repass, 'Пароли совпадают', 'achive');
             if (!fields.hasClass('warning')) {
                 registration(in_login.val(), in_email.val(), hashed_pass)
             }
@@ -117,9 +121,9 @@ function connect_authorisation () {
 
     function check_pass() {
         let pass = in_pass.val();
-        let send_salt = gen_salt(50);
-        let hashed_pass = pass_pack(pass, salt);
-        receive('/check_password', {'log_email': in_login.val(), 'psw': encrypt(hashed_pass + send_salt), 'salt': send_salt}, function (data) {
+        let send_salt = gen_salt();
+        let encrypted_psw = pack_psw(pass, salt);
+        receive('/check_password', {'log_email': in_login.val(), 'psw': encrypted_psw, 'salt': send_salt}, function (data) {
             if (data) {
                 warning(in_pass, 'Выполняется вход', 'achive');
                 if (!$('#user label').hasClass('warning')) {
@@ -213,7 +217,7 @@ function connect_authorisation () {
     act_field(in_email, function () {
         let temp = in_email.val();
         if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp)) {
-            warning(in_email);
+            warning(in_email, 'Корректный формат почты', 'achive');
             receive('/check_user', temp, function (data) {
                 if (data) {
                     warning(in_login, 'Пользователь существует', 'achive');
