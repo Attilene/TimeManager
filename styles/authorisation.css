@@ -166,6 +166,14 @@ form#user label {
 #authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
 	right: 310px;
 	opacity: 1;
+	transition-property: color, opacity, right;
+}
+
+#authorisation_menu menu #user label.show.change {
+	z-index: 10;
+	background: none;
+	color: transparent;
+	text-shadow: none;
 }
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
@@ -195,7 +203,7 @@ form#user label {
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
 #authorisation span {transition: 0.2s ease-out}
-#authorisation_menu * {transition:  0.15s ease-in-out}
+#authorisation_menu * {transition:  0.2s ease-in-out}
 #remember_me {transition-timing-function: ease-in}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/

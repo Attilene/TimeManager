@@ -11,13 +11,13 @@ class User(object):
     __cur = __conn.cursor()
     __cur.execute("""
             CREATE TABLE IF NOT EXISTS users(
-                login      VARCHAR(200), 
-                email      VARCHAR(200), 
-                password   VARCHAR(200), 
-                theme      VARCHAR(30), 
-                color      VARCHAR(30), 
+                login      VARCHAR(100), 
+                email      VARCHAR(100), 
+                password   VARCHAR(100), 
+                theme      VARCHAR(10), 
+                color      VARCHAR(10), 
                 avatar     BOOLEAN, 
-                salt       VARCHAR(50))
+                salt       VARCHAR(64))
                 """)
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
@@ -156,7 +156,7 @@ class User(object):
     def registration(log, email, pswsalt, theme, color):
         """Регистрация"""
         psw, salt = decrypt(pswsalt)
-        hashed_psw = generate_password_hash(psw + salt)
+        hashed_psw = generate_password_hash(psw + salt[:-1])
         User.__cur.execute(
             "INSERT INTO users (login, email, password, theme, color, avatar, salt) VALUES (?, ?, ?, ?, ?, ?, ?)",
             (log, email, hashed_psw, theme, color, False, salt))

@@ -32,7 +32,14 @@ function connect_authorisation () {
         }
         else {
             if (!label.hasClass(type) || label.text() !== text) {
-                label.removeClass('warning achive').addClass(type).text(text);
+                let prev = label.clone();
+                label.after(prev);
+
+
+
+                fade_change(label, function () {
+                    label.removeClass('warning achive').addClass(type).text(text);
+                })
             }
         }
     }
@@ -50,7 +57,7 @@ function connect_authorisation () {
         if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
         else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры')}
         else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы')}
-        else {let test = !RegExp('[a-zA-Zа-яА-Я0-9]+').test(in_pass.val());
+        else {let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
             let len = in_pass.val().length;
             if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
             else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
@@ -61,8 +68,6 @@ function connect_authorisation () {
     }
 
     function check_repass() {
-        let pass = in_pass.val();
-        let hashed_pass = '12345';  //pass_pack(pass, salt);
         if (in_pass.val() === in_repass.val()) {
             warning(in_repass, 'Пароли совпадают', 'achive');
             try_reg()
@@ -139,7 +144,7 @@ function connect_authorisation () {
             else {
                 field.removeClass('fill');
                 warning(field);
-                empty_func();
+                if (empty_func !== null) {empty_func()}
                 check_empty()
             }
         });
@@ -252,30 +257,18 @@ function connect_authorisation () {
 
 
     act_field(in_pass, function () {
+        check_repass();
         if (check_cor_pass()) {
             if ($('#authorisation_menu').hasClass('login')) {try_log()}
             else {in_repass.removeAttr('disabled')}
         }
         else {
-            if (in_repass.attr('disabled') !== 'disabled') {
-                in_repass.removeClass('fill');
-                setTimeout(function () {
-                    fade_change(in_repass, function () {
-                        in_repass.attr('disabled', 'disabled').val('')
-                    })
-                }, close_time(in_repass));
-            }
+            toggle_repass('on')
         }
     }, function () {
-        warning();
-        if (in_repass.attr('disabled') !== 'disabled') {
-                in_repass.removeClass('fill');
-                setTimeout(function () {
-                    fade_change(in_repass, function () {
-                        in_repass.attr('disabled', 'disabled').val('')
-                    })
-                }, close_time(in_repass));
-            }
+        check_repass();
+        warning(in_pass);
+        toggle_repass('off')
     });
 
 
