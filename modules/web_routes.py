@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
+from security.crypting import new_keys
 from hashlib import sha256
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
@@ -10,11 +11,18 @@ now = None
 
 
 # Запросы
+@tm.route('/get_key', methods=['POST'])
+def req_get_key():
+    """Создание ключей шифрования и отправка публичного"""
+    new_keys()
+    file = open('public_key.pem')
+    return jsonify(file.read())
+
+
 @tm.route('/check_user', methods=['POST'])
 def req_check_user():
     """Проверка существования пользователя"""
-    temp = User.check_user(request.get_json())
-    return jsonify(temp)
+    return jsonify(User.check_user(request.get_json()))
 
 
 @tm.route('/check_password', methods=['POST'])
@@ -39,7 +47,7 @@ def req_login():
 
 @tm.route('/register', methods=['POST'])
 def req_register():
-    User.registration(**request.get_json)
+    User.registration(**request.get_json())
     return jsonify(True)
 
 

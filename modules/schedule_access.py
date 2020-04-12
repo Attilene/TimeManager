@@ -1,5 +1,7 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 import sqlite3
+from security.crypting import decrypt
+
 
 class User(object):
     if __name__ == "__main__":
@@ -15,7 +17,7 @@ class User(object):
                 theme      VARCHAR(30), 
                 color      VARCHAR(30), 
                 avatar     BOOLEAN, 
-                salt       VARCHAR(128))
+                salt       VARCHAR(50))
                 """)
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
@@ -151,8 +153,9 @@ class User(object):
     #         return User.__cur.fetchone() is not None
 
     @staticmethod
-    def registration(log, email, psw, theme, color, salt):
+    def registration(log, email, pswsalt, theme, color):
         """Регистрация"""
+        psw, salt = decrypt(pswsalt)
         hashed_psw = generate_password_hash(psw + salt)
         User.__cur.execute(
             "INSERT INTO users (login, email, password, theme, color, avatar, salt) VALUES (?, ?, ?, ?, ?, ?, ?)",
