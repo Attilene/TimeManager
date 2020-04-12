@@ -96,36 +96,6 @@ function connect_actions() {
     });
 }
 
-function authorisation(login, password) {
-    // Вход пользователя
-    // Запрос
-    receive('/login', [login, password], function (data) {
-        // Синхронизация данных
-        user_data = data;
-        change_theme(data.theme, data.color);
-        // Установка имени пользователя и аватарки
-        $('header .right a div.nickname').text(login);
-        // Загрузка аватара
-        if (data.avatar) {
-            $('header .right img.avatar').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
-            $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
-        }
-        else {
-            $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
-            $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
-        }
-        // Появление кнопок
-        $('#authorisation').css({display: 'block'});
-        $('header .center, header .right').fadeIn(0);
-        $('header').removeClass('logout');
-        // Сбор мусора
-        setTimeout(function () {
-            $('#authorisation, header .center, header .right').removeAttr('style')
-        }, close_time('#authorisation'));
-        user_logined = true;
-    });
-}
-
 function guest_auth() {
     user_data = {'login': 'Guest', 'theme': 'light', 'color': 'blue'};
     // Установка имени пользователя и аватарки
@@ -142,16 +112,4 @@ function guest_auth() {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
     user_logined = true;
-}
-
-function registration(login, email, password) {
-    let hashed_pass = encrypt(password + salt);
-    send('/register', {
-        'log':     login,
-        'email':   email,
-        'psw':     hashed_pass,
-        'theme':   user_data.theme,
-        'color':   user_data.color,
-        'salt':    salt
-    })
 }

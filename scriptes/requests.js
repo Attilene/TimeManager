@@ -23,7 +23,7 @@ function insert_page(selector, file_name, func=null, async=true) {
     });
 }
 
-function receive(url, send_data=null, success=null, async=true) {
+function receive(url, success=null, send_data=null, async=true) {
     // Получение JSON формы с сервера
     return($.ajax({
         url: url,

@@ -1,6 +1,6 @@
-from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
+from werkzeug.security import check_password_hash, generate_password_hash
 import sqlite3
-from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
+from security.crypting import decrypt
 
 
 class User(object):
@@ -153,8 +153,9 @@ class User(object):
     #         return User.__cur.fetchone() is not None
 
     @staticmethod
-    def registration(log, email, psw, theme, color, salt):
+    def registration(log, email, pswsalt, theme, color):
         """Регистрация"""
+        psw, salt = decrypt(pswsalt)
         hashed_psw = generate_password_hash(psw + salt)
         User.__cur.execute(
             "INSERT INTO users (login, email, password, theme, color, avatar, salt) VALUES (?, ?, ?, ?, ?, ?, ?)",

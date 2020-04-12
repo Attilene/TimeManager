@@ -28,12 +28,11 @@ function connect_authorisation () {
         if (typeof field === "string") {field = $(field)}
         let label = field.prev();
         if (text == null) {
-            label.removeClass('achive warning');
-            setTimeout(function () {label.text('')}, close_time(label))
+            label.removeClass('achive warning').addClass('warning').text('Поле не должно быть пустым')
         }
         else {
             if (!label.hasClass(type) || label.text() !== text) {
-                    fade_change(label, function () {label.text(text).removeClass('warning achive').addClass(type)})
+                label.removeClass('warning achive').addClass(type).text(text);
             }
         }
     }
@@ -51,13 +50,32 @@ function connect_authorisation () {
         if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
         else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры')}
         else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы')}
-        else {warning(in_pass); return true}
+        else {let test = !RegExp('[a-zA-Zа-яА-Я0-9]+').test(in_pass.val());
+            let len = in_pass.val().length;
+            if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
+            else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
+            else if (len < 20 || len < 16 && test) {warning(in_pass, 'Очень надежный пароль', 'achive')}
+            check_repass();
+            return true}
         return false
     }
 
+    function check_repass() {
+        let pass = in_pass.val();
+        let hashed_pass = '12345';  //pass_pack(pass, salt);
+        if (in_pass.val() === in_repass.val()) {
+            warning(in_repass, 'Пароли совпадают', 'achive');
+            try_reg()
+        }
+        else {warning(in_repass, 'Пароли не совпадают')}
+    }
+
     function toggle_repass(toggle='off') {
-        if (toggle === 'on') { if (!$('#user label').hasClass('warning')) {in_repass.removeAttr('disabled')}}
-        else {
+        if (toggle === 'on') {
+            if (!$('#user label').hasClass('warning')) {
+                in_repass.removeAttr('disabled')
+            }
+        } else {
             if (in_repass.attr('disabled') !== 'disabled') {
                 in_repass.removeClass('fill');
                 setTimeout(function () {
@@ -67,59 +85,13 @@ function connect_authorisation () {
                 }, close_time(in_repass));
             }
         }
-        //
-        //
-        // if (!in_login.prev().hasClass('warning') &&
-        //     !in_email.prev().hasClass('warning') &&
-        //     !in_pass.prev().hasClass('warning') &&
-        //     in_login.val() !== '' &&
-        //     in_pass.val() !== '' &&
-        //     in_email.val() !== '') {
-        //     in_repass.removeAttr('disabled');
-        //     console.log('всё поля в норме');
-        //     console.log(!in_login.prev().hasClass('warning'));
-        //     console.log(!in_email.prev().hasClass('warning'));
-        //     console.log(!in_pass.prev().hasClass('warning'));
-        //     console.log(in_login.val() !== '');
-        //     console.log(in_email.val() !== '');
-        //     console.log(in_pass.val() !== '');
-        // }
-        // else {
-        //     console.log('ошибки');
-        //     console.log(!in_login.prev().hasClass('warning'));
-        //     console.log(!in_email.prev().hasClass('warning'));
-        //     console.log(!in_pass.prev().hasClass('warning'));
-        //     console.log(in_login.val() !== '');
-        //     console.log(in_email.val() !== '');
-        //     console.log(in_pass.val() !== '');
-        //     if (in_repass.attr('disabled') !== 'disabled') {
-        //         in_repass.removeClass('fill');
-        //         setTimeout(function () {
-        //             fade_change(in_repass, function () {
-        //                 in_repass.attr('disabled', 'disabled').val('')
-        //             })
-        //         }, close_time(in_repass));
-        //     }
-        // }
     }
 
-    function check_repass() {
+    function try_log() {
         let pass = in_pass.val();
-        let hashed_pass = pass_pack(pass, salt);
-        if (in_pass.val() === in_repass.val()) {
-            warning(in_repass);
-            if (!fields.hasClass('warning')) {
-                registration(in_login.val(), in_email.val(), hashed_pass)
-            }
-        }
-        else {warning(in_repass, 'Пароли не совпадают')}
-    }
-
-    function check_pass() {
-        let pass = in_pass.val();
-        let send_salt = gen_salt(50);
-        let hashed_pass = pass_pack(pass, salt);
-        receive('/check_password', {'log_email': in_login.val(), 'psw': encrypt(hashed_pass + send_salt), 'salt': send_salt}, function (data) {
+        let send_salt = gen_salt();
+        let encrypted_psw = pack_psw(pass, salt);
+        receive('/check_password', function (data) {
             if (data) {
                 warning(in_pass, 'Выполняется вход', 'achive');
                 if (!$('#user label').hasClass('warning')) {
@@ -127,7 +99,13 @@ function connect_authorisation () {
                 }
             }
             else {warning(in_pass, 'Неверный пароль')}
-        })
+        }, {'log_email': in_login.val(), 'psw': encrypted_psw, 'salt': send_salt})
+    }
+
+    function try_reg() {
+        if (!$('#user label').hasClass('warning')) {
+            registration()
+        }
     }
 
     function change_auth(menu) {
@@ -167,10 +145,50 @@ function connect_authorisation () {
         });
     }
 
+    function registration() {
+        send('/register', {
+            'log':     in_login.val(),
+            'email':   in_email.val(),
+            'pswsalt': pack_psw(),
+            'theme':   user_data.theme,
+            'color':   user_data.color,
+        })
+    }
+
+    function authorisation(login, password) {
+        // Вход пользователя
+        // Запрос
+        receive('/login', function (data) {
+            // Синхронизация данных
+            user_data = data;
+            change_theme(data.theme, data.color);
+            // Установка имени пользователя и аватарки
+            $('header .right a div.nickname').text(login);
+            // Загрузка аватара
+            if (data.avatar) {
+                $('header .right img.avatar').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
+                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
+            }
+            else {
+                $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
+                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
+            }
+            // Появление кнопок
+            $('#authorisation').css({display: 'block'});
+            $('header .center, header .right').fadeIn(0);
+            $('header').removeClass('logout');
+            // Сбор мусора
+            setTimeout(function () {
+                $('#authorisation, header .center, header .right').removeAttr('style')
+            }, close_time('#authorisation'));
+            user_logined = true;
+        }, [login, password]);
+    }
+
     // Советы
-    fields.on('mouseenter', function () {
+    fields.on('focus', function () {
         $(this).prev().addClass('show');
-        fields.one('mouseleave', function () {
+        fields.one('blur', function () {
             $(this).prev().removeClass('show')
         });
     });
@@ -193,9 +211,9 @@ function connect_authorisation () {
         })
     });
 
-
+    // Поля ввода
     act_field(in_login, function () {
-        receive('/check_user', in_login.val(), function (data) {
+        receive('/check_user', function (data) {
             if (data) {
                 change_auth('login');
                 salt = data[0];
@@ -203,8 +221,9 @@ function connect_authorisation () {
             } else {
                 change_auth('register');
                 warning(in_login, 'Никнейм свободен', 'achive');
+                try_reg()
             }
-        });
+        }, in_login.val());
     }, function () {
         check_empty()
     });
@@ -213,15 +232,16 @@ function connect_authorisation () {
     act_field(in_email, function () {
         let temp = in_email.val();
         if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp)) {
-            warning(in_email);
-            receive('/check_user', temp, function (data) {
+            warning(in_email, 'Корректный формат почты', 'achive');
+            receive('/check_user', function (data) {
                 if (data) {
                     warning(in_login, 'Пользователь существует', 'achive');
                     fade_change(in_login, function () {in_login.val(temp)});
                     change_auth('login');
                     salt = data[0];
                 }
-            })
+                else {try_reg()}
+            }, temp)
         }
         else {
             warning(in_email, 'Некорректный формат почты');
@@ -233,7 +253,7 @@ function connect_authorisation () {
 
     act_field(in_pass, function () {
         if (check_cor_pass()) {
-            if ($('#authorisation_menu').hasClass('login')) {check_pass()}
+            if ($('#authorisation_menu').hasClass('login')) {try_log()}
             else {in_repass.removeAttr('disabled')}
         }
         else {
@@ -265,17 +285,13 @@ function connect_authorisation () {
 
 
     fields.keyup(function(event){
-    if(event.keyCode === 13){
-        event.preventDefault();
-        $('#user label.warning').next().addClass('warning');
-        setTimeout(function () {
-            $('#user label.warning').next().removeClass('warning');
-        }, 300)
-    }
-});
-
-    fields.on('submit', function () {
-        $('#user label.warning').next().addClass('warning')
-    })
+        if(event.keyCode === 13){
+            event.preventDefault();
+            $('#user label.warning').next().addClass('warning');
+            setTimeout(function () {
+                $('#user label.warning').next().removeClass('warning');
+            }, 300)
+        }
+    });
 }
 

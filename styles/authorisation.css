@@ -104,7 +104,7 @@ form#user {
 	pointer-events: visible;
 }
 
-#authorisation_menu menu form input.warning.fill {border-color: rgba(255, 100, 100, 0.5)
+#authorisation_menu menu form input.warning {border-color: rgba(255, 100, 100, 0.5)
 }
 #authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
 #authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
@@ -150,6 +150,7 @@ form#user label {
 	right: 295px;
 	border-radius: 18px;
 	opacity: 0;
+	overflow: hidden;
 	pointer-events: none;
 }
 
@@ -158,14 +159,14 @@ form#user label {
 #authorisation_menu.register label[for=form_password] {top: 112px}
 #authorisation_menu.register label[for=form_repass] {top: 164px}
 
-#authorisation_menu label.achive {background: rgba(85, 176, 85, 0.8);}
-#authorisation_menu label.warning {background: rgba(255, 100, 100, 0.8)}
+#authorisation_menu label.achive {background: rgba(115, 176, 118, 0.7);}
+#authorisation_menu label.warning {background: rgba(255, 139, 139, 0.7)
+}
 
 #authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
 	right: 310px;
 	opacity: 1;
 }
-#authorisation_menu menu form#user label.change {opacity: 0}
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #checkbox_remember_me {display: none}
@@ -201,7 +202,7 @@ form#user label {
 #authorisation span:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#authorisation span:active {transform: scale(0.9); transition: 0.1s ease}
+#authorisation span:active {transform: scale(1); transition: 0.1s ease}
 /*--------------------------------------------*/
 #authorisation_menu input:focus {transition: 0.2s ease-out}
 /*--------------------------------------------*/

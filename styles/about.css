@@ -17,7 +17,7 @@
     #developers {width: 90%}
 }
 @media (max-width: 1200px) {
-    #developers {width: 100%}
+    #developers {width: 100%; column-gap: calc(10% - 50px)}
 }
 
 #dev_head {
@@ -30,6 +30,8 @@
     justify-self: center;
     border-radius: 30px;
 }
+
+#dev_head:hover {transform: scale(1.05)}
 
 #dev_head p {
     position: relative;
@@ -46,26 +48,34 @@
     border-radius: 30px;
 }
 
+.card_head:hover {transform: scale(1.1)}
+#developers .card {padding: 0 10px 30px 10px}
+#developers .card:hover {transform: scale(1.1)}
+#developers .card p {margin: 10px}
+#developers .card p:hover {transform: scale(1.2)}
+
+@media (min-width: 1500px) {#developers .card p {margin: 20px}  }
+
 #Rasim {line-height: 30px}
 #Rasim p {margin: 0}
 
+@media (max-width: 1200px) {  #developers .card_head p {transform: scale(0.8)}  }
+
 #developers .card p, #developers .card {text-align: center; border-radius: 30px}
 #developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}
-#developers p:hover, #developers h2:hover, #developers h3:hover {transform: scale(1.05); transition: 0.2s ease}
 
 #developers img {
     margin: 15px;
-    width: 100px;
-    border-radius: 50px;
+    margin-top: 20px;
+    width: calc(5vh + 5vw); min-width: 100px;
+    border-radius: 50%;
     justify-self: center;
-    transition: 0.3s ease-out;
 }
 
 #developers img:hover {
     box-shadow: 0 3px 7px black;
-    border-radius: 30px;
+    border-radius: 30%;
     transform: scale(1.1);
-    transition: 0.2s ease;
 }
 
 #developers .card hr {
@@ -74,3 +84,16 @@
     height: 0
 }
 
+
+/*-----------------Анимации--------------------*/
+/*-----------------Возврат---------------------*/
+#dev_head, .card_head, .card {transition: background 0.5s}
+#developers * {transition: 0.3s ease-out}
+/*--------------------------------------------*/
+/*-----------------При наведени---------------*/
+#developers *:hover {transition: 0.2s ease}
+/*--------------------------------------------*/
+/*-----------------При нажатии----------------*/
+#developers *:active {transform: scale(1)}
+/*--------------------------------------------*/
+/*--------------------------------------------*/
