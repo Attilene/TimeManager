@@ -1,11 +1,10 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
-from security.crypting import new_keys
 from hashlib import sha256
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
-tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # В КОНЦЕ ПРОЕКТА УБРАТЬ СТРОКУ
+tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # TODO: Удалить на релизе
 
 now = None
 
@@ -13,10 +12,8 @@ now = None
 # Запросы
 @tm.route('/get_key', methods=['POST'])
 def req_get_key():
-    """Создание ключей шифрования и отправка публичного"""
-    new_keys()
-    file = open('public_key.pem')
-    return jsonify(file.read())
+    """Отправка ключа"""
+    return jsonify(open('modules/security/public_key.pem').read())
 
 
 @tm.route('/check_user', methods=['POST'])

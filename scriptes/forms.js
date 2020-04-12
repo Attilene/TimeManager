@@ -28,15 +28,12 @@ function connect_authorisation () {
         if (typeof field === "string") {field = $(field)}
         let label = field.prev();
         if (text == null) {
-            label.removeClass('achive warning').addClass('warning').text('Поле не должно быть пустым')
+            fade_change(label, function () {
+                    label.removeClass('achive warning').addClass('warning').text('Поле не должно быть пустым')
+                })
         }
         else {
             if (!label.hasClass(type) || label.text() !== text) {
-                let prev = label.clone();
-                label.after(prev);
-
-
-
                 fade_change(label, function () {
                     label.removeClass('warning achive').addClass(type).text(text);
                 })
@@ -54,7 +51,8 @@ function connect_authorisation () {
 
     function check_cor_pass() {
         let pass = in_pass.val();
-        if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
+        if (pass.length > 62) { warning(in_pass, 'Длина пароля должна быть не больше 62 символов')}
+        else if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
         else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры')}
         else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы')}
         else {let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
@@ -191,9 +189,9 @@ function connect_authorisation () {
     }
 
     // Советы
-    fields.on('focus', function () {
+    fields.on('mouseenter', function () {
         $(this).prev().addClass('show');
-        fields.one('blur', function () {
+        fields.one('mouseleave', function () {
             $(this).prev().removeClass('show')
         });
     });
@@ -218,17 +216,20 @@ function connect_authorisation () {
 
     // Поля ввода
     act_field(in_login, function () {
-        receive('/check_user', function (data) {
-            if (data) {
-                change_auth('login');
-                salt = data[0];
-                warning(in_login, 'Пользователь существует', 'achive');
-            } else {
-                change_auth('register');
-                warning(in_login, 'Никнейм свободен', 'achive');
-                try_reg()
-            }
-        }, in_login.val());
+        if (in_login.val().length < 100) {
+            receive('/check_user', function (data) {
+                if (data) {
+                    change_auth('login');
+                    salt = data[0];
+                    warning(in_login, 'Пользователь существует', 'achive');
+                } else {
+                    change_auth('register');
+                    warning(in_login, 'Никнейм свободен', 'achive');
+                    try_reg()
+                }
+            }, in_login.val())
+        }
+        else {warning('Длина никнейма не может превышать 99 символов')}
     }, function () {
         check_empty()
     });
@@ -236,7 +237,7 @@ function connect_authorisation () {
 
     act_field(in_email, function () {
         let temp = in_email.val();
-        if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp)) {
+        if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp) && temp.length < 100) {
             warning(in_email, 'Корректный формат почты', 'achive');
             receive('/check_user', function (data) {
                 if (data) {

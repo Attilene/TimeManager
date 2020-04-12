@@ -166,14 +166,11 @@ form#user label {
 #authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
 	right: 310px;
 	opacity: 1;
-	transition-property: color, opacity, right;
+	transition-property: opacity, right;
 }
 
 #authorisation_menu menu #user label.show.change {
-	z-index: 10;
-	background: none;
-	color: transparent;
-	text-shadow: none;
+	opacity: 0;
 }
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
