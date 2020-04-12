@@ -24,20 +24,11 @@ function connect_authorisation () {
         }, close_time(field))
     }
 
-    function warning(field, text=null, type='warning') {
+    function warning(field, text='Поле не должно быть пустым', type='warning') {
         if (typeof field === "string") {field = $(field)}
         let label = field.prev();
-        if (text == null) {
-            fade_change(label, function () {
-                    label.removeClass('achive warning').addClass('warning').text('Поле не должно быть пустым')
-                })
-        }
-        else {
-            if (!label.hasClass(type) || label.text() !== text) {
-                fade_change(label, function () {
-                    label.removeClass('warning achive').addClass(type).text(text);
-                })
-            }
+        if (!label.hasClass(type) || label.text() !== text) {
+            label.removeClass('warning achive').addClass(type).text(text);
         }
     }
 
@@ -103,9 +94,9 @@ function connect_authorisation () {
             else {warning(in_pass, 'Неверный пароль')}
         }, {'log_email': in_login.val(), 'psw': encrypted_psw, 'salt': send_salt})
     }
+
     function try_reg() {
-        if (!fields.prev().hasClass('warning')) {
-            console.log("внутри");
+        if (!$('#user label').hasClass('warning')) {
             registration()
         }
     }
@@ -148,7 +139,6 @@ function connect_authorisation () {
     }
 
     function registration() {
-        console.log(130000);
         send('/register', {
             'log':     in_login.val(),
             'email':   in_email.val(),

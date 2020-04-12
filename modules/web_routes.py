@@ -19,7 +19,6 @@ def req_get_key():
 @tm.route('/check_user', methods=['POST'])
 def req_check_user():
     """Проверка существования пользователя"""
-    print(request.get_json())
     return jsonify(User.check_user(request.get_json()))
 
 

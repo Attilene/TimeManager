@@ -5,7 +5,7 @@ from base64 import b64decode
 
 
 def decrypt(psw):
-    key = RSA.importKey(open('private_key.pem').read().encode('utf-8'))
+    key = RSA.importKey(open('modules/security/private_key.pem').read().encode('utf-8'))
     cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
     decrypted = cipher.decrypt(b64decode(psw)).decode('utf-8')
     return decrypted[:64], decrypted[64:]
