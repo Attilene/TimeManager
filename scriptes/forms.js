@@ -93,7 +93,6 @@ function connect_authorisation () {
     function try_log() {
         let pass = in_pass.val();
         let send_salt = gen_salt();
-        let encrypted_psw = pack_psw(pass, salt);
         receive('/check_password', function (data) {
             if (data) {
                 warning(in_pass, 'Выполняется вход', 'achive');
@@ -104,9 +103,9 @@ function connect_authorisation () {
             else {warning(in_pass, 'Неверный пароль')}
         }, {'log_email': in_login.val(), 'psw': encrypted_psw, 'salt': send_salt})
     }
-
     function try_reg() {
-        if (!$('#user label').hasClass('warning')) {
+        if (!fields.prev().hasClass('warning')) {
+            console.log("внутри");
             registration()
         }
     }
@@ -149,6 +148,7 @@ function connect_authorisation () {
     }
 
     function registration() {
+        console.log(130000);
         send('/register', {
             'log':     in_login.val(),
             'email':   in_email.val(),
@@ -267,9 +267,9 @@ function connect_authorisation () {
             toggle_repass('on')
         }
     }, function () {
-        check_repass();
         warning(in_pass);
-        toggle_repass('off')
+        toggle_repass('off');
+        check_repass();
     });
 
 
