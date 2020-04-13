@@ -6,6 +6,10 @@ function connect_authorisation () {
     const in_repass = $('#form_repass');
     let salt = '';
 
+    fields.ready(function () {
+        in_login.focus();
+    });
+
     // function validate(field) {
     //     if (typeof field === "string") {field = $(field)}
     //     let str = field.val();
@@ -28,6 +32,16 @@ function connect_authorisation () {
         if (typeof field === "string") {field = $(field)}
         let label = field.prev();
         if (!label.hasClass(type) || label.text() !== text) {
+            // let new_label = label.clone();
+            // new_label.removeClass('warning achive').addClass(type + ' change').text(text);
+            // label.addClass('old').after(new_label);
+            //
+            //
+            //
+            //
+            //
+            //
+
             label.removeClass('warning achive').addClass(type).text(text);
         }
     }
@@ -247,9 +261,10 @@ function connect_authorisation () {
         if (in_login.val().length < 100) {
             receive('/check_user', function (data) {
                 if (data) {
+                    in_pass.focus();
+                    warning(in_login, 'Пользователь существует', 'achive');
                     change_auth('login');
                     salt = data[0];
-                    warning(in_login, 'Пользователь существует', 'achive');
                 } else {
                     change_auth('register');
                     warning(in_login, 'Никнейм свободен', 'achive');
@@ -269,6 +284,7 @@ function connect_authorisation () {
             warning(in_email, 'Корректный формат почты', 'achive');
             receive('/check_user', function (data) {
                 if (data) {
+                    in_pass.focus();
                     warning(in_login, 'Пользователь существует', 'achive');
                     in_login.addClass('change');
                     in_email.val('');

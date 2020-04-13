@@ -154,6 +154,7 @@ form#user label {
 	opacity: 0;
 	overflow: hidden;
 	pointer-events: none;
+	transition-property: right, opacity
 }
 
 #authorisation_menu.register label[for=form_login] {top: 8px}
@@ -168,7 +169,6 @@ form#user label {
 #authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
 	right: 310px;
 	opacity: 1;
-	transition-property: opacity, right;
 }
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
