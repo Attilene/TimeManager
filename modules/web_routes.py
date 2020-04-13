@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
-from hashlib import sha256
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
-tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # TODO: Удалить на релизе
+tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # TODO: Удалить в релизе
 
 now = None
 
@@ -28,11 +27,12 @@ def req_check_password():
 
 
 @tm.route('/login', methods=['POST'])
-def req_login():
+def req_login(log=None, pswsalt=None):
     global now
-    psw, salt = request.get_json()
-    if User.check_psw(*request.get_json()):
-        now = User(request.get_json()['login'])
+    if log is None and pswsalt is None:
+        log, pswsalt = request.get_json()
+    if User.check_psw(log, pswsalt):
+        now = User(log)
         return jsonify({
             "login": now.log,
             "theme": now.theme,
@@ -44,7 +44,8 @@ def req_login():
 
 @tm.route('/register', methods=['POST'])
 def req_register():
-    User.registration(**request.get_json())
+    temp = request.get_json()
+    User.registration(**temp)
     return jsonify(True)
 
 

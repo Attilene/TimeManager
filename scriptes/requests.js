@@ -34,13 +34,13 @@ function receive(url, success=null, send_data=null, async=true) {
     }))
 }
 
-function send(url, data, func=null, async=true) {
+function send(url, data, success=null, async=true) {
     // Отправка JSON формы на сервер
     $.ajax({
         url: url,
         async: async,
         data: JSON.stringify(data),
         dataType: 'json',
-        complete: func
+        success: success
     });
 }

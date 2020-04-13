@@ -42,7 +42,8 @@ function connect_authorisation () {
 
     function check_cor_pass() {
         let pass = in_pass.val();
-        if (pass.length > 62) { warning(in_pass, 'Длина пароля должна быть не больше 62 символов')}
+        if (pass === '') {warning(in_pass)}
+        else if (pass.length > 99) { warning(in_pass, 'Длина пароля должна быть не больше 99 символов')}
         else if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
         else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры')}
         else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы')}
@@ -51,8 +52,10 @@ function connect_authorisation () {
             if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
             else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
             else if (len < 20 || len < 16 && test) {warning(in_pass, 'Очень надежный пароль', 'achive')}
+            toggle_repass('on');
             check_repass();
             return true}
+        toggle_repass('off');
         return false
     }
 
@@ -65,11 +68,8 @@ function connect_authorisation () {
     }
 
     function toggle_repass(toggle='off') {
-        if (toggle === 'on') {
-            if (!$('#user label').hasClass('warning')) {
-                in_repass.removeAttr('disabled')
-            }
-        } else {
+        if (toggle === 'on') {in_repass.removeAttr('disabled')}
+        else {
             if (in_repass.attr('disabled') !== 'disabled') {
                 in_repass.removeClass('fill');
                 setTimeout(function () {
@@ -82,17 +82,20 @@ function connect_authorisation () {
     }
 
     function try_log() {
-        let pass = in_pass.val();
-        let send_salt = gen_salt();
-        receive('/check_password', function (data) {
-            if (data) {
-                warning(in_pass, 'Выполняется вход', 'achive');
-                if (!$('#user label').hasClass('warning')) {
-                    authorisation(in_login.val(), hashed_pass)
+        if (in_pass.val() !== '') {
+            let pswsalt = pack_psw(salt);
+            warning(in_pass, 'Проверка', 'achive');
+            receive('/check_password', function (data) {
+                if (data) {
+                    console.log('Происходит вход');
+                    warning(in_pass, 'Выполняется вход', 'achive');
+                    authorisation(in_login.val(), pswsalt)
+                } else {
+                    warning(in_pass, 'Неверный пароль')
                 }
-            }
-            else {warning(in_pass, 'Неверный пароль')}
-        }, {'log_email': in_login.val(), 'psw': encrypted_psw, 'salt': send_salt})
+                console.log(data)
+            }, {'log_email': in_login.val(), 'pswsalt': pswsalt})
+        }
     }
 
     function try_reg() {
@@ -115,9 +118,11 @@ function connect_authorisation () {
                 break;
             case 'login':
                 in_pass.removeAttr('disabled');
+                try_log();
                 break;
             case 'register':
                 in_pass.removeAttr('disabled');
+                check_cor_pass();
                 break;
         }
     }
@@ -139,19 +144,48 @@ function connect_authorisation () {
     }
 
     function registration() {
+        let temp_psw = pack_psw(gen_salt());
         send('/register', {
             'log':     in_login.val(),
             'email':   in_email.val(),
-            'pswsalt': pack_psw(),
+            'pswsalt': temp_psw,
             'theme':   user_data.theme,
             'color':   user_data.color,
-        })
+        }, function () {
+            user_data.login = in_login.val(); user_data.avatar = false;
+            let menu = $('#authorisation_menu');
+            if (menu.hasClass('opened')) {
+                menu.addClass('closed');
+                // Сбор мусора
+                setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
+            }
+            $('body').off('mousedown');
+            // Установка имени пользователя
+            $('header .right a div.nickname').text(in_login.val());
+            // Появление кнопок
+            $('#authorisation').css({display: 'block'});
+            $('header .center, header .right').fadeIn(0);
+            $('header').removeClass('logout');
+            // Сбор мусора
+            setTimeout(function () {
+                $('#authorisation, header .center, header .right').removeAttr('style')
+            }, close_time('#authorisation'));
+            user_logined = true;
+        });
     }
 
     function authorisation(login, password) {
         // Вход пользователя
         // Запрос
         receive('/login', function (data) {
+            let menu = $('#authorisation_menu');
+            if (menu.hasClass('opened')) {
+                menu.addClass('closed');
+                // Сбор мусора
+                setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
+            }
+            $('body').off('mousedown');
+
             // Синхронизация данных
             user_data = data;
             change_theme(data.theme, data.color);
@@ -232,7 +266,11 @@ function connect_authorisation () {
             receive('/check_user', function (data) {
                 if (data) {
                     warning(in_login, 'Пользователь существует', 'achive');
-                    fade_change(in_login, function () {in_login.val(temp)});
+                    in_login.addClass('change');
+                    in_email.val('');
+                    setTimeout(function () {
+                        in_login.val(temp).removeClass('change')
+                    }, 200);
                     change_auth('login');
                     salt = data[0];
                 }
@@ -249,13 +287,8 @@ function connect_authorisation () {
 
     act_field(in_pass, function () {
         check_repass();
-        if (check_cor_pass()) {
-            if ($('#authorisation_menu').hasClass('login')) {try_log()}
-            else {in_repass.removeAttr('disabled')}
-        }
-        else {
-            toggle_repass('on')
-        }
+        if ($('#authorisation_menu').hasClass('login')) { try_log() }
+        else if (check_cor_pass()) { try_reg() }
     }, function () {
         warning(in_pass);
         toggle_repass('off');

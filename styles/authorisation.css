@@ -124,12 +124,14 @@ form#user {
 #erase_login {top: -5px}
 #show_pass {top: 51px}
 
-#erase_email {top: 55px}
-#show_repass {top: 159px}
+#erase_email {top: 0; height: 0}
+#show_repass {top: 100px; height: 0}
 #authorisation_menu.login #erase_login {top: -5px}
 #authorisation_menu.login #show_pass {top: 51px}
 #authorisation_menu.register #erase_login {top: 3px}
 #authorisation_menu.register #show_pass {top: 107px}
+#authorisation_menu.register #erase_email {top: 55px; height: 46px}
+#authorisation_menu.register #show_repass {top: 159px; height: 46px}
 
 #authorisation_menu input#form_login.fill+button, #authorisation_menu.register input#form_email.fill+button,
 #authorisation_menu input#form_password.fill+button, #authorisation_menu.register input#form_repass.fill+button{
@@ -168,10 +170,6 @@ form#user label {
 	opacity: 1;
 	transition-property: opacity, right;
 }
-
-#authorisation_menu menu #user label.show.change {
-	opacity: 0;
-}
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #checkbox_remember_me {display: none}
@@ -202,6 +200,7 @@ form#user label {
 #authorisation span {transition: 0.2s ease-out}
 #authorisation_menu * {transition:  0.2s ease-in-out}
 #remember_me {transition-timing-function: ease-in}
+#erase_email, #show_repass {transition-timing-function: ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
 #authorisation span:hover {transition: 0.1s ease}
@@ -210,6 +209,7 @@ form#user label {
 #authorisation span:active {transform: scale(1); transition: 0.1s ease}
 /*--------------------------------------------*/
 #authorisation_menu input:focus {transition: 0.2s ease-out}
+#authorisation_menu input.change {transition: 0.1s}
 /*--------------------------------------------*/
 
 /*---------------Открытие---------------------*/

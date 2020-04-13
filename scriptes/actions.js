@@ -5,7 +5,7 @@ function close_time(selector) {
 
 function hide_click (area) {
     // Сворачивание при клике в другой зоне
-    $(document).one('mousedown', function (event){
+    $('body').one('mousedown', function hide_click_inside(event){
         if ($(area).hasClass('opened')) {
             let temp = $(`${area}.opened`);
             if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
@@ -50,7 +50,8 @@ function toggle_menu() {
         else {
             $(menu).fadeIn(0, function () {$(this).addClass('opened')});
             if ($(this).attr('id') === 'button_authorisation') {
-                connect_authorisation()}
+                connect_authorisation();
+            }
             hide_click('aside');
         }
     })
