@@ -59,6 +59,7 @@ def req_get_page():
 @tm.route('/change_theme', methods=['POST'])
 def req_change_theme():
     """Изменение темы"""
+    global now
     now.change_theme(request.get_json().split())
     return jsonify(True)
 

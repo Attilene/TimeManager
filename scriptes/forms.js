@@ -82,19 +82,23 @@ function connect_authorisation () {
     }
 
     function try_log() {
-        if (in_pass.val() !== '') {
-            let pswsalt = pack_psw(salt);
+        if (salt !== '') {
+            if (in_pass.val() !== '') {
+                warning(in_pass, 'Проверка', 'achive');
+                let pswsalt = pack_psw(salt);
+                receive('/check_password', function (data) {
+                    if (data) {
+                        warning(in_pass, 'Выполняется вход', 'achive');
+                        authorisation(in_login.val(), pswsalt)
+                    } else {
+                        warning(in_pass, 'Неверный пароль')
+                    }
+                }, {'log_email': in_login.val(), 'pswsalt': pswsalt})
+            }
+        }
+        else {
             warning(in_pass, 'Проверка', 'achive');
-            receive('/check_password', function (data) {
-                if (data) {
-                    console.log('Происходит вход');
-                    warning(in_pass, 'Выполняется вход', 'achive');
-                    authorisation(in_login.val(), pswsalt)
-                } else {
-                    warning(in_pass, 'Неверный пароль')
-                }
-                console.log(data)
-            }, {'log_email': in_login.val(), 'pswsalt': pswsalt})
+            setTimeout(try_log, 500)
         }
     }
 

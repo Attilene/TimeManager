@@ -1,5 +1,5 @@
 from modules import *
-from Crypto.PublicKey import RSA
+# from Crypto.PublicKey import RSA
 
 # НЕ ТРОГАТЬ
 # key_pair = RSA.generate(2048)  # TODO: На релизе 4096
