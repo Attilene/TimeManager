@@ -111,8 +111,9 @@ function connect_authorisation () {
             }
         }
         else {
-            warning(in_pass, 'Проверка', 'achive');
-            setTimeout(try_log, 500)
+            if (in_pass.val() === '') {warning(in_pass)}
+            else {warning(in_pass, 'Проверка', 'achive')}
+            setTimeout(try_log, 200)
         }
     }
 
@@ -170,6 +171,11 @@ function connect_authorisation () {
             'theme':   user_data.theme,
             'color':   user_data.color,
         }, function () {
+            // Загрузка страниц
+            insert_page('#page_lists', 'lists');
+            insert_page('#page_month', 'month');
+            insert_page('#page_day', 'day');
+            // Закрытие меню
             user_data.login = in_login.val(); user_data.avatar = false;
             let menu = $('#authorisation_menu');
             if (menu.hasClass('opened')) {
@@ -196,6 +202,7 @@ function connect_authorisation () {
         // Вход пользователя
         // Запрос
         receive('/login', function (data) {
+            // Закрытие меню
             let menu = $('#authorisation_menu');
             if (menu.hasClass('opened')) {
                 menu.addClass('closed');
@@ -203,7 +210,10 @@ function connect_authorisation () {
                 setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
             }
             $('body').off('mousedown');
-
+            // Загрузка страниц
+            insert_page('#page_lists', 'lists');
+            insert_page('#page_month', 'month');
+            insert_page('#page_day', 'day');
             // Синхронизация данных
             user_data = data;
             change_theme(data.theme, data.color);
@@ -250,8 +260,8 @@ function connect_authorisation () {
 
     $('#show_pass, #show_repass').on('mousedown', function () {
         let temp = $(this).prev();
-        fade_change(temp, function () {temp.attr('type', 'text')});
-        $(document).one('mouseup', function () {
+        if(temp.attr('type') === 'password') {fade_change(temp, function () {temp.attr('type', 'text')})}
+        temp.one('mouseleave',function () {
             fade_change(temp, function () {temp.attr('type', 'password')})
         })
     });

@@ -4,7 +4,7 @@ let key = '';
 
 receive('/get_key', function (data) {
     key = data;
-    $('#form_login').attr('placeholer', 'Логин / Почта').removeAttr('disabled')
+    $('#form_login').attr('placeholder', 'Логин / Почта').removeAttr('disabled')
 });
 
 jQuery(document).ready(function () {

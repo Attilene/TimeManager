@@ -25,7 +25,7 @@ a {text-decoration: none}
 header .left, header .center, header .right, footer span  {cursor: pointer}
 
 /*----------Настройка скроллбара--------------*/
-::-webkit-scrollbar{width: 10px;}
+::-webkit-scrollbar{width: 10px; height: 10px}
 ::-webkit-scrollbar-button {display: none}
 ::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0)}
 ::-webkit-scrollbar-thumb {border-radius: 5px;}

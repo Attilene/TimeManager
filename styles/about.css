@@ -10,16 +10,6 @@
     grid-template-rows: 15% 15% 70%;
 }
 
-@media (min-width: 1500px) {
-    #developers {width: 75%}
-}
-@media (min-width: 1200px) and (max-width: 1500px) {
-    #developers {width: 90%}
-}
-@media (max-width: 1200px) {
-    #developers {width: 100%; column-gap: calc(10% - 50px)}
-}
-
 #dev_head {
     font-size: 36px;
     text-align: center;
@@ -49,7 +39,7 @@
 }
 
 .card_head:hover {transform: scale(1.1)}
-#developers .card {padding: 0 10px 30px 10px}
+#developers .card {padding: 0 10px 50px 10px}
 #developers .card:hover {transform: scale(1.1)}
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.2)}
@@ -67,13 +57,13 @@
 #developers img {
     margin: 15px;
     margin-top: 20px;
-    width: calc(5vh + 5vw); min-width: 100px;
+    width: 80%;
     border-radius: 50%;
     justify-self: center;
 }
 
 #developers img:hover {
-    box-shadow: 0 3px 7px black;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.71);
     border-radius: 30%;
     transform: scale(1.1);
 }
@@ -84,6 +74,22 @@
     height: 0
 }
 
+
+
+@media (min-width: 1500px) {
+    #developers {width: 75%}
+}
+@media (min-width: 1200px) and (max-width: 1500px) {
+    #developers {width: 90%}
+}
+@media (max-width: 1200px) {
+    #developers {width: 90%; column-gap: 1%}
+    #developers .card_head {width: 95%; justify-self: center}
+    #developers .card {width: 80%; justify-self: center; padding: 0 10px 20px}
+}
+@media (max-height: 700px) {
+    #developers {margin: 2% auto}
+}
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
