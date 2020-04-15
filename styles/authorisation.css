@@ -144,9 +144,10 @@ form#user {
 #authorisation_menu input::placeholder {opacity: 1; text-indent: 5px}
 form#user label {
 	z-index: 9;
+	text-align: center;
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	position: absolute;
-	width: max-content; height: 36px;
+	width: 264px; height: 36px;
 	line-height: 36px;
 	padding: 0 20px;
 	right: 295px;
@@ -154,7 +155,7 @@ form#user label {
 	opacity: 0;
 	overflow: hidden;
 	pointer-events: none;
-	transition-property: right, opacity
+	transition-property: opacity, color, right, background, text-shadow;
 }
 
 #authorisation_menu.register label[for=form_login] {top: 8px}
@@ -170,6 +171,8 @@ form#user label {
 	right: 310px;
 	opacity: 1;
 }
+
+#authorisation_menu form#user label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #checkbox_remember_me {display: none}
@@ -211,7 +214,6 @@ form#user label {
 #authorisation_menu input:focus {transition: 0.2s ease-out}
 #authorisation_menu input.change {transition: 0.1s}
 /*--------------------------------------------*/
-
 /*---------------Открытие---------------------*/
 header .center, header .right {
 	display: block;

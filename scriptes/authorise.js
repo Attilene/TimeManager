@@ -32,17 +32,14 @@ function connect_authorisation () {
         if (typeof field === "string") {field = $(field)}
         let label = field.prev();
         if (!label.hasClass(type) || label.text() !== text) {
-            // let new_label = label.clone();
-            // new_label.removeClass('warning achive').addClass(type + ' change').text(text);
-            // label.addClass('old').after(new_label);
-            //
-            //
-            //
-            //
-            //
-            //
-
-            label.removeClass('warning achive').addClass(type).text(text);
+            label.removeClass('warning achive').addClass(type);
+            fade_change(label, function () {
+                label.css({width: label.css('width')})
+                    .text(text)
+                    .animate({
+                        width: (30 + (text.length * 9)) + 'px'
+                    }, close_time(label));
+            })
         }
     }
 
@@ -215,8 +212,8 @@ function connect_authorisation () {
             insert_page('#page_month', 'month');
             insert_page('#page_day', 'day');
             // Синхронизация данных
-            user_data = data;
             change_theme(data.theme, data.color);
+            user_data = data;
             // Установка имени пользователя и аватарки
             $('header .right a div.nickname').text(login);
             // Загрузка аватара
