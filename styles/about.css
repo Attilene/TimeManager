@@ -87,8 +87,7 @@
     #developers .card_head {width: 95%; justify-self: center}
     #developers .card {width: 80%; justify-self: center; padding: 0 10px 20px}
 }
-@media (max-height: 800px) and (min-width: 1000px) {  #developers {margin: 2% auto}  }
-@media (max-height: 700px) {  #developers {margin: 2% auto}  }
+@media (max-height: 850px) {  #developers {margin: 2% auto} }
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
