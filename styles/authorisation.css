@@ -85,7 +85,7 @@ form#user {
 	overflow: hidden;
 }
 
-#authorisation_menu input.fill {padding-right: 30px}
+#authorisation_menu input.fill {padding-right: 35px}
 
 #authorisation_menu input.hidden {
 	opacity: 0;
@@ -113,13 +113,15 @@ form#user {
 	z-index: -1;
 	opacity: 0;
 	pointer-events: none;
-	background: #8588ff;
+	background: transparent;
 	position: absolute;
-	right: 11px;
+	right: 13px;
 	width: 46px; height: 46px;
 	border: none;
 	border-radius: 23px;
 }
+
+#user button:hover {transform: scale(1)}
 
 #erase_login {top: -5px}
 #show_pass {top: 51px}
@@ -138,6 +140,21 @@ form#user {
 	opacity: 1;
 	pointer-events: visible;
 	z-index: 17;}
+
+#user svg {
+	fill: white;
+	stroke: white;
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: 2px;
+	right: 1px;
+	pointer-events: none;
+}
+
+#user button:hover svg {transform: scale(0.9)}
+
+#pass_btn_show, #repass_btn_show {left: 0}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 /*-----------------Подсказки------------------*/
@@ -203,13 +220,17 @@ form#user label {
 #authorisation span {transition: 0.2s ease-out}
 #authorisation_menu * {transition:  0.2s ease-in-out}
 #remember_me {transition-timing-function: ease-in}
+#user svg {transition: 0.1s ease-in-out}
 #erase_email, #show_repass {transition-timing-function: ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
 #authorisation span:hover {transition: 0.1s ease}
+#user button:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 #authorisation span:active {transform: scale(1); transition: 0.1s ease}
+#authorisation_menu input.fill+button:active {right: 10px; transform: scale(0.7)}
+#erase_login:focus, #erase_email:focus {opacity: 0!important;}
 /*--------------------------------------------*/
 #authorisation_menu input:focus {transition: 0.2s ease-out}
 #authorisation_menu input.change {transition: 0.1s}

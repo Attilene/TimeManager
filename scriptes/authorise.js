@@ -217,14 +217,7 @@ function connect_authorisation () {
             // Установка имени пользователя и аватарки
             $('header .right a div.nickname').text(login);
             // Загрузка аватара
-            if (data.avatar) {
-                $('header .right img.avatar').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
-                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/${data.login}.jpg`);
-            }
-            else {
-                $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
-                $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
-            }
+            if (data.avatar) {}
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);

@@ -1,6 +1,7 @@
 header, footer, aside, div.name, #dev_head, .card_head, .card {background: #6464ff}
 aside menu div.theme {border: 3px solid #6464ff}
 aside menu div.theme::before {color: #6464ff}
+::selection {background: rgba(100, 100, 255, 0.5)}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(100, 100, 255, 0.5)}
 ::-webkit-scrollbar-thumb:hover{background-color: #6464ff}
@@ -8,4 +9,5 @@ aside menu div.theme::before {color: #6464ff}
 @-webkit-keyframes autofill {to {background: rgba(100, 100, 255, 0.5)}}
 #authorisation_menu input {background: #6464ff; border: 3px solid #6464ff}
 #authorisation_menu input:focus, #authorisation_menu input.fill {background: rgba(100, 100, 255, 0.5)}
+#user button:hover {background: #6464ff}
 

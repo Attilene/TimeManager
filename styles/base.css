@@ -96,33 +96,34 @@ header .right div{
 }
 
 header .right .avatar {
+	background: url("../images/avatars/default.jpg");
+	background-size: contain;
 	margin-top: -4px;
 	margin-right: -2px;
 	overflow: hidden;
 	width: 38px;
 	min-height: 38px;
-	border-radius: 20px;
+	border-radius: 19px;
 }
 
 #set_icon {
-	z-index: -1;
-	pointer-events: none;
 	transform: scale(0.6);
-	opacity: 0;
-	height: 36px;
+	z-index: 30;
 	width: 36px;
+	height: 36px;
 	position: absolute;
 	top: -2px; right: -1px;
+	fill: #fff;
+	opacity: 0;
 }
 
 @media (max-width: 1200px) {  /*Анимация для маленького окна*/
-	header .right:hover #set_icon {
-		z-index: 30;
+	header .right:hover #set_icon  {
 		transform: scale(1);
 		opacity: 60%;
 	}
 
-	header .right:hover .avatar {filter: brightness(90%)}
+	header .right:hover .avatar {filter: brightness(85%)}
 }
 
 @media (min-width: 1200px) { /* Анимации для большого окна*/
@@ -133,7 +134,7 @@ header .right .avatar {
 		margin-right: 15px;
 	}
 
-	header .right:hover img {transform: scale(0.65);}
+	header .right:hover .avatar {transform: scale(0.65);}
 }
 /*--------------------------------------------*/
 /*--------------------------------------------*/
@@ -181,14 +182,14 @@ body, aside menu, header, footer, aside, div.name, #dev_list, aside div.theme {
 	transition: 0.5s}
 /*--------------------------------------------*/
 /*-----------------Возврат(время)-------------*/
-header .left, header .center, header .right, header .right .avatar, footer span {transition: 0.2s ease-out}
-#set_icon {transition: 0.2s ease-out}
+header *, footer * {transition: 0.2s ease-out}
+@media (max-width: 1200px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {
 	transition: 0.1s ease;}
 @media (max-width: 1200px) {
-	header .right:hover #set_icon {transition: 0.2s ease}
+	header .right:hover svg {transition: 0.2s ease}
 	header .right:hover .avatar {transition: 0.2s ease-out}}
 @media (min-width: 1201px) {
 	header .right:hover {transition: 0.1s ease}

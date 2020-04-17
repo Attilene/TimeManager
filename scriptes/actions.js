@@ -101,9 +101,6 @@ function guest_auth() {
     user_data = {'login': 'Guest', 'theme': 'light', 'color': 'blue'};
     // Установка имени пользователя и аватарки
     $('header .right a div.nickname').text('Guest');
-    // Загрузка аватара
-    $('header .right img.avatar').attr('src', `time_manager/images/avatars/default.jpg`);
-    $('#hat .avatar:first-child').attr('src', `time_manager/images/avatars/default.jpg`);
     // Появление кнопок
     $('#authorisation').css({display: 'block'});
     $('header .center, header .right').fadeIn(0);

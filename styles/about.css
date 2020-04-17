@@ -44,12 +44,12 @@
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.2)}
 
-@media (min-width: 1500px) {#developers .card p {margin: 20px}  }
+@media (min-width: 1500px) {#developers .card p {margin: 20px; transition: 0.2s ease-in-out}  }
 
 #Rasim {line-height: 30px}
 #Rasim p {margin: 0}
 
-@media (max-width: 1200px) {  #developers .card_head p {transform: scale(0.8)}  }
+@media (max-width: 1200px) {  #developers .card_head p {transform: scale(0.8); transition: 0.2s ease-in-out}  }
 
 #developers .card p, #developers .card {text-align: center; border-radius: 30px}
 #developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}
@@ -80,14 +80,14 @@
     #developers {width: 75%}
 }
 @media (min-width: 1200px) and (max-width: 1500px) {
-    #developers {width: 90%}
+    #developers {width: 90%; transition: 0.2s ease-in-out}
 }
 @media (max-width: 1200px) {
-    #developers {width: 98%; column-gap: 1%}
-    #developers .card_head {width: 95%; justify-self: center}
-    #developers .card {width: 80%; justify-self: center; padding: 0 10px 20px}
+    #developers {width: 98%; column-gap: 1%; transition: 0.2s ease-in-out}
+    #developers .card_head {width: 95%; justify-self: center; transition: 0.2s ease-in-out}
+    #developers .card {width: 80%; justify-self: center; padding: 0 10px 20px; transition: 0.2s ease-in-out}
 }
-@media (max-height: 850px) {  #developers {margin: 2% auto} }
+@media (max-height: 850px) {  #developers {margin: 2% auto; transition: 0.2s ease-in-out} }
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/

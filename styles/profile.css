@@ -35,7 +35,7 @@ aside #hat img:first-child {
 	min-height: 60px;
 }
 
-aside #hat .avatar #float {
+aside #hat .avatar #change_avatar {
     z-index: -1;
     transform: scale(0.8);
     position: absolute;
@@ -43,6 +43,7 @@ aside #hat .avatar #float {
     left: 20px;
     width: 40px;
     height: 40px;
+    fill: white;
     opacity: 0;
 }
 
@@ -50,7 +51,7 @@ aside #hat .avatar:hover img:first-child {
     filter: blur(1px) brightness(0.9);
 }
 
-aside #hat .avatar:hover #float {
+aside #hat .avatar:hover #change_avatar {
     z-index: 1;
     transform: scale(1);
     opacity: 60%;
@@ -171,13 +172,13 @@ aside menu div.theme button.choice::after {opacity: 1; transform: scale(1)}
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
-aside #hat img:first-child, aside #hat .avatar #float, aside #hat .avatar:hover img:first-child,
+aside #hat img:first-child, aside #hat .avatar #change_avatar, aside #hat .avatar:hover img:first-child,
 aside #hat #edit_profile div {transition: 0.3s ease-out}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu button, aside menu div.theme button.choice::after {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
-aside #hat .avatar:hover #float, aside #hat #edit_profile div:hover{transition: 0.2s ease}
+aside #hat .avatar:hover #change_avatar, aside #hat #edit_profile div:hover{transition: 0.2s ease}
 aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button {transition: 0.2s ease-out}
 aside menu div.theme:hover button:hover {transition: 0.1s ease-out}
