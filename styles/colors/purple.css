@@ -7,7 +7,7 @@ aside menu div.theme::before {color: #b450b4}
 ::-webkit-scrollbar-thumb:hover{background-color: #b450b4}
 
 @-webkit-keyframes autofill {to {background: rgba(180, 80, 180, 0.5)}}
-#authorisation_menu input {background: #b450b4; border: 18px solid #b450b4}
-#authorisation_menu input:focus, #authorisation_menu input.fill {background: rgba(180, 80, 180, 0.5)}
+#authorisation_menu input, #profile_menu input {background: #b450b4; border: 18px solid #b450b4}
+#authorisation_menu input:focus, #authorisation_menu input.fill, #profile_menu input, #profile_menu input.fill {background: rgba(180, 80, 180, 0.5)}
 #user button:hover {background: #b450b4}
 

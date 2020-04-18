@@ -13,48 +13,39 @@ aside {
     right: 10px;
     border-radius: 20px;
 }
-/*--------------Шапка------------------*/
-aside #hat {
+
+/*---------------Верхняя часть--------------*/
+aside #hat #setka{
     width: 100%;
     display: inline-grid;
-    grid-template-columns: 80px auto;
-}
-
-/*---------------Левая часть--------------*/
-aside #hat .avatar {
-    overflow: hidden;
-	width: 60px;
-	height: 60px;
-    border-radius: 30px;
+    grid-template-columns: 30% 35% 32%;
     margin: 10px;
 }
 
-aside #hat img:first-child {
-    width: 60px;
-	min-height: 60px;
+#profile_menu #hat #exit {padding: 10px}
+#profile_menu #hat span div {
+    text-align: center;
 }
 
-aside #hat .avatar #change_avatar {
-    z-index: -1;
-    transform: scale(0.8);
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    fill: white;
-    opacity: 0;
+/*----------------------------------------------*/
+
+/*---------------Аватар-----------------*/
+aside #hat #set_avatar {
+    background: url("../images/avatars/default.jpg");
+	background-size: contain;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }
 
-aside #hat .avatar:hover img:first-child {
-    filter: blur(1px) brightness(0.9);
+#profile_menu hr{
+    border-radius: 2px;
+    background-color: white;
+    width: 50%;
+    height: 2px;
 }
 
-aside #hat .avatar:hover #change_avatar {
-    z-index: 1;
-    transform: scale(1);
-    opacity: 60%;
-}
 /*----------------------------------------------*/
 
 /*--------------Правая часть------------------*/
@@ -72,7 +63,54 @@ aside #hat #edit_profile div:hover {
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.2);
 }
+
 /*----------------------------------------------*/
+
+/*--------------Кнопки-------------------------*/
+
+#profile_menu svg {
+	fill: white;
+	stroke: white;
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: 2px;
+	left: calc(50% - 17px);
+    cursor: pointer;
+}
+
+#profile_menu #avatar svg {
+	fill: white;
+	stroke: white;
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: 2px;
+	left: -1px;
+    cursor: pointer;
+}
+
+#profile_menu input {
+    font-family: "Comfortaa Bold", sans-serif;
+	font-size: 1em;
+	color: white;
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin: 0 5%;
+	width: 90%;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 18px;
+	overflow: hidden;
+}
+
+#profile_menu #set_login{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5em;
+}
 
 /*----------------------------------------------*/
 
