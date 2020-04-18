@@ -242,7 +242,8 @@ function connect_authorisation () {
     $('#erase_login, #erase_email').on('click', function () {
         let temp = $(this).prev();
         fade_change(temp, function () {
-            temp.val('').removeClass('fill');
+            temp.val('').removeClass('fill').css({pointerEvents: 'none'});
+            setTimeout(function () { temp.css({pointerEvents: ''}) }, close_time(temp));
             warning(temp);
             check_empty()
         });
