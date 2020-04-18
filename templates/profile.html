@@ -1,16 +1,86 @@
 <div id="hat">
-    <span class="avatar">
-        <img src="time_manager/images/avatars/default.jpg">
-        <svg id="change_avatar">
-            <use xlink:href="time_manager/images/sprites.svg#sprite_change_avatar"></use>
+    <form><input id="set_login" type="text"></form>
+    <span id="edit">
+        Изменить:
+        <div>Почта</div>
+        <div>Пароль</div>
+        <svg class="hat_float">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_float_edit"></use>
         </svg>
     </span>
-    <span id="edit_profile">
-        <div> Изменить логин </div>
-        <div> Изменить пароль </div>
+    <span id="avatar">
+        <div id="set_avatar">
+            <svg id="change_avatar">
+                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
+            </svg>
+            <hr>
+            <svg id="remove_avatar">
+                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use>
+            </svg>
+        </div>
+    </span>
+    <span id="exit">
+        <div>Выйти</div>
+        <div>Удалить</div>
+        <svg class="hat_float">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_float_exit"></use>
+        </svg>
     </span>
 </div>
-<menu>
+
+<menu id="menu_edit_email" class="closed_menu">
+    <form>
+        <label for="set_email" class="warning">Поле не должно быть пустым</label>
+            <input id="set_email" placeholder="Новый почтовый адрес" type="email">
+            <button id="erase_email" type="button">
+                <svg id="email_btn_erase">
+                    <use xlink:href="time_manager/images/sprites.svg#sprite_btn_erase"></use>
+                </svg>
+            </button>
+    </form>
+</menu>
+
+<menu id="menu_edit_psw" class="closed_menu">
+    <form>
+        <label for="set_old_psw" class="warning">Поле не должно быть пустым</label>
+        <input id="set_old_psw" placeholder="Старый пароль" type="password">
+        <button id="show_old_psw" type="button">
+            <svg id="pass_btn_show">
+                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
+            </svg>
+        </button>
+
+        <label for="set_new_psw" class="warning">Поле не должно быть пустым</label>
+        <input id="set_new_psw" placeholder="Новый пароль" type="password">
+        <button id="show_new_psw" type="button">
+            <svg id="pass_btn_show">
+                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
+            </svg>
+        </button>
+
+        <label for="set_renew_psw" class="warning">Поле не должно быть пустым</label>
+        <input id="set_renew_psw" placeholder="Повторите пароль" type="password">
+        <button id="show_renew_psw" type="button">
+            <svg id="pass_btn_show">
+                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
+            </svg>
+        </button>
+    </form>
+</menu>
+
+<menu id="menu_confirm_exit" class="closed_menu">
+    Подтвердите выход
+    <button class="yes" type="button">Выйти</button>
+    <button class="no" type="button">Отмена</button>
+</menu>
+
+<menu id="menu_confirm_delete" class="closed_menu">
+    Подтвердите удаление
+    <button class="yes" type="button">Удалить</button>
+    <button class="no" type="button">Отмена</button>
+</menu>
+
+<menu id="settings">
     <div class="theme light">
         <button class='light red'></button>
         <button class='light blue'></button>
