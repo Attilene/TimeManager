@@ -24,8 +24,6 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 }
 /*--------------------------------------------*/
 
-/*------------------Меню----------------------*/
-#authorisation_menu {width: 300px}
 /*------------------Шапка----------------------*/
 #authorisation_menu .hat {
 	opacity: 0;
@@ -55,8 +53,6 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 #authorisation_menu menu {
 	z-index: 15;
 	margin-top: 4px;
-	padding: 5px 0;
-	width: 292px
 }
 
 #authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 50px}

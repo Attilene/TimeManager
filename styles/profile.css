@@ -7,13 +7,12 @@ aside {
     display: none;
     opacity: 0;
     position: fixed;
+    width: 300px;
     height: max-content;
     top: 50px;
     right: 10px;
     border-radius: 20px;
 }
-
-aside#profile_menu {width: 250px}
 /*--------------Шапка------------------*/
 aside #hat {
     width: 100%;
@@ -81,11 +80,11 @@ aside #hat #edit_profile div:hover {
 aside menu {
     position: relative;
     margin: 4px;
+    width: 292px;
     min-height: 100px;
+    padding: 5px 0;
     border-radius: 16px;
 }
-
-aside#profile_menu menu {width: 242px; padding: 5px 0}
 
 aside menu div.theme {
     margin: 10px auto;
