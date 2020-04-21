@@ -7,11 +7,11 @@ aside menu div.theme::before {color: #000}
 ::-webkit-scrollbar-thumb:hover{background-color: #000}
 
 @-webkit-keyframes autofill {to {background: rgba(0, 0, 0, 0.5)}}
-#authorisation_menu input, #profile_menu input {background: #000; border: 18px solid #000}
-#authorisation_menu input:focus, #authorisation_menu input.fill,#profile_menu input, #profile_menu input.fill {background: rgba(0, 0, 0, 0.5)}
+aside input, #profile_menu input {background: #000; border: 18px solid #000}
+aside input:focus, aside input.fill,#profile_menu input, #profile_menu input.fill {background: rgba(0, 0, 0, 0.5)}
 #user button:hover {background: #000}
 
-header a.center:hover, header span.right:hover, aside#authorisation_menu menu input,
-#authorisation_menu label[for=remember_me] {
+header a.center:hover, header span.right:hover, aside menu input,
+aside label[for=remember_me] {
     text-shadow: none}
 aside {box-shadow: -2px 2px 4px rgba(255, 255, 255, 0.2)}

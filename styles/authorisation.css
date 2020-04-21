@@ -67,22 +67,6 @@ form#user {
 #authorisation_menu.register form#user {top: 0}
 /*--------------------------------------------*/
 /*----------------Инпуты----------------------*/
-#authorisation_menu input {
-	font-family: "Comfortaa Bold", sans-serif;
-	font-size: 1em;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-	padding: 0 10px;
-	box-sizing: border-box;
-	margin: 0 5%;
-	width: 90%;
-	height: 36px;
-	line-height: 36px;
-	border-radius: 18px;
-	overflow: hidden;
-}
-
-#authorisation_menu input.fill {padding-right: 35px}
-
 #authorisation_menu input.hidden {
 	opacity: 0;
 	border-width: 0;
@@ -100,10 +84,7 @@ form#user {
 	pointer-events: visible;
 }
 
-#authorisation_menu menu form input.warning {border-color: rgba(255, 100, 100, 0.5)
-}
 #authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
-#authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
 /*-----------------Кнопочки-------------------*/
 #authorisation_menu menu button {
 	z-index: -1;

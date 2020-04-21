@@ -14,105 +14,26 @@ aside {
     border-radius: 20px;
 }
 
-/*---------------Верхняя часть--------------*/
-aside #hat #setka{
-    width: 100%;
-    display: inline-grid;
-    grid-template-columns: 30% 35% 32%;
-    margin: 10px;
-}
 
-#profile_menu #hat #exit {padding: 10px}
-#profile_menu #hat span div {
-    text-align: center;
-}
+/*---------------Шапка------------------------*/
+#hat {width: 100%; height: max-content}
+/*---------------Заголовок--------------------*/
 
 /*----------------------------------------------*/
+#hat div span {float: left; height: 150px}
 
-/*---------------Аватар-----------------*/
-aside #hat #set_avatar {
-    background: url("../images/avatars/default.jpg");
-	background-size: contain;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+/*---------------Левая часть--------------------*/
+#edit {
+    width: 30%;
 }
-
-#profile_menu hr{
-    border-radius: 2px;
-    background-color: white;
-    width: 50%;
-    height: 2px;
-}
-
 /*----------------------------------------------*/
 
-/*--------------Правая часть------------------*/
-aside #hat #edit_profile {padding-top: 5px}
-
-aside #hat #edit_profile div {
-    margin: 8px 10px 8px 2px;
-    padding: 2px 10px;
-    font-size: 0.94em;
-    width: max-content;
-    border-radius: 12px;
-}
-
-aside #hat #edit_profile div:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
-}
 
 /*----------------------------------------------*/
-
-/*--------------Кнопки-------------------------*/
-
-#profile_menu svg {
-	fill: white;
-	stroke: white;
-	width: 35px;
-	height: 35px;
-	position: relative;
-	top: 2px;
-	left: calc(50% - 17px);
-    cursor: pointer;
-}
-
-#profile_menu #avatar svg {
-	fill: white;
-	stroke: white;
-	width: 35px;
-	height: 35px;
-	position: relative;
-	top: 2px;
-	left: -1px;
-    cursor: pointer;
-}
-
-#profile_menu input {
-    font-family: "Comfortaa Bold", sans-serif;
-	font-size: 1em;
-	color: white;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-	padding: 0 10px;
-	box-sizing: border-box;
-	margin: 0 5%;
-	width: 90%;
-	height: 36px;
-	line-height: 36px;
-	border-radius: 18px;
-	overflow: hidden;
-}
-
-#profile_menu #set_login{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 1.5em;
-}
-
 /*----------------------------------------------*/
+
+
+
 
 /*---------------Менюшка----------------------*/
 aside menu {
@@ -135,6 +56,28 @@ aside menu div.theme {
 
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
+
+/*--------------------Инпуты-----------------*/
+aside menu input, #set_login {
+	font-family: "Comfortaa Bold", sans-serif;
+	font-size: 1em;
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin: 0 5%;
+	width: 90%;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 18px;
+	overflow: hidden;
+}
+
+aside menu input.fill {padding-right: 35px}
+#authorisation_menu menu form input.warning, #set_login.warning {border-color: rgba(255, 100, 100, 0.5)}
+#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
+#authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
+/*------------------------------------------------*/
+
 /*--------------------Подписи тем-----------------*/
 aside menu div.theme::before {position: absolute; pointer-events: none}
 aside menu div.theme:hover::before {opacity: 0}
@@ -209,8 +152,7 @@ aside menu div.theme button.choice::after {opacity: 1; transform: scale(1)}
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
-aside #hat img:first-child, aside #hat .avatar #change_avatar, aside #hat .avatar:hover img:first-child,
-aside #hat #edit_profile div {transition: 0.3s ease-out}
+#hat * {transition:  0.2s ease-in-out}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu button, aside menu div.theme button.choice::after {transition: 0.2s ease-out}
 /*--------------------------------------------*/
