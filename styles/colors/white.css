@@ -7,8 +7,8 @@ header a.center:hover, header span.right:hover, aside menu input {text-shadow: n
 ::-webkit-scrollbar-thumb:hover{background-color: #fff}
 
 @-webkit-keyframes autofill {to {background: rgba(255, 255, 255, 0.5)}}
-aside input, #profile_menu input {background: #fff; border: 18px solid #fff}
-aside input:focus, aside input.fill, #profile_menu input, #profile_menu input.fill {background: rgba(255, 255, 255, 0.5)}
+aside menu input {background: #fff; border: 18px solid #fff}
+aside menu input:focus, aside menu input.fill {background: rgba(255, 255, 255, 0.5)}
 #user button:hover {background: #fff}
 
 header .center:hover {background: rgba(0, 0, 0, 0.1)}

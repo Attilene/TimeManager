@@ -32,8 +32,7 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 	text-align: center;
 	line-height: 30px;
 	top: 10px;
-	padding: 0 20px;
-	width: max-content; height: 30px;
+	width: 100%; height: 30px;
 	border-radius: 15px;
 	position: absolute;
 	overflow: hidden;
@@ -41,8 +40,6 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 }
 
 #authorisation_menu .hat:hover {transform: scale(1.1)}
-#authorisation_menu .hat.login {left: 95px}
-#authorisation_menu .hat.register {left: 45px}
 #authorisation_menu.login .hat.login, #authorisation_menu.register .hat.register {
 	z-index: 11;
 	opacity: 1;
@@ -52,9 +49,10 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 /*-----------------Меню и форма---------------*/
 #authorisation_menu menu {
 	z-index: 15;
-	margin-top: 4px;
+	margin: 4px;
 }
 
+#authorisation_menu.register menu {padding: 10px 0}
 #authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 50px}
 #authorisation_menu.login {padding-bottom: 40px}
 
@@ -92,7 +90,7 @@ form#user {
 	pointer-events: none;
 	background: transparent;
 	position: absolute;
-	right: 13px;
+	right: 15px;
 	width: 46px; height: 46px;
 	border: none;
 	border-radius: 23px;
@@ -134,40 +132,6 @@ form#user {
 #pass_btn_show, #repass_btn_show {left: 0}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
-/*-----------------Подсказки------------------*/
-#authorisation_menu input::placeholder {opacity: 1; text-indent: 5px}
-form#user label {
-	z-index: 9;
-	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-	position: absolute;
-	width: 264px; height: 36px;
-	line-height: 36px;
-	padding: 0 20px;
-	right: 295px;
-	border-radius: 18px;
-	opacity: 0;
-	overflow: hidden;
-	pointer-events: none;
-	transition-property: opacity, color, right, background, text-shadow;
-}
-
-#authorisation_menu.register label[for=form_login] {top: 8px}
-#authorisation_menu.register label[for=form_email] {top: 60px}
-#authorisation_menu.register label[for=form_password] {top: 112px}
-#authorisation_menu.register label[for=form_repass] {top: 164px}
-
-#authorisation_menu label.achive {background: rgba(115, 176, 118, 0.7);}
-#authorisation_menu label.warning {background: rgba(255, 139, 139, 0.7)
-}
-
-#authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
-	right: 310px;
-	opacity: 1;
-}
-
-#authorisation_menu form#user label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
-/*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #checkbox_remember_me {display: none}
 
@@ -175,7 +139,7 @@ form#user label {
 	z-index: 13;
 	position: absolute;
 	padding: 0 10px;
-	left: 68px; bottom: 8px;
+	left: 94px; bottom: 8px;
 	border: 0 solid transparent;
 	border-radius: 20px;
 	pointer-events: none;
@@ -186,7 +150,7 @@ form#user label {
 #authorisation_menu.login #remember_me {pointer-events: visible; bottom: -32px}
 #authorisation_menu.login #checkbox_remember_me:checked~label {
 	bottom: -35px;
-	left: 65px;
+	left: 91px;
 	border-width: 3px;
 }
 /*--------------------------------------------*/

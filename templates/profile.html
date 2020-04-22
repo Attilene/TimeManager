@@ -1,40 +1,36 @@
-<div id="hat" xmlns:xlink="" xmlns:xlink="" xmlns:xlink="" xmlns:xlink="">
+<div id="hat">
     <form><input id="set_login" type="text" value="Guest"></form>
-    <div>
-        <span id="edit">
-            Изменить:
-            <div>Почта</div>
-            <svg class="hat_float">
-                <use xlink:href="time_manager/images/sprites.svg#sprite_float_edit"></use>
-            </svg>
-            <div>Пароль</div>
-        </span>
-        <span id="avatar">
-            <div id="set_avatar">
-                <svg id="change_avatar">
-                    <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
-                </svg>
-                <hr>
-                <svg id="remove_avatar">
-                    <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use>
-                </svg>
-            </div>
-        </span>
-        <span id="exit">
-            <div>Выйти</div>
-            <svg class="hat_float">
-                <use xlink:href="time_manager/images/sprites.svg#sprite_float_exit"></use>
-            </svg>
-            <div>Удалить</div>
-        </span>
-    </div>
+    <span id="edit">
+        <div>Почта</div>
+        <div>Пароль</div>
+        <svg class="hat_float">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_float_edit"></use>
+        </svg>
+    </span>
+    <span id="avatar">
+        <div id="set_avatar"></div>
+        <svg id="change_avatar">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
+        </svg>
+        <hr>
+        <svg id="remove_avatar">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use>
+        </svg>
+    </span>
+    <span id="exit">
+        <div>Выйти</div>
+        <div>Удалить</div>
+        <svg class="hat_float">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_float_exit"></use>
+        </svg>
+    </span>
 </div>
 
-<menu id="menu_edit_email" class="closed_menu">
+<menu id="menu_edit_email">
     <form>
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
             <input id="set_email" placeholder="Новый почтовый адрес" type="email">
-            <button id="erase_email" type="button">
+            <button id="erase_set_email" type="button">
                 <svg id="email_btn_erase">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_erase"></use>
                 </svg>
@@ -42,7 +38,7 @@
     </form>
 </menu>
 
-<menu id="menu_edit_psw" class="closed_menu">
+<menu id="menu_edit_psw">
     <form>
         <label for="set_old_psw" class="warning">Поле не должно быть пустым</label>
         <input id="set_old_psw" placeholder="Старый пароль" type="password">
@@ -70,13 +66,13 @@
     </form>
 </menu>
 
-<menu id="menu_confirm_exit" class="closed_menu">
+<menu id="menu_confirm_exit">
     Подтвердите выход
     <button class="yes" type="button">Выйти</button>
     <button class="no" type="button">Отмена</button>
 </menu>
 
-<menu id="menu_confirm_delete" class="closed_menu">
+<menu id="menu_confirm_delete">
     Подтвердите удаление
     <button class="yes" type="button">Удалить</button>
     <button class="no" type="button">Отмена</button>

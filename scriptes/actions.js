@@ -68,7 +68,8 @@ function connect_pages() {
             $(`#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             // Сбор мусора
             setTimeout(function () {
-                $('main.closed').removeAttr('class style');
+                $(`#page_${temp}`).removeAttr('class style');
+                $(`#page_${page}`).fadeIn(0, function () {$(this).addClass('opened')});
             }, close_time('main.closed'));
         }
     })

@@ -6,3 +6,5 @@ aside menu div.dark {background: #808080;}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 #authorisation_menu input::placeholder {color: rgba(0, 0, 0, 0.8)}
 #authorisation_menu.login #checkbox_remember_me:checked~#remember_me {border: 3px solid #4b4b4b}
+
+*:hover {text-shadow: none !important}
