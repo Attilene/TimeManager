@@ -60,10 +60,10 @@ aside {
     height: 105px;
     position: relative;
     border-radius: 53px;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
-#set_avatar {
+#avatar_inside {
     background: url("../images/avatars/default.jpg") no-repeat;
     background-size: contain;
     width: 100%;
@@ -72,18 +72,40 @@ aside {
     border-radius: 50%;
 }
 
-#avatar:hover #set_avatar {transform: scale(1.03); filter: blur(2px) brightness(90%)}
+#avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px) brightness(90%)}
 /*---------------Внутренности--------------------*/
-#avatar svg {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    z-index: 40;}
+#set_avatar {width: 100%; opacity: 0; transform: scale(0.7)}
+#set_avatar * {position: absolute}
+
+#change_avatar {
+    width: 43px;
+    height: 43px;
+    top: 7px;
+    left: 31px;
+}
+
+#avatar hr {
+    border: 2px solid white;
+    box-sizing: border-box;
+    border-radius: 2px;
+    width: 51px;
+    top: 45px; left: 27px;
+}
+
+#remove_avatar {
+    width: 31px;
+    height: 31px;
+    bottom: 10px;
+    left: 37px;
+    fill: #ff6464 !important;
+}
+
+
 /*----------------------------------------------*/
 /*----------------------------------------------*/
 /*---------------Правая часть--------------------*/
 #exit svg {right: 20px}
-/*#exit div:last-of-type {color: #ff6464 !important;}*/
+#exit div:last-of-type {color: #ff6464 !important;}
 /*----------------------------------------------*/
 #edit:hover svg, #exit:hover svg {transform: scale(1.5);opacity: 0;}
 #edit:hover div, #exit:hover div {transform: scale(1);opacity: 1}
@@ -208,10 +230,11 @@ aside menu button::before { /*Оптимизация клик зоны*/
     content: '';
     z-index: 11;
     position: absolute;
-    top: calc(50% - 20px);
+    top: 0;
     left: calc(50% - 20px);
     width: 40px;
     height: 40px;
+    line-height: 40px;
     border: none;
     border-radius: 20px;
 }
@@ -237,7 +260,7 @@ aside menu div.theme button::after {
     content: '';
     width: 0; height: 0;
     position: absolute;
-     top: 3px; left: 3px;
+    top: 3px; left: 3px;
     border: inherit;
     border-width: 6px;
     border-radius: 6px;
@@ -255,7 +278,7 @@ aside menu div.theme::before {transition: 0.2s ease-in}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
 #hat *:hover {transition: 0.1s ease}
-#avatar:hover #set_avatar {transition: 0.3s}
+#avatar:hover #avatar_inside {transition: 0.3s}
 aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button {transition: 0.2s ease-out}
 aside menu div.theme:hover button:hover {transition: 0.1s ease-out}
