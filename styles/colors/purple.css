@@ -1,5 +1,5 @@
 header, footer, aside, div.name, #dev_head, .card_head, .card {background: #b450b4}
-aside menu div.theme {border: 3px solid #b450b4}
+aside menu div.theme {border-color: #b450b4}
 aside menu div.theme::before {color: #b450b4}
 ::selection {background: rgba(180, 80, 180, 0.5)}
 

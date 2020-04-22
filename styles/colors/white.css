@@ -1,5 +1,5 @@
 header, footer, aside, div.name, #dev_list, #dev_head, .card_head, .card {background: #fff}
-aside menu div.theme {border: 3px solid #fff}
+aside menu div.theme {border-color: #fff}
 header a.center:hover, header span.right:hover, aside menu input {text-shadow: none}
 ::selection {background: rgba(255, 255, 255, 0.5); color: black}
 
