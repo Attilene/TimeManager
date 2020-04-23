@@ -7,7 +7,7 @@ aside menu div.theme::before {color: #ff6464}
 ::-webkit-scrollbar-thumb:hover{background-color: #ff6464}
 
 @-webkit-keyframes autofill {to {background: rgba(255, 100, 100, 0.5)}}
-aside menu input {background: #ff6464; border: 18px solid #ff6464}
-aside menu input:focus, aside menu input.fill {background: rgba(255, 100, 100, 0.5)}
+aside menu input {background: #ff6464; border: 3px solid #ff6464}
+aside menu input.fill {background: rgba(255, 100, 100, 0.5)}
 #user button:hover {background: #ff6464}
 

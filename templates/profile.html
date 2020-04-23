@@ -9,15 +9,13 @@
     </span>
     <span id="avatar">
         <div id="avatar_inside"></div>
-        <div id="set_avatar">
-            <svg id="change_avatar">
-                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
-            </svg>
-            <hr>
-            <svg id="remove_avatar">
-                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use>
-            </svg>
-        </div>
+        <svg id="change_avatar">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
+        </svg>
+        <hr>
+        <svg id="remove_avatar">
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use>
+        </svg>
     </span>
     <span id="exit">
         <div>Выйти</div>
@@ -28,7 +26,7 @@
     </span>
 </div>
 
-<menu id="menu_edit_email">
+<menu id="menu_edit_email" class="opened">
     <form>
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
             <input id="set_email" placeholder="Новый почтовый адрес" type="email">
@@ -40,7 +38,7 @@
     </form>
 </menu>
 
-<menu id="menu_edit_psw">
+<menu id="menu_edit_psw" class="opened">
     <form>
         <label for="set_old_psw" class="warning">Поле не должно быть пустым</label>
         <input id="set_old_psw" placeholder="Старый пароль" type="password">
@@ -68,13 +66,13 @@
     </form>
 </menu>
 
-<menu id="menu_confirm_exit">
+<menu id="menu_confirm_exit" class="opened">
     Подтвердите выход
     <button class="yes" type="button">Выйти</button>
     <button class="no" type="button">Отмена</button>
 </menu>
 
-<menu id="menu_confirm_delete">
+<menu id="menu_confirm_delete" class="opened">
     Подтвердите удаление
     <button class="yes" type="button">Удалить</button>
     <button class="no" type="button">Отмена</button>

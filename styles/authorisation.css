@@ -84,21 +84,6 @@ form#user {
 
 #authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
 /*-----------------Кнопочки-------------------*/
-#authorisation_menu menu button {
-	transform: scale(0.7);
-	z-index: -1;
-	opacity: 0;
-	pointer-events: none;
-	background: transparent;
-	position: absolute;
-	right: 15px;
-	width: 46px; height: 46px;
-	border: none;
-	border-radius: 23px;
-}
-
-#user button:hover {transform: scale(1)}
-
 #erase_login {top: -5px}
 #show_pass {top: 51px}
 
@@ -111,12 +96,6 @@ form#user {
 #authorisation_menu.register #erase_email {top: 55px; height: 46px}
 #authorisation_menu.register #show_repass {top: 159px; height: 46px}
 
-#authorisation_menu input#form_login.fill+button, #authorisation_menu.register input#form_email.fill+button,
-#authorisation_menu input#form_password.fill+button, #authorisation_menu.register input#form_repass.fill+button{
-	opacity: 1;
-	pointer-events: visible;
-	z-index: 17;}
-
 #user svg {
 	fill: white;
 	stroke: white;
@@ -128,10 +107,13 @@ form#user {
 	pointer-events: none;
 }
 
-#user button:hover svg {transform: scale(0.9)}
-
 #pass_btn_show, #repass_btn_show {left: 0}
 /*--------------------------------------------*/
+/*---------------Подсказки------------------*/
+#authorisation_menu.register label[for=form_login] {top: 8px}
+#authorisation_menu.register label[for=form_email] {top: 60px}
+#authorisation_menu.register label[for=form_password] {top: 112px}
+#authorisation_menu.register label[for=form_repass] {top: 164px}
 /*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #checkbox_remember_me {display: none}

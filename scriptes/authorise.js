@@ -167,7 +167,32 @@ function connect_authorisation () {
             'pswsalt': temp_psw,
             'theme':   user_data.theme,
             'color':   user_data.color,
-        })
+        }, function () {
+            // Загрузка страниц
+            insert_page('#page_lists', 'lists');
+            insert_page('#page_month', 'month');
+            insert_page('#page_day', 'day');
+            // Закрытие меню
+            user_data.login = in_login.val(); user_data.avatar = false;
+            let menu = $('#authorisation_menu');
+            if (menu.hasClass('opened')) {
+                menu.addClass('closed');
+                // Сбор мусора
+                setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
+            }
+            $('body').off('mousedown');
+            // Установка имени пользователя
+            $('header .right a div.nickname').text(in_login.val());
+            // Появление кнопок
+            $('#authorisation').css({display: 'block'});
+            $('header .center, header .right').fadeIn(0);
+            $('header').removeClass('logout');
+            // Сбор мусора
+            setTimeout(function () {
+                $('#authorisation, header .center, header .right').removeAttr('style')
+            }, close_time('#authorisation'));
+            user_logined = true;
+        });
     }
 
     function authorisation(login, password) {

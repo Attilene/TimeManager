@@ -16,8 +16,8 @@ aside {
 
 
 /*---------------Шапка------------------------*/
-#hat {width: 100%; height: 185px}
-#hat svg {fill: white; pointer-events: none}
+#hat {width: 100%; height: 160px}
+#hat svg {fill: white}
 /*---------------Заголовок--------------------*/
 #set_login {
     text-align: center;
@@ -39,7 +39,7 @@ aside {
 #edit div, #exit div {
     transform: scale(0.7);
     text-align: center;
-    margin: 20px auto;
+    margin: 16px auto;
     width: 90px;
     height: 30px;
     line-height: 30px;
@@ -48,20 +48,22 @@ aside {
 }
 
 #edit:hover div:hover, #exit:hover div:hover {background: rgba(255, 255, 255, 0.2); transform: scale(1.1)}
-#edit, #exit {width: 35%; height: 150px}
-#edit svg, #exit svg {width: 80px; position: absolute; top: 30px}
+#edit, #exit {width: 35%; height: 125px}
+#edit svg, #exit svg {width: 80px; position: absolute; top: 23px}
 /*---------------Левая часть--------------------*/
-#edit svg {left: 20px}
+#edit svg {left: 20px; pointer-events: none}
 /*----------------------------------------------*/
 /*---------------Середина--------------------*/
 #avatar {
-    margin-top: 10px;
+    margin-top: 3px;
     width: 105px;
     height: 105px;
     position: relative;
     border-radius: 53px;
     overflow: hidden;
 }
+
+#avatar:hover {transform: scale(1.1)}
 
 #avatar_inside {
     background: url("../images/avatars/default.jpg") no-repeat;
@@ -74,8 +76,7 @@ aside {
 
 #avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px) brightness(90%)}
 /*---------------Внутренности--------------------*/
-#set_avatar {width: 100%; opacity: 0; transform: scale(0.7)}
-#set_avatar * {position: absolute}
+#avatar svg, #avatar hr {position: absolute; transform: scale(0.7); opacity: 0}
 
 #change_avatar {
     width: 43px;
@@ -100,11 +101,12 @@ aside {
     fill: #ff6464 !important;
 }
 
-
+#avatar:hover svg, #avatar:hover hr {transform: scale(1); opacity: 0.7}
+#avatar:hover svg:hover {transform: scale(1.2); opacity: 1}
 /*----------------------------------------------*/
 /*----------------------------------------------*/
 /*---------------Правая часть--------------------*/
-#exit svg {right: 20px}
+#exit svg {right: 20px; pointer-events: none}
 #exit div:last-of-type {color: #ff6464 !important;}
 /*----------------------------------------------*/
 #edit:hover svg, #exit:hover svg {transform: scale(1.5);opacity: 0;}
@@ -152,7 +154,7 @@ aside menu input.fill {padding-right: 35px}
 #authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
 /*------------------------------------------------*/
 /*-----------------Подсказки------------------*/
-form#user label {
+aside menu label {
 	z-index: 9;
 	text-align: center;
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -168,28 +170,43 @@ form#user label {
 	transition-property: opacity, color, right, background, text-shadow;
 }
 
-#authorisation_menu.register label[for=form_login] {top: 8px}
-#authorisation_menu.register label[for=form_email] {top: 60px}
-#authorisation_menu.register label[for=form_password] {top: 112px}
-#authorisation_menu.register label[for=form_repass] {top: 164px}
+aside menu label.achive {background: rgba(115, 176, 118, 0.7)}
+aside menu label.warning {background: rgba(255, 139, 139, 0.7)}
 
-#authorisation_menu label.achive {background: rgba(115, 176, 118, 0.7);}
-#authorisation_menu label.warning {background: rgba(255, 139, 139, 0.7)
+aside menu label.warning.show, aside menu label.achive.show {right: 360px; opacity: 1;}
+aside menu label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
+/*--------------------------------------------------*/
+/*-----------------Кнопочки-------------------*/
+aside menu input+button {
+	transform: scale(0.7);
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+	background: transparent;
+	position: absolute;
+	right: 16px;
+	width: 46px; height: 46px;
+	border: none;
+	border-radius: 23px;
 }
 
-#authorisation_menu form#user label.warning.show, #authorisation_menu form#user label.achive.show {
-	right: 360px;
+aside menu input.fill+button{
 	opacity: 1;
-}
+	pointer-events: visible;
+	z-index: 17;}
 
-#authorisation_menu form#user label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
+aside menu input+button:hover {transform: scale(1)}
+aside menu input+button:hover svg {transform: scale(0.9)}
 /*--------------------------------------------------*/
 /*--------------------------------------------------*/
 /*--------------------Меню настроек-----------------*/
 #settings {margin: 4px}
 
 aside menu div.theme {
-    margin: 10px auto;
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: repeat(6, 1fr);
+    margin: 10px 11px;
     padding: 0;
     width: 320px;
     height: 40px;
@@ -198,42 +215,53 @@ aside menu div.theme {
     border: 3px solid white;
 }
 
+aside menu div.theme:hover {transform: scale(1.1)}
+
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
-aside menu div.theme::before {position: absolute; pointer-events: none}
+aside menu div.theme::before {
+    position: absolute;
+    pointer-events: none;
+    height: 40px;
+    line-height: 40px;
+}
 aside menu div.theme:hover::before {opacity: 0}
 
 aside menu div.light::before {
     content: 'Светлая тема';
-    top: 25px; left: 110px}
+    text-align: center;
+    /*top: 25px; left: 110px*/
+}
 
 aside menu div.dark::before {
     content: 'Тёмная тема';
-    top: 75px; left: 118px}
+    text-align: center;
+    /*top: 85px; left: 118px*/
+}
 /*----------------------------------------------*/
 
 /*-------------------Кнопочки-------------------*/
-#profile_menu menu button {
+#profile_menu #settings div.theme button {
     transform: scale(0.6);
     opacity: 0;
-    margin: 5px 12px;
+    margin: 5px auto;
     width: 24px;
     height: 24px;
-    background: none;
     border-radius: 15px;
     border: none;
 }
 
-aside menu div.theme:hover button {transform: scale(1); opacity:1}
+#profile_menu #settings div.theme:hover button {transform: scale(1); opacity:1}
+#profile_menu #settings div.theme:hover button:hover {transform: scale(1.1)}
 
-aside menu button.red {background: #ff6464}
-aside menu button.blue {background: #6464ff}
-aside menu button.green {background: #46aa46}
-aside menu button.purple {background: #b450b4}
-aside menu button.sky {background: #55c0bb}
-aside menu button.black {background: #000}
-aside menu button.white {background: #fff}
+#settings button.red {background: #ff6464}
+#settings button.blue {background: #6464ff}
+#settings button.green {background: #46aa46}
+#settings button.purple {background: #b450b4}
+#settings button.sky {background: #55c0bb}
+#settings button.black {background: #000}
+#settings button.white {background: #fff}
 /*----------------------------------------------*/
 /*----------------------------------------------*/
 
@@ -244,13 +272,13 @@ aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu div.theme button {transition: 0.1s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведении---------------*/
-#hat *:hover {transition: 0.1s ease}
+#hat *:hover {transition: 0.1s ease-in}
 #avatar:hover #avatar_inside {transition: 0.3s}
 aside menu div.theme:hover::before {transition: 0.1s ease-in}
-aside menu div.theme:hover button:hover {transform: scale(1.2); transition: 0.1s}
+aside menu div.theme:hover button:hover {transition: 0.1s}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-aside menu div.theme:hover button:active {transform: scale(0.8); transition: 0.1s ease-out}
+#profile_menu div.theme:hover button:active {transform: scale(0.8); transition: 0.1s ease-out}
 #edit:hover div:active, #exit:hover div:active {transform: scale(0.9)}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
