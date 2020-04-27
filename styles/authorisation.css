@@ -69,11 +69,11 @@ form#user {
 	opacity: 0;
 	border-width: 0;
 	height: 0;
-	margin: 0 5%;
+	margin: 0 16px;
 	pointer-events: none;
 }
 
-#authorisation_menu.register menu input {margin: 8px 5%}
+#authorisation_menu.register menu input {margin: 8px 16px}
 
 #authorisation_menu.register input.hidden {
 	opacity: 1;
@@ -142,7 +142,6 @@ form#user {
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
 #authorisation span {transition: 0.2s ease-out}
-#authorisation_menu * {transition:  0.2s ease-in-out}
 #remember_me {transition-timing-function: ease-in}
 #user svg {transition: 0.1s ease-in-out}
 #erase_email, #show_repass {transition-timing-function: ease-out}

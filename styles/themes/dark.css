@@ -5,6 +5,7 @@ aside menu div.dark {background: #808080;}
 #developers hr.main_line {border: 2px solid gray}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 aside menu input::placeholder {color: #4b4b4b; text-shadow: none}
+aside menu input {text-shadow: none}
 #authorisation_menu.login #checkbox_remember_me:checked~#remember_me {border: 3px solid #4b4b4b}
 
 *:hover {text-shadow: none !important}

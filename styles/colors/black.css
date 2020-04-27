@@ -10,6 +10,7 @@ aside menu div.theme::before {color: #000}
 aside menu input {background: #000; border: 3px solid #000}
 aside menu input.fill {background: rgba(0, 0, 0, 0.5)}
 #user button:hover {background: #000}
+#menu_confirm_exit, #menu_confirm_delete {color: #000}
 
 header a.center:hover, header span.right:hover, aside menu input,
 aside label[for=remember_me] {

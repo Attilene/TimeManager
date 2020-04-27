@@ -27,6 +27,9 @@ function change_theme(theme, color) {
     if ((theme !== user_data.theme) || (color !== user_data.color)) {
         let temp_theme = user_data.theme;
         let temp_color = user_data.color;
+        let temp_obj = $('body, header, header *, footer, footer *, aside, aside main, div.theme, input, #developers *');
+        temp_obj.css({'transition-property': 'background-color, border-color, color', 'transition': '0.5s'});
+        setTimeout(function () {temp_obj.css({'transition-property': '', 'transition': ''})}, 500);
         $('#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
         $('#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
         $(`aside menu .theme button.${temp_theme}.${temp_color}`).removeClass('choice');

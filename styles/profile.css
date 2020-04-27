@@ -113,9 +113,10 @@ aside {
 #edit:hover div, #exit:hover div {transform: scale(1);opacity: 1}
 /*----------------------------------------------*/
 
-/*---------------Менюшка----------------------*/
+/*---------------Менюшки----------------------*/
 aside menu {
     position: relative;
+    box-sizing: border-box;
     width: 342px;
     height: 0;
     padding: 0;
@@ -123,6 +124,7 @@ aside menu {
     border-radius: 16px;
     pointer-events: none;
     opacity: 0;
+    overflow: hidden;
 }
 
 aside menu.opened, #settings, #authorisation_menu menu {
@@ -130,7 +132,24 @@ aside menu.opened, #settings, #authorisation_menu menu {
     pointer-events: visible;
     opacity: 1;
     padding: 5px 0;
+    transition-property: height;
 }
+
+#menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
+
+#menu_confirm_delete, #menu_confirm_exit {
+    text-align: center;
+    padding: 10px;
+}
+
+#menu_confirm_delete button, #menu_confirm_exit button {
+	font-family: "Comfortaa Bold", sans-serif;
+    font-size: 1em;
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+}
+
 /*--------------------Инпуты-----------------*/
 aside menu input {
 	font-family: "Comfortaa Bold", sans-serif;
@@ -138,14 +157,13 @@ aside menu input {
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	padding: 0 10px;
 	box-sizing: border-box;
-	margin: 0 5%;
-	width: 90%;
+	margin: 0 16px;
+	width: 310px;
 	height: 36px;
 	line-height: 36px;
 	border-radius: 18px;
 	overflow: hidden;
 }
-
 
 aside menu input::placeholder {opacity: 1; text-indent: 5px}
 aside menu input.fill {padding-right: 35px}
@@ -206,25 +224,25 @@ aside menu div.theme {
     position: relative;
     display: inline-grid;
     grid-template-columns: repeat(6, 1fr);
-    margin: 10px 11px;
+    margin: 10px 16px;
     padding: 0;
-    width: 320px;
+    width: 310px;
     height: 40px;
     border-radius: 20px;
     box-sizing: border-box;
     border: 3px solid white;
 }
 
-aside menu div.theme:hover {transform: scale(1.1)}
-
 aside menu div.light button {top: 23px}
 aside menu div.dark button {top: 73px}
 /*--------------------Подписи тем-----------------*/
 aside menu div.theme::before {
+    text-align: center;
     position: absolute;
     pointer-events: none;
+    width: 310px;
     height: 40px;
-    line-height: 40px;
+    line-height: 35px;
 }
 aside menu div.theme:hover::before {opacity: 0}
 
@@ -246,14 +264,14 @@ aside menu div.dark::before {
     transform: scale(0.6);
     opacity: 0;
     margin: 5px auto;
-    width: 24px;
+    width: 36px;
     height: 24px;
     border-radius: 15px;
     border: none;
 }
 
 #profile_menu #settings div.theme:hover button {transform: scale(1); opacity:1}
-#profile_menu #settings div.theme:hover button:hover {transform: scale(1.1)}
+#profile_menu #settings div.theme:hover button:hover {transform: scale(1.15)}
 
 #settings button.red {background: #ff6464}
 #settings button.blue {background: #6464ff}
@@ -267,9 +285,10 @@ aside menu div.dark::before {
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
+aside * {transition:  0.2s ease-in-out}
 #hat * {transition:  0.2s ease-in-out}
 aside menu div.theme::before {transition: 0.2s ease-in}
-aside menu div.theme button {transition: 0.1s ease-out}
+aside menu div.theme button {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведении---------------*/
 #hat *:hover {transition: 0.1s ease-in}

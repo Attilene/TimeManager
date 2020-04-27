@@ -10,6 +10,7 @@ header a.center:hover, header span.right:hover, aside menu input {text-shadow: n
 aside menu input {background: #fff; border: 3px solid #fff}
 aside menu input.fill {background: rgba(255, 255, 255, 0.5)}
 #user button:hover {background: #fff}
+#menu_confirm_exit, #menu_confirm_delete {color: #fff}
 
 header .center:hover {background: rgba(0, 0, 0, 0.1)}
 @media (min-width: 1001px) { header .right:hover {background: rgba(0, 0, 0, 0.1)}}

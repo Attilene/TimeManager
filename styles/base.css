@@ -177,9 +177,9 @@ main {
 
 /*-----------------Анимации-------------------*/
 /*-----------------Смена тем------------------*/
-body, aside menu, header, footer, aside, div.name, #dev_list, aside div.theme {
-	transition-property: background, border-color;
-	transition: 0.5s}
+html.theme_change * {
+	transition-property: background, border-color !important;
+	transition: 0.5s !important}
 /*--------------------------------------------*/
 /*-----------------Возврат(время)-------------*/
 header *, footer * {transition: 0.2s ease-out}
