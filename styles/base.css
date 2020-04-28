@@ -70,7 +70,7 @@ header .center {
 	text-align: center;
 }
 
-header .center:hover {
+header .center:hover, header .center:hover {
 	transform: scale(1.1);
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	background: rgba(255, 255, 255, 0.2);
@@ -96,7 +96,7 @@ header .right div{
 }
 
 header .right .avatar {
-	background: url("../images/avatars/default.jpg");
+	background: url(../images/avatars/default.jpg);
 	background-size: contain;
 	margin-top: -4px;
 	margin-right: -2px;
@@ -118,23 +118,23 @@ header .right .avatar {
 }
 
 @media (max-width: 1200px) {  /*Анимация для маленького окна*/
-	header .right:hover #set_icon  {
+	header .right:hover #set_icon, header .right:active #set_icon  {
 		transform: scale(1);
 		opacity: 60%;
 	}
 
-	header .right:hover .avatar {filter: brightness(85%)}
+	header .right:hover .avatar, header .right:active .avatar {filter: brightness(70%)}
 }
 
 @media (min-width: 1200px) { /* Анимации для большого окна*/
-	header .right:hover {
+	header .right:hover, header .right:active {
 		transform: scale(1.05);
 		text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
 	}
 
-	header .right:hover .avatar {transform: scale(0.65);}
+	header .right:hover .avatar, header .right:active .avatar {transform: scale(0.65);}
 }
 /*--------------------------------------------*/
 /*--------------------------------------------*/
@@ -158,6 +158,8 @@ footer span {width: max-content; margin: auto 10%;}
 footer span:hover {transform: scale(1.1)}
 
 footer span:last-of-type {
+	position: relative;
+	left: 10px;
 	text-align: center;
 	width: 140px;
 	height: 24px;
@@ -165,7 +167,7 @@ footer span:last-of-type {
 	border-radius: 12px;
 }
 
-footer span:last-of-type:hover {
+footer span:last-of-type:hover, footer span:last-of-type:active {
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	background: rgba(255, 255, 255, 0.2);
 }
@@ -209,9 +211,7 @@ header .left:hover, header .center:hover, header .right:hover, footer span:hover
 	header .right:hover img {transition: 0.1s ease-out}}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-header .left:active, header .center:active, header .right:active, footer span:active {
-	transform: scale(1);
-	transition: 0.1s ease}
+header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(1); transition: 0.1s ease}
 header .left:active {transform: skewX(-10deg)}
 header .right:active {transform: scale(0.95)}
 @media (max-width: 1200px) {header .right:active {transform: scale(0.85)}}

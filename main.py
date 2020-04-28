@@ -2,11 +2,11 @@ from modules import *
 from Crypto.PublicKey import RSA
 
 # НЕ ТРОГАТЬ
-key_pair = RSA.generate(1024)  # TODO: На релизе 4096
-with open("modules/security/private_key.pem", "w") as priv_key:
-    priv_key.write(key_pair.exportKey().decode('utf-8'))
-with open("modules/security/public_key.pem", "w") as pub_key:
-    pub_key.write(key_pair.publickey().exportKey().decode('utf-8'))
+# key_pair = RSA.generate(2048)
+# with open("modules/security/private_key.pem", "w") as priv_key:
+#     priv_key.write(key_pair.exportKey().decode('utf-8'))
+# with open("modules/security/public_key.pem", "w") as pub_key:
+#     pub_key.write(key_pair.publickey().exportKey().decode('utf-8'))
 # НЕ ТРОГАТЬ
 
 if __name__ == "__main__":

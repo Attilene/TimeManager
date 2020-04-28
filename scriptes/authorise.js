@@ -183,6 +183,7 @@ function connect_authorisation () {
             $('body').off('mousedown');
             // Установка имени пользователя
             $('header .right a div.nickname').text(in_login.val());
+            $('#set_login').val(in_login.val());
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
@@ -216,8 +217,12 @@ function connect_authorisation () {
             user_data = data;
             // Установка имени пользователя и аватарки
             $('header .right a div.nickname').text(login);
+            $('#set_login').val(login);
             // Загрузка аватара
-            if (data.avatar) {$('#avatar_inside').css({'background-image': `url()`})}
+            if (true) {
+                $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
+                $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
+            }
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
