@@ -16,7 +16,7 @@ aside {
 
 
 /*---------------Шапка------------------------*/
-#hat {width: 100%; height: 160px}
+#hat {width: 100%; height: 170px}
 #hat svg {fill: white}
 /*---------------Заголовок--------------------*/
 #set_login {
@@ -39,7 +39,7 @@ aside {
 #edit div, #exit div {
     transform: scale(0.7);
     text-align: center;
-    margin: 16px auto;
+    margin: 18px auto;
     width: 90px;
     height: 30px;
     line-height: 30px;
@@ -49,13 +49,13 @@ aside {
 
 #edit:hover div:hover, #exit:hover div:hover {background: rgba(255, 255, 255, 0.2); transform: scale(1.1)}
 #edit, #exit {width: 35%; height: 125px}
-#edit svg, #exit svg {width: 80px; position: absolute; top: 23px}
+#edit svg, #exit svg {width: 80px; position: absolute; top: 28px}
 /*---------------Левая часть--------------------*/
 #edit svg {left: 20px; pointer-events: none}
 /*----------------------------------------------*/
 /*---------------Середина--------------------*/
 #avatar {
-    margin-top: 3px;
+    margin-top: 6px;
     width: 105px;
     height: 105px;
     position: relative;
@@ -63,7 +63,7 @@ aside {
     overflow: hidden;
 }
 
-#avatar:hover {transform: scale(1.1)}
+#avatar:hover {transform: scale(1.15)}
 
 #avatar_inside {
     background: url("../images/avatars/default.jpg") no-repeat;
@@ -124,7 +124,6 @@ aside menu {
     border-radius: 16px;
     pointer-events: none;
     opacity: 0;
-    overflow: hidden;
 }
 
 aside menu.opened, #settings, #authorisation_menu menu {
@@ -132,7 +131,7 @@ aside menu.opened, #settings, #authorisation_menu menu {
     pointer-events: visible;
     opacity: 1;
     padding: 5px 0;
-    transition-property: height;
+    transition-property: height, margin-top;
 }
 
 #menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
@@ -300,7 +299,7 @@ aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button:hover {transition: 0.1s}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#settings div.theme:hover button:active {transform: scale(0.9); transition: 0.1s ease-out}
+#settings div.theme:hover button:active {transform: scale(1)}
 #edit:hover div:active, #exit:hover div:active {transform: scale(0.9)}
 /*--------------------------------------------*/
 /*--------------------------------------------*/

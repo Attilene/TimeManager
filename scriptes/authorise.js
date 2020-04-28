@@ -217,7 +217,7 @@ function connect_authorisation () {
             // Установка имени пользователя и аватарки
             $('header .right a div.nickname').text(login);
             // Загрузка аватара
-            if (data.avatar) {}
+            if (data.avatar) {$('#avatar_inside').css({'background-image': `url()`})}
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
@@ -251,9 +251,18 @@ function connect_authorisation () {
 
     $('#show_pass, #show_repass').on('mousedown', function () {
         let temp = $(this).prev();
-        if(temp.attr('type') === 'password') {fade_change(temp, function () {temp.attr('type', 'text')})}
-        temp.one('mouseleave',function () {
-            fade_change(temp, function () {temp.attr('type', 'password')})
+        if (temp.attr('type') === 'text') {
+                fade_change(temp, function () {
+                    temp.attr('type', 'password')
+                })
+            }
+        else if(temp.attr('type') === 'password') {fade_change(temp, function () {temp.attr('type', 'text')})}
+            temp.one('mouseleave',function () {
+            if (temp.attr('type') === 'text') {
+                fade_change(temp, function () {
+                    temp.attr('type', 'password')
+                })
+            }
         })
     });
 
