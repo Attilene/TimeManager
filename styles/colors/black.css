@@ -1,15 +1,15 @@
 header, footer, aside, div.name, #dev_head, .card_head, .card {background: #000}
 aside menu div.theme {border-color: #000}
 aside menu div.theme::before {color: #000}
-::selection {background: rgba(0, 0, 0, 0.5)}
+::selection {background-color: rgba(0, 0, 0, 0.5)}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 0.5)}
 ::-webkit-scrollbar-thumb:hover{background-color: #000}
 
 @-webkit-keyframes autofill {to {background: rgba(0, 0, 0, 0.5)}}
-aside menu input {background: #000; border: 3px solid #000}
-aside menu input.fill {background: rgba(0, 0, 0, 0.5)}
-#user button:hover {background: #000}
+aside menu input {background-color: #000; border-color: #000}
+aside menu input.fill {background-color: rgba(0, 0, 0, 0.5)}
+#user button:hover {background-color: #000}
 #menu_confirm_exit, #menu_confirm_delete {color: #000}
 
 header a.center:hover, header span.right:hover, aside menu input,

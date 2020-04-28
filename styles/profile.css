@@ -148,6 +148,7 @@ aside menu.opened, #settings, #authorisation_menu menu {
     margin: 10px;
     width: 100px;
     height: 30px;
+    border: 3px solid white;
 }
 
 /*--------------------Инпуты-----------------*/
@@ -161,6 +162,7 @@ aside menu input {
 	width: 310px;
 	height: 36px;
 	line-height: 36px;
+    border: 3px solid white;
 	border-radius: 18px;
 	overflow: hidden;
 }
@@ -260,7 +262,7 @@ aside menu div.dark::before {
 /*----------------------------------------------*/
 
 /*-------------------Кнопочки-------------------*/
-#profile_menu #settings div.theme button {
+#settings div.theme button {
     transform: scale(0.6);
     opacity: 0;
     margin: 5px auto;
@@ -270,8 +272,9 @@ aside menu div.dark::before {
     border: none;
 }
 
-#profile_menu #settings div.theme:hover button {transform: scale(1); opacity:1}
-#profile_menu #settings div.theme:hover button:hover {transform: scale(1.15)}
+#settings div.theme:hover button {transform: scale(1); opacity:1}
+#settings div.theme:hover button:hover {transform: scale(1.15)}
+#settings div.theme:hover button.choice {width: 24px}
 
 #settings button.red {background: #ff6464}
 #settings button.blue {background: #6464ff}
@@ -297,7 +300,7 @@ aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button:hover {transition: 0.1s}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#profile_menu div.theme:hover button:active {transform: scale(0.8); transition: 0.1s ease-out}
+#settings div.theme:hover button:active {transform: scale(0.9); transition: 0.1s ease-out}
 #edit:hover div:active, #exit:hover div:active {transform: scale(0.9)}
 /*--------------------------------------------*/
 /*--------------------------------------------*/

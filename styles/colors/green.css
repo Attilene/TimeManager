@@ -1,14 +1,14 @@
-header, footer, aside, div.name, #dev_head, .card_head, .card {background: #44aa24}
+header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #44aa24}
 aside menu div.theme {border-color: #46aa46}
 aside menu div.theme::before {color: #46aa46}
-::selection {background: rgba(70, 170, 70, 0.5)}
+::selection {background-color: rgba(70, 170, 70, 0.5)}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(70, 170, 70, 0.5)}
 ::-webkit-scrollbar-thumb:hover{background-color: #46aa46}
 
-@-webkit-keyframes autofill {to {background: rgba(70, 170, 70, 0.5)}}
-aside menu input {background: #46aa46; border: 3px solid #46aa46}
-aside menu input.fill {background: rgba(70, 170, 70, 0.5)}
-#user button:hover {background: #46aa46}
+@-webkit-keyframes autofill {to {background-color: rgba(70, 170, 70, 0.5)}}
+aside menu input {background-color: #46aa46; border-color: #46aa46}
+aside menu input.fill {background-color: rgba(70, 170, 70, 0.5)}
+#user button:hover {background-color: #46aa46}
 #menu_confirm_exit, #menu_confirm_delete {color: #46aa46}
 
