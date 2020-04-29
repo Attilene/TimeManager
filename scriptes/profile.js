@@ -1,6 +1,5 @@
 function connect_profile() {
     function logout() {
-        receive('/logout');
         // Закрытие меню
         let menu = $('#profile_menu');
         if (menu.hasClass('opened')) {
@@ -17,10 +16,10 @@ function connect_profile() {
         $('#page_month').html('');
         // Восстанавление темы
         change_theme('light', 'blue');
-        // Сброс имени пользователя и аватарки
+        // Сброс имени пользователя
         $('header .right a div.nickname').text('Guest');
         $('#set_login').val('Guest');
-        // Загрузка аватара
+        // Сброс аватара
         $('#avatar_inside').css({'background-image': ''});
         $('header .right picture').css({'background-image': ''});
         // Исчезновение кнопок
@@ -35,10 +34,16 @@ function connect_profile() {
     }
 
     // Подтверждение выхода
-    $('#menu_confirm_exit .yes').on('click', logout);
+    $('#menu_confirm_exit .yes').on('click', function () {
+        logout();
+        if (user_data.login !== '') { receive('/logout') }
+    });
 
-    // // Подтверждение удаления профиля
-    // $('#menu_confirm_delete .yes').on('click', logout)
+    // Подтверждение удаления профиля
+    $('#menu_confirm_delete_profile .yes').on('click', function () {
+        logout();
+        if (user_data.login !== '') { receive('/delete_user') }
+    })
 
 
 

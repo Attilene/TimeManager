@@ -93,7 +93,7 @@ function connect_actions() {
         const new_theme = $(this).attr('class').split(' ')[0];
         const new_color = $(this).attr('class').split(' ')[1];
         if (((new_theme !== user_data['theme']) || (new_color !== user_data['color'])) && (user_logined)) {
-            if (user_data.login !== 'Guest') {
+            if (user_data.login !== '') {
                 send('/change_theme', `${new_theme} ${new_color}`)
             }
         }
@@ -102,7 +102,7 @@ function connect_actions() {
 }
 
 function guest_auth() {
-    user_data = {'login': 'Guest', 'theme': 'light', 'color': 'blue'};
+    user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
     // Появление кнопок
     $('#authorisation').css({display: 'block'});
     $('header .center, header .right').fadeIn(0);

@@ -37,7 +37,7 @@ function connect_authorisation () {
                 label.css({width: label.css('width')})
                     .text(text)
                     .animate({
-                        width: (30 + (text.length * 9)) + 'px'
+                        width: (25 + (text.length * 9)) + 'px'
                     }, close_time(label));
             })
         }
@@ -216,7 +216,7 @@ function connect_authorisation () {
             // Синхронизация данных
             change_theme(data.theme, data.color);
             user_data = data;
-            // Установка имени пользователя и аватарки
+            // Установка имени пользователя
             $('header .right a div.nickname').text(login);
             $('#set_login').val(login);
             // Загрузка аватара

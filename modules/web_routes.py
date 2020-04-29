@@ -56,20 +56,12 @@ def req_get_page():
     return render_template(f'{page}.html')
 
 
-@tm.route('/change_theme', methods=['POST'])
-def req_change_theme():
-    """Изменение темы"""
-    global now
-    now.change_theme(*request.get_json().split())
-    return jsonify(True)
-
-
 @tm.route('/logout', methods=['POST'])
 def req_logout():
     """Выход пользователя"""
     global now
     now = None
-    if now.log == 'Guest': User.guest_reset()
+    User.authorisation = False
     return jsonify(True)
 
 
@@ -78,34 +70,23 @@ def req_delete_user():
     """Удаление учётной записи"""
     global now
     now.del_user()
-    del now
+    now = None
+    User.authorisation = False
     return jsonify(True)
 
 
-# Страницы
+@tm.route('/change_theme', methods=['POST'])
+def req_change_theme():
+    """Изменение темы"""
+    global now
+    now.change_theme(*request.get_json().split())
+    return jsonify(True)
+
+
+# Главная страница
 @tm.route('/')
 def page_home():
     return render_template("base.html", theme='light', color='blue')
-
-
-@tm.route('/list')
-def page_list():
-    return 'list'
-
-
-@tm.route('/day')
-def page_day():
-    return 'day'
-
-
-@tm.route('/month')
-def page_month():
-    return 'month'
-
-
-@tm.route('/about')
-def page_about():
-    return render_template("about.html")
 
 
 
