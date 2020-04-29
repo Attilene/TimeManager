@@ -37,7 +37,7 @@ function connect_authorisation () {
                 label.css({width: label.css('width')})
                     .text(text)
                     .animate({
-                        width: (30 + (text.length * 9)) + 'px'
+                        width: (25 + (text.length * 9)) + 'px'
                     }, close_time(label));
             })
         }
@@ -183,6 +183,7 @@ function connect_authorisation () {
             $('body').off('mousedown');
             // Установка имени пользователя
             $('header .right a div.nickname').text(in_login.val());
+            $('#set_login').val(in_login.val());
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
@@ -192,6 +193,7 @@ function connect_authorisation () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
             }, close_time('#authorisation'));
             user_logined = true;
+            connect_profile()
         });
     }
 
@@ -214,10 +216,14 @@ function connect_authorisation () {
             // Синхронизация данных
             change_theme(data.theme, data.color);
             user_data = data;
-            // Установка имени пользователя и аватарки
+            // Установка имени пользователя
             $('header .right a div.nickname').text(login);
+            $('#set_login').val(login);
             // Загрузка аватара
-            if (data.avatar) {}
+            if (data.avatar) {
+                $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
+                $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
+            }
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
@@ -227,6 +233,7 @@ function connect_authorisation () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
             }, close_time('#authorisation'));
             user_logined = true;
+            connect_profile()
         }, [login, password]);
     }
 
@@ -251,9 +258,18 @@ function connect_authorisation () {
 
     $('#show_pass, #show_repass').on('mousedown', function () {
         let temp = $(this).prev();
-        if(temp.attr('type') === 'password') {fade_change(temp, function () {temp.attr('type', 'text')})}
-        temp.one('mouseleave',function () {
-            fade_change(temp, function () {temp.attr('type', 'password')})
+        if (temp.attr('type') === 'text') {
+                fade_change(temp, function () {
+                    temp.attr('type', 'password')
+                })
+            }
+        else if(temp.attr('type') === 'password') {fade_change(temp, function () {temp.attr('type', 'text')})}
+            temp.one('mouseleave',function () {
+            if (temp.attr('type') === 'text') {
+                fade_change(temp, function () {
+                    temp.attr('type', 'password')
+                })
+            }
         })
     });
 

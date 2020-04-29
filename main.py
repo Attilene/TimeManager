@@ -1,8 +1,8 @@
 from modules import *
-# from Crypto.PublicKey import RSA
+from Crypto.PublicKey import RSA
 
 # НЕ ТРОГАТЬ
-# key_pair = RSA.generate(2048)  # TODO: На релизе 4096
+# key_pair = RSA.generate(2048)
 # with open("modules/security/private_key.pem", "w") as priv_key:
 #     priv_key.write(key_pair.exportKey().decode('utf-8'))
 # with open("modules/security/public_key.pem", "w") as pub_key:

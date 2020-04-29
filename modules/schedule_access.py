@@ -168,18 +168,19 @@ class User(object):
             CREATE TABLE IF NOT EXISTS list_{log} (name INTEGER, task VARCHAR(1000))
         """)
 
-    @staticmethod
-    def guest_reset():  # TODO: Убрать позже
-        """Обновление гостевой записи"""
-        if User.check_user('Guest'):
-            User.__cur.execute("DELETE FROM users WHERE login='Guest'")
-            User.__conn.commit()
-            User.__cur.executescript(f"""
-                        DROP TABLE IF EXISTS month_Guest;
-                        DROP TABLE IF EXISTS day_Guest;
-                        DROP TABLE IF EXISTS list_Guest
-                    """)
-        return User.registration('Guest', 'best_team@best_mail_box.ru', 'Год рождения Сталина', 'light', 'blue')
+    # @staticmethod
+    # def _guest_reset():
+    #     """Обновление гостевой записи"""
+    #     if User.check_user('Guest'):
+    #         User.__cur.execute("DELETE FROM users WHERE login='Guest'")
+    #         User.__conn.commit()
+    #         User.__cur.executescript(f"""
+    #                     DROP TABLE IF EXISTS month_Guest;
+    #                     DROP TABLE IF EXISTS day_Guest;
+    #                     DROP TABLE IF EXISTS list_Guest
+    #                 """)
+    #         User.registration('Guest', 'best_team@best_mail_box.ru', 'Год рождения Сталина', 'light', 'blue')
+
 
     @staticmethod
     def _erase():
@@ -193,9 +194,10 @@ class User(object):
                     DROP TABLE IF EXISTS day_{log[0]}""")
         User.__cur.execute("DELETE FROM users")
         User.__conn.commit()
+        print('Очистка базы данных завершена успешно')
 
 
-
+# User._erase()
 # Создание таблицы-----------------------------------------------------------------------------------------
 # __cur.execute("""CREATE TABLE IF NOT EXISTS users
 #                   (login VARCHAR(200), psw VARCHAR(200),
