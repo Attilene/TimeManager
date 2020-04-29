@@ -103,8 +103,6 @@ function connect_actions() {
 
 function guest_auth() {
     user_data = {'login': 'Guest', 'theme': 'light', 'color': 'blue'};
-    // Установка имени пользователя и аватарки
-    $('header .right a div.nickname').text('Guest');
     // Появление кнопок
     $('#authorisation').css({display: 'block'});
     $('header .center, header .right').fadeIn(0);
@@ -114,4 +112,5 @@ function guest_auth() {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
     user_logined = true;
+    connect_profile()
 }

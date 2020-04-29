@@ -10,6 +10,6 @@ aside menu div.theme::before {color: #b450b4}
 aside menu input {background-color: #b450b4; border-color: #b450b4}
 aside menu input.fill {background-color: rgba(180, 80, 180, 0.5)}
 #user button:hover {background-color: #b450b4}
-#menu_confirm_exit p, #menu_confirm_delete p {color: #b450b4}
-#menu_confirm_delete button, #menu_confirm_exit button {background-color: #b450b4}
+#menu_confirm_delete_profile p, #menu_confirm_delete_avatar p, #menu_confirm_exit p {color: #b450b4}
+#menu_confirm_delete_profile button, #menu_confirm_delete_avatar button, #menu_confirm_exit button {background-color: #b450b4}
 

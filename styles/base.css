@@ -191,11 +191,6 @@ main {
 /*--------------------------------------------*/
 
 /*-----------------Анимации-------------------*/
-/*-----------------Смена тем------------------*/
-html.theme_change * {
-	transition-property: background, border-color !important;
-	transition: 0.5s !important}
-/*--------------------------------------------*/
 /*-----------------Возврат(время)-------------*/
 header *, footer * {transition: 0.2s ease-out}
 @media (max-width: 1200px) {  header .right:hover * {transition: 0.3s ease-in-out}	}

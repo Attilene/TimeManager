@@ -193,6 +193,7 @@ function connect_authorisation () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
             }, close_time('#authorisation'));
             user_logined = true;
+            connect_profile()
         });
     }
 
@@ -219,7 +220,7 @@ function connect_authorisation () {
             $('header .right a div.nickname').text(login);
             $('#set_login').val(login);
             // Загрузка аватара
-            if (true) {
+            if (data.avatar) {
                 $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
                 $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
             }
@@ -232,6 +233,7 @@ function connect_authorisation () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
             }, close_time('#authorisation'));
             user_logined = true;
+            connect_profile()
         }, [login, password]);
     }
 

@@ -131,14 +131,15 @@ aside menu {
 aside menu.opened, #settings, #authorisation_menu menu { display: block }
 #menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
 
-#menu_confirm_delete, #menu_confirm_exit {
+#menu_confirm_delete_profile, #menu_confirm_delete_avatar, #menu_confirm_exit {
     text-align: center;
     padding: 10px;
 }
 
+#profile_menu menu p {height: 20px}
 #profile_menu menu p:hover {transform: scale(1.1)}
 
-#menu_confirm_delete button, #menu_confirm_exit button {
+#menu_confirm_delete_profile button, #menu_confirm_delete_avatar button, #menu_confirm_exit button {
 	font-family: "Comfortaa Bold", sans-serif;
     font-size: 1em;
     margin: 10px 15px;
@@ -148,7 +149,8 @@ aside menu.opened, #settings, #authorisation_menu menu { display: block }
     border-radius: 20px;
 }
 
-#menu_confirm_delete button:hover, #menu_confirm_exit button:hover {transform: scale(1.1)}
+#menu_confirm_delete_profile button:hover, #menu_confirm_delete_avatar button:hover, #menu_confirm_exit button:hover {
+    transform: scale(1.1)}
 #profile_menu menu button.yes {background-color: #ff6464 !important;}
 /*--------------------Инпуты-----------------*/
 aside menu input {
@@ -296,7 +298,8 @@ aside menu div.theme button {transition: 0.2s ease-out}
 aside menu div.theme:hover::before {transition: 0.1s ease-in-out}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}
 #profile_menu menu p:hover {transition: 0.1s ease}
-#menu_confirm_delete button:hover, #menu_confirm_exit button:hover {transition: 0.1s ease}
+#menu_confirm_delete_profile button:hover, #menu_confirm_delete_avatar button:hover, #menu_confirm_exit button:hover {
+    transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 #settings div.theme:hover button:active {transform: scale(1)}
@@ -304,7 +307,8 @@ aside menu div.theme:hover button:hover {transition: 0.1s ease}
 aside input.fill+button:active {transform: scale(0.7); opacity: 0}
 #profile_menu #avatar svg:active {transform: scale(0.9)}
 #profile_menu menu p:active {transform: scale(1)}
-#menu_confirm_delete button:active, #menu_confirm_exit button:active {transform: scale(1)}
+#menu_confirm_delete_profile button:active, #menu_confirm_delete_avatar button:active, #menu_confirm_exit button:active {
+    transform: scale(1)}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 
