@@ -1,4 +1,6 @@
 function connect_profile() {
+    setTimeout(function () {$('#user input').val('')}, close_time('#authorisation_menu'));
+
     function logout() {
         // Закрытие меню
         let menu = $('#profile_menu');
@@ -33,6 +35,22 @@ function connect_profile() {
         user_logined = false;
     }
 
+    // Добавление аватара
+    $('#change_avatar').on('click', function () {
+        $('#get_file').click()
+    });
+    $('#get_file').on('change', function () {
+        let img = new FormData();
+        img.set('img', $("#get_file")[0].files[0], `${user_data.login}.jpg`);
+        send_image(img, function () {
+            $.get(`/time_manager/images/avatars/${user_data.login}.jpg`, function () {
+                $('#avatar_inside').css({'background-image': 'none'}).css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg)`});
+                $('header .right picture').css({'background-image': 'none'}).css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg)`})
+            })
+        })
+
+    });
+
     // Подтверждение выхода
     $('#menu_confirm_exit .yes').on('click', function () {
         logout();
@@ -43,9 +61,15 @@ function connect_profile() {
     $('#menu_confirm_delete_profile .yes').on('click', function () {
         logout();
         if (user_data.login !== '') { receive('/delete_user') }
-    })
+    });
 
-
+    // Подтверждение удаления аватара
+    $('#menu_confirm_delete_avatar .yes').on('click', function () {
+        $('#avatar').addClass('none');
+        $('#avatar_inside').css({'background-image': ''});
+        $('header .right picture').css({'background-image': ''});
+        if (user_data.login !== '') {receive('/delete_avatar')}
+    });
 
 
 

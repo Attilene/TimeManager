@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
+import os
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 
@@ -80,6 +81,29 @@ def req_change_theme():
     """Изменение темы"""
     global now
     now.change_theme(*request.get_json().split())
+    return jsonify(True)
+
+
+@tm.route('/change_avatar', methods=['POST'])
+def req_change_avatar():
+    """Изменение аватарки"""
+    global now
+    file = request.files.get('img')
+    now.change_avatar(True)
+    temp_path = f'images/avatars/{now.log}.jpg'
+    with open(temp_path, 'wb') as open_file:
+        open_file.write(file.read())
+    return jsonify(True)
+
+
+@tm.route('/delete_avatar', methods=['POST'])
+def req_delete_avatar():
+    """Удаление аватарки"""
+    global now
+    now.change_avatar(False)
+    temp_path = f'images/avatars/{now.log}.jpg'
+    if os.path.isfile(temp_path):
+        os.remove(temp_path)
     return jsonify(True)
 
 

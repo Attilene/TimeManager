@@ -3,25 +3,10 @@ $.ajaxSetup({
     type: 'POST',
     dataType: 'json',
     contentType: 'application/json',
-    statuscode: function(html) {alert(html)},
     error: function(jqXHR, textStatus, errorThrown) {
     console.log('Ошибка: ' + textStatus + ' | ' + errorThrown, jqXHR);
   }
 });
-
-function insert_page(selector, file_name, func=null, async=true) {
-    // Получение HTML шаблона
-    $.ajax({
-        url: '/get_page',
-        async: async,
-        dataType: 'html',
-        data: `"${file_name}"`,
-        success: function (data) {
-            if (func !== null) {$(selector).html(func)}
-            else {$(selector).html(data)}
-        }
-    });
-}
 
 function receive(url, success=null, send_data=null, async=true) {
     // Получение JSON формы с сервера
@@ -42,5 +27,32 @@ function send(url, data, success=null, async=true) {
         data: JSON.stringify(data),
         dataType: 'json',
         success: success
+    });
+}
+
+function insert_page(selector, file_name, func=null, async=true) {
+    // Получение HTML шаблона
+    $.ajax({
+        url: '/get_page',
+        async: async,
+        dataType: 'html',
+        data: `"${file_name}"`,
+        success: function (data) {
+            if (func !== null) {$(selector).html(func)}
+            else {$(selector).html(data)}
+        }
+    });
+}
+
+function send_image(img, func) {
+    // Получение HTML шаблона
+    $.ajax({
+        url: '/change_avatar',
+        dataType: 'json',
+        contentType: 'image/*',
+        processData: false,
+        enctype: 'multipart/form-data',
+        success: func,
+        data: img,
     });
 }

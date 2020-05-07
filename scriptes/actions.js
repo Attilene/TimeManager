@@ -112,5 +112,5 @@ function guest_auth() {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
     user_logined = true;
-    connect_profile()
+    connect_profile();
 }

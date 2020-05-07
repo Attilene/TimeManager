@@ -221,6 +221,7 @@ function connect_authorisation () {
             $('#set_login').val(login);
             // Загрузка аватара
             if (data.avatar) {
+                $('#avatar').removeClass('none');
                 $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
                 $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
             }
