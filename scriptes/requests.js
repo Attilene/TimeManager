@@ -48,11 +48,12 @@ function send_image(img, func) {
     // Получение HTML шаблона
     $.ajax({
         url: '/change_avatar',
-        dataType: 'json',
-        contentType: 'image/*',
+        dataType: false,
+        contentType: false,
         processData: false,
+        cache: false,
         enctype: 'multipart/form-data',
-        success: func,
+        complete: func,
         data: img,
     });
 }

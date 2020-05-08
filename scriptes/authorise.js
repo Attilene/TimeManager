@@ -217,13 +217,13 @@ function connect_authorisation () {
             change_theme(data.theme, data.color);
             user_data = data;
             // Установка имени пользователя
-            $('header .right a div.nickname').text(login);
-            $('#set_login').val(login);
+            $('header .right a div.nickname').text(data.login);
+            $('#set_login').val(data.login);
             // Загрузка аватара
             if (data.avatar) {
                 $('#avatar').removeClass('none');
-                $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
-                $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
+                $('#avatar_inside').css({background: `url(time_manager/images/avatars/${data.login}.jpg) no-repeat center/cover`});
+                $('header .right picture').css({background: `url(time_manager/images/avatars/${data.login}.jpg) no-repeat center/cover`})
             }
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
@@ -305,7 +305,7 @@ function connect_authorisation () {
                     in_pass.focus();
                     warning(in_login, 'Пользователь существует', 'achive');
                     in_login.addClass('change');
-                    in_email.val('');
+                    in_email.val('').removeClass('fill');
                     setTimeout(function () {
                         in_login.val(temp).removeClass('change')
                     }, 200);

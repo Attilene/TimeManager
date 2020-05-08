@@ -48,7 +48,7 @@
 
 #Rasim {line-height: 30px}
 #Rasim p {margin: 0}
-@media (max-width: 1200px) {  #developers .card_head p {transform: scale(0.8); transition: 0.2s ease-in-out}  }
+@media (max-width: 1200px) {#developers .card_head p {transform: scale(0.8); transition: 0.2s ease-in-out}  }
 
 #developers .card p, #developers .card {text-align: center; border-radius: 30px}
 #developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}

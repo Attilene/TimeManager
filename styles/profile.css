@@ -67,9 +67,7 @@ aside {
 #avatar:hover {transform: scale(1.15)}
 
 #avatar_inside {
-    background: url(../images/avatars/default.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: url(../images/avatars/default.jpg) no-repeat center/cover;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -142,7 +140,7 @@ aside menu {
 aside menu.opened, #settings, #authorisation_menu menu { display: block }
 #menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
 
-#menu_confirm_delete_profile, #menu_confirm_delete_avatar, #menu_confirm_exit {
+#menu_confirm_delete {
     text-align: center;
     padding: 10px;
 }
@@ -150,7 +148,7 @@ aside menu.opened, #settings, #authorisation_menu menu { display: block }
 #profile_menu menu p {height: 20px}
 #profile_menu menu p:hover {transform: scale(1.1)}
 
-#menu_confirm_delete_profile button, #menu_confirm_delete_avatar button, #menu_confirm_exit button {
+#menu_confirm_delete button {
 	font-family: "Comfortaa Bold", sans-serif;
     font-size: 1em;
     margin: 10px 15px;
@@ -160,8 +158,7 @@ aside menu.opened, #settings, #authorisation_menu menu { display: block }
     border-radius: 20px;
 }
 
-#menu_confirm_delete_profile button:hover, #menu_confirm_delete_avatar button:hover, #menu_confirm_exit button:hover {
-    transform: scale(1.1)}
+#menu_confirm_delete button:hover {transform: scale(1.1)}
 #profile_menu menu button.yes {background-color: #ff6464 !important;}
 /*--------------------Инпуты-----------------*/
 aside menu input {
@@ -229,6 +226,17 @@ aside menu input.fill+button{
 
 aside menu input+button:hover {transform: scale(1)}
 aside menu input+button:hover svg {transform: scale(0.9)}
+
+menu button svg {
+	fill: white;
+	stroke: white;
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: 2px;
+	right: 1px;
+	pointer-events: none;
+}
 /*--------------------------------------------------*/
 /*--------------------------------------------------*/
 /*--------------------Меню настроек-----------------*/
@@ -300,6 +308,7 @@ aside menu div.dark::before {
 /*-----------------Возврат---------------------*/
 aside * {transition:  0.2s ease-in-out}
 #hat * {transition:  0.2s ease-in-out}
+#avatar_inside {transition: background 0.5s}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu div.theme button {transition: 0.2s ease-out}
 /*--------------------------------------------*/
@@ -308,8 +317,8 @@ aside menu div.theme button {transition: 0.2s ease-out}
 #avatar:hover #avatar_inside {transition: 0.3s}
 aside menu div.theme:hover::before {transition: 0.1s ease-in-out}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}
-#profile_menu menu p:hover {transition: 0.1s ease}
-#menu_confirm_delete_profile button:hover, #menu_confirm_delete_avatar button:hover, #menu_confirm_exit button:hover {
+#profile_menu menu p:hover {transition: 0.2s ease}
+#menu_confirm_delete button:hover {
     transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
@@ -318,7 +327,7 @@ aside menu div.theme:hover button:hover {transition: 0.1s ease}
 aside input.fill+button:active {transform: scale(0.7); opacity: 0}
 #profile_menu #avatar svg:active {transform: scale(0.9)}
 #profile_menu menu p:active {transform: scale(1)}
-#menu_confirm_delete_profile button:active, #menu_confirm_delete_avatar button:active, #menu_confirm_exit button:active {
+#menu_confirm_delete button:active {
     transform: scale(1)}
 /*--------------------------------------------*/
 /*--------------------------------------------*/

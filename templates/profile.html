@@ -1,8 +1,8 @@
 <div id="hat">
     <form><input id="set_login" type="text" value="Guest"></form>
     <span id="edit">
-        <div>Почта</div>
-        <div>Пароль</div>
+        <div id="btn_change_mail">Почта</div>
+        <div id="btn_change_pass">Пароль</div>
         <svg class="hat_float">
             <use xlink:href="time_manager/images/sprites.svg#sprite_float_edit"></use>
         </svg>
@@ -19,8 +19,8 @@
         </svg>
     </span>
     <span id="exit">
-        <div>Выйти</div>
-        <div>Удалить</div>
+        <div id="btn_exit">Выйти</div>
+        <div id="btn_delete_profile">Удалить</div>
         <svg class="hat_float">
             <use xlink:href="time_manager/images/sprites.svg#sprite_float_exit"></use>
         </svg>
@@ -67,20 +67,8 @@
     </form>
 </menu>
 
-<menu id="menu_confirm_exit" class="opened">
-    <p>Подтвердите выход</p>
-    <button class="yes" type="button">Выйти</button>
-    <button class="no" type="button">Отмена</button>
-</menu>
-
-<menu id="menu_confirm_delete_profile" class="opened">
+<menu id="menu_confirm_delete" class="opened">
     <p>Подтвердите удаление профиля</p>
-    <button class="yes" type="button">Удалить</button>
-    <button class="no" type="button">Отмена</button>
-</menu>
-
-<menu id="menu_confirm_delete_avatar" class="opened">
-    <p>Подтвердите удаление аватара</p>
     <button class="yes" type="button">Удалить</button>
     <button class="no" type="button">Отмена</button>
 </menu>
