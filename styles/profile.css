@@ -77,7 +77,7 @@ aside {
     border-radius: 50%;
 }
 
-#avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px) brightness(90%)}
+#avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px) brightness(80%)}
 /*---------------Внутренности--------------------*/
 #avatar svg, #avatar hr {position: absolute; transform: scale(0.7); opacity: 0}
 

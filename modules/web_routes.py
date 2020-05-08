@@ -73,6 +73,7 @@ def req_delete_user():
     """Удаление учётной записи"""
     global now
     now.del_user()
+    req_delete_avatar()
     now = None
     User.authorisation = False
     return jsonify(True)
@@ -81,7 +82,6 @@ def req_delete_user():
 @tm.route('/change_theme', methods=['POST'])
 def req_change_theme():
     """Изменение темы"""
-    global now
     now.change_theme(*request.get_json().split())
     return jsonify(True)
 
@@ -89,7 +89,6 @@ def req_change_theme():
 @tm.route('/change_avatar', methods=['POST'])
 def req_change_avatar():
     """Изменение аватарки"""
-    global now
     file = request.files.get('img')
     now.change_avatar(True)
     temp_path = f'images/avatars/{now.log}.jpg'
@@ -101,7 +100,6 @@ def req_change_avatar():
 @tm.route('/delete_avatar', methods=['POST'])
 def req_delete_avatar():
     """Удаление аватарки"""
-    global now
     now.change_avatar(False)
     temp_path = f'images/avatars/{now.log}.jpg'
     if os.path.isfile(temp_path):

@@ -45,27 +45,18 @@ function connect_profile() {
         $('#get_file').click()
     });
     $('#get_file').on('change', function () {
-        if ($(this).val() !== '') {
-            $('#avatar_inside').css({'background-image': ''});
-            $('header .right picture').css({'background-image': ''});
-            if (user_data.login !== '') {
-                $.ajax({
-                    url: '/delete_avatar',
-                    dataType: 'json',
-                    async: false,
-                    complete: function () {
-                        let img = new FormData();
-                        img.set('img', $("#get_file")[0].files[0], `${user_data.login}.jpg`);
-                        send_image(img, function () {
-                            let rand = Math.random();
-                            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
-                            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
-                            $('#avatar').removeClass('none')
-                        })
-                    }
-                })
-            }
+        let size = (($(this)[0].files[0].size) / 1024 / 1024).toFixed(1);
+        if (user_data.login !== '' && $(this).val() !== '' && size < 10) {
+            let img = new FormData();
+            img.set('img', $("#get_file")[0].files[0], `${user_data.login}.jpg`);
+            send_image(img, function () {
+                let rand = + new Date();
+                $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
+                $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
+                $('#avatar').removeClass('none')
+            })
         }
+        if (size > 10) {alert(`Объем данного файла (${size} МБ) превышает допустимый объём в 10 МБ`)}
     });
 
     // Выход
