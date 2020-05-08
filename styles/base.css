@@ -96,7 +96,10 @@ header .right div{
 }
 
 header .right .avatar {
-	background: url(../images/avatars/default.jpg) no-repeat center/cover;
+	background-image: url(../images/avatars/default.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 	margin-top: -4px;
 	margin-right: -2px;
 	overflow: hidden;

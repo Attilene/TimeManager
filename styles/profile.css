@@ -67,7 +67,10 @@ aside {
 #avatar:hover {transform: scale(1.15)}
 
 #avatar_inside {
-    background: url(../images/avatars/default.jpg) no-repeat center/cover;
+    background-image: url(../images/avatars/default.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -117,7 +120,6 @@ aside {
 /*----------------------------------------------*/
 /*---------------Правая часть--------------------*/
 #exit svg {right: 20px; pointer-events: none}
-#exit div:last-of-type {color: #ff6464 !important;}
 /*----------------------------------------------*/
 #edit:hover svg, #exit:hover svg {transform: scale(1.5);opacity: 0;}
 #edit:hover div, #exit:hover div {transform: scale(1);opacity: 1}
@@ -308,7 +310,7 @@ aside menu div.dark::before {
 /*-----------------Возврат---------------------*/
 aside * {transition:  0.2s ease-in-out}
 #hat * {transition:  0.2s ease-in-out}
-#avatar_inside {transition: background 0.5s}
+#avatar_inside {transition: 0.5s}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu div.theme button {transition: 0.2s ease-out}
 /*--------------------------------------------*/

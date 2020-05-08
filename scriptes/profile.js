@@ -40,25 +40,32 @@ function connect_profile() {
         user_logined = false;
     }
 
-    // Добавление аватара
+    // Добавление/смена аватара
     $('#change_avatar').on('click', function () {
         $('#get_file').click()
     });
     $('#get_file').on('change', function () {
-        $('#avatar').addClass('none');
-        $('#avatar_inside').css({background: ''});
-        $('header .right picture').css({background: ''});
-        if (user_data.login !== '') {receive('/delete_avatar', function () {
-            setTimeout(function () {
-                let img = new FormData();
-                img.set('img', $("#get_file")[0].files[0], `${user_data.login}.jpg`);
-                send_image(img, function () {
-                    $('#avatar_inside').css({background: `url(time_manager/images/avatars/${user_data.login}.jpg) no-repeat center/cover`});
-                    $('header .right picture').css({background: `url(time_manager/images/avatars/${user_data.login}.jpg) no-repeat center/cover`});
-                    $('#avatar').removeClass('none')
+        if ($(this).val() !== '') {
+            $('#avatar_inside').css({'background-image': ''});
+            $('header .right picture').css({'background-image': ''});
+            if (user_data.login !== '') {
+                $.ajax({
+                    url: '/delete_avatar',
+                    dataType: 'json',
+                    async: false,
+                    complete: function () {
+                        let img = new FormData();
+                        img.set('img', $("#get_file")[0].files[0], `${user_data.login}.jpg`);
+                        send_image(img, function () {
+                            let rand = Math.random();
+                            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
+                            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
+                            $('#avatar').removeClass('none')
+                        })
+                    }
                 })
-            }, 100)
-        })}
+            }
+        }
     });
 
     // Выход
@@ -76,8 +83,8 @@ function connect_profile() {
     // Удаление аватара
     $('#remove_avatar').on('click', function () {
         $('#avatar').addClass('none');
-        $('#avatar_inside').css({background: ''});
-        $('header .right picture').css({background: ''});
+        $('#avatar_inside').css({'background-image': ''});
+        $('header .right picture').css({'background-image': ''});
         if (user_data.login !== '') {receive('/delete_avatar')}
     });
 

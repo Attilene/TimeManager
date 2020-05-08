@@ -45,8 +45,10 @@ def req_login(log=None, pswsalt=None):
 
 @tm.route('/register', methods=['POST'])
 def req_register():
+    global now
     temp = request.get_json()
     User.registration(**temp)
+    now = User(temp['log'])
     return jsonify(True)
 
 
