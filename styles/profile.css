@@ -33,7 +33,7 @@ aside {
     border-radius: 20px;
 }
 #set_login:hover {background: rgba(255, 255, 255, 0.2); font-size: 1.5em}
-#set_login:focus {background: rgba(255, 255, 255, 0.5); transform: scale(1); font-size: 1.5em; text-shadow: 0 0 3px rgba(0, 0, 0, 0.3)}
+#set_login:focus {font-size: 1.5em}
 /*----------------------------------------------*/
 #hat span {float: left}
 #edit div, #exit div {
@@ -180,12 +180,11 @@ aside menu input {
 
 aside menu input::placeholder {opacity: 1; text-indent: 5px}
 aside menu input.fill {padding-right: 35px}
-#authorisation_menu menu form input.warning, #set_login.warning {border-color: rgba(255, 100, 100, 0.5)}
-#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
-#authorisation_menu input.change {color: transparent; text-shadow: 0 0 0 transparent}
+aside menu form input.warning, #set_login.warning {border-color: rgba(255, 100, 100, 0.5)}
+aside form input.change {color: transparent; text-shadow: 0 0 0 transparent}
 /*------------------------------------------------*/
 /*-----------------Подсказки------------------*/
-aside menu label {
+aside label {
 	z-index: 9;
 	text-align: center;
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -201,11 +200,15 @@ aside menu label {
 	transition-property: opacity, color, right, background, text-shadow;
 }
 
-aside menu label.achive {background: rgba(115, 176, 118, 0.7)}
-aside menu label.warning {background: rgba(255, 139, 139, 0.7)}
+aside label.achive {background: rgba(115, 176, 118, 0.7)}
+aside label.warning {background: rgba(255, 139, 139, 0.7)}
 
-aside menu label.warning.show, aside menu label.achive.show {right: 360px; opacity: 1;}
-aside menu label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
+aside label.warning.show, aside label.achive.show {right: 360px; opacity: 1;}
+aside label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
+
+label[for=set_login] {top: 4px}
+label[for=set_email] {top: 13px}
+label[for=set_psw] {top: 13px}
 /*--------------------------------------------------*/
 /*-----------------Кнопочки-------------------*/
 aside menu input+button {
@@ -239,6 +242,8 @@ menu button svg {
 	right: 1px;
 	pointer-events: none;
 }
+
+#erase_set_email, #show_set_psw {top: 8px}
 /*--------------------------------------------------*/
 /*--------------------------------------------------*/
 /*--------------------Меню настроек-----------------*/
@@ -313,6 +318,7 @@ aside * {transition:  0.2s ease-in-out}
 #avatar_inside {transition: 0.5s}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu div.theme button {transition: 0.2s ease-out}
+aside form svg {transition: 0.1s ease-in-out}
 /*--------------------------------------------*/
 /*-----------------При наведении---------------*/
 #hat *:hover {transition: 0.1s ease-in}
@@ -320,18 +326,22 @@ aside menu div.theme button {transition: 0.2s ease-out}
 aside menu div.theme:hover::before {transition: 0.1s ease-in-out}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}
 #profile_menu menu p:hover {transition: 0.2s ease}
+aside form button:hover {transition: 0.1s ease}
 #menu_confirm_delete button:hover {
     transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
+aside input.fill+button:active {transform: scale(0.7); opacity: 0}
+aside form button:active {transition: 0.1s ease-out}
 #settings div.theme:hover button:active {transform: scale(1)}
 #edit:hover div:active, #exit:hover div:active {transform: scale(0.9)}
-aside input.fill+button:active {transform: scale(0.7); opacity: 0}
 #profile_menu #avatar svg:active {transform: scale(0.9)}
 #profile_menu menu p:active {transform: scale(1)}
 #menu_confirm_delete button:active {
     transform: scale(1)}
 /*--------------------------------------------*/
+aside form input:focus {transition: 0.2s ease-out}
+aside form input.change {transition: 0.1s}
 /*--------------------------------------------*/
 
 /*---------------Открытие---------------------*/

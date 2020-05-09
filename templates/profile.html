@@ -1,5 +1,5 @@
 <div id="hat">
-    <form><input id="set_login" type="text" value="Guest"></form>
+    <form><label for="set_login"></label><input id="set_login" type="text" autocomplete="off"></form>
     <span id="edit">
         <div id="btn_change_mail">Почта</div>
         <div id="btn_change_pass">Пароль</div>
@@ -9,7 +9,9 @@
     </span>
     <span id="avatar" class="none">
         <div id="avatar_inside"></div>
-        <svg id="change_avatar">
+        <svg id="change_avatar" onclick="
+        if (user_data.login === '') {alert('Смена аватара недоступна для гостевой записи')}
+        else {$('#get_file').click()} ">
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
         </svg>
         <input id="get_file" type="file" accept="image/*">
@@ -30,7 +32,7 @@
 <menu id="menu_edit_email" class="opened">
     <form>
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
-            <input id="set_email" placeholder="Новый почтовый адрес" type="email">
+            <input id="set_email" placeholder="Новая почта" type="email">
             <button id="erase_set_email" type="button">
                 <svg id="email_btn_erase">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_erase"></use>
@@ -41,26 +43,10 @@
 
 <menu id="menu_edit_psw" class="opened">
     <form>
-        <label for="set_old_psw" class="warning">Поле не должно быть пустым</label>
-        <input id="set_old_psw" placeholder="Старый пароль" type="password">
-        <button id="show_old_psw" type="button">
-            <svg id="pass_btn_show">
-                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
-            </svg>
-        </button>
-
-        <label for="set_new_psw" class="warning">Поле не должно быть пустым</label>
-        <input id="set_new_psw" placeholder="Новый пароль" type="password">
-        <button id="show_new_psw" type="button">
-            <svg id="pass_btn_show">
-                <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
-            </svg>
-        </button>
-
-        <label for="set_renew_psw" class="warning">Поле не должно быть пустым</label>
-        <input id="set_renew_psw" placeholder="Повторите пароль" type="password">
-        <button id="show_renew_psw" type="button">
-            <svg id="pass_btn_show">
+        <label for="set_psw" class="warning">Поле не должно быть пустым</label>
+        <input id="set_psw" placeholder="Новый пароль" type="password">
+        <button id="show_set_psw" type="button">
+            <svg>
                 <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
             </svg>
         </button>

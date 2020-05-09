@@ -18,6 +18,8 @@ function hide_click (area) {
                 setTimeout(function () {
                     $(`${area}.closed`).removeClass('opened closed').css({display: ''})
                 }, close_time(`${area}.closed`));
+                $('#set_email, #set_psw').removeClass("fill");
+                $('#set_email, #set_psw').val('')
             }
         }
     });
@@ -28,8 +30,10 @@ function change_theme(theme, color) {
         let temp_theme = user_data.theme;
         let temp_color = user_data.color;
         let temp_obj = $('body, header, header *, footer, footer *, aside, aside menu, div.theme, input, #developers *');
-        temp_obj.css({'transition-property': 'background-color, border-color, color', 'transition': '0.5s'});
-        setTimeout(function () {temp_obj.css({'transition-property': '', 'transition': ''})}, 500);
+        temp_obj.addClass('change_theme');
+        setTimeout(function () {
+            temp_obj.removeClass('change_theme');
+        }, close_time('.change_theme'));
         $('#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
         $('#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);
         $('#favicon_choice').attr('href', `time_manager/images/favicons/${color}.svg`);
@@ -49,6 +53,8 @@ function toggle_menu() {
                 $(menu).addClass('closed');
                 // Сбор мусора
                 setTimeout(function () {$(menu).removeClass('opened closed').css({display: ''})}, close_time(menu))
+                $('#set_email, #set_psw').removeClass("fill");
+                $('#set_email, #set_psw').val('')
             }
         }
         else {
@@ -108,6 +114,9 @@ function guest_auth() {
     $('#authorisation').css({display: 'block'});
     $('header .center, header .right').fadeIn(0);
     $('header').removeClass('logout');
+    // Установка имени
+    $('header .right a div.nickname').text('Guest');
+    $('#set_login').val('Guest');
     // Сбор мусора
     setTimeout(function () {
         $('#authorisation, header .center, header .right').removeAttr('style')

@@ -11,7 +11,7 @@ class User(object):
     __cur = __conn.cursor()
     __cur.execute("""
             CREATE TABLE IF NOT EXISTS users(
-                login      VARCHAR(100), 
+                login      VARCHAR(50), 
                 email      VARCHAR(100), 
                 password   VARCHAR(100), 
                 theme      VARCHAR(10), 
@@ -68,8 +68,10 @@ class User(object):
         User.__conn.commit()
         self.email = email
 
-    def change_pass(self, psw):
-        User.__cur.execute("UPDATE users SET password=? WHERE login=?", (psw, self.log))
+    def change_pass(self, pswsalt):
+        psw, salt = decrypt(pswsalt)
+        hashed_psw = generate_password_hash(psw + salt[:-1])
+        User.__cur.execute("UPDATE users SET password=? WHERE login=?", (hashed_psw, self.log))
         User.__conn.commit()
 
     def change_theme(self, theme, color):

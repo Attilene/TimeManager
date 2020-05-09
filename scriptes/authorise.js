@@ -1,3 +1,27 @@
+function fade_change(field, func) {
+    if (typeof field === "string") {field = $(field)}
+    field.addClass('change');
+    setTimeout(function () {
+        func();
+        field.removeClass('change');
+    }, close_time(field))
+}
+
+function warning(field, text='Поле не должно быть пустым', type='warning') {
+    if (typeof field === "string") {field = $(field)}
+    let label = field.prev();
+    if (!label.hasClass(type) || label.text() !== text) {
+        label.removeClass('warning achive').addClass(type);
+        fade_change(label, function () {
+            label.css({width: label.css('width')})
+                .text(text)
+                .animate({
+                    width: (25 + (text.length * 9)) + 'px'
+                }, close_time(label));
+        })
+    }
+}
+
 function connect_authorisation () {
     const fields = $('#user input');
     const in_login = $('#form_login');
@@ -18,30 +42,7 @@ function connect_authorisation () {
     //     for (let i = 0; i < str.length; i++) {if (!chrs.includes(str[i])) {cor_str += str[i]}}
     //     field.val(cor_str)
     // }
-    
-    function fade_change(field, func) {
-        if (typeof field === "string") {field = $(field)}
-        field.addClass('change');
-        setTimeout(function () {
-            func();
-            field.removeClass('change');
-        }, close_time(field))
-    }
 
-    function warning(field, text='Поле не должно быть пустым', type='warning') {
-        if (typeof field === "string") {field = $(field)}
-        let label = field.prev();
-        if (!label.hasClass(type) || label.text() !== text) {
-            label.removeClass('warning achive').addClass(type);
-            fade_change(label, function () {
-                label.css({width: label.css('width')})
-                    .text(text)
-                    .animate({
-                        width: (25 + (text.length * 9)) + 'px'
-                    }, close_time(label));
-            })
-        }
-    }
 
     function check_empty() {
         if (in_login.val() === '' && in_email.val() === '') {
@@ -95,8 +96,7 @@ function connect_authorisation () {
     function try_log() {
         if (salt !== '') {
             if (in_pass.val() !== '') {
-                warning(in_pass, 'Проверка', 'achive');
-                let pswsalt = pack_psw(salt);
+                let pswsalt = pack_psw(in_pass.val(), salt);
                 receive('/check_password', function (data) {
                     if (data) {
                         warning(in_pass, 'Выполняется вход', 'achive');
@@ -160,7 +160,7 @@ function connect_authorisation () {
     }
 
     function registration() {
-        let temp_psw = pack_psw(gen_salt());
+        let temp_psw = pack_psw(in_pass.val(), gen_salt());
         send('/register', {
             'log':     in_login.val(),
             'email':   in_email.val(),
@@ -172,8 +172,11 @@ function connect_authorisation () {
             insert_page('#page_lists', 'lists');
             insert_page('#page_month', 'month');
             insert_page('#page_day', 'day');
+            user_data.login = in_login.val();
+            user_data.email = in_email.val();
+            user_data.avatar = false;
             // Закрытие меню
-            user_data.login = in_login.val(); user_data.avatar = false;
+            $('#authorisation span').click();
             let menu = $('#authorisation_menu');
             if (menu.hasClass('opened')) {
                 menu.addClass('closed');
@@ -202,6 +205,7 @@ function connect_authorisation () {
         // Запрос
         receive('/login', function (data) {
             // Закрытие меню
+            $('#authorisation span').click();
             let menu = $('#authorisation_menu');
             if (menu.hasClass('opened')) {
                 menu.addClass('closed');
@@ -260,28 +264,23 @@ function connect_authorisation () {
     $('#show_pass, #show_repass').on('mousedown', function () {
         let temp = $(this).prev();
         if (temp.attr('type') === 'text') {
-                fade_change(temp, function () {
-                    temp.attr('type', 'password')
-                })
-            }
-        else if(temp.attr('type') === 'password') {fade_change(temp, function () {temp.attr('type', 'text')})}
-            temp.one('mouseleave',function () {
-            if (temp.attr('type') === 'text') {
-                fade_change(temp, function () {
-                    temp.attr('type', 'password')
-                })
-            }
-        })
+            fade_change(temp, function () {temp.attr('type', 'password')})
+        }
+        else {
+            fade_change(temp, function () {temp.attr('type', 'text')})
+        }
     });
 
     // Поля ввода
     act_field(in_login, function () {
-        if (in_login.val().length < 100) {
+        if (in_login.val().length <= 33) {
             receive('/check_user', function (data) {
                 if (data) {
                     in_pass.focus();
                     warning(in_login, 'Пользователь существует', 'achive');
                     change_auth('login');
+                    in_email.val('');
+                    in_email.removeClass('fill');
                     salt = data[0];
                 } else {
                     change_auth('register');
@@ -290,7 +289,7 @@ function connect_authorisation () {
                 }
             }, in_login.val())
         }
-        else {warning('Длина никнейма не может превышать 99 символов')}
+        else {warning('Длина никнейма не может превышать 33 символа')}
     }, function () {
         check_empty()
     });

@@ -40,7 +40,6 @@
 
 .card_head:hover {transform: scale(1.1)}
 #developers .card {padding: 0 10px 50px 10px}
-#developers .card:hover {transform: scale(1.1)}
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.2)}
 
@@ -73,8 +72,6 @@
     height: 0
 }
 
-
-
 @media (min-width: 1500px) {
     #developers {width: 75%}
 }
@@ -97,6 +94,8 @@
 #developers *:hover {transition: 0.2s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#developers *:active {transform: scale(1)}
+#developers *:active {transform: scale(1); transition: 0.1s ease-out}
+#developers .card:hover p:active {transform: scale(1); transition: 0.1s ease-out}
+#developers .card:hover img:active {transform: scale(1); transition: 0.1s ease-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/

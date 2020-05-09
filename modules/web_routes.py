@@ -36,6 +36,7 @@ def req_login(log=None, pswsalt=None):
         now = User(log)
         return jsonify({
             "login": now.log,
+            "email": now.email,
             "theme": now.theme,
             "color": now.color,
             "avatar": now.avatar
@@ -83,6 +84,27 @@ def req_delete_user():
 def req_change_theme():
     """Изменение темы"""
     now.change_theme(*request.get_json().split())
+    return jsonify(True)
+
+
+@tm.route('/change_log', methods=['POST'])
+def req_change_log():
+    """Изменение имени пользователя"""
+    now.change_log(request.get_json())
+    return jsonify(True)
+
+
+@tm.route('/change_email', methods=['POST'])
+def req_change_email():
+    """Изменение имени пользователя"""
+    now.change_email(request.get_json())
+    return jsonify(True)
+
+
+@tm.route('/change_pass', methods=['POST'])
+def req_change_pass():
+    """Изменение имени пользователя"""
+    now.change_pass(request.get_json())
     return jsonify(True)
 
 

@@ -9,8 +9,8 @@ aside menu div.theme::before {color: #ff6464}
 @-webkit-keyframes autofill {to {background-color: rgba(255, 100, 100, 0.5)}}
 aside menu input {background-color: #ff6464; border-color: #ff6464}
 aside menu input.fill {background-color: rgba(255, 100, 100, 0.5)}
-#user button:hover {background-color: #ff6464}
-#menu_confirm_delete p {color: #ff6464}
+aside menu form button:hover {background-color: #ff6464}
+#menu_confirm_delete p, #set_login:focus {color: #ff6464}
 #menu_confirm_delete button {background-color: #ff6464}
 
 aside #menu_confirm_delete button.yes {background-color: #ff0000 !important;}

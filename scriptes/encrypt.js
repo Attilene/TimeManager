@@ -17,9 +17,9 @@ function gen_salt() {
 
 function gen_hash(psw, salt) {return sha_256(sha_256(psw) + salt)}
 
-function pack_psw(salt) {
+function pack_psw(psw, salt) {
     let public_key = forge.pki.publicKeyFromPem(key);
-    let hashed_psw = gen_hash($('#form_password').val(), salt) ;
+    let hashed_psw = gen_hash(psw, salt) ;
     let encrypted = public_key.encrypt(hashed_psw + salt, "RSA-OAEP", {
      md: forge.md.sha256.create(),
      mgf1: forge.mgf1.create()
