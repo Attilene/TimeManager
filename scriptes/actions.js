@@ -1,6 +1,20 @@
 function close_time(selector) {
     if (typeof selector === "string") {selector = $(selector)}
-    return (parseFloat(selector.css("transition-duration").slice(0, -1)) * 1000)
+    try {
+        return (parseFloat(selector.css("transition-duration").slice(0, -1)) * 1000)
+    }
+    catch (e) {
+        return 200
+    }
+}
+
+function fade_change(field, func) {
+    if (typeof field === "string") {field = $(field)}
+    field.addClass('change');
+    setTimeout(function () {
+        func();
+        field.removeClass('change');
+    }, close_time(field))
 }
 
 function hide_click (area) {
@@ -11,15 +25,12 @@ function hide_click (area) {
             if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
                 hide_click(area)
             }
-            if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) &&
-                !($('#authorisation span, header .right').is(event.target))) {
+            else if (!($('#authorisation span, header .right').is(event.target))) {
                 temp.addClass('closed');
                 // Сбор мусора
                 setTimeout(function () {
                     $(`${area}.closed`).removeClass('opened closed').css({display: ''})
                 }, close_time(`${area}.closed`));
-                $('#set_email, #set_psw').removeClass("fill");
-                $('#set_email, #set_psw').val('')
             }
         }
     });
@@ -29,7 +40,7 @@ function change_theme(theme, color) {
     if ((theme !== user_data.theme) || (color !== user_data.color)) {
         let temp_theme = user_data.theme;
         let temp_color = user_data.color;
-        let temp_obj = $('body, header, header *, footer, footer *, aside, aside menu, div.theme, input, #developers *');
+        let temp_obj = $('body, header, header *, footer, footer *, aside, aside menu, div.theme, input, #developers *, #hat svg');
         temp_obj.addClass('change_theme');
         setTimeout(function () {
             temp_obj.removeClass('change_theme');
@@ -53,8 +64,6 @@ function toggle_menu() {
                 $(menu).addClass('closed');
                 // Сбор мусора
                 setTimeout(function () {$(menu).removeClass('opened closed').css({display: ''})}, close_time(menu))
-                $('#set_email, #set_psw').removeClass("fill");
-                $('#set_email, #set_psw').val('')
             }
         }
         else {

@@ -136,10 +136,11 @@ aside menu {
     padding: 5px 0;
     margin: 4px;
     border-radius: 16px;
-    transition: none;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
-aside menu.opened, #settings, #authorisation_menu menu { display: block }
+aside menu.opened, #settings, #authorisation_menu menu {display: block; opacity: 1}
 #menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
 
 #menu_confirm_delete {

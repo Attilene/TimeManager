@@ -1,12 +1,3 @@
-function fade_change(field, func) {
-    if (typeof field === "string") {field = $(field)}
-    field.addClass('change');
-    setTimeout(function () {
-        func();
-        field.removeClass('change');
-    }, close_time(field))
-}
-
 function warning(field, text='Поле не должно быть пустым', type='warning') {
     if (typeof field === "string") {field = $(field)}
     let label = field.prev();
@@ -101,8 +92,9 @@ function connect_authorisation () {
                     if (data) {
                         warning(in_pass, 'Выполняется вход', 'achive');
                         authorisation(in_login.val(), pswsalt)
-                    } else {
-                        warning(in_pass, 'Неверный пароль')
+                    } else if ($('#form_password').val !== '') {
+                        warning(in_pass, 'Неверный пароль');
+                        console.log(in_pass.val())
                     }
                 }, {'log_email': in_login.val(), 'pswsalt': pswsalt})
             }
@@ -110,7 +102,7 @@ function connect_authorisation () {
         else {
             if (in_pass.val() === '') {warning(in_pass)}
             else {warning(in_pass, 'Проверка', 'achive')}
-            setTimeout(try_log, 200)
+            setTimeout(try_log, 500)
         }
     }
 
@@ -187,6 +179,7 @@ function connect_authorisation () {
             // Установка имени пользователя
             $('header .right a div.nickname').text(in_login.val());
             $('#set_login').val(in_login.val());
+            $('#remember_new_psw').val(in_login.val());
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
@@ -223,6 +216,7 @@ function connect_authorisation () {
             // Установка имени пользователя
             $('header .right a div.nickname').text(data.login);
             $('#set_login').val(data.login);
+            $('#remember_new_psw').val(data.login);
             // Загрузка аватара
             if (data.avatar) {
                 $('#avatar').removeClass('none');

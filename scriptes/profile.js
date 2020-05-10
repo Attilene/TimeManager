@@ -1,3 +1,39 @@
+function toggle_set_menu(set_button, set_menu) {
+    if (typeof set_button === "string") {set_button = $(set_button)}
+    if (typeof set_menu === "string") {set_menu = $(set_menu)}
+    if (set_menu.hasClass('opened')) {
+        set_menu.stop().slideUp(200, function () {
+            set_menu.removeAttr('style')
+        });
+        set_menu.removeClass('opened');
+        let temp = set_menu.children('form').children('input');
+        fade_change(temp, function () {temp.removeClass('fill').val('')});
+    }
+    else {
+        set_menu.stop().slideDown(200, function () {
+            set_menu.removeAttr('style').css({display: 'block'})
+        });
+        set_menu.addClass('opened');
+        hide_set_click(set_button, set_menu)
+    }
+}
+
+function hide_set_click (button, area) {
+// Сворачивание при клике в другой зоне
+    if (typeof button === "string") {button = $(button)}
+    if (typeof area === "string") {area = $(area)}
+    $('body').one('mousedown', function (event){
+        if ($(area).hasClass('opened')) {
+            if ((area.has(event.target).length > 0) || (area.is(event.target))) {
+                hide_set_click(button, area)
+            }
+            else if (!(button === event.target)) {
+                toggle_set_menu(button, area)
+            }
+        }
+    });
+}
+
 function connect_profile() {
     setTimeout(function () {
         let inputs = $('#user input');
@@ -5,6 +41,27 @@ function connect_profile() {
         inputs.removeClass('fill');
         $('#authorisation_menu').attr('class', 'empty')
     }, close_time('#authorisation_menu'));
+//     function hide_click (area) {
+//     // Сворачивание при клике в другой зоне
+//     $('body').one('mousedown', function hide_click_inside(event){
+//         if ($(area).hasClass('opened')) {
+//             let temp = $(`${area}.opened`);
+//             if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
+//                 hide_click(area)
+//             }
+//             if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) &&
+//                 !($('#authorisation span, header .right').is(event.target))) {
+//                 temp.addClass('closed');
+//                 // Сбор мусора
+//                 setTimeout(function () {
+//                     $(`${area}.closed`).removeClass('opened closed').css({display: ''})
+//                 }, close_time(`${area}.closed`));
+//                 $('#set_email, #set_psw').removeClass("fill");
+//                 $('#set_email, #set_psw').val('')
+//             }
+//         }
+//     });
+// }
 
     function act_set_field(field, func, empty_func=null) {
         if (typeof field === "string") {field = $(field)}
@@ -32,6 +89,11 @@ function connect_profile() {
             }, close_time(menu))
         }
         $('body').off('mousedown');
+        let set_menu = $('aside menu.opened');
+        set_menu.stop().slideUp(200, function () {
+            set_menu.removeAttr('style')
+        });
+        set_menu.removeClass('opened');
         // Очистка страниц
         $('#page_lists').html('');
         $('#page_day').html('');
@@ -179,5 +241,5 @@ function connect_profile() {
         }
     });
 
-
+    // Кнопки показа меню
 }

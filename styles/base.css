@@ -111,6 +111,7 @@ header .right .avatar {
 	width: 38px;
 	min-height: 38px;
 	border-radius: 19px;
+	grid-column: 2;
 	justify-self: end;
 }
 
@@ -126,6 +127,7 @@ header .right .avatar {
 }
 
 @media (max-width: 1200px) {  /*Анимация для маленького окна*/
+	header .right {}
 	header .right:hover #set_icon, header .right:active #set_icon  {
 		transform: scale(1);
 		opacity: 60%;
@@ -205,7 +207,11 @@ main {
 /*-----------------Возврат(время)-------------*/
 header *, footer * {transition: 0.2s ease-out}
 @media (max-width: 1200px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
-.change_theme {transition: all 0.3s !important}
+.change_theme {
+	transition: 0.3s !important;
+	transition-property: background, border, color, fill;
+}
+#hat svg.change_theme {transition-duration: 0.1s !important}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {
