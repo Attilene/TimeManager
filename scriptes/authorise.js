@@ -332,7 +332,7 @@ function connect_authorisation () {
     });
 
 
-    fields.keyup(function(event){
+    fields.keydown(function(event){
         if(event.keyCode === 13){
             event.preventDefault();
             $('#user label.warning').next().addClass('warning');

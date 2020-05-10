@@ -241,5 +241,20 @@ function connect_profile() {
         }
     });
 
-    // Кнопки показа меню
+    fields.keydown(function(event){
+        if(event.keyCode === 13){
+            event.preventDefault();
+            $('aside form label.warning').next().addClass('warning');
+            setTimeout(function () {
+                $('aside form label.warning').next().removeClass('warning');
+            }, 300)
+        }
+    });
+
+    $('#set_login').keydown(function(event){
+        if(event.keyCode === 13) {
+            event.preventDefault();
+            $(this).blur()
+    }
+    });
 }
