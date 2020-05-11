@@ -10,3 +10,5 @@ class Config(object):
     MAIL_USE_SSL = True
     MAIL_USERNAME = MAIL_DEFAULT_SENDER = 'Time-Manager.Team@yandex.ru'
     MAIL_PASSWORD = 'pjyoejzghbcttziz'
+
+
