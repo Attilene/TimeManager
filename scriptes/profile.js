@@ -169,6 +169,7 @@ function connect_profile() {
             receive('/check_user', function (data) {
                 if (data) {warning(in_set_log, 'Никнейм занят')}
                 else {send('/change_log', temp, function () {
+                    $('header .right a div.nickname').text(temp);
                     warning(in_set_log, 'Никнейм изменён', 'achive');
                     user_data.login = temp
                 })}
