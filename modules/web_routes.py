@@ -11,7 +11,7 @@ now = None
 
 @tm.route('/test', methods=['POST', 'GET'])
 def req_test():
-    send_mail(tm, 'derbindima5@gmail.com', 'Восстановление пароля')
+    send_mail(tm, 'derbindima5@gmail.com', 'Артем ПИДОР')
     return 'success'
 
 

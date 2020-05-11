@@ -41,27 +41,6 @@ function connect_profile() {
         inputs.removeClass('fill');
         $('#authorisation_menu').attr('class', 'empty')
     }, close_time('#authorisation_menu'));
-//     function hide_click (area) {
-//     // Сворачивание при клике в другой зоне
-//     $('body').one('mousedown', function hide_click_inside(event){
-//         if ($(area).hasClass('opened')) {
-//             let temp = $(`${area}.opened`);
-//             if ((temp.has(event.target).length > 0) || (temp.is(event.target))) {
-//                 hide_click(area)
-//             }
-//             if (!(temp.is(event.target)) && (temp.has(event.target).length === 0) &&
-//                 !($('#authorisation span, header .right').is(event.target))) {
-//                 temp.addClass('closed');
-//                 // Сбор мусора
-//                 setTimeout(function () {
-//                     $(`${area}.closed`).removeClass('opened closed').css({display: ''})
-//                 }, close_time(`${area}.closed`));
-//                 $('#set_email, #set_psw').removeClass("fill");
-//                 $('#set_email, #set_psw').val('')
-//             }
-//         }
-//     });
-// }
 
     function act_set_field(field, func, empty_func=null) {
         if (typeof field === "string") {field = $(field)}
@@ -205,7 +184,7 @@ function connect_profile() {
     let in_set_email = $('#set_email');
     act_set_field(in_set_email, function () {
         let temp = in_set_email.val();
-        if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp) && temp.length < 100) {
+        if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp) && temp.length < 100) {
             receive('/check_user', function (data) {
                 if (data) {
                     warning(in_set_email, 'Почта занята');

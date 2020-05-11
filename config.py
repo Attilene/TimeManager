@@ -3,10 +3,10 @@ class Config(object):
     SEND_FILE_MAX_AGE_DEFAULT = 0  # TODO: Удалить в релизе
     CSRF_ENABLED = True
     SECRET_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtABQK4ZiCadSLBvEpGizravharn3tMdtsM46oGBGI943/ngAhKYGzBeG6aUQoo19FA+fr9eVwAhare3Q1obXLZ55DRwjF78uaPGF0MRvIRWxCzGvfw2QJBWaRXn/87jg6ZIlxEE1j0DnMMirp0QLtTYJFyiymkC72YhzgdjYw9Rj8Qk4n3LRupU52nfgKv12OLSN2O22x/qSAbO7MUB11jcJEK7smGKvg1wo9eDEEq0+HbH3YZzg/J+bw2aJ1RRrpDEKIslnp1IzyLb7tqyqC2XZjkXuaM5TNaSQUeM/ZAH8s7xeDgRolTZO0cG1C7To/h4ZByW4H4/e+jgzJMJDwwIDAQAB'
-    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_SERVER = 'smtp.yandex.ru'
     MAIL_PORT = 465
     MAIL_DEBUG = False
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
-    MAIL_USERNAME = MAIL_DEFAULT_SENDER = 'timemanagerbestteam@gmail.com'
-    MAIL_PASSWORD = 'timemanager330230'
+    MAIL_USERNAME = MAIL_DEFAULT_SENDER = 'Time-Manager.Team@yandex.ru'
+    MAIL_PASSWORD = 'pjyoejzghbcttziz'
