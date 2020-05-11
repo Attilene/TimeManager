@@ -333,8 +333,7 @@ aside form button:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 aside input.fill+button:active {transform: scale(0.7); opacity: 0}
-aside form button:active {transition: 0.1s ease-out}
-#settings div.theme:hover button:active {transform: scale(1)}
+aside menu div.theme:hover button.choice {transition: 0.15s ease-in-out}
 #edit:hover div:active, #exit:hover div:active {transform: scale(0.9)}
 #profile_menu #avatar svg:active {transform: scale(0.9)}
 #profile_menu menu p:active {transform: scale(1)}
