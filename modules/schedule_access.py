@@ -18,7 +18,6 @@ class User(object):
                 color      VARCHAR(10), 
                 avatar     BOOLEAN, 
                 salt       VARCHAR(64),
-                token      VARCHAR(50),
                 activated  BOOLEAN)
                 """)
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
@@ -26,9 +25,10 @@ class User(object):
     authorisation = False
 
     def __init__(self, log_email):
-        User.__cur.execute("""SELECT login, email, theme, color, avatar, salt, token, activated FROM users
+        User.__cur.execute("""SELECT login, email, theme, color, avatar, salt activated FROM users
         WHERE login = ? OR email = ?""", (log_email, log_email,))
-        self.log, self.email, self.theme, self.color, self.avatar, self.salt, self.token, self.activated = User.__cur.fetchone()
+        self.log, self.email, self.theme, self.color, self.avatar, self.salt, self.activated = User.__cur.fetchone()
+        self.token = str()
         self.lists = User.__ret_lists(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
@@ -55,9 +55,7 @@ class User(object):
 
     # Изменение данных пользователя #
     def write_token(self):
-        token = gen_salt(50)
-        User.__cur.execute("UPDATE users SET token = ? WHERE login = ?", (token, self.log))
-        User.__conn.commit()
+        self.token = gen_salt(50)
 
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login = ? WHERE login = ?", (log, self.log))
@@ -148,7 +146,8 @@ class User(object):
 
     # Удаление #
     def del_list(self, name, task, number):
-        User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ? AND number = ?", (name, task, number))
+        User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ? AND number = ?",
+                           (name, task, number))
         User.__conn.commit()
         for i in range(self.lists[name].index([task, number]) + 1, len(self.lists[name])):
             self.lists[name][i][1] -= 1
@@ -213,9 +212,9 @@ class User(object):
         psw, salt = decrypt(pswsalt)
         hashed_psw = generate_password_hash(psw + salt[:-1])
         User.__cur.execute(
-            """INSERT INTO users (login, email, password, theme, color, avatar, salt, token, activated)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (log, email, hashed_psw, theme, color, False, salt, str(), False))
+            """INSERT INTO users (login, email, password, theme, color, avatar, salt activated)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (log, email, hashed_psw, theme, color, False, salt, False))
         User.__conn.commit()
         User.__cur.executescript(f"""
             CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task TEXT);
@@ -256,7 +255,7 @@ class User(object):
 # __cur.execute("""CREATE TABLE IF NOT EXISTS users
 #                   (login VARCHAR(200), psw VARCHAR(200),
 #                   email VARCHAR(200), theme VARCHAR(30), color VARCHAR(30), avatar BOOLEAN,
-#                   salt VARCHAR(20), token VARCHAR(50), activated BOOLEAN)""")
+#                   salt VARCHAR(20), activated BOOLEAN)""")
 # -----------------------------------------------------------------------------------------------------------
 # Тесты (Артем и Дима(ахах, норм вписался)) print(inj_check('adsfghdffdsfgfdf')) User._erase()
 # now_user = User("T1MON", 'T1MON@yandex.ru', 'kdfjdkffj')
