@@ -57,6 +57,11 @@ class User(object):
     def write_token(self):
         self.token = gen_salt(50)
 
+    def activate(self, act):
+        self.activated = act
+        User.__cur.execute("UPDATE users SET activated = ? WHERE login = ?", (self.activated, self.log))
+        User.__conn.commit()
+
     def change_log(self, log):
         User.__cur.execute("UPDATE users SET login = ? WHERE login = ?", (log, self.log))
         User.__conn.commit()
