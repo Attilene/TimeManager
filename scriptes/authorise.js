@@ -176,10 +176,10 @@ function connect_authorisation () {
                 setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
             }
             $('body').off('mousedown');
+            $('#set_email, #set_psw').removeClass('fill').val('');
             // Установка имени пользователя
             $('header .right a div.nickname').text(in_login.val());
             $('#set_login').val(in_login.val());
-            $('#remember_new_psw').val(in_login.val());
             // Появление кнопок
             $('#authorisation').css({display: 'block'});
             $('header .center, header .right').fadeIn(0);
@@ -206,6 +206,7 @@ function connect_authorisation () {
                 setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
             }
             $('body').off('mousedown');
+            $('#set_email, #set_psw').removeClass('fill').val('');
             // Загрузка страниц
             insert_page('#page_lists', 'lists');
             insert_page('#page_month', 'month');
@@ -216,7 +217,6 @@ function connect_authorisation () {
             // Установка имени пользователя
             $('header .right a div.nickname').text(data.login);
             $('#set_login').val(data.login);
-            $('#remember_new_psw').val(data.login);
             // Загрузка аватара
             if (data.avatar) {
                 $('#avatar').removeClass('none');

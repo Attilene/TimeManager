@@ -1,12 +1,18 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session
 from schedule_access import *
+from mail import send_mail
 import os
 
+
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
-
-tm.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # TODO: Удалить в релизе
-
+tm.config.from_object('config.Config')
 now = None
+
+
+@tm.route('/test', methods=['POST', 'GET'])
+def req_test():
+    send_mail(tm, 'derbindima5@gmail.com', 'Восстановление пароля')
+    return 'success'
 
 
 # Запросы
