@@ -187,7 +187,7 @@ class User(object):
     @staticmethod
     def _erase():
         """Стирание всех пользователей"""
-        User.__cur.execute("SELECT login FROM users")
+        User.__cur.execute("SELECT login FROM users")   # TODO: Дописать удаление аватарок
         log_list = User.__cur.fetchall()
         if len(log_list) > 0:
             for log in log_list:
