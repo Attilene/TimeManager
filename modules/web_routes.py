@@ -9,12 +9,14 @@ tm.config.from_object('config.Config')
 users = {}
 
 
-def user_req(url, raw=False):
+def user_req(url, img=None):
     def wrap(func):
         def wrapper():
             if session.get('login'):
                 if users[session['login']].token == session['token']:
-                    if raw: data = None
+                    if img:
+                        print(request.get_data())
+                        data = request.files.get(img)
                     else: data = request.get_json()
                     if data:
                         func(users[session['login']], data)
@@ -89,10 +91,9 @@ def req_change_pass(now, data):
     return jsonify(True)
 
 
-@user_req('/change_avatar', True)
-def req_change_avatar(now):
+@user_req('/change_avatar', 'img')
+def req_change_avatar(now, file):
     """Изменение аватарки"""
-    file = request.files.get('img')
     temp_path = f'images/avatars/{now.log}.jpg'
     with open(temp_path, 'wb') as open_file:
         open_file.write(file.read())

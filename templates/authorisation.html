@@ -3,7 +3,7 @@
 
 <menu>
     <form id="user" action='' onkeydown="if (event.keyCode === 13) {submit_warn($(this)); return false}">
-        <label for="form_login" class="warning">Поле не должно быть пустым</label>
+        <label for="form_login" class="warning" autofocus>Поле не должно быть пустым</label>
         <input id="form_login" name="login" placeholder="Подождите ..." type="email" autocomplete="on" disabled
                oninput="act_field($(this), input_login, check_empty)"
         >
