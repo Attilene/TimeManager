@@ -11,7 +11,6 @@ jQuery(document).ready(function () {
         });
     });
 
-
     user_logined = !($('header').hasClass('logout'));
     connect_actions();
     connect_pages();

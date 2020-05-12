@@ -109,14 +109,13 @@ function input_set_login(in_set_log) {
 }
 
 // Добавление/смена аватара
-function change_get_file (file) {
-    if ($('#get_file')[0].files.length > 0) {
+function change_get_file(file) {
+    if (file) {
         let size = ((file.size) / 1024 / 1024).toFixed(1);
         if (size <= 10) {
             if (user_data.login !== '') {
                 let img = new FormData();
-                console.log(file);
-                img.set('img', $(file, `${user_data.login}.jpg`));
+                img.set('img', file, `${user_data.login}.jpg`);
                 send_image(img, function () {
                     let rand = +new Date();
                     $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});

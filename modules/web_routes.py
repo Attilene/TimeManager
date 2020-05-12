@@ -14,9 +14,7 @@ def user_req(url, img=None):
         def wrapper():
             if session.get('login'):
                 if users[session['login']].token == session['token']:
-                    if img:
-                        print(request.get_data())
-                        data = request.files.get(img)
+                    if img: data = request.files.get(img)
                     else: data = request.get_json()
                     if data:
                         func(users[session['login']], data)

@@ -45,7 +45,7 @@ function insert_page(selector, file_name, func=null, async=true) {
 }
 
 function send_image(img, func) {
-    // Получение HTML шаблона
+    // Отправка изображения
     $.ajax({
         url: '/change_avatar',
         dataType: false,
