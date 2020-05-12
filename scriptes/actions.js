@@ -8,6 +8,15 @@ function close_time(selector) {
     }
 }
 
+function submit_warn(form) {
+    let warn_inputs = form.children('label.warning').next();
+    warn_inputs.addClass('warning');
+    setTimeout(function () {
+        warn_inputs.removeClass('warning');
+    }, 300);
+    return false
+}
+
 function fade_change(field, func) {
     if (typeof field === "string") {field = $(field)}
     field.addClass('change');
@@ -131,5 +140,4 @@ function guest_auth() {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
     user_logined = true;
-    connect_profile();
 }

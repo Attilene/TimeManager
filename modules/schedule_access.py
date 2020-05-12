@@ -25,10 +25,10 @@ class User(object):
     authorisation = False
 
     def __init__(self, log_email):
-        User.__cur.execute("""SELECT login, email, theme, color, avatar, salt activated FROM users
+        User.__cur.execute("""SELECT login, email, theme, color, salt, activated FROM users
         WHERE login = ? OR email = ?""", (log_email, log_email,))
-        self.log, self.email, self.theme, self.color, self.avatar, self.salt, self.activated = User.__cur.fetchone()
-        self.token = str()
+        self.log, self.email, self.theme, self.color, self.salt, self.activated = User.__cur.fetchone()
+        self.token = gen_salt(50)
         self.lists = User.__ret_lists(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
@@ -54,9 +54,6 @@ class User(object):
         return list(sorted(User.__cur.fetchall(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
     # Изменение данных пользователя #
-    def write_token(self):
-        self.token = gen_salt(50)
-
     def activate(self, act):
         self.activated = act
         User.__cur.execute("UPDATE users SET activated = ? WHERE login = ?", (self.activated, self.log))
@@ -86,10 +83,6 @@ class User(object):
     def change_theme(self, theme, color):
         self.theme, self.color = theme, color
         User.__cur.execute("UPDATE users SET theme = ?, color = ? WHERE login = ?", (theme, color, self.log))
-        User.__conn.commit()
-
-    def change_avatar(self, change):
-        User.__cur.execute("UPDATE users SET avatar = ? WHERE login = ?", (change, self.log))
         User.__conn.commit()
 
     def change_num(self, task, new_num):
@@ -196,13 +189,6 @@ class User(object):
             return False
         return check_password_hash(temp[0], ''.join(decrypt(pswsalt))[:-1])
 
-    @staticmethod
-    def check_token(log_email, token):
-        User.__cur.execute("SELECT token FROM users WHERE login = ? or email = ?", (log_email, log_email))
-        if token != User.__cur.fetchone()[0]:
-            return False
-        return True
-
     # @staticmethod TODO: Доделать
     # def restore(email):
     #     User.__cur.execute("SELECT (login, ) FROM users WHERE email=?", (email,))
@@ -217,28 +203,15 @@ class User(object):
         psw, salt = decrypt(pswsalt)
         hashed_psw = generate_password_hash(psw + salt[:-1])
         User.__cur.execute(
-            """INSERT INTO users (login, email, password, theme, color, avatar, salt activated)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-            (log, email, hashed_psw, theme, color, False, salt, False))
+            """INSERT INTO users (login, email, password, theme, color, salt, activated)
+             VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (log, email, hashed_psw, theme, color, salt, False))
         User.__conn.commit()
         User.__cur.executescript(f"""
             CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task TEXT);
             CREATE TABLE IF NOT EXISTS day_{log} (hour INTEGER, minute INTEGER, task TEXT);
             CREATE TABLE IF NOT EXISTS list_{log} (name INTEGER, task TEXT, number INTEGER)
         """)
-
-    # @staticmethod
-    # def _guest_reset():
-    #     """Обновление гостевой записи"""
-    #     if User.check_user('Guest'):
-    #         User.__cur.execute("DELETE FROM users WHERE login='Guest'")
-    #         User.__conn.commit()
-    #         User.__cur.executescript(f"""
-    #                     DROP TABLE IF EXISTS month_Guest;
-    #                     DROP TABLE IF EXISTS day_Guest;
-    #                     DROP TABLE IF EXISTS list_Guest
-    #                 """)
-    #         User.registration('Guest', 'best_team@best_mail_box.ru', 'Год рождения Сталина', 'light', 'blue')
 
     @staticmethod
     def _erase():

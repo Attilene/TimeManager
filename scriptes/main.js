@@ -8,6 +8,19 @@ receive('/get_key', function (data) {
 });
 
 jQuery(document).ready(function () {
+
+    // Советы
+    $('aside form input').on('mouseenter', function () {
+        let label = $(this);
+        label.prev().addClass('show');
+        label.one('mouseleave', function () {
+            label.prev().removeClass('show')
+        });
+    });
+
+
+
+
     user_logined = !($('header').hasClass('logout'));
     connect_actions();
     connect_pages();

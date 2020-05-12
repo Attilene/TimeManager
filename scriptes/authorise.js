@@ -189,7 +189,7 @@ function connect_authorisation () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
             }, close_time('#authorisation'));
             user_logined = true;
-            connect_profile()
+            clear_fields()
         });
     }
 
@@ -214,6 +214,7 @@ function connect_authorisation () {
             // Синхронизация данных
             change_theme(data.theme, data.color);
             user_data = data;
+            delete user_data.avatar;
             // Установка имени пользователя
             $('header .right a div.nickname').text(data.login);
             $('#set_login').val(data.login);
@@ -232,7 +233,7 @@ function connect_authorisation () {
                 $('#authorisation, header .center, header .right').removeAttr('style')
             }, close_time('#authorisation'));
             user_logined = true;
-            connect_profile()
+            clear_fields()
         }, [login, password]);
     }
 
@@ -253,16 +254,6 @@ function connect_authorisation () {
             warning(temp);
             check_empty()
         });
-    });
-
-    $('#show_pass, #show_repass').on('mousedown', function () {
-        let temp = $(this).prev();
-        if (temp.attr('type') === 'text') {
-            fade_change(temp, function () {temp.attr('type', 'password')})
-        }
-        else {
-            fade_change(temp, function () {temp.attr('type', 'text')})
-        }
     });
 
     // Поля ввода

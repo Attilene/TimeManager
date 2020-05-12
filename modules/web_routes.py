@@ -1,21 +1,154 @@
-from flask import Flask, render_template, request, redirect, jsonify, json, session
+from flask import Flask, render_template, request, redirect, jsonify, json, session, abort
 from schedule_access import *
-from mail import send_mail
+from mail import send_mail, Mail
 import os
 
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
+mail = Mail(tm)
+
 tm.config.from_object('config.Config')
-now = None
+
+users = {}
+
+
+def user_req(url):
+    def wrap(func):
+        def wrapper():
+            if session.get('login'):
+                if users[session['login']].token == session['token']:
+                    data = request.get_json()
+                    if data:
+                        func(users[session['login']], data)
+                    else: func(users[session['login']])
+                else: abort(505)
+            else: abort(505)
+        tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
+    return wrap
+
+
+@tm.errorhandler(505)
+def handler_assignment(error):
+    return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
 
 
 @tm.route('/test', methods=['POST', 'GET'])
 def req_test():
-    send_mail(tm, 'derbindima1@gmail.com', 'sdfhghgghdfhmh')
+    send_mail(mail, 'artembakanov123@yandex.ru', 'Я машина и я восстал!')
     return 'success'
 
 
 # Запросы
+@tm.route('/login', methods=['POST'])
+def req_login():
+    log, pswsalt = request.get_json()
+    if User.check_psw(log, pswsalt):
+        u = User(log)
+        users[u.log] = u
+        session['token'] = u.token
+        return jsonify({
+            "login": u.log,
+            "email": u.email,
+            "theme": u.theme,
+            "color": u.color,
+            "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg')
+        })
+    else: return jsonify(False)
+
+
+@tm.route('/register', methods=['POST'])
+def req_register():
+    temp = request.get_json()
+    User.registration(**temp)
+    users[temp['log']] = User(temp['log'])
+    session['token'] = users[temp['log']].token
+    return jsonify(True)
+
+
+@user_req('/logout')
+def req_logout(now):
+    """Выход пользователя"""
+    users.pop(now.log)
+    User.authorisation = False
+    return jsonify(True)
+
+
+@user_req('/delete_user')
+def req_delete_user(now):
+    """Удаление учётной записи"""
+    now.del_user()
+    req_delete_avatar()
+    users.pop(now.log)
+    User.authorisation = False
+    return jsonify(True)
+
+
+@user_req('/change_theme')
+def req_change_theme(now):
+    """Изменение темы"""
+    now.change_theme(*request.get_json().split())
+    return jsonify(True)
+
+
+@user_req('/change_log')
+def req_change_log(now):
+    """Изменение имени пользователя"""
+    now.change_log(request.get_json())
+    return jsonify(True)
+
+
+@user_req('/change_email')
+def req_change_email(now):
+    """Изменение имени пользователя"""
+    now.change_email(request.get_json())
+    return jsonify(True)
+
+
+@user_req('/change_pass')
+def req_change_pass(now):
+    """Изменение имени пользователя"""
+    now.change_pass(request.get_json())
+    return jsonify(True)
+
+
+@user_req('/change_avatar')
+def req_change_avatar(now):
+    """Изменение аватарки"""
+    file = request.files.get('img')
+    temp_path = f'images/avatars/{now.log}.jpg'
+    with open(temp_path, 'wb') as open_file:
+        open_file.write(file.read())
+    return jsonify(True)
+
+
+@user_req('/delete_avatar')
+def req_delete_avatar(now):
+    """Удаление аватарки"""
+    temp_path = f'images/avatars/{now.log}.jpg'
+    if os.path.isfile(temp_path):
+        os.remove(temp_path)
+    return jsonify(True)
+
+
+# Главная страница
+@tm.route('/')
+def page_home():
+    session.permanent = True
+    if session.get('login'):
+        log = session['login']
+        data = {
+            'login': log,
+            'email': users[log].email,
+            'theme': users[log].theme,
+            'color': users[log].color,
+            'salt': users[log].salt,
+            'activated': users[log].activated,
+        }
+        return render_template("base_log.html")
+    else:
+        return render_template("base.html")
+
+
 @tm.route('/get_key', methods=['POST'])
 def req_get_key():
     """Отправка ключа"""
@@ -33,114 +166,11 @@ def req_check_password():
     return jsonify(User.check_psw(**request.get_json()))
 
 
-@tm.route('/login', methods=['POST'])
-def req_login(log=None, pswsalt=None):
-    global now
-    if log is None and pswsalt is None:
-        log, pswsalt = request.get_json()
-    if User.check_psw(log, pswsalt):
-        now = User(log)
-        return jsonify({
-            "login": now.log,
-            "email": now.email,
-            "theme": now.theme,
-            "color": now.color,
-            "avatar": now.avatar
-        })
-    else: return jsonify(False)
-
-
-@tm.route('/register', methods=['POST'])
-def req_register():
-    global now
-    temp = request.get_json()
-    User.registration(**temp)
-    now = User(temp['log'])
-    return jsonify(True)
-
-
 @tm.route('/get_page', methods=['POST'])
 def req_get_page():
     """Отсылка HTML шаблонов"""
     page = request.get_json()
     return render_template(f'{page}.html')
-
-
-@tm.route('/logout', methods=['POST'])
-def req_logout():
-    """Выход пользователя"""
-    global now
-    now = None
-    User.authorisation = False
-    return jsonify(True)
-
-
-@tm.route('/delete_user', methods=['POST'])
-def req_delete_user():
-    """Удаление учётной записи"""
-    global now
-    now.del_user()
-    req_delete_avatar()
-    now = None
-    User.authorisation = False
-    return jsonify(True)
-
-
-@tm.route('/change_theme', methods=['POST'])
-def req_change_theme():
-    """Изменение темы"""
-    now.change_theme(*request.get_json().split())
-    return jsonify(True)
-
-
-@tm.route('/change_log', methods=['POST'])
-def req_change_log():
-    """Изменение имени пользователя"""
-    now.change_log(request.get_json())
-    return jsonify(True)
-
-
-@tm.route('/change_email', methods=['POST'])
-def req_change_email():
-    """Изменение имени пользователя"""
-    now.change_email(request.get_json())
-    return jsonify(True)
-
-
-@tm.route('/change_pass', methods=['POST'])
-def req_change_pass():
-    """Изменение имени пользователя"""
-    now.change_pass(request.get_json())
-    return jsonify(True)
-
-
-@tm.route('/change_avatar', methods=['POST'])
-def req_change_avatar():
-    """Изменение аватарки"""
-    file = request.files.get('img')
-    now.change_avatar(True)
-    temp_path = f'images/avatars/{now.log}.jpg'
-    with open(temp_path, 'wb') as open_file:
-        open_file.write(file.read())
-    return jsonify(True)
-
-
-@tm.route('/delete_avatar', methods=['POST'])
-def req_delete_avatar():
-    """Удаление аватарки"""
-    now.change_avatar(False)
-    temp_path = f'images/avatars/{now.log}.jpg'
-    if os.path.isfile(temp_path):
-        os.remove(temp_path)
-    return jsonify(True)
-
-
-# Главная страница
-@tm.route('/')
-def page_home():
-    return render_template("base.html", theme='light', color='blue')
-
-
 
 
 

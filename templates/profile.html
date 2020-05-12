@@ -1,5 +1,11 @@
 <div id="hat">
-    <form><label for="set_login"></label><input id="set_login" type="text" autocomplete="off"></form>
+    <form onsubmit="$(this).children('input').blur(); return false">
+        <label for="set_login"></label>
+        <input id="set_login" type="text" autocomplete="off"
+               oninput="input_set_login($(this))"
+               onblur="$('label[for=set_login]').text('').removeClass('achive warning')"
+        >
+    </form>
     <span id="edit">
         <div id="btn_change_email" onclick="toggle_set_menu($('#btn_change_email')[0], $('#menu_edit_email'))">Почта</div>
         <div id="btn_change_pass" onclick="toggle_set_menu($('#btn_change_pass')[0], $('#menu_edit_psw'))">Пароль</div>
@@ -10,18 +16,24 @@
     <span id="avatar" class="none">
         <div id="avatar_inside"></div>
         <svg id="change_avatar" onclick="
-        if (user_data.login === '') {alert('Смена аватара недоступна для гостевой записи')}
-        else {$('#get_file').click()} ">
+            if (user_data.login === '') {alert('Смена аватара недоступна для гостевой записи')}
+            else {$('#get_file').click()}
+        ">
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
         </svg>
-        <input id="get_file" type="file" accept="image/*">
+        <input id="get_file" type="file" accept="image/*" onchange="change_get_file($(this)[0].files[0])">
         <hr>
         <svg id="remove_avatar">
-            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use>
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove" onclick="click_remove_avatar()"></use>
         </svg>
     </span>
     <span id="exit">
-        <div id="btn_exit">Выйти</div>
+        <div id="btn_exit" onclick="
+            logout();
+            if (user_data.login !== '') { receive('/logout') }
+        ">
+            Выйти
+        </div>
         <div id="btn_delete_profile" onclick="toggle_set_menu($('#btn_delete_profile')[0], $('#menu_confirm_delete'))">Удалить</div>
         <svg class="hat_float">
             <use xlink:href="time_manager/images/sprites.svg#sprite_float_exit"></use>
@@ -30,10 +42,12 @@
 </div>
 
 <menu id="menu_edit_email">
-    <form>
+    <form onsubmit="submit_warn($(this))">
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
-            <input id="set_email" placeholder="Новая почта" type="email">
-            <button id="erase_set_email" type="button">
+            <input id="set_email" placeholder="Новая почта" type="email"
+            oninput="act_set_field($(this), input_set_email)"
+            >
+            <button id="erase_set_email" type="button" onclick="click_erase_set_email($(this).prev()); return false">
                 <svg id="email_btn_erase">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_erase"></use>
                 </svg>
@@ -42,10 +56,13 @@
 </menu>
 
 <menu id="menu_edit_psw">
-    <form>
+    <form
+            onmouseleave="click_show_psw($(this).children('input'))"
+            onsubmit="submit_warn($(this))"
+    >
         <label for="set_psw" class="warning">Поле не должно быть пустым</label>
-        <input id="set_psw" placeholder="Новый пароль" type="password">
-        <button id="show_set_psw" type="button">
+        <input id="set_psw" placeholder="Новый пароль" type="password" oninput="act_set_field($(this), input_set_psw)">
+        <button id="show_set_psw" type="button" onclick="click_show_psw($(this).prev())">
             <svg>
                 <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
             </svg>
@@ -54,9 +71,18 @@
 </menu>
 
 <menu id="menu_confirm_delete">
-    <p>Подтвердите удаление профиля</p>
-    <button class="yes" type="button">Удалить</button>
-    <button id="otmena" class="no" type="button" onmousedown="toggle_set_menu($('#otmena')[0], $('#menu_confirm_delete'))">Отмена</button>
+    <p>Подтвердите удаление профиля</p  >
+    <button class="yes" type="button" onclick="
+        logout();
+        if (user_data.login !== '') { receive('/delete_user') }
+    ">
+        Удалить
+    </button>
+    <button id="otmena" class="no" type="button"
+            onmousedown="toggle_set_menu($('#otmena')[0], $('#menu_confirm_delete'))"
+    >
+        Отмена
+    </button>
 </menu>
 
 <menu id="settings">
