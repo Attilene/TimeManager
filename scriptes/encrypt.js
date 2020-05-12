@@ -1,3 +1,11 @@
+let key = '';
+let salt = '';
+
+receive('/get_key', function (data) {
+    key = data;
+    $('#form_login').attr('placeholder', 'Логин / Почта').removeAttr('disabled')
+});
+
 function sha_256(text) {
     let md = forge.md.sha256.create();
     md.start();

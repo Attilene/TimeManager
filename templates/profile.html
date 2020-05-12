@@ -42,12 +42,12 @@
 </div>
 
 <menu id="menu_edit_email">
-    <form onsubmit="submit_warn($(this))">
+    <form onsubmit="submit_warn($(this)); return false">
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
             <input id="set_email" placeholder="Новая почта" type="email"
-            oninput="act_set_field($(this), input_set_email)"
+            oninput="act_field($(this), input_set_email)"
             >
-            <button id="erase_set_email" type="button" onclick="click_erase_set_email($(this).prev()); return false">
+            <button id="erase_set_email" type="button" onclick="click_erase($(this).prev()); return false">
                 <svg id="email_btn_erase">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_erase"></use>
                 </svg>
@@ -58,10 +58,10 @@
 <menu id="menu_edit_psw">
     <form
             onmouseleave="click_show_psw($(this).children('input'))"
-            onsubmit="submit_warn($(this))"
+            onsubmit="submit_warn($(this)); return false"
     >
         <label for="set_psw" class="warning">Поле не должно быть пустым</label>
-        <input id="set_psw" placeholder="Новый пароль" type="password" oninput="act_set_field($(this), input_set_psw)">
+        <input id="set_psw" placeholder="Новый пароль" type="password" oninput="act_field($(this), input_set_psw)">
         <button id="show_set_psw" type="button" onclick="click_show_psw($(this).prev())">
             <svg>
                 <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
@@ -78,9 +78,7 @@
     ">
         Удалить
     </button>
-    <button id="otmena" class="no" type="button"
-            onmousedown="toggle_set_menu($('#otmena')[0], $('#menu_confirm_delete'))"
-    >
+    <button class="no" type="button" onmousedown="toggle_set_menu($(this)[0], $('#menu_confirm_delete'))">
         Отмена
     </button>
 </menu>

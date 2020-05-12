@@ -3,9 +3,11 @@ from threading import Thread
 from flask import render_template
 
 
-def send_mail(mail, address, sub='', user_data={}):
-    msg = Message(sub, recipients=[address])
+def send_mail(app, address, title='', user_data={}):
+    mail = Mail(app)
+    msg = Message(title, recipients=[address])
     msg.html = render_template('mail.html', **user_data)
-    thr = Thread(target=mail.send, args=[msg])
-    thr.start()
-    return thr
+    mail.send(msg)
+    # thr = Thread(target=mail.send, args=[msg])
+    # thr.start()
+    # return thr

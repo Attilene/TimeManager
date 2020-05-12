@@ -14,7 +14,6 @@ function submit_warn(form) {
     setTimeout(function () {
         warn_inputs.removeClass('warning');
     }, 300);
-    return false
 }
 
 function fade_change(field, func) {
@@ -78,7 +77,7 @@ function toggle_menu() {
         else {
             $(menu).fadeIn(0, function () {$(this).addClass('opened')});
             if ($(this).attr('id') === 'button_authorisation') {
-                connect_authorisation();
+                $('#form_login').focus()
             }
             hide_click('aside');
         }

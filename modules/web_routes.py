@@ -1,26 +1,25 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session, abort
 from schedule_access import *
-from mail import send_mail, Mail
+from mail import send_mail
 import os
 
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
-mail = Mail(tm)
-
 tm.config.from_object('config.Config')
-
 users = {}
 
 
-def user_req(url):
+def user_req(url, raw=False):
     def wrap(func):
         def wrapper():
             if session.get('login'):
                 if users[session['login']].token == session['token']:
-                    data = request.get_json()
+                    if raw: data = None
+                    else: data = request.get_json()
                     if data:
                         func(users[session['login']], data)
                     else: func(users[session['login']])
+                    return jsonify(True)
                 else: abort(505)
             else: abort(505)
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
@@ -32,43 +31,20 @@ def handler_assignment(error):
     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
 
 
+# Запросы
 @tm.route('/test', methods=['POST', 'GET'])
 def req_test():
-    send_mail(mail, 'artembakanov123@yandex.ru', 'Я машина и я восстал!')
+    send_mail(tm, 'artembakanov123@yandex.ru', 'Я машина и я восстал!')
     return 'success'
 
 
-# Запросы
-@tm.route('/login', methods=['POST'])
-def req_login():
-    log, pswsalt = request.get_json()
-    if User.check_psw(log, pswsalt):
-        u = User(log)
-        users[u.log] = u
-        session['token'] = u.token
-        return jsonify({
-            "login": u.log,
-            "email": u.email,
-            "theme": u.theme,
-            "color": u.color,
-            "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg')
-        })
-    else: return jsonify(False)
-
-
-@tm.route('/register', methods=['POST'])
-def req_register():
-    temp = request.get_json()
-    User.registration(**temp)
-    users[temp['log']] = User(temp['log'])
-    session['token'] = users[temp['log']].token
-    return jsonify(True)
-
-
+# Верифицрованные запросы
 @user_req('/logout')
 def req_logout(now):
     """Выход пользователя"""
     users.pop(now.log)
+    session.pop('login')
+    session.pop('token')
     User.authorisation = False
     return jsonify(True)
 
@@ -76,42 +52,44 @@ def req_logout(now):
 @user_req('/delete_user')
 def req_delete_user(now):
     """Удаление учётной записи"""
+    req_delete_avatar(now)
     now.del_user()
-    req_delete_avatar()
     users.pop(now.log)
+    session.pop('login')
+    session.pop('token')
     User.authorisation = False
     return jsonify(True)
 
 
 @user_req('/change_theme')
-def req_change_theme(now):
+def req_change_theme(now, data):
     """Изменение темы"""
-    now.change_theme(*request.get_json().split())
+    now.change_theme(*data.split())
     return jsonify(True)
 
 
 @user_req('/change_log')
-def req_change_log(now):
+def req_change_log(now, data):
     """Изменение имени пользователя"""
-    now.change_log(request.get_json())
+    now.change_log(data)
     return jsonify(True)
 
 
 @user_req('/change_email')
-def req_change_email(now):
+def req_change_email(now, data):
     """Изменение имени пользователя"""
-    now.change_email(request.get_json())
+    now.change_email(data)
     return jsonify(True)
 
 
 @user_req('/change_pass')
-def req_change_pass(now):
+def req_change_pass(now, data):
     """Изменение имени пользователя"""
-    now.change_pass(request.get_json())
+    now.change_pass(data)
     return jsonify(True)
 
 
-@user_req('/change_avatar')
+@user_req('/change_avatar', True)
 def req_change_avatar(now):
     """Изменение аватарки"""
     file = request.files.get('img')
@@ -130,23 +108,33 @@ def req_delete_avatar(now):
     return jsonify(True)
 
 
-# Главная страница
-@tm.route('/')
-def page_home():
-    session.permanent = True
-    if session.get('login'):
-        log = session['login']
-        data = {
-            'login': log,
-            'email': users[log].email,
-            'theme': users[log].theme,
-            'color': users[log].color,
-            'salt': users[log].salt,
-            'activated': users[log].activated,
-        }
-        return render_template("base_log.html")
-    else:
-        return render_template("base.html")
+# Запросы
+@tm.route('/login', methods=['POST'])
+def req_login():
+    log, pswsalt = request.get_json()
+    if User.check_psw(log, pswsalt):
+        u = User(log)
+        users[u.log] = u
+        session['login'] = u.log
+        session['token'] = u.token
+        return jsonify({
+            "login": u.log,
+            "email": u.email,
+            "theme": u.theme,
+            "color": u.color,
+            "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg')
+        })
+    else: return jsonify(False)
+
+
+@tm.route('/register', methods=['POST'])
+def req_register():
+    temp = request.get_json()
+    User.registration(**temp)
+    users[temp['log']] = User(temp['log'])
+    session['login'] = temp['log']
+    session['token'] = users[temp['log']].token
+    return jsonify(True)
 
 
 @tm.route('/get_key', methods=['POST'])
@@ -173,5 +161,21 @@ def req_get_page():
     return render_template(f'{page}.html')
 
 
-
-
+# Главная страница
+@tm.route('/')
+def page_home():
+    session.permanent = True
+    # if session.get('login'):
+    #     log = session['login']
+    #     data = {
+    #         'login': log,
+    #         'email': users[log].email,
+    #         'theme': users[log].theme,
+    #         'color': users[log].color,
+    #         'salt': users[log].salt,
+    #         'activated': users[log].activated,
+    #     }
+    #     return render_template("base_log.html")
+    # else:
+    #     return render_template("base.html")
+    return render_template("base.html")
