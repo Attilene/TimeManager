@@ -30,13 +30,9 @@ function fade_change(field, func) {
 
 // Смена тем
 function change_theme(theme, color) {
-    console.log(user_data.theme, user_data.color);
-    console.log(theme, color);
     if ((theme !== user_data.theme) || (color !== user_data.color)) {
         let temp_theme = user_data.theme;
         let temp_color = user_data.color;
-        console.log(temp_theme, temp_color);
-        console.log(theme, color);
         let temp_obj = $('body, header, header *, footer, footer *, aside, aside menu, ' +
             'div.theme, input, #developers *, #hat svg');
         temp_obj.addClass('change_theme');

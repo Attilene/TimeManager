@@ -34,8 +34,8 @@
     </span>
     <span id="exit">
         <div id="btn_exit" onclick="
-            logout();
             if (user_data.login !== '') { receive('/logout') }
+            logout();
         ">
             Выйти
         </div>
@@ -78,8 +78,8 @@
 <menu id="menu_confirm_delete">
     <p>Подтвердите удаление профиля</p  >
     <button class="yes" type="button" onclick="
-        logout();
         if (user_data.login !== '') { receive('/delete_user') }
+        logout();
     ">
         Удалить
     </button>
@@ -91,7 +91,7 @@
 <menu id="settings">
     <div class="theme light">
         <button data-theme="light" data-color="red"></button>
-        <button data-theme="light" data-color="blue"></button>
+        <button data-theme="light" data-color="blue" class="choice"></button>
         <button data-theme="light" data-color="green"></button>
         <button data-theme="light" data-color="purple"></button>
         <button data-theme="light" data-color="sky"></button>

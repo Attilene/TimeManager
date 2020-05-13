@@ -72,7 +72,8 @@ function clear_fields() {
     change_auth('empty');
     toggle_aside($('aside.opened'));
     warning(inputs);
-    check_repass()
+    check_repass();
+    inputs.prev('label').removeClass('show')
 }
 
 function act_field(field, func, empty_func=null) {
@@ -126,7 +127,7 @@ function logout() {
     clear_fields()
 }
 
-    // Изменение никнейма
+// Изменение никнейма
 function input_set_login(in_set_log) {
     let temp = in_set_log.val();
     if (temp === '') {warning($(this))}
@@ -176,10 +177,16 @@ function click_remove_avatar() {
 function click_show_psw(field) {
     if (field.hasClass('show_psw')) {
         field.removeClass('show_psw');
-        fade_change(field, function () {field.attr('type', 'password')})
+        field.off('mouseleave');
+        fade_change(field, function () {
+            field.attr('type', 'password')
+        })
     }
     else {
         field.addClass('show_psw');
+        field.one('mouseleave', function () {
+            click_show_psw(field)
+        });
         fade_change(field, function () {
             if (field.hasClass('show_psw')) field.attr('type', 'text')
         });

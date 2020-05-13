@@ -27,17 +27,6 @@
 </head>
 
 <body>
-    <script>
-        user_data = {
-            'login': "{{ login }}",
-            'email': "{{ email }}",
-            'theme': "{{ theme }}",
-            'color': "{{ color }}",
-            'salt': "{{ salt }}",
-            'activated': "{{ activated }}"
-        };
-        user_logined = true
-    </script>
     <header>
         <span class="left" onclick="if (!user_logined) {guest_auth()}">
             <a>Time Manager</a>
@@ -82,3 +71,15 @@
     </footer>
 </body>
 </html>
+<script>
+    user_data = {
+        'login': "{{ login }}",
+        'email': "{{ email }}",
+        'theme': "{{ theme }}",
+        'color': "{{ color }}",
+        'salt': "{{ salt }}",
+        'activated': "{{ activated }}"
+    };
+    user_logined = true;
+    $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
+</script>

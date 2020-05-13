@@ -108,6 +108,7 @@ function change_auth(mode) {
     switch (mode) {
         case 'empty':
             in_pass.val('').removeClass('fill').attr('disabled', 'disabled');
+            in_repass.val('').removeClass('fill').attr('disabled', 'disabled');
             break;
         case 'login':
             in_pass.removeAttr('disabled');
@@ -128,6 +129,7 @@ function registration() {
         'pswsalt': temp_psw,
         'theme':   user_data.theme,
         'color':   user_data.color,
+        'remember': $('#checkbox_remember_me').is(':checked')
     }, function () {
         // Загрузка страниц
         insert_page('#page_lists', 'lists');
@@ -164,15 +166,6 @@ function authorisation(login, password) {
     // Вход пользователя
     // Запрос
     receive('/login', function (data) {
-        // Закрытие меню
-
-        // $('#authorisation span').click();
-        // let menu = $('#authorisation_menu');
-        // if (menu.hasClass('opened')) {
-        //     menu.addClass('closed');
-        //     // Сбор мусора
-        //     setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
-        // }
         // Загрузка страниц
         insert_page('#page_lists', 'lists');
         insert_page('#page_month', 'month');
@@ -180,16 +173,16 @@ function authorisation(login, password) {
         // Синхронизация данных
         change_theme(data.theme, data.color);
         user_data = data;
-        delete user_data.avatar;
         // Установка имени пользователя
         $('header .right a div.nickname').text(data.login);
         $('#set_login').val(data.login);
         // Загрузка аватара
         if (data.avatar) {
             $('#avatar').removeClass('none');
-            $('#avatar_inside').css({background: `url(time_manager/images/avatars/${data.login}.jpg) no-repeat center/cover`});
-            $('header .right picture').css({background: `url(time_manager/images/avatars/${data.login}.jpg) no-repeat center/cover`})
+            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg?img1)`});
+            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg?img1)`})
         }
+        delete user_data.avatar;
         // Появление кнопок
         $('#authorisation').css({display: 'block'});
         $('header .center, header .right').fadeIn(0);
@@ -200,7 +193,7 @@ function authorisation(login, password) {
         }, close_time('#authorisation'));
         user_logined = true;
         clear_fields()
-    }, [login, password]);
+    }, [login, password, $('#checkbox_remember_me').is(':checked')]);
 }
 
 
@@ -212,6 +205,24 @@ function click_erase(field) {
         warning(field);
         if ($('#user').has(field)) check_empty()
     });
+}
+
+function click_show_repsw(field) {
+    let passes = $('#form_password, #form_repass');
+    if (field.hasClass('show_psw')) {
+        field.removeClass('show_psw');
+        field.off('mouseleave');
+        fade_change(passes, function () {
+            passes.attr('type', 'password')
+        })
+    }
+    else {
+        field.addClass('show_psw');
+        field.one('mouseleave', function () {click_show_repsw(field)});
+        fade_change(passes, function () {
+            if (field.hasClass('show_psw')) {passes.attr('type', 'text')}
+        });
+    }
 }
 
 // Поля ввода

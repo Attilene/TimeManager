@@ -10,16 +10,14 @@ jQuery(document).ready(function () {
             label.prev().removeClass('show')
         });
     });
-    // Указатель выбранной темы
-    $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
     // Кнопки изменения цвета
-    // $('aside .theme button').on('mousedown' , function () {
-    //     console.log($(this).data('theme'), $(this).data('color'));
-    //     change_theme($(this).data('theme'), $(this).data('color'))
-    // });
+    $('aside .theme button').on('mousedown' , function () {
+        change_theme($(this).data('theme'), $(this).data('color'))
+    });
 
     if (user_logined) {
-
+        // Указатель выбранной темы
+        $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
     }
     else {
 

@@ -39,28 +39,6 @@ def req_test():
 
 
 # Верифицрованные запросы
-@user_req('/logout')
-def req_logout(now):
-    """Выход пользователя"""
-    users.pop(now.log)
-    session.pop('login')
-    session.pop('token')
-    User.authorisation = False
-    return jsonify(True)
-
-
-@user_req('/delete_user')
-def req_delete_user(now):
-    """Удаление учётной записи"""
-    req_delete_avatar(now)
-    now.del_user()
-    users.pop(now.log)
-    session.pop('login')
-    session.pop('token')
-    User.authorisation = False
-    return jsonify(True)
-
-
 @user_req('/change_theme')
 def req_change_theme(now, data):
     """Изменение темы"""
@@ -107,15 +85,41 @@ def req_delete_avatar(now):
     return jsonify(True)
 
 
+@user_req('/logout')
+def req_logout(now):
+    """Выход пользователя"""
+    users.pop(now.log)
+    session.pop('login')
+    session.pop('token')
+    session.pop('remember')
+    User.authorisation = False
+    return jsonify(True)
+
+
+@user_req('/delete_user')
+def req_delete_user(now):
+    """Удаление учётной записи"""
+    temp_path = f'images/avatars/{now.log}.jpg'
+    if os.path.isfile(temp_path): os.remove(temp_path)
+    now.del_user()
+    users.pop(now.log)
+    session.pop('login')
+    session.pop('token')
+    session.pop('remember')
+    User.authorisation = False
+    return jsonify(True)
+
+
 # Запросы
 @tm.route('/login', methods=['POST'])
 def req_login():
-    log, pswsalt = request.get_json()
+    log, pswsalt, remember = request.get_json()
     if User.check_psw(log, pswsalt):
         u = User(log)
         users[u.log] = u
         session['login'] = u.log
         session['token'] = u.token
+        session['remember'] = remember
         return jsonify({
             "login": u.log,
             "email": u.email,
@@ -129,10 +133,12 @@ def req_login():
 @tm.route('/register', methods=['POST'])
 def req_register():
     temp = request.get_json()
+    remember = temp.pop('remember')
     User.registration(**temp)
     users[temp['log']] = User(temp['log'])
     session['login'] = temp['log']
     session['token'] = users[temp['log']].token
+    session['remember'] = remember
     return jsonify(True)
 
 
@@ -164,7 +170,7 @@ def req_get_page():
 @tm.route('/')
 def page_home():
     session.permanent = True
-    if session.get('login') and users.get(session.get('login')):
+    if session.get('remember') and session.get('login') and users.get(session.get('login')):
         log = session['login']
         if os.path.isfile(f'images/avatars/{log}.jpg'):
             avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg?img0)"'
