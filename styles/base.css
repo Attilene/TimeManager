@@ -27,7 +27,7 @@ header .left, header .center, header .right, footer span  {cursor: pointer}
 /*----------Настройка скроллбара--------------*/
 ::-webkit-scrollbar{width: 10px; height: 10px}
 ::-webkit-scrollbar-button {display: none}
-::-webkit-scrollbar-track {background-color: rgba(127, 127, 127, 0)}
+::-webkit-scrollbar-track {background-color: rgba(0, 0, 0, 0)}
 ::-webkit-scrollbar-thumb {border-radius: 5px;}
 /*--------------------------------------------*/
 
@@ -101,7 +101,7 @@ header .right a div{
 }
 
 header .right .avatar {
-	background-image: url(../images/avatars/default.jpg);
+	background-image: url(../images/default.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -205,13 +205,15 @@ main {
 
 /*-----------------Анимации-------------------*/
 /*-----------------Возврат(время)-------------*/
+header, footer {transition: background-color 0.15s}
 header *, footer * {transition: 0.2s ease-out}
 @media (max-width: 1200px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
 .change_theme {
-	transition: 0.3s !important;
-	transition-property: background, border, color, fill;
+	transition-duration: 0.2s;
+	transition-timing-function: linear;
+	transition-property: background, border, color, fill, opacity, top
 }
-#hat svg.change_theme {transition-duration: 0.1s !important}
+aside #hat svg.change_theme {transition-duration: 0.05s}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {
@@ -224,7 +226,7 @@ header .left:hover, header .center:hover, header .right:hover, footer span:hover
 	header .right:hover img {transition: 0.1s ease-out}}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(1); transition: 0.1s ease}
+header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(1); transition: 0.05s ease-out}
 header .left:active {transform: skewX(-10deg)}
 header .right:active {transform: scale(0.95)}
 @media (max-width: 1200px) {header .right:active {transform: scale(0.85)}}

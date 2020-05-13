@@ -164,17 +164,25 @@ def req_get_page():
 @tm.route('/')
 def page_home():
     session.permanent = True
-    # if session.get('login'):
-    #     log = session['login']
-    #     data = {
-    #         'login': log,
-    #         'email': users[log].email,
-    #         'theme': users[log].theme,
-    #         'color': users[log].color,
-    #         'salt': users[log].salt,
-    #         'activated': users[log].activated,
-    #     }
-    #     return render_template("base_log.html")
-    # else:
-    #     return render_template("base.html")
-    return render_template("base.html")
+    if session.get('login') and users.get(session.get('login')):
+        log = session['login']
+        if os.path.isfile(f'images/avatars/{log}.jpg'):
+            avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg?img0)"'
+        else:
+            avatar = ''
+        data = {
+            'profile_html': render_template('profile.html', login=log, avatar=avatar),
+            'login': log,
+            'email': users[log].email,
+            'theme': users[log].theme,
+            'color': users[log].color,
+            'salt': users[log].salt,
+            'activated': users[log].activated,
+            'avatar': avatar
+        }
+
+        return render_template("base_log.html", **data)
+    else:
+        if session.get('login'): session.pop('login')
+        if session.get('token'): session.pop('token')
+        return render_template("base.html")

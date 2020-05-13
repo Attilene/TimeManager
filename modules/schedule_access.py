@@ -16,7 +16,6 @@ class User(object):
                 password   VARCHAR(100), 
                 theme      VARCHAR(10), 
                 color      VARCHAR(10), 
-                avatar     BOOLEAN, 
                 salt       VARCHAR(64),
                 activated  BOOLEAN)
                 """)

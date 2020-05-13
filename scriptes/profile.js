@@ -1,3 +1,34 @@
+// Показ и скрытие меню
+function toggle_aside(menu) {
+    if (menu.hasClass('opened')) {
+        $('body').off('click');
+        menu.addClass('closed');
+        // Сбор мусора
+        setTimeout(function () {
+            menu.removeClass('opened closed').css({display: ''})
+        }, close_time(menu))
+    } else {
+        menu.fadeIn(0, function () {
+            menu.addClass('opened')
+        });
+        $('body').off('click');
+        hide_click(menu);
+    }
+}
+
+// Сворачивание при клике в другой зоне
+function hide_click (menu) {
+    $('body').one('click', function hide_menu(event){
+        if (menu.hasClass('opened') &&
+            $('header .right').has(event.target).length === 0 &&
+            !$('#button_authorisation').is(event.target) &&
+            menu.has(event.target).length === 0) {
+            toggle_aside(menu)
+        }
+        else hide_click(menu)
+    });
+}
+
 function toggle_set_menu(set_button, set_menu) {
     if (typeof set_button === "string") {set_button = $(set_button)}
     if (typeof set_menu === "string") {set_menu = $(set_menu)}
@@ -18,8 +49,8 @@ function toggle_set_menu(set_button, set_menu) {
     }
 }
 
-function hide_set_click (button, area) {
 // Сворачивание при клике в другой зоне
+function hide_set_click (button, area) {
     if (typeof button === "string") {button = $(button)}
     if (typeof area === "string") {area = $(area)}
     $('body').one('mousedown', function (event){
@@ -35,10 +66,13 @@ function hide_set_click (button, area) {
 }
 
 function clear_fields() {
-    let inputs = $('#user input');
+    let inputs = $('#user input, #set_psw, #set_email');
     inputs.val('');
     inputs.removeClass('fill');
-    $('#authorisation_menu').attr('class', 'empty')
+    change_auth('empty');
+    toggle_aside($('aside.opened'));
+    warning(inputs);
+    check_repass()
 }
 
 function act_field(field, func, empty_func=null) {
@@ -64,11 +98,12 @@ function logout() {
             menu.removeClass('opened closed').css({display: ''})
         }, close_time(menu))
     }
-    $('body').off('mousedown');
     let set_menu = $('aside menu.opened');
     set_menu.stop().slideUp(200, function () {
         set_menu.removeAttr('style')
     });
+    // Сброс данных
+    user_data = {'login': '', 'theme': user_data.theme, 'color': user_data.color};
     set_menu.removeClass('opened');
     // Очистка страниц
     $('#page_lists').html('');
@@ -88,6 +123,7 @@ function logout() {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
     user_logined = false;
+    clear_fields()
 }
 
     // Изменение никнейма
@@ -153,9 +189,12 @@ function click_show_psw(field) {
 // Смена почты
 function input_set_email(in_set_email) {
     let temp = in_set_email.val();
-    if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp) && temp.length < 100) {
+    if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru|cc|net|ws})$/.test(temp) && temp.length < 100) {
         receive('/check_user', function (data) {
-            if (data) {
+            if (user_data.login === '') {
+                warning(in_set_email, 'Смена почты гостевой записи невозможна')
+            }
+            else if (data) {
                 warning(in_set_email, 'Почта занята');
             }
             else {
@@ -178,6 +217,7 @@ function input_set_psw(in_set_psw) {
     else if (temp.length < 8) { warning(in_set_psw, 'Длина пароля должна быть не меньше 8 символов')}
     else if (!RegExp('[0-9]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать цифры')}
     else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать буквы')}
+    else if (user_data.login === '') {warning(in_set_psw, 'Смена пароля гостевой записи невозможна')}
     else {
         receive('/check_user', function (data) {
             if (data) {

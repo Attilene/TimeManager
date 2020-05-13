@@ -2,6 +2,7 @@
     <form onsubmit="$(this).children('input').blur(); return false">
         <label for="set_login"></label>
         <input id="set_login" type="text" autocomplete="off"
+               value="{{ login }}"
                oninput="input_set_login($(this))"
                onblur="$('label[for=set_login]').text('').removeClass('achive warning')"
         >
@@ -13,8 +14,12 @@
             <use xlink:href="time_manager/images/sprites.svg#sprite_float_edit"></use>
         </svg>
     </span>
-    <span id="avatar" class="none">
-        <div id="avatar_inside"></div>
+    <span id="avatar"
+        {% if not avatar %}
+            class="none"
+        {% endif %}
+    >
+        <div id="avatar_inside" {{ avatar|safe }}></div>
         <svg id="change_avatar" onclick="
             if (user_data.login === '') {alert('Смена аватара недоступна для гостевой записи')}
             else {$('#get_file').click()}
@@ -78,26 +83,26 @@
     ">
         Удалить
     </button>
-    <button class="no" type="button" onmousedown="toggle_set_menu($(this)[0], $('#menu_confirm_delete'))">
+    <button class="no" type="button" onclick="toggle_set_menu($(this)[0], $('#menu_confirm_delete'))">
         Отмена
     </button>
 </menu>
 
 <menu id="settings">
     <div class="theme light">
-        <button class='light red'></button>
-        <button class='light blue'></button>
-        <button class='light green'></button>
-        <button class='light purple'></button>
-        <button class='light sky'></button>
-        <button class='light black'></button>
+        <button data-theme="light" data-color="red"></button>
+        <button data-theme="light" data-color="blue"></button>
+        <button data-theme="light" data-color="green"></button>
+        <button data-theme="light" data-color="purple"></button>
+        <button data-theme="light" data-color="sky"></button>
+        <button data-theme="light" data-color="black"></button>
     </div>
     <div class="theme dark">
-        <button class='dark red'></button>
-        <button class='dark blue'></button>
-        <button class='dark green'></button>
-        <button class='dark purple'></button>
-        <button class='dark sky'></button>
-        <button class='dark white'></button>
+        <button data-theme="dark" data-color="red"></button>
+        <button data-theme="dark" data-color="blue"></button>
+        <button data-theme="dark" data-color="green"></button>
+        <button data-theme="dark" data-color="purple"></button>
+        <button data-theme="dark" data-color="sky"></button>
+        <button data-theme="dark" data-color="white"></button>
     </div>
 </menu>

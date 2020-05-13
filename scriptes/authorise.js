@@ -97,15 +97,15 @@ function try_reg() {
     }
 }
 
-function change_auth(menu) {
+function change_auth(mode) {
     let temp_menu = $('#authorisation_menu');
-    if (temp_menu.hasClass(menu)) {return}
-    if (temp_menu.hasClass('login')) {temp_menu.addClass(menu).removeClass('login')}
-    else if (temp_menu.hasClass('register')) {temp_menu.addClass(menu).removeClass('register')}
-    else if (temp_menu.hasClass('empty')) {temp_menu.addClass(menu).removeClass('empty')}
+    if (temp_menu.hasClass(mode)) {return}
+    if (temp_menu.hasClass('login')) {temp_menu.addClass(mode).removeClass('login')}
+    else if (temp_menu.hasClass('register')) {temp_menu.addClass(mode).removeClass('register')}
+    else if (temp_menu.hasClass('empty')) {temp_menu.addClass(mode).removeClass('empty')}
 
     $('#remember_me').prop('checked', false);
-    switch (menu) {
+    switch (mode) {
         case 'empty':
             in_pass.val('').removeClass('fill').attr('disabled', 'disabled');
             break;
@@ -144,8 +144,6 @@ function registration() {
             // Сбор мусора
             setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
         }
-        $('body').off('mousedown');
-        $('#set_email, #set_psw').removeClass('fill').val('');
         // Установка имени пользователя
         $('header .right a div.nickname').text(in_login.val());
         $('#set_login').val(in_login.val());
@@ -167,15 +165,14 @@ function authorisation(login, password) {
     // Запрос
     receive('/login', function (data) {
         // Закрытие меню
-        $('#authorisation span').click();
-        let menu = $('#authorisation_menu');
-        if (menu.hasClass('opened')) {
-            menu.addClass('closed');
-            // Сбор мусора
-            setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
-        }
-        $('body').off('mousedown');
-        $('#set_email, #set_psw').removeClass('fill').val('');
+
+        // $('#authorisation span').click();
+        // let menu = $('#authorisation_menu');
+        // if (menu.hasClass('opened')) {
+        //     menu.addClass('closed');
+        //     // Сбор мусора
+        //     setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
+        // }
         // Загрузка страниц
         insert_page('#page_lists', 'lists');
         insert_page('#page_month', 'month');
@@ -240,7 +237,7 @@ function click_erase(field) {
 
 function input_email() {
     let temp = in_email.val();
-    if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru)$/.test(temp) && temp.length < 100) {
+    if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru|cc|net|ws)$/.test(temp) && temp.length < 100) {
         warning(in_email, 'Корректный формат почты', 'achive');
         receive('/check_user', function (data) {
             if (data) {

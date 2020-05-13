@@ -20,7 +20,6 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 	transform: scale(1.1);
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	background: rgba(255, 255, 255, 0.2);
-
 }
 /*--------------------------------------------*/
 
@@ -81,8 +80,6 @@ form#user {
 	height: 36px;
 	pointer-events: visible;
 }
-
-#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
 /*-----------------Кнопочки-------------------*/
 #erase_login {top: -5px}
 #show_pass {top: 51px}
@@ -142,7 +139,7 @@ form#user {
 #authorisation span:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#authorisation span:active {transform: scale(1); transition: 0.1s ease}
+#authorisation span:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 /*---------------Открытие---------------------*/

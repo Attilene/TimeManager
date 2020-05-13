@@ -6,4 +6,5 @@ aside menu div.dark {background: #cdcdcd}
 @-webkit-keyframes autofill {to {color: white}}
 aside menu input::placeholder {color: rgba(255, 255, 255, 0.8)}
 #authorisation_menu #checkbox_remember_me:checked~#remember_me {border: 3px solid white}
-#profile_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
+#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
+aside input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}

@@ -67,7 +67,7 @@ aside {
 #avatar:hover {transform: scale(1.15)}
 
 #avatar_inside {
-    background-image: url(../images/avatars/default.jpg);
+    background-image: url(../images/default.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -302,13 +302,13 @@ aside menu div.dark::before {
 #settings div.theme:hover button:hover {transform: scale(1.15)}
 #settings div.theme:hover button.choice {width: 24px}
 
-#settings button.red {background: #ff6464}
-#settings button.blue {background: #6464ff}
-#settings button.green {background: #46aa46}
-#settings button.purple {background: #b450b4}
-#settings button.sky {background: #55c0bb}
-#settings button.black {background: #000}
-#settings button.white {background: #fff}
+#settings button[data-color=red] {background: #ff6464}
+#settings button[data-color=blue] {background: #6464ff}
+#settings button[data-color=green] {background: #46aa46}
+#settings button[data-color=purple] {background: #b450b4}
+#settings button[data-color=sky] {background: #55c0bb}
+#settings button[data-color=black] {background: #000}
+#settings button[data-color=white] {background: #fff}
 /*----------------------------------------------*/
 /*----------------------------------------------*/
 
@@ -328,18 +328,16 @@ aside menu div.theme:hover::before {transition: 0.1s ease-in-out}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}
 #profile_menu menu p:hover {transition: 0.2s ease}
 aside form button:hover {transition: 0.1s ease}
-#menu_confirm_delete button:hover {
-    transition: 0.1s ease}
+#menu_confirm_delete button:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-aside input.fill+button:active {transform: scale(0.7); opacity: 0}
-aside menu div.theme:hover button.choice {transition: 0.15s ease-in-out}
-#edit:hover div:active, #exit:hover div:active {transform: scale(0.9)}
-#profile_menu #avatar svg:active {transform: scale(0.9)}
-#profile_menu menu p:active {transform: scale(1)}
-#menu_confirm_delete button:active {
-    transform: scale(1)}
+aside input.fill+button:active {transform: scale(0.7); opacity: 0; transition: 0.05s ease-out}
+#edit:hover div:active, #exit:hover div:active {transform: scale(1); transition: 0.05s ease-out}
+#profile_menu #avatar svg:active {transform: scale(0.9); transition: 0.05s ease-out}
+#profile_menu menu p:active {transform: scale(1); transition: 0.05s ease-out}
+#menu_confirm_delete button:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
+aside menu div.theme:hover button.choice {transition: 0.15s ease-in-out}
 aside form input:focus {transition: 0.2s ease-out}
 aside form input.change {transition: 0.1s}
 /*--------------------------------------------*/

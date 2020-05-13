@@ -7,7 +7,6 @@ aside menu div.dark {background: #808080;}
 aside menu input::placeholder {color: #4b4b4b; text-shadow: none}
 aside menu input {text-shadow: none}
 #authorisation_menu #checkbox_remember_me:checked~#remember_me {border: 3px solid #4b4b4b}
-#profile_menu input:disabled {background: rgba(245, 245, 245, 0.5); border: 3px solid rgba(235, 235, 235, 0.5)}
+aside input:disabled {background: rgba(245, 245, 245, 0.5); border: 3px solid rgba(235, 235, 235, 0.5)}
 
-
-*:hover, label, input {text-shadow: none !important}в
+*:hover, label, input {text-shadow: none !important}

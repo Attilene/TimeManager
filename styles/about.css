@@ -58,9 +58,10 @@
     width: 80%;
     border-radius: 50%;
     justify-self: center;
+    pointer-events: none;
 }
 
-#developers img:hover {
+#developers .card:hover img{
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.71);
     border-radius: 30%;
     transform: scale(1.1);
@@ -87,15 +88,14 @@
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
-#dev_head, .card_head, .card {transition: background 0.5s}
-#developers * {transition: 0.3s ease-out}
+#developers * {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
-#developers *:hover {transition: 0.2s ease}
+#developers *:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#developers *:active {transform: scale(1); transition: 0.1s ease-out}
-#developers .card:hover p:active {transform: scale(1); transition: 0.1s ease-out}
-#developers .card:hover img:active {transform: scale(1); transition: 0.1s ease-out}
+#developers *:active {transform: scale(1); transition: 0.05s ease-out}
+#developers .card:hover p:active {transform: scale(1); transition: 0.05s ease-out}
+#developers .card:hover img:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/

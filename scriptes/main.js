@@ -1,5 +1,5 @@
+let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
-let user_data = {'theme': 'light', 'color': 'blue'};
 
 jQuery(document).ready(function () {
     // Советы
@@ -10,9 +10,18 @@ jQuery(document).ready(function () {
             label.prev().removeClass('show')
         });
     });
+    // Указатель выбранной темы
+    $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
+    // Кнопки изменения цвета
+    // $('aside .theme button').on('mousedown' , function () {
+    //     console.log($(this).data('theme'), $(this).data('color'));
+    //     change_theme($(this).data('theme'), $(this).data('color'))
+    // });
 
-    user_logined = !($('header').hasClass('logout'));
-    connect_actions();
-    connect_pages();
-    toggle_menu();
+    if (user_logined) {
+
+    }
+    else {
+
+    }
 });
