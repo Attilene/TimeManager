@@ -137,7 +137,7 @@ function registration() {
         insert_page('#page_day', 'day');
         user_data.login = in_login.val();
         user_data.email = in_email.val();
-        user_data.avatar = false;
+        $('#menu_edit_email').addClass('nonactive');
         // Закрытие меню
         $('#authorisation span').click();
         let menu = $('#authorisation_menu');
@@ -187,6 +187,8 @@ function authorisation(login, password) {
         $('#authorisation').css({display: 'block'});
         $('header .center, header .right').fadeIn(0);
         $('header').removeClass('logout');
+        if (!data.activated) $('#menu_edit_email').addClass('nonactive');
+        delete user_data.activated;
         // Сбор мусора
         setTimeout(function () {
             $('#authorisation, header .center, header .right').removeAttr('style')

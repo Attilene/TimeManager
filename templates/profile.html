@@ -46,7 +46,7 @@
     </span>
 </div>
 
-<menu id="menu_edit_email">
+<menu id="menu_edit_email" {{ active|safe }}>
     <form onsubmit="submit_warn($(this)); return false">
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
             <input id="set_email" placeholder="Новая почта" type="email"
@@ -90,7 +90,7 @@
 <menu id="settings">
     <div class="theme light">
         <button data-theme="light" data-color="red"></button>
-        <button data-theme="light" data-color="blue" class="choice"></button>
+        <button data-theme="light" data-color="blue"></button>
         <button data-theme="light" data-color="green"></button>
         <button data-theme="light" data-color="purple"></button>
         <button data-theme="light" data-color="sky"></button>

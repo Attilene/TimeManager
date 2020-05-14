@@ -32,20 +32,22 @@ function hide_click (menu) {
 function toggle_set_menu(set_button, set_menu) {
     if (typeof set_button === "string") {set_button = $(set_button)}
     if (typeof set_menu === "string") {set_menu = $(set_menu)}
-    if (set_menu.hasClass('opened')) {
-        set_menu.stop().slideUp(200, function () {
-            set_menu.removeAttr('style')
-        });
-        set_menu.removeClass('opened');
-        let temp = set_menu.children('form').children('input');
-        fade_change(temp, function () {temp.removeClass('fill').val('')});
-    }
-    else {
-        set_menu.stop().slideDown(200, function () {
-            set_menu.removeAttr('style').css({display: 'block'})
-        });
-        set_menu.addClass('opened');
-        hide_set_click(set_button, set_menu)
+    if (!set_menu.hasClass('nonactive')) {
+        if (set_menu.hasClass('opened')) {
+            set_menu.stop().slideUp(200, function () {
+                set_menu.removeAttr('style')
+            });
+            set_menu.removeClass('opened');
+            let temp = set_menu.children('form').children('input');
+            fade_change(temp, function () {temp.removeClass('fill').val('')});
+        }
+        else {
+            set_menu.stop().slideDown(200, function () {
+                set_menu.removeAttr('style').css({display: 'block'})
+            });
+            set_menu.addClass('opened');
+            hide_set_click(set_button, set_menu)
+        }
     }
 }
 
