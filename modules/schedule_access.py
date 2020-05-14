@@ -1,6 +1,6 @@
 from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
 import sqlite3
-from security.crypting import decrypt
+from security.crypting import decrypt, set_sum
 
 
 class User(object):
@@ -17,16 +17,17 @@ class User(object):
                 theme      VARCHAR(10), 
                 color      VARCHAR(10), 
                 salt       VARCHAR(64),
-                activated  BOOLEAN)
+                activated  BOOLEAN,
+                hash_sum   VARCHAR(10))
                 """)
     __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
                     'ноябрь', 'декабрь', ]
     authorisation = False
 
     def __init__(self, log_email):
-        User.__cur.execute("""SELECT login, email, theme, color, salt, activated FROM users
+        User.__cur.execute("""SELECT login, email, theme, color, salt, activated, hash_sum FROM users
         WHERE login = ? OR email = ?""", (log_email, log_email,))
-        self.log, self.email, self.theme, self.color, self.salt, self.activated = User.__cur.fetchone()
+        self.log, self.email, self.theme, self.color, self.salt, self.activated, self.hash_sum = User.__cur.fetchone()
         self.token = gen_salt(50)
         self.lists = User.__ret_lists(self)
         self.day = User.__ret_day(self)
@@ -179,13 +180,19 @@ class User(object):
     @staticmethod
     def check_user(log_email):
         """Проверка существования пользователя"""
-        User.__cur.execute("SELECT (salt) FROM users WHERE login = ? or email = ?", (log_email, log_email))
+        User.__cur.execute("SELECT (salt) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         return User.__cur.fetchone()
+
+    @staticmethod
+    def fast_check_psw(log_email, pswsalt):
+        User.__cur.execute("SELECT hash_sum FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        hash_sum = User.__cur.fetchone()[0]
+        return set_sum(decrypt(pswsalt)[0]) == hash_sum
 
     @staticmethod
     def check_psw(log_email, pswsalt):
         """Проверка правильности пароля"""
-        User.__cur.execute("SELECT (password) FROM users WHERE login = ? or email = ?", (log_email, log_email))
+        User.__cur.execute("SELECT (password) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         temp = User.__cur.fetchone()
         if len(temp) < 1:
             return False
@@ -205,9 +212,9 @@ class User(object):
         psw, salt = decrypt(pswsalt)
         hashed_psw = generate_password_hash(psw + salt[:-1])
         User.__cur.execute(
-            """INSERT INTO users (login, email, password, theme, color, salt, activated)
-             VALUES (?, ?, ?, ?, ?, ?, ?)""",
-            (log, email, hashed_psw, theme, color, salt, False))
+            """INSERT INTO users (login, email, password, theme, color, salt, activated, hash_sum)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (log, email, hashed_psw, theme, color, salt, False, set_sum(psw)))
         User.__conn.commit()
         User.__cur.executescript(f"""
             CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task TEXT);
@@ -248,6 +255,7 @@ class User(object):
 # now_user.change_email('qwerty@mail.ru')
 # print(now_user.email)
 # print(now_user.change_avatar(False))
+# print(now_user.fast_check_psw('Attilene', '726b9c5fc5baf0a6d0fc92659715757b599a77b87202fb81ce23ad7662543ace'))
 # now_user.add_month(23, 'январь', 'dfjfkdjf')
 # now_user.add_month(24, 'январь', 'dfjfkdjf')
 # now_user.add_month(25, 'январь', 'dfjfkdjf')
