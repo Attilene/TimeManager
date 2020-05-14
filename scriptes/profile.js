@@ -146,7 +146,7 @@ function input_set_login(in_set_log) {
 }
 
 // Добавление/смена аватара
-function change_get_file(file) {
+function onchange_get_file(file) {
     if (file) {
         let size = ((file.size) / 1024 / 1024).toFixed(1);
         if (size <= 10) {
@@ -154,9 +154,14 @@ function change_get_file(file) {
                 let img = new FormData();
                 img.set('img', file, `${user_data.login}.jpg`);
                 send_image(img, function () {
-                    let rand = +new Date();
-                    $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
-                    $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${user_data.login}.jpg?img${rand})`});
+                    const fr = new FileReader();
+                    fr.onload = (function(theFile) {
+                    return function(e) {
+                        $('#avatar_inside').css({'background-image': `url(${e.target.result})`});
+                        $('header .right picture').css({'background-image': `url(${e.target.result})`});
+                    };
+                    })(file);
+                    fr.readAsDataURL(file);
                     $('#avatar').removeClass('none')
                 })
             }

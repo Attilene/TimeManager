@@ -173,7 +173,7 @@ def page_home():
     if session.get('remember') and session.get('login') and users.get(session.get('login')):
         log = session['login']
         if os.path.isfile(f'images/avatars/{log}.jpg'):
-            avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg?img0)"'
+            avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
         else:
             avatar = ''
         data = {

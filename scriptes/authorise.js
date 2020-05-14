@@ -179,8 +179,8 @@ function authorisation(login, password) {
         // Загрузка аватара
         if (data.avatar) {
             $('#avatar').removeClass('none');
-            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg?img1)`});
-            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg?img1)`})
+            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
+            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
         }
         delete user_data.avatar;
         // Появление кнопок
