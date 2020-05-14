@@ -137,7 +137,8 @@ function registration() {
         insert_page('#page_day', 'day');
         user_data.login = in_login.val();
         user_data.email = in_email.val();
-        $('#menu_edit_email').addClass('nonactive');
+        $('#menu_edit_email, #confirm_email').addClass('nonactive');
+        $('#menu_edit_email').addClass('opened');
         // Закрытие меню
         $('#authorisation span').click();
         let menu = $('#authorisation_menu');
@@ -187,7 +188,10 @@ function authorisation(login, password) {
         $('#authorisation').css({display: 'block'});
         $('header .center, header .right').fadeIn(0);
         $('header').removeClass('logout');
-        if (!data.activated) $('#menu_edit_email').addClass('nonactive');
+        if (!data.activated) {
+            $('#menu_edit_email, #confirm_email').addClass('nonactive');
+            $('#menu_edit_email').addClass('opened');
+        }
         delete user_data.activated;
         // Сбор мусора
         setTimeout(function () {

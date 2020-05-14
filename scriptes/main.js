@@ -16,4 +16,8 @@ jQuery(document).ready(function () {
     });
     // Указатель выбранной темы
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
+    if (user_logined && user_data.activated === '0') {
+        $('#menu_edit_email, #confirm_email').addClass('nonactive');
+        $('#menu_edit_email').addClass('opened');
+    }
 });

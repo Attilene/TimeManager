@@ -200,6 +200,10 @@ function click_show_psw(field) {
     }
 }
 
+function send_activation() {
+    send('/send_activation', user_data.login)
+}
+
 // Смена почты
 function input_set_email(in_set_email) {
     let temp = in_set_email.val();

@@ -46,7 +46,7 @@
     </span>
 </div>
 
-<menu id="menu_edit_email" {{ active|safe }}>
+<menu id="menu_edit_email">
     <form onsubmit="submit_warn($(this)); return false">
         <label for="set_email" class="warning">Поле не должно быть пустым</label>
         <input id="set_email" placeholder="Новая почта" type="email"
@@ -58,11 +58,13 @@
             </svg>
         </button>
     </form>
-    <form>
-        Почта не подтверждена
-        <button>Запросить подтверждение</button>
-        <label for="act1" class="warning">Поле не должно быть пустым</label>
-        <input id="act1"><input id="act2"><input id="act3"><input id="act4">
+    <form id="confirm_email">
+        <button type="button" onclick="send_activation()">Запросить подтверждение</button>
+        <label for="act1" class="warning">Поле не должно быть пустым</label><br>
+        <input id="act1">
+        <input id="act2">
+        <input id="act3">
+        <input id="act4">
     </form>
 </menu>
 

@@ -39,6 +39,12 @@ def req_test():
 
 
 # Верифицрованные запросы
+@user_req('/send_activation')
+def req_send_activation(now, data):
+    """Отправка сообщения для активации"""
+    send_mail(tm)
+
+
 @user_req('/change_theme')
 def req_change_theme(now, data):
     """Изменение темы"""
@@ -174,10 +180,8 @@ def page_home():
         log = session['login']
         if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
         else: avatar = ''
-        if users[log].activated: active = ''
-        else: active = 'class="nonactive"'
         data = {
-            'profile_html': render_template('profile.html', login=log, avatar=avatar, active=active),
+            'profile_html': render_template('profile.html', login=log, avatar=avatar),
             'login': log,
             'email': users[log].email,
             'theme': users[log].theme,
