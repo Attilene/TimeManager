@@ -84,22 +84,18 @@ class User(object):
         User.__cur.execute("UPDATE users SET theme = ?, color = ? WHERE login = ?", (theme, color, self.log))
         User.__conn.commit()
 
-    def change_num(self, task, new_num):
-        for k, v in self.lists.items():
-            for el in v:
-                if el[0] == task:
-                    el[1] = new_num
-                    check = el
-                    name = k
-        self.lists[name].remove(check)
-        self.lists[name].insert(check[1] - 1, check)
-        for i in range(self.lists[name].index(check) + 1, len(self.lists[name])):
-            self.lists[name][i][1] = self.lists[name][i - 1][1] + 1
-        User.__cur.execute(f"DELETE FROM list_{self.log}")
-        for k, v in self.lists.items():
-            for el in v:
-                User.__cur.execute(f"INSERT INTO list_{self.log} (name, task, number) VALUES (?, ?, ?)",
-                                   (k, el[0], el[1]))
+    def change_num(self, name, task, new_num):
+        User.__cur.execute(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, task))
+        buf = self.lists[name].pop(self.lists[name].index([task, User.__cur.fetchone()[0]]))
+        buf[1] = new_num
+        self.lists[name].insert(new_num - 1, buf)
+        for i, value in enumerate(self.lists[name], 1):
+            self.lists[name][i - 1][1] = i
+        for el in self.lists[name]:
+            User.__cur.execute(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, el[0]))
+            if User.__cur.fetchone()[0] != el[1]:
+                User.__cur.execute(f"UPDATE list_{self.log} SET number = ? WHERE name = ? AND task = ?",
+                                   (el[1], name, el[0]))
         User.__conn.commit()
 
     def del_user(self):
@@ -122,7 +118,7 @@ class User(object):
             number = num_bd[-1][0] + 1
         for k, v in self.lists.items():
             for el in v:
-                if el[0] == task and k != name:
+                if el[0] == task and k == name:
                     check_task = True
         if not check_task:
             User.__cur.execute(f"INSERT INTO list_{self.log} (name, task, number) VALUES (?, ?, ?)",
@@ -142,21 +138,28 @@ class User(object):
         self.month = User.__ret_month(self)
 
     # Удаление #
-    def del_list(self, name, task, number):
+    def del_list_task(self, name, task, number):
         User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ? AND number = ?",
                            (name, task, number))
-        User.__conn.commit()
-        for i in range(self.lists[name].index([task, number]) + 1, len(self.lists[name])):
-            self.lists[name][i][1] -= 1
         self.lists[name].remove([task, number])
         if len(self.lists[name]) == 0:
             del self.lists[name]
-        User.__cur.execute(f"DELETE FROM list_{self.log}")
-        for k, v in self.lists.items():
-            for el in v:
-                User.__cur.execute(f"INSERT INTO list_{self.log} (name, task, number) VALUES (?, ?, ?)",
-                                   (k, el[0], el[1]))
+            User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name, ))
+        else:
+            for i, value in enumerate(self.lists[name], 1):
+                self.lists[name][i - 1][1] = i
+            for el in self.lists[name]:
+                User.__cur.execute(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, el[0]))
+                if User.__cur.fetchone()[0] != el[1]:
+                    User.__cur.execute(f"UPDATE list_{self.log} SET number = ? WHERE name = ? AND task = ?",
+                                       (el[1], name, el[0]))
         User.__conn.commit()
+
+    def del_list(self, name):
+        if name in self.lists:
+            User.__cur.execute(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
+            User.__conn.commit()
+            self.lists.pop(name)
 
     def del_day(self, hour, minute, task):
         if (hour, minute, task) in self.day:
@@ -252,8 +255,8 @@ class User(object):
 # now_user.add_list('2', 'dfjf')
 # now_user.add_list('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
 # now_user.add_list('1', 'werty')
-# now_user.change_num('werty', 2)
-# now_user.del_list(1, 'werty', 2)
+# now_user.change_num('1', 'werty', 2)
+# now_user.del_list_task('1', 'werty', 2)
 # now_user.add_day(22, 33, 'jdfkjf')
 # now_user.add_day(24, 33, 'jdfkjf')
 # now_user.add_day(23, 33, 'jdfkjf')
