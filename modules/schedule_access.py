@@ -184,9 +184,9 @@ class User(object):
         return User.__cur.fetchone()
 
     @staticmethod
-    def fast_check_psw(log_email, pswsalt, login):
-        User.__cur.execute("SELECT hash_sum FROM users WHERE login = ? OR email = ?", (log_email, log_email))
-        hash_sum = User.__cur.fetchone()[0]
+    def fast_check_psw(log_email, pswsalt):
+        User.__cur.execute("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        hash_sum, login = User.__cur.fetchone()
         return set_sum(decrypt(pswsalt)[0], login) == hash_sum
 
     @staticmethod

@@ -159,10 +159,15 @@ def req_check_user():
     """Проверка существования пользователя"""
     return jsonify(User.check_user(request.get_json()))
 
+#
+# @tm.route('/check_password', methods=['POST'])
+# def req_check_password():
+#     return jsonify(User.check_psw(**request.get_json()))
+#
 
 @tm.route('/check_password', methods=['POST'])
-def req_check_password():
-    return jsonify(User.check_psw(**request.get_json()))
+def req_fast_check_password():
+    return jsonify(User.fast_check_psw(**request.get_json()))
 
 
 @tm.route('/get_page', methods=['POST'])
