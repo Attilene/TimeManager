@@ -31,10 +31,15 @@ def handler_assignment(error):
     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
 
 
+@tm.errorhandler(502)
+def handler_assignment(error):
+    return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
+
+
 # Запросы
 @tm.route('/test', methods=['POST', 'GET'])
 def req_test():
-    send_mail(tm, 'artembakanov123@yandex.ru', 'Я машина и я восстал!')
+    send_mail(tm, 'derbindima5@gmail.com', 'Я машина и я восстал!')
     return 'success'
 
 
@@ -133,7 +138,7 @@ def req_login():
             "color": u.color,
             "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg')
         })
-    else: return jsonify(False)
+    else: abort(502)
 
 
 @tm.route('/register', methods=['POST'])
