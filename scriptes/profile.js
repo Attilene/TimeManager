@@ -214,6 +214,7 @@ function input_set_email(in_set_email) {
             else {
                 receive('/change_email', function () {
                     warning(in_set_email, 'Почта изменена', 'achive');
+                    $('#menu_edit_email').addClass('nonactive');
                 }, temp)
             }
         }, temp)
