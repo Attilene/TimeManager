@@ -184,10 +184,10 @@ class User(object):
         return User.__cur.fetchone()
 
     @staticmethod
-    def fast_check_psw(log_email, pswsalt):
+    def fast_check_psw(log_email, pswsalt, login):
         User.__cur.execute("SELECT hash_sum FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         hash_sum = User.__cur.fetchone()[0]
-        return set_sum(decrypt(pswsalt)[0]) == hash_sum
+        return set_sum(decrypt(pswsalt)[0], login) == hash_sum
 
     @staticmethod
     def check_psw(log_email, pswsalt):
@@ -214,7 +214,7 @@ class User(object):
         User.__cur.execute(
             """INSERT INTO users (login, email, password, theme, color, salt, activated, hash_sum)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-            (log, email, hashed_psw, theme, color, salt, False, set_sum(psw)))
+            (log, email, hashed_psw, theme, color, salt, False, set_sum(psw, log)))
         User.__conn.commit()
         User.__cur.executescript(f"""
             CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task TEXT);

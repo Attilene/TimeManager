@@ -19,6 +19,7 @@ def decrypt(pswsalt):
     return decrypted[:64], decrypted[64:]
 
 
-def set_sum(psw):
-    hashing = SHA256.new(bytes(psw[:10].encode('ascii')))
-    return hashing.hexdigest()[:10]
+def set_sum(psw, login):
+    b = psw[:64] + login
+    hashing = SHA256.new(b.encode('ascii'))
+    return hashing.hexdigest()[:64]
