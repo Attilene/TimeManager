@@ -31,6 +31,7 @@
     height: 60px;
     justify-self: center;
     border-radius: 30px;
+    mso-margin: 5%
 }
 
 #dev_head:hover {transform: scale(1.05)}
@@ -48,13 +49,13 @@
     padding: 0;
     height: 60px;
     border-radius: 30px;
-    mso-grid-top: 30px;
+    mso-margin: 5%
 }
 
 .card_head:hover {transform: scale(1.1)}
 #developers .card {
     padding: 0 10px 50px 10px;
-    mso-grid-top: 30px;
+    mso-margin: 5%
 }
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.2)}
