@@ -1,12 +1,16 @@
 * {color: #4b4b4b}
 body, aside menu, #set_login:focus {background: darkgray}
+#avatar {border-color: darkgray}
+#hat #change_avatar {fill: darkgray}
 aside menu div.light {background: darkgray}
 aside menu div.dark {background: #808080;}
 #developers hr.main_line {border: 2px solid gray}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 aside menu input::placeholder {color: #4b4b4b; text-shadow: none}
+#restore:hover {color: darkgray}
 aside menu input {text-shadow: none}
 #authorisation_menu #checkbox_remember_me:checked~#remember_me {border: 3px solid #4b4b4b}
 aside input:disabled {background: rgba(245, 245, 245, 0.5); border: 3px solid rgba(235, 235, 235, 0.5)}
+#hat svg {fill: darkgray}
 
 *:hover, label, input {text-shadow: none !important}

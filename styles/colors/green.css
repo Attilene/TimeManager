@@ -8,7 +8,7 @@ aside menu div.theme::before {color: #46aa46}
 
 @-webkit-keyframes autofill {to {background-color: rgba(70, 170, 70, 0.5)}}
 aside menu input {background-color: #46aa46; border-color: #46aa46}
-aside menu input.fill {background-color: rgba(70, 170, 70, 0.5)}
+aside menu input.fill, #restore:hover {background-color: rgba(70, 170, 70, 0.5)}
 aside menu form button:hover {background-color: #46aa46}
 aside menu p, #set_login:focus {color: #46aa46}
 #menu_confirm_delete button, #confirm_email button {background-color: #46aa46}

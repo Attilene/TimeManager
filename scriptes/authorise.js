@@ -225,7 +225,7 @@ function click_erase(field) {
         field.val('').removeClass('fill').css({pointerEvents: 'none'});
         setTimeout(function () { field.css({pointerEvents: ''}) }, close_time(field));
         warning(field);
-        if (field.attr('id')) check_empty()
+        if ($('#user').has(field)) check_empty()
     });
 }
 

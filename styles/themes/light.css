@@ -1,10 +1,14 @@
 * {color: white}
 body , aside menu, #set_login:focus {background: white}
+#avatar {border-color: white}
+#hat #change_avatar {fill: white}
 aside menu div.light {background: white}
 aside menu div.dark {background: #cdcdcd}
 #developers hr {border: 2px solid white}
 @-webkit-keyframes autofill {to {color: white}}
 aside menu input::placeholder {color: rgba(255, 255, 255, 0.8)}
+#restore:hover {color: white; text-shadow: 0 0 3px rgba(0, 0, 0, 0.3)}
 #authorisation_menu #checkbox_remember_me:checked~#remember_me {border: 3px solid white}
 #authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
 aside input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
+#hat svg {fill: white}
