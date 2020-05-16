@@ -47,6 +47,7 @@ def req_send_activation(now):
     else:
         data = {
             'title': 'Подтверждение почты',
+            'button': 'Активировать',
             'login': now.log,
             'link': get_link(now.email),
             'color': now.color

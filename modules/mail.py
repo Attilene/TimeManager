@@ -4,7 +4,7 @@ from flask_script import Manager, Shell
 from threading import Thread
 
 
-def send_mail(app, address, user_data={'color': '#6464ff', 'login': 'T1MON', 'link': '#', 'title': 'Тест'}):
+def send_mail(app, address, user_data={'color': '#6464ff', 'login': 'T1MON', 'link': '#', 'title': 'Тест', 'button': 'Кнопка'}):
     manager = Manager(app)
     col = {
         'red': '#ff6464',
