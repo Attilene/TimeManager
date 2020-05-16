@@ -81,7 +81,7 @@ def req_delete_avatar(now):
     """Удаление аватарки"""
     temp_path = f'images/avatars/{now.log}.jpg'
     if os.path.isfile(temp_path):
-        os.remove(temp_path)
+        os.unlink(temp_path)
     return jsonify(True)
 
 

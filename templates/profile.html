@@ -52,7 +52,7 @@
             <input id="set_email" placeholder="Новая почта" type="email"
             oninput="act_field($(this), input_set_email)"
             >
-            <button id="erase_set_email" type="button" onclick="click_erase($(this).prev()); return false">
+            <button id="erase_set_email" type="button" onmousedown="click_erase($(this).prev()); return false">
                 <svg id="email_btn_erase">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_erase"></use>
                 </svg>
@@ -66,7 +66,7 @@
     >
         <label for="set_psw" class="warning">Поле не должно быть пустым</label>
         <input id="set_psw" placeholder="Новый пароль" type="password" oninput="act_field($(this), input_set_psw)">
-        <button id="show_set_psw" type="button" onclick="click_show_psw($(this).prev())">
+        <button id="show_set_psw" type="button" onmousedown="click_show_psw($(this).prev())">
             <svg>
                 <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>
             </svg>

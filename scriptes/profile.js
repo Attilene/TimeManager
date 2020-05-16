@@ -9,7 +9,10 @@ function toggle_aside(menu) {
         }, close_time(menu))
     } else {
         menu.fadeIn(0, function () {
-            menu.addClass('opened')
+            menu.addClass('opened');
+            if (menu.attr('id') === 'authorisation_menu') {
+                setTimeout(function () {$('#form_login').focus()}, 1)
+            }
         });
         $('body').off('click');
         hide_click(menu);
@@ -22,9 +25,9 @@ function hide_click (menu) {
         if (menu.hasClass('opened') &&
             $('header .right').has(event.target).length === 0 &&
             !$('#button_authorisation').is(event.target) &&
-            menu.has(event.target).length === 0) {
-            toggle_aside(menu)
-        }
+            menu.has(event.target).length === 0 &&
+            !menu.is(event.target))
+        {toggle_aside(menu)}
         else hide_click(menu)
     });
 }

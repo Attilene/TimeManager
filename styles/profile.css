@@ -131,6 +131,7 @@ aside {
 /*---------------Менюшки----------------------*/
 aside menu {
     z-index: 15;
+    text-align: center;
     display: none;
     position: relative;
     box-sizing: border-box;
@@ -151,8 +152,8 @@ aside menu.opened, #settings, #authorisation_menu menu {display: block; opacity:
     padding: 10px;
 }
 
-#profile_menu menu p {height: 20px}
-#profile_menu menu p:hover {transform: scale(1.1)}
+aside menu p {height: 20px}
+aside menu p:hover {transform: scale(1.1)}
 
 #menu_confirm_delete button {
 	font-family: "Comfortaa Bold", sans-serif;
@@ -337,7 +338,7 @@ aside form button:hover {transition: 0.1s ease}
 aside input.fill+button:active {transform: scale(0.7); opacity: 0; transition: 0.05s ease-out}
 #edit:hover div:active, #exit:hover div:active {transform: scale(1); transition: 0.05s ease-out}
 #profile_menu #avatar svg:active {transform: scale(0.9); transition: 0.05s ease-out}
-#profile_menu menu p:active {transform: scale(1); transition: 0.05s ease-out}
+aside menu p:active {transform: scale(1); transition: 0.05s ease-out}
 #menu_confirm_delete button:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 aside menu div.theme:hover button.choice {transition: 0.15s ease-in-out}

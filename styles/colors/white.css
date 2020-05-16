@@ -10,7 +10,7 @@ header a.center:hover, header span.right:hover, aside menu input {text-shadow: n
 aside menu input {background-color: #fff; border-color: #fff}
 aside menu input.fill {background-color: rgba(255, 255, 255, 0.5)}
 aside menu form button:hover {background-color: #fff}
-#menu_confirm_delete p, #set_login:focus {color: #fff}
+aside p, #set_login:focus {color: #fff}
 #menu_confirm_delete button {background-color: #fff}
 
 header .center:hover {background-color: rgba(0, 0, 0, 0.1)}

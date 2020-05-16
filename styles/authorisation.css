@@ -53,7 +53,7 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 
 #authorisation_menu.register menu {padding: 10px 0}
 #authorisation_menu.login menu, #authorisation_menu.register menu{margin-top: 50px}
-#authorisation_menu.login, #authorisation_menu.register {padding-bottom: 40px}
+#authorisation_menu.login {padding-bottom: 39px}
 
 form#user {
 	z-index: 16;
@@ -100,6 +100,31 @@ form#user {
 #authorisation_menu.register label[for=form_password] {top: 112px}
 #authorisation_menu.register label[for=form_repass] {top: 164px}
 /*--------------------------------------------*/
+/*-----------------Восстановить---------------------*/
+#restore {
+	margin: 0 auto;
+	padding: 0 5px;
+	width: 250px;
+	height: 0;
+	border-radius: 30px;
+	position: relative;
+	bottom: 12px;
+	opacity: 0;
+	overflow: hidden;
+	pointer-events: none;
+	text-shadow: none;
+}
+
+#restore:hover {transform: scale(1.05);}
+
+#authorisation_menu.login #user p {
+	height: 20px;
+	padding: 5px;
+	margin: 2px auto;
+	opacity: 1;
+	pointer-events: visible;
+}
+/*--------------------------------------------*/
 /*-----------------Запоминть меня---------------------*/
 #authorisation_menu #checkbox_remember_me {display: none}
 
@@ -107,10 +132,10 @@ form#user {
 	z-index: 13;
 	position: absolute;
 	padding: 0 10px;
-	width: 130px;
+	width: 100px;
 	height: 22px;
 	line-height: 22px;
-	left: 94px; bottom: 8px;
+	left: 112px; bottom: 8px;
 	border: 0 solid transparent;
 	border-radius: 20px;
 	opacity: 0;
@@ -119,10 +144,10 @@ form#user {
 
 #authorisation_menu #remember_me:hover {transform: scale(1.05); background: rgba(255, 255, 255, 0.2);}
 
-#authorisation_menu.login #remember_me,  #authorisation_menu.register #remember_me{opacity: 1; pointer-events: visible; bottom: -32px}
+#authorisation_menu.login #remember_me {opacity: 1; pointer-events: visible; bottom: -32px}
 #authorisation_menu #checkbox_remember_me:checked~label {
 	bottom: -35px;
-	left: 91px;
+	left: 109px;
 	border-width: 3px;
 }
 /*--------------------------------------------*/
@@ -136,10 +161,10 @@ form#user {
 #erase_email, #show_repass {transition-timing-function: ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
-#authorisation span:hover {transition: 0.1s ease}
+#authorisation span:hover, #restore:hover {transition: 0.1s ease-in}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-#authorisation span:active {transform: scale(1); transition: 0.05s ease-out}
+#authorisation span:active, #restore:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 /*---------------Открытие---------------------*/
