@@ -2,8 +2,8 @@
 <div class="hat register">РЕГИСТРАЦИЯ</div>
 
 <menu>
-    <form id="user" action='' onkeydown="if (event.keyCode === 13) {submit_warn($(this)); return false}">
-        <label for="form_login" class="warning" autofocus>Поле не должно быть пустым</label>
+    <form id="user" onkeydown="if (event.keyCode === 13) {submit_warn($(this)); return false}">
+        <label for="form_login" class="empty" autofocus></label>
         <input id="form_login" name="login" placeholder="Подождите ..." type="email" autocomplete="on" disabled
                oninput="act_field($(this), input_login, check_empty)"
         >
@@ -13,7 +13,7 @@
             </svg>
         </button>
 
-        <label for="form_email" class="warning">Поле не должно быть пустым</label>
+        <label for="form_email" class="empty"></label>
         <input class="hidden" name="email" id="form_email" placeholder="Почта" type="email"
                oninput="act_field($(this), input_email, check_empty)"
         >
@@ -23,7 +23,7 @@
             </svg>
         </button>
 
-        <label for="form_password" class="warning">Поле не должно быть пустым</label>
+        <label for="form_password" class="empty"></label>
         <input id="form_password" name="password" placeholder="Пароль" type="password" disabled
                oninput="act_field($(this), input_pass, empty_pass)"
         >
@@ -33,7 +33,7 @@
             </svg>
         </button>
 
-        <label for="form_repass" class="warning">Поле не должно быть пустым</label>
+        <label for="form_repass" class="empty"></label>
         <input class="hidden" name="repeat_password" id="form_repass" placeholder="Пароль ещё раз" type="password" disabled
                oninput="act_field($(this), check_repass)"
         >

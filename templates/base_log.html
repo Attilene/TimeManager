@@ -78,7 +78,7 @@
         'theme': "{{ theme }}",
         'color': "{{ color }}",
         'salt': "{{ salt }}",
-        'activated': "{{ activated }}"
+        'activated': {{ activated }}
     };
     user_logined = true;
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');

@@ -15,11 +15,9 @@
     height: max-content;
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 5% 1fr 5% 1fr 5% 1fr 5% 1fr;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 5%;
-    -ms-grid-rows: 15% 5% 15% 5% 70%;
     grid-template-rows: 15% 15% 70%;
+    grid-gap: 5%;
 }
 
 #dev_head {
@@ -31,7 +29,6 @@
     height: 60px;
     justify-self: center;
     border-radius: 30px;
-    mso-border-bottom-alt: 20px solid transparent !important;
 }
 
 #dev_head:hover {transform: scale(1.05)}
@@ -49,13 +46,11 @@
     padding: 0;
     height: 60px;
     border-radius: 30px;
-    mso-border-bottom-alt: 20px solid transparent !important;
 }
 
 .card_head:hover {transform: scale(1.1)}
 #developers .card {
     padding: 0 10px 50px 10px;
-    mso-border-bottom-alt: 20px solid transparent !important;
 }
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.2)}

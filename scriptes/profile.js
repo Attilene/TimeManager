@@ -74,8 +74,7 @@ function clear_fields() {
     change_auth('empty');
     toggle_aside($('aside.opened'));
     warning(inputs);
-    check_repass();
-    inputs.prev('label').removeClass('show')
+    inputs.prev('label').removeClass('show');
 }
 
 function act_field(field, func, empty_func=null) {
@@ -136,7 +135,7 @@ function input_set_login(in_set_log) {
     else if (temp === user_data.login) {warning(in_set_log, 'Ваш никнейм', 'achive')}
     else if (temp.length <= 33) {
         receive('/check_user', function (data) {
-            if (data) {warning(in_set_log, 'Никнейм занят')}
+            if (data) {warning(in_set_log, 'Никнейм занят', 'warning')}
             else {send('/change_log', temp, function () {
                 $('header .right a div.nickname').text(temp);
                 warning(in_set_log, 'Никнейм изменён', 'achive');
@@ -144,7 +143,7 @@ function input_set_login(in_set_log) {
             })}
         })
     }
-    else {warning('Длина никнейма не может превышать 33 символа')}
+    else {warning(in_login, 'Длина никнейма не может превышать 33 символа', 'warning')}
 }
 
 // Добавление/смена аватара
@@ -181,6 +180,15 @@ function click_remove_avatar() {
 }
 
 // Кнопки
+function click_active() {
+    receive('/send_activation', function(data) {
+        if (data === 'active') {
+            $('#menu_edit_email, #confirm_email').removeClass('nonactive');
+            toggle_set_menu($('#btn_change_email'), $('#menu_edit_email'))
+        }
+        else {alert('На почту ' + user_data.email + ' выслано письмо для активации')}
+    })
+}
 function click_show_psw(field) {
     if (field.hasClass('show_psw')) {
         field.removeClass('show_psw');
@@ -200,31 +208,36 @@ function click_show_psw(field) {
     }
 }
 
-function send_activation() {
-    send('/send_activation', user_data.login)
-}
-
 // Смена почты
 function input_set_email(in_set_email) {
     let temp = in_set_email.val();
-    if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru|cc|net|ws})$/.test(temp) && temp.length < 100) {
+    if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}[.]){1,3}(com|by|ru|cc|net|ws})$/.test(temp) && temp.length < 100) {
         receive('/check_user', function (data) {
             if (user_data.login === '') {
-                warning(in_set_email, 'Смена почты гостевой записи невозможна')
+                warning(in_set_email, 'Смена почты гостевой записи невозможна', 'warning')
+            }
+            else if (user_data.email === temp) {
+                if (user_data.activated) {
+                    warning(in_set_email, 'Почта подтверждена', 'achive')
+                }
+                else {
+                    warning(in_set_email, 'Почта не подтверждена', 'warning')
+                }
             }
             else if (data) {
-                warning(in_set_email, 'Почта занята');
+                warning(in_set_email, 'Почта занята', 'warning');
             }
             else {
-                receive('/change_email', function () {
-                    warning(in_set_email, 'Почта изменена', 'achive');
-                    $('#menu_edit_email').addClass('nonactive');
-                }, temp)
+                receive('/change_email', null, temp);
+                warning(in_set_email, 'Почта изменена', 'achive');
+                $('#menu_edit_email, #confirm_email').addClass('nonactive');
+                $('#menu_edit_email').addClass('opened');
+                user_data.email = temp
             }
         }, temp)
     }
     else {
-        warning(in_set_email, 'Некорректный формат почты');
+        warning(in_set_email, 'Некорректный формат почты', 'warning');
     }
 }
 
@@ -232,11 +245,11 @@ function input_set_email(in_set_email) {
 function input_set_psw(in_set_psw) {
     let temp = in_set_psw.val();
     if (temp === '') {warning(in_set_psw)}
-    else if (temp.length > 99) { warning(in_set_psw, 'Длина пароля должна быть не больше 99 символов')}
-    else if (temp.length < 8) { warning(in_set_psw, 'Длина пароля должна быть не меньше 8 символов')}
-    else if (!RegExp('[0-9]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать цифры')}
-    else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать буквы')}
-    else if (user_data.login === '') {warning(in_set_psw, 'Смена пароля гостевой записи невозможна')}
+    else if (temp.length > 99) { warning(in_set_psw, 'Длина пароля должна быть не больше 99 символов', 'warning')}
+    else if (temp.length < 8) { warning(in_set_psw, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
+    else if (!RegExp('[0-9]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать цифры', 'warning')}
+    else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать буквы', 'warning')}
+    else if (user_data.login === '') {warning(in_set_psw, 'Смена пароля гостевой записи невозможна', 'warning')}
     else {
         receive('/check_user', function (data) {
             if (data) {

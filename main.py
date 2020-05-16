@@ -1,6 +1,6 @@
 from modules import *
 
-# create_keys() # Обновление ключей (убрать в релизе)
+# create_keys() # Обновление ключей TODO: Разкоментить в релизе
 
 if __name__ == "__main__":
-    tm.run()
+    tm.run(host='127.0.0.1', port=5000)

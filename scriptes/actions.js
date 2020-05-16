@@ -11,7 +11,7 @@ function close_time(selector) {
 
 // Форма при нажатии Enter
 function submit_warn(form) {
-    let warn_inputs = form.children('label.warning').next('input');
+    let warn_inputs = form.children('label.warning, label.empty').next('input');
     warn_inputs.addClass('warning');
     setTimeout(function () {
         warn_inputs.removeClass('warning');

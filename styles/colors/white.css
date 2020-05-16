@@ -10,7 +10,7 @@ header a.center:hover, header span.right:hover, aside menu input {text-shadow: n
 aside menu input {background-color: #fff; border-color: #fff}
 aside menu input.fill {background-color: rgba(255, 255, 255, 0.5)}
 aside menu form button:hover {background-color: #fff}
-#menu_confirm_delete p, #set_login:focus {color: #fff}
+#menu_confirm_delete p, #confirm_email p, #set_login:focus {color: #fff}
 #menu_confirm_delete button, #confirm_email button {background-color: #fff}
 
 header .center:hover {background-color: rgba(0, 0, 0, 0.1)}
@@ -20,6 +20,7 @@ footer span:last-of-type:hover {background-color: rgba(0, 0, 0, 0.1);}
 #set_login:hover {background-color: rgba(0, 0, 0, 0.1)}
 #set_login:focus {background-color: rgba(0, 0, 0, 0.2)}
 
+#avatar {border-color: darkgray}
 #hat svg {fill: darkgray}
 #hat #change_avatar {fill: white}
 @media (min-width: 1001px) { header .right:hover {background-color: rgba(0, 0, 0, 0.1)}}

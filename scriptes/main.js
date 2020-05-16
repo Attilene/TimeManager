@@ -2,12 +2,13 @@ let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
 
 jQuery(document).ready(function () {
+    clear_fields();
     // Советы
     $('aside form input').on('mouseenter', function () {
-        let label = $(this);
-        label.prev().addClass('show');
-        label.one('mouseleave', function () {
-            label.prev().removeClass('show')
+        let input = $(this);
+        input.prev().addClass('show');
+        input.one('mouseleave', function () {
+            input.prev().removeClass('show')
         });
     });
     // Кнопки изменения цвета
@@ -16,8 +17,10 @@ jQuery(document).ready(function () {
     });
     // Указатель выбранной темы
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
-    if (user_logined && user_data.activated === '0') {
-        $('#menu_edit_email, #confirm_email').addClass('nonactive');
-        $('#menu_edit_email').addClass('opened');
+    if (user_logined) {
+        if (!user_data.activated){
+            $('#menu_edit_email, #confirm_email').addClass('nonactive');
+            $('#menu_edit_email').addClass('opened');
+        }
     }
 });

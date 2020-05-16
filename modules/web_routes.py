@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, jsonify, json, session, abort
 from schedule_access import *
 from mail import send_mail
+from security.crypting import get_link
+from werkzeug.security import gen_salt
 import os
 
 
@@ -17,9 +19,10 @@ def user_req(url, img=None):
                     if img: data = request.files.get(img)
                     else: data = request.get_json()
                     if data:
-                        func(users[session['login']], data)
-                    else: func(users[session['login']])
-                    return jsonify(True)
+                        temp = func(users[session['login']], data)
+                    else: temp = func(users[session['login']])
+                    if temp: return temp
+                    else: return jsonify(True)
                 else: abort(505)
             else: abort(505)
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
@@ -30,24 +33,26 @@ def user_req(url, img=None):
 def handler_assignment(error):
     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
 
-
-@tm.errorhandler(502)
-def handler_assignment(error):
-    return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
-
-
-# Запросы
-@tm.route('/test', methods=['POST', 'GET'])
-def req_test():
-    send_mail(tm, 'derbindima5@gmail.com', 'Я машина и я восстал!')
-    return 'success'
+# Запасной перехватчик
+# @tm.errorhandler(502)
+# def handler_assignment(error):
+#     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
 
 
 # Верифицрованные запросы
 @user_req('/send_activation')
-def req_send_activation(now, data):
+def req_send_activation(now):
     """Отправка сообщения для активации"""
-    send_mail(tm)
+    if now.activated: return jsonify('active')
+    else:
+        data = {
+            'title': 'Подтверждение почты',
+            'login': now.log,
+            'link': get_link(now.email),
+            'color': now.color
+        }
+        send_mail(tm, now.email, data)
+        return jsonify('nonactive')
 
 
 @user_req('/change_theme')
@@ -92,7 +97,7 @@ def req_delete_avatar(now):
     """Удаление аватарки"""
     temp_path = f'images/avatars/{now.log}.jpg'
     if os.path.isfile(temp_path):
-        os.remove(temp_path)
+        os.unlink(temp_path)
     return jsonify(True)
 
 
@@ -122,6 +127,18 @@ def req_delete_user(now):
 
 
 # Запросы
+@tm.route('/activate/<link>', methods=['GET'])
+def req_activate(link):
+    temp = User.activate(link)
+    if temp:
+        log = temp[0]
+        users[log] = User(log)
+        session['login'] = log
+        session['token'] = users[log].token
+        session['remember'] = True
+    return redirect('/')
+
+
 @tm.route('/login', methods=['POST'])
 def req_login():
     log, pswsalt, remember = request.get_json()
@@ -136,9 +153,10 @@ def req_login():
             "email": u.email,
             "theme": u.theme,
             "color": u.color,
-            "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg')
+            "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg'),
+            "activated": u.activated
         })
-    else: abort(502)
+    else: redirect('/')
 
 
 @tm.route('/register', methods=['POST'])
@@ -164,14 +182,10 @@ def req_check_user():
     """Проверка существования пользователя"""
     return jsonify(User.check_user(request.get_json()))
 
-#
-# @tm.route('/check_password', methods=['POST'])
-# def req_check_password():
-#     return jsonify(User.check_psw(**request.get_json()))
-#
 
 @tm.route('/check_password', methods=['POST'])
 def req_fast_check_password():
+    """Быстрая проверка пароля"""
     return jsonify(User.fast_check_psw(**request.get_json()))
 
 
@@ -186,24 +200,25 @@ def req_get_page():
 @tm.route('/')
 def page_home():
     session.permanent = True
-    if session.get('remember') and session.get('login') and users.get(session.get('login')):
-        log = session['login']
-        if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
-        else: avatar = ''
-        data = {
-            'profile_html': render_template('profile.html', login=log, avatar=avatar),
-            'login': log,
-            'email': users[log].email,
-            'theme': users[log].theme,
-            'color': users[log].color,
-            'salt': users[log].salt,
-            'activated': users[log].activated,
-            'avatar': avatar
-        }
+    if session.get('remember') and session.get('login') and session.get('token') and users.get(session.get('login')):
+        if session['token'] == users.get(session.get('login')).token:
+            log = session['login']
+            session['token'] = users[log].token = gen_salt(50)
+            if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
+            else: avatar = ''
+            data = {
+                'profile_html': render_template('profile.html', login=log, avatar=avatar),
+                'login': log,
+                'email': users[log].email,
+                'theme': users[log].theme,
+                'color': users[log].color,
+                'salt': users[log].salt,
+                'activated': users[log].activated,
+                'avatar': avatar
+            }
 
-        return render_template("base_log.html", **data)
-    else:
-        if session.get('login'): session.pop('login')
-        if session.get('token'): session.pop('token')
-        if session.get('remember'): session.pop('remember')
-        return render_template("base.html")
+            return render_template("base_log.html", **data)
+    if session.get('login'): session.pop('login')
+    if session.get('token'): session.pop('token')
+    if session.get('remember'): session.pop('remember')
+    return render_template("base.html")
