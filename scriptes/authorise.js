@@ -3,20 +3,33 @@ jQuery(document).ready(function () {
     window.in_email = $('#form_email');
     window.in_pass = $('#form_password');
     window.in_repass = $('#form_repass');
+    window.labels = $('#user label')
 });
 
-function warning(field, text='Поле не должно быть пустым', type='warning') {
+function warning(field, text='', type='empty') {
     if (typeof field === "string") {field = $(field)}
     let label = field.prev();
     if (!label.hasClass(type) || label.text() !== text) {
-        label.removeClass('warning achive').addClass(type);
-        fade_change(label, function () {
+        if (label.hasClass('empty')) {
+            label.removeClass('warning achive empty').addClass(type);
             label.css({width: label.css('width')})
                 .text(text)
-                .animate({
+                .css({
                     width: (25 + (text.length * 9)) + 'px'
-                }, close_time(label));
-        })
+                })
+        }
+        else {
+            label.removeClass('warning achive empty').addClass(type);
+            fade_change(label, function () {
+                if (type !== 'empty') {
+                    label.css({width: label.css('width')})
+                        .text(text)
+                        .animate({
+                            width: (25 + (text.length * 9)) + 'px'
+                        }, close_time(label))
+                } else label.text('')
+            })
+        }
     }
 }
 
@@ -39,11 +52,11 @@ function check_empty() {
 
 function check_cor_pass() {
     let pass = in_pass.val();
-    if (pass === '') {warning(in_pass)}
-    else if (pass.length > 99) { warning(in_pass, 'Длина пароля должна быть не больше 99 символов')}
-    else if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов')}
-    else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры')}
-    else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы')}
+    if (pass === '') {warning(in_pass); toggle_repass('off')}
+    else if (pass.length > 99) { warning(in_pass, 'Длина пароля должна быть не больше 99 символов', 'warning')}
+    else if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
+    else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры', 'warning')}
+    else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы', 'warning')}
     else {let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
         let len = in_pass.val().length;
         if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
@@ -56,10 +69,11 @@ function check_cor_pass() {
     return false
 }
 
-function toggle_repass(toggle='off') {
+function toggle_repass(toggle) {
     if (toggle === 'on') {in_repass.removeAttr('disabled')}
     else {
         if (in_repass.attr('disabled') !== 'disabled') {
+            warning(in_repass);
             in_repass.removeClass('fill');
             setTimeout(function () {
                 fade_change(in_repass, function () {
@@ -79,7 +93,7 @@ function try_log() {
                     warning(in_pass, 'Выполняется вход', 'achive');
                     authorisation(in_login.val(), pswsalt)
                 } else if ($('#form_password').val !== '') {
-                    warning(in_pass, 'Неверный пароль');
+                    warning(in_pass, 'Неверный пароль', 'warning');
                 }
             }, {'log_email': in_login.val(), 'pswsalt': pswsalt})
         }
@@ -92,7 +106,7 @@ function try_log() {
 }
 
 function try_reg() {
-    if (!$('#user label').hasClass('warning')) {
+    if (!labels.hasClass('warning') && !labels.hasClass('empty')) {
         registration()
     }
 }
@@ -102,7 +116,10 @@ function change_auth(mode) {
     if (temp_menu.hasClass(mode)) {return}
     if (temp_menu.hasClass('login')) {temp_menu.addClass(mode).removeClass('login')}
     else if (temp_menu.hasClass('register')) {temp_menu.addClass(mode).removeClass('register')}
-    else if (temp_menu.hasClass('empty')) {temp_menu.addClass(mode).removeClass('empty')}
+    else if (temp_menu.hasClass('empty')) {
+        temp_menu.addClass(mode).removeClass('empty').css({'pointer-events': 'none'});
+        setTimeout(function () {temp_menu.css({'pointer-events': ''})}, close_time(temp_menu))
+    }
 
     $('#remember_me').prop('checked', false);
     switch (mode) {
@@ -137,7 +154,8 @@ function registration() {
         insert_page('#page_day', 'day');
         user_data.login = in_login.val();
         user_data.email = in_email.val();
-        user_data.avatar = false;
+        $('#menu_edit_email, #confirm_email').addClass('nonactive');
+        $('#menu_edit_email').addClass('opened');
         // Закрытие меню
         $('#authorisation span').click();
         let menu = $('#authorisation_menu');
@@ -158,7 +176,7 @@ function registration() {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         user_logined = true;
-        clear_fields()
+        setTimeout(clear_fields, 200)
     });
 }
 
@@ -179,20 +197,24 @@ function authorisation(login, password) {
         // Загрузка аватара
         if (data.avatar) {
             $('#avatar').removeClass('none');
-            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg?img1)`});
-            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg?img1)`})
+            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
+            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
         }
         delete user_data.avatar;
         // Появление кнопок
         $('#authorisation').css({display: 'block'});
         $('header .center, header .right').fadeIn(0);
         $('header').removeClass('logout');
+        if (!data.activated) {
+            $('#menu_edit_email, #confirm_email').addClass('nonactive');
+            $('#menu_edit_email').addClass('opened');
+        }
         // Сбор мусора
         setTimeout(function () {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         user_logined = true;
-        clear_fields()
+        setTimeout(clear_fields, 200)
     }, [login, password, $('#checkbox_remember_me').is(':checked')]);
 }
 
@@ -243,12 +265,12 @@ function click_show_repsw(field) {
             }
         }, in_login.val())
     }
-    else {warning('Длина никнейма не может превышать 33 символа')}
+    else {warning(in_login, 'Длина никнейма не может превышать 33 символа', 'warning')}
 }
 
 function input_email() {
     let temp = in_email.val();
-    if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}.){1,3}(com|by|ru|cc|net|ws)$/.test(temp) && temp.length < 100) {
+    if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}[.]){1,3}(com|by|ru|cc|net|ws)$/.test(temp) && temp.length < 100) {
         warning(in_email, 'Корректный формат почты', 'achive');
         receive('/check_user', function (data) {
             if (data) {
@@ -266,20 +288,18 @@ function input_email() {
             }
         }, temp)
     } else {
-        warning(in_email, 'Некорректный формат почты');
+        warning(in_email, 'Некорректный формат почты', 'warning');
     }
 }
 
 function input_pass() {
-    check_repass();
-    if ($('#authorisation_menu').hasClass('login')) { try_log() }
-    else if (check_cor_pass()) { try_reg() }
+    let menu = $('#authorisation_menu');
+    if (menu.hasClass('login')) try_log();
+    else if (menu.hasClass('register')) check_cor_pass();
 }
 
 function empty_pass() {
-    warning(in_pass);
     toggle_repass('off');
-    check_repass();
 }
 
 function check_repass() {
@@ -287,5 +307,6 @@ function check_repass() {
         warning(in_repass, 'Пароли совпадают', 'achive');
         try_reg()
     }
-    else {warning(in_repass, 'Пароли не совпадают')}
+    else if (in_repass.val() === '') {warning(in_repass)}
+    else {warning(in_repass, 'Пароли не совпадают', 'warning')}
 }

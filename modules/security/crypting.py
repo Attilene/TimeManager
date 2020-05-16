@@ -17,3 +17,14 @@ def decrypt(pswsalt):
     cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
     decrypted = cipher.decrypt(b64decode(pswsalt)).decode('utf-8')
     return decrypted[:64], decrypted[64:]
+
+
+def set_sum(psw, login):
+    b = psw[:64] + login
+    hashing = SHA256.new(b.encode('utf-8'))
+    return hashing.hexdigest()[:64]
+
+
+def get_link(email):
+    hashing = SHA256.new(email.encode('utf-8'))
+    return hashing.hexdigest()[:64]

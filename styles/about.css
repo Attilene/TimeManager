@@ -1,13 +1,23 @@
 #developers * {padding: 0}
 #developers #dev_head, #developers .card_head {font-family: "Comfortaa Bold", sans-serif}
 
+/*#developers {*/
+/*    margin: 10vh auto;*/
+/*    height: max-content;*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(5, 1fr);*/
+/*    grid-gap: 5%;*/
+/*    grid-template-rows: 15% 15% 70%;*/
+/*}*/
+
 #developers {
     margin: 10vh auto;
     height: max-content;
+    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 5%;
     grid-template-rows: 15% 15% 70%;
+    grid-gap: 5%;
 }
 
 #dev_head {
@@ -39,7 +49,9 @@
 }
 
 .card_head:hover {transform: scale(1.1)}
-#developers .card {padding: 0 10px 50px 10px}
+#developers .card {
+    padding: 0 10px 50px 10px;
+}
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.2)}
 
