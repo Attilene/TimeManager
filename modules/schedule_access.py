@@ -1,6 +1,6 @@
 from werkzeug.security import check_password_hash, generate_password_hash, gen_salt
 import sqlite3
-from security.crypting import decrypt, set_sum, get_link
+from security.crypting import decrypt, set_sum, get_link, escepinator
 
 
 class User(object):
@@ -42,7 +42,7 @@ class User(object):
 
     # Возврат данных из БД #
     def __ret_lists(self):
-        User.__exe(f"SELECT * FROM list_{self.log}")
+        User.__exe(f"SELECT * FROM 'list_{escepinator(self.log)}'")
         lists = {}
         for name, task, number in User.__all():
             if name in lists:
@@ -52,11 +52,11 @@ class User(object):
         return lists
 
     def __ret_day(self):
-        User.__exe(f"SELECT * FROM day_{self.log}")
+        User.__exe(f"SELECT * FROM 'day_{escepinator(self.log)}'")
         return list(sorted(User.__all(), key=lambda x: (x[0], x[1])))
 
     def __ret_month(self):
-        User.__exe(f"SELECT * FROM month_{self.log}")
+        User.__exe(f"SELECT * FROM 'month_{escepinator(self.log)}'")
         return list(sorted(User.__all(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
     # Изменение данных пользователя #
@@ -64,9 +64,9 @@ class User(object):
         User.__exe("UPDATE users SET login = ? WHERE login = ?", (log, self.log))
         User.__com()
         User.__scr(f"""
-            ALTER TABLE month_{self.log} RENAME TO month_{log};
-            ALTER TABLE day_{self.log} RENAME TO day_{log};
-            ALTER TABLE list_{self.log} RENAME TO list_{log}
+            ALTER TABLE 'month_{escepinator(self.log)}' RENAME TO 'month_{escepinator(log)}';
+            ALTER TABLE 'day_{escepinator(self.log)}' RENAME TO 'day_{escepinator(log)}';
+            ALTER TABLE 'list_{escepinator(self.log)}' RENAME TO 'list_{escepinator(log)}'
         """)
         self.log = log
 
@@ -88,16 +88,16 @@ class User(object):
         User.__com()
 
     def change_num(self, name, task, new_num):
-        User.__exe(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, task))
+        User.__exe(f"SELECT number FROM 'list_{escepinator(self.log)}' WHERE name = ? AND task = ?", (name, task))
         buf = self.lists[name].pop(self.lists[name].index([task, User.__one()[0]]))
         buf[1] = new_num
         self.lists[name].insert(new_num - 1, buf)
         for i, value in enumerate(self.lists[name], 1):
             self.lists[name][i - 1][1] = i
         for el in self.lists[name]:
-            User.__exe(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, el[0]))
+            User.__exe(f"SELECT number FROM 'list_{escepinator(self.log)}' WHERE name = ? AND task = ?", (name, el[0]))
             if User.__one()[0] != el[1]:
-                User.__exe(f"UPDATE list_{self.log} SET number = ? WHERE name = ? AND task = ?",
+                User.__exe(f"UPDATE 'list_{escepinator(self.log)}' SET number = ? WHERE name = ? AND task = ?",
                            (el[1], name, el[0]))
         User.__com()
 
@@ -105,9 +105,9 @@ class User(object):
         User.__exe("DELETE FROM users WHERE login = ?", (self.log,))
         User.__com()
         User.__scr(f"""
-            DROP TABLE IF EXISTS month_{self.log};
-            DROP TABLE IF EXISTS day_{self.log};
-            DROP TABLE IF EXISTS list_{self.log}
+            DROP TABLE IF EXISTS 'month_{escepinator(self.log)}';
+            DROP TABLE IF EXISTS 'day_{escepinator(self.log)}';
+            DROP TABLE IF EXISTS 'list_{escepinator(self.log)}'
         """)
 
     # Работа с данными #
@@ -115,7 +115,7 @@ class User(object):
     def add_list(self, name, task):
         number = 1
         check_task = False
-        User.__exe(f"SELECT number FROM list_{self.log} WHERE name = ?", (name,))
+        User.__exe(f"SELECT number FROM 'list_{escepinator(self.log)}' WHERE name = ?", (name,))
         num_bd = User.__all()
         if num_bd:
             number = num_bd[-1][0] + 1
@@ -124,49 +124,52 @@ class User(object):
                 if el[0] == task and k == name:
                     check_task = True
         if not check_task:
-            User.__exe(f"INSERT INTO list_{self.log} (name, task, number) VALUES (?, ?, ?)",
+            User.__exe(f"INSERT INTO 'list_{escepinator(self.log)}' (name, task, number) VALUES (?, ?, ?)",
                        (name, task, number))
             User.__com()
             self.lists = User.__ret_lists(self)
 
     def add_day(self, hour, minute, task):
-        User.__exe(f"INSERT INTO day_{self.log} (hour, minute, task) VALUES (?, ?, ?)", (hour, minute, task))
+        User.__exe(f"INSERT INTO 'day_{escepinator(self.log)}' (hour, minute, task) VALUES (?, ?, ?)",
+                   (hour, minute, task))
         User.__com()
         self.day = User.__ret_day(self)
 
     def add_month(self, digit, month, task):
         month = month.lower()
-        User.__exe(f"INSERT INTO month_{self.log} (digit, month, task) VALUES (?, ?, ?)", (digit, month, task))
+        User.__exe(f"INSERT INTO 'month_{escepinator(self.log)}' (digit, month, task) VALUES (?, ?, ?)",
+                   (digit, month, task))
         User.__com()
         self.month = User.__ret_month(self)
 
     # Удаление #
     def del_list_task(self, name, task, number):
-        User.__exe(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ? AND number = ?",
+        User.__exe(f"DELETE FROM 'list_{escepinator(self.log)}' WHERE name = ? AND task = ? AND number = ?",
                    (name, task, number))
         self.lists[name].remove([task, number])
         if len(self.lists[name]) == 0:
             del self.lists[name]
-            User.__exe(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
+            User.__exe(f"DELETE FROM 'list_{escepinator(self.log)}' WHERE name = ?", (name,))
         else:
             for i, value in enumerate(self.lists[name], 1):
                 self.lists[name][i - 1][1] = i
             for el in self.lists[name]:
-                User.__exe(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, el[0]))
+                User.__exe(f"SELECT number FROM 'list_{escepinator(self.log)}' WHERE name = ? AND task = ?",
+                           (name, el[0]))
                 if User.__one()[0] != el[1]:
-                    User.__exe(f"UPDATE list_{self.log} SET number = ? WHERE name = ? AND task = ?",
+                    User.__exe(f"UPDATE 'list_{escepinator(self.log)}' SET number = ? WHERE name = ? AND task = ?",
                                (el[1], name, el[0]))
         User.__com()
 
     def del_list(self, name):
         if name in self.lists:
-            User.__exe(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
+            User.__exe(f"DELETE FROM 'list_{escepinator(self.log)}' WHERE name = ?", (name,))
             User.__com()
             self.lists.pop(name)
 
     def del_day(self, hour, minute, task):
         if (hour, minute, task) in self.day:
-            User.__exe(f"DELETE FROM day_{self.log} WHERE hour = ? AND minute = ? AND task = ?",
+            User.__exe(f"DELETE FROM 'day_{escepinator(self.log)}' WHERE hour = ? AND minute = ? AND task = ?",
                        (hour, minute, task))
             User.__com()
             self.day.remove((hour, minute, task))
@@ -174,7 +177,7 @@ class User(object):
     def del_month(self, digit, month, task):
         month = month.lower()
         if (digit, month, task) in self.month:
-            User.__exe(f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?",
+            User.__exe(f"DELETE FROM 'month_{escepinator(self.log)}' WHERE digit = ? AND month = ? AND task = ?",
                        (digit, month, task))
             User.__com()
             self.month.remove((digit, month, task))
@@ -233,9 +236,9 @@ class User(object):
             (log, email, hashed_psw, theme, color, salt, get_link(email), set_sum(psw, log), False))
         User.__com()
         User.__scr(f"""
-            CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task TEXT);
-            CREATE TABLE IF NOT EXISTS day_{log} (hour INTEGER, minute INTEGER, task TEXT);
-            CREATE TABLE IF NOT EXISTS list_{log} (name TEXT, task TEXT, number INTEGER)
+            CREATE TABLE IF NOT EXISTS 'month_{escepinator(log)}' (digit INTEGER, month VARCHAR(30), task TEXT);
+            CREATE TABLE IF NOT EXISTS 'day_{escepinator(log)}' (hour INTEGER, minute INTEGER, task TEXT);
+            CREATE TABLE IF NOT EXISTS 'list_{escepinator(log)}' (name TEXT, task TEXT, number INTEGER)
         """)
 
     @staticmethod
@@ -250,9 +253,9 @@ class User(object):
         log_list = User.__all()
         if len(log_list) > 0:
             for log in log_list:
-                User.__scr(f"""DROP TABLE IF EXISTS list_{log[0]};
-                    DROP TABLE IF EXISTS month_{log[0]};
-                    DROP TABLE IF EXISTS day_{log[0]}""")
+                User.__scr(f"""DROP TABLE IF EXISTS 'list_{escepinator(log[0])}';
+                    DROP TABLE IF EXISTS 'month_{escepinator(log[0])}';
+                    DROP TABLE IF EXISTS 'day_{escepinator(log[0])}'""")
         User.__exe("DELETE FROM users")
         User.__com()
         print('Очистка базы данных завершена успешно')
