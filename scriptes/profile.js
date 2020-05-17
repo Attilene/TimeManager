@@ -199,11 +199,21 @@ function click_active() {
         else {alert('На почту ' + user_data.email + ' выслано письмо для активации')}
     })
 }
+
 function click_restore() {
-    receive('/send_restore', function(data) {
-         {alert('На почту ' + data + ' выслано письмо для изменения пароля')}
+    receive('/check_restore', function(data) {
+        if (data[0]) alert('На почту ' + data + ' выслано письмо для изменения пароля');
+        else {
+            let agree = confirm('Почта ' + data[1] + ' не подтверждена.\n' +
+                'Владелец данной почты сможет получить доступ к профилю\n' +
+                'Запросить восстановление пароля?');
+            if (agree) receive('/send_restore', function (data) {
+                alert('На почту ' + data + ' выслано письмо для изменения пароля');
+            }, $('#form_login').val())
+        }
     }, $('#form_login').val())
 }
+
 function click_show_psw(field) {
     if (field.hasClass('show_psw')) {
         field.removeClass('show_psw');

@@ -60,11 +60,6 @@ class User(object):
         return list(sorted(User.__all(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
 
     # Изменение данных пользователя #
-    def check_activate(self):
-        User.__exe("SELECT activated FROM users WHERE login = ?", self.log)
-        self.activated = User.__one() == (1, )
-        return self.activated
-
     def change_log(self, log):
         User.__exe("UPDATE users SET login = ? WHERE login = ?", (log, self.log))
         User.__com()
@@ -201,7 +196,7 @@ class User(object):
     @staticmethod
     def find_link(log_email):
         """Выдача данных по логину пользователя"""
-        User.__exe("SELECT login, email, color FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        User.__exe("SELECT login, email, color, activated FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         return User.__one()
 
     @staticmethod

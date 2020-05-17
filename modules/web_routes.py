@@ -1,15 +1,21 @@
-from flask import Flask, render_template, request, redirect, jsonify, json, session, abort
-from schedule_access import *
-from mail import send_mail
-from security.crypting import get_link
-from werkzeug.security import gen_salt
 import os
+import sys
+from threading import Thread
+
+from flask import Flask, render_template, request, redirect, jsonify, session, abort
+from flask_mail import Mail, Message
+from flask_script import Manager, Shell
+
+from mail import send_mail
+from schedule_access import *
+from security.crypting import get_link
 
 
 tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
 tm.config.from_object('config.Config')
+mail = Mail(tm)
+manager = Manager(tm)
 users = {}
-
 
 def user_req(url, img=None):
     def wrap(func):
@@ -33,10 +39,25 @@ def user_req(url, img=None):
 def handler_assignment(error):
     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
 
+
 # Запасной перехватчик
 # @tm.errorhandler(502)
 # def handler_assignment(error):
 #     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
+
+
+col = {'red': '#ff6464', 'blue': '#6464ff', 'green': '#46aa46', 'purple': '#b450b4', 'sky': '#55c0bb', 'black': '#000', 'white': '#000'}
+
+
+def shell_context(): return dict(app=tm, os=os, sys=sys)
+
+
+def async_send_mail(a, m):
+    with a.app_context():
+        mail.send(m)
+
+
+manager.add_command("shell", Shell(make_context=shell_context))
 
 
 # Верифицрованные запросы
@@ -50,9 +71,12 @@ def req_send_activation(now):
             'button': 'Активировать',
             'login': now.log,
             'link': "http://127.0.0.1:5000/activate/" + get_link(now.email),
-            'color': now.color
+            'color': col[now.color]
         }
-        send_mail(tm, now.email, data)
+        msg = Message(data['title'], recipients=[now.email])
+        msg.html = render_template('mail.html', **data)
+        thr = Thread(target=async_send_mail, args=[tm, msg])
+        thr.start()
         return jsonify('nonactive')
 
 
@@ -78,7 +102,7 @@ def req_change_email(now, data):
 def req_change_pass(now, data):
     """Изменение имени пользователя"""
     now.change_pass(data)
-    users[log]._restore = 0
+    users[now.log]._restore = 0
 
 
 @user_req('/change_avatar', 'img')
@@ -135,6 +159,7 @@ def req_activate(link):
 
 @tm.route('/restore/<link>', methods=['GET'])
 def req_restore(link):
+    User.activate(link)
     temp = User.restore(link)
     if temp:
         log = temp[0]
@@ -146,18 +171,29 @@ def req_restore(link):
     return redirect('/')
 
 
-@tm.route('/send_restore', methods=['POST'])
-def req_send_restore():
-    """Отправка сообщения для активации"""
+@tm.route('/check_restore', methods=['POST'])
+def req_check_restore():
+    """Проверка активации"""
     temp = User.find_link(request.get_json())
+    if temp[3]: return req_send_restore(temp)
+    else: return jsonify(False, temp[1])
+
+
+@tm.route('/send_restore', methods=['POST'])
+def req_send_restore(temp=None):
+    """Отправка сообщения для активации"""
+    if temp is None: temp = User.find_link(request.get_json())
     data = {
         'title': 'Восстановление пароля',
         'button': 'Изменить',
         'login': temp[0],
         'link': "http://127.0.0.1:5000/restore/" + get_link(temp[1]),
-        'color': temp[2]
+        'color': col[temp[2]]
     }
-    send_mail(tm, temp[1], data)
+    msg = Message(data['title'], recipients=[temp[1]])
+    msg.html = render_template('mail.html', **data)
+    thr = Thread(target=async_send_mail, args=[tm, msg])
+    thr.start()
     return jsonify(temp[1])
 
 
