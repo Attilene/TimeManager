@@ -9,11 +9,11 @@ class User(object):
     else:
         __conn = sqlite3.connect(f"databases/schedule.db", check_same_thread=False)
     __cur = __conn.cursor()
-    __exe = __cur.execute
-    __scr = __cur.executescript
-    __com = __conn.commit
-    __one = __cur.fetchone
-    __all = __cur.fetchall
+    __exe = __cur.execute  # Создать одиночный запрос
+    __scr = __cur.executescript  # Создать скрипт
+    __com = __conn.commit  # Применить скрипт (коммит)
+    __one = __cur.fetchone  # Получить строку данных
+    __all = __cur.fetchall  # Получить все данные
     __exe("""
             CREATE TABLE IF NOT EXISTS users(
                 login      VARCHAR(50), 
