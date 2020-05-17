@@ -98,7 +98,7 @@ class User(object):
             User.__exe(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, el[0]))
             if User.__one()[0] != el[1]:
                 User.__exe(f"UPDATE list_{self.log} SET number = ? WHERE name = ? AND task = ?",
-                                   (el[1], name, el[0]))
+                           (el[1], name, el[0]))
         User.__com()
 
     def del_user(self):
@@ -125,7 +125,7 @@ class User(object):
                     check_task = True
         if not check_task:
             User.__exe(f"INSERT INTO list_{self.log} (name, task, number) VALUES (?, ?, ?)",
-                               (name, task, number))
+                       (name, task, number))
             User.__com()
             self.lists = User.__ret_lists(self)
 
@@ -143,11 +143,11 @@ class User(object):
     # Удаление #
     def del_list_task(self, name, task, number):
         User.__exe(f"DELETE FROM list_{self.log} WHERE name = ? AND task = ? AND number = ?",
-                           (name, task, number))
+                   (name, task, number))
         self.lists[name].remove([task, number])
         if len(self.lists[name]) == 0:
             del self.lists[name]
-            User.__exe(f"DELETE FROM list_{self.log} WHERE name = ?", (name, ))
+            User.__exe(f"DELETE FROM list_{self.log} WHERE name = ?", (name,))
         else:
             for i, value in enumerate(self.lists[name], 1):
                 self.lists[name][i - 1][1] = i
@@ -155,7 +155,7 @@ class User(object):
                 User.__exe(f"SELECT number FROM list_{self.log} WHERE name = ? AND task = ?", (name, el[0]))
                 if User.__one()[0] != el[1]:
                     User.__exe(f"UPDATE list_{self.log} SET number = ? WHERE name = ? AND task = ?",
-                                       (el[1], name, el[0]))
+                               (el[1], name, el[0]))
         User.__com()
 
     def del_list(self, name):
@@ -167,7 +167,7 @@ class User(object):
     def del_day(self, hour, minute, task):
         if (hour, minute, task) in self.day:
             User.__exe(f"DELETE FROM day_{self.log} WHERE hour = ? AND minute = ? AND task = ?",
-                               (hour, minute, task))
+                       (hour, minute, task))
             User.__com()
             self.day.remove((hour, minute, task))
 
@@ -175,7 +175,7 @@ class User(object):
         month = month.lower()
         if (digit, month, task) in self.month:
             User.__exe(f"DELETE FROM month_{self.log} WHERE digit = ? AND month = ? AND task = ?",
-                               (digit, month, task))
+                       (digit, month, task))
             User.__com()
             self.month.remove((digit, month, task))
 
@@ -184,19 +184,20 @@ class User(object):
         """Выдача логина по ссылке и активация"""
         User.__exe("UPDATE users SET activated = ? WHERE link = ?", (True, link))
         User.__com()
-        User.__exe("SELECT login FROM users WHERE link = ?", (link, ))
+        User.__exe("SELECT login FROM users WHERE link = ?", (link,))
         return User.__one()
 
     @staticmethod
     def restore(link):
         """Выдача логина и активации по ссылке"""
-        User.__exe("SELECT login, activated FROM users WHERE link = ?", (link, ))
+        User.__exe("SELECT login, activated FROM users WHERE link = ?", (link,))
         return User.__one()
 
     @staticmethod
     def find_link(log_email):
         """Выдача данных по логину пользователя"""
-        User.__exe("SELECT login, email, color, activated FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        User.__exe("SELECT login, email, color, activated FROM users WHERE login = ? OR email = ?",
+                   (log_email, log_email))
         return User.__one()
 
     @staticmethod
@@ -204,7 +205,7 @@ class User(object):
         """Проверка существования пользователя"""
         User.__exe("SELECT (salt) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         return User.__one()
-    
+
     @staticmethod
     def fast_check_psw(log_email, pswsalt):
         """Быстрая проверка пароля"""
@@ -221,7 +222,6 @@ class User(object):
             return False
         return check_password_hash(temp[0], ''.join(decrypt(pswsalt))[:-1])
 
-
     @staticmethod
     def registration(log, email, pswsalt, theme, color):
         """Регистрация"""
@@ -235,7 +235,7 @@ class User(object):
         User.__scr(f"""
             CREATE TABLE IF NOT EXISTS month_{log} (digit INTEGER, month VARCHAR(30), task TEXT);
             CREATE TABLE IF NOT EXISTS day_{log} (hour INTEGER, minute INTEGER, task TEXT);
-            CREATE TABLE IF NOT EXISTS list_{log} (name INTEGER, task TEXT, number INTEGER)
+            CREATE TABLE IF NOT EXISTS list_{log} (name TEXT, task TEXT, number INTEGER)
         """)
 
     @staticmethod
@@ -256,7 +256,6 @@ class User(object):
         User.__exe("DELETE FROM users")
         User.__com()
         print('Очистка базы данных завершена успешно')
-
 
 # User._erase()
 # Создание таблицы-----------------------------------------------------------------------------------------
