@@ -28,12 +28,12 @@
 
 <body>
     <header class="logout">
-        <span class="left" onclick="if (!user_logined) {guest_auth()}">
+        <span class="left" onmousedown="if (!user_logined) {guest_auth()}">
             <a>Time Manager</a>
         </span>
-        <a class="center" id="button_lists" onclick="change_page($(this))">Списки</a>
-        <a class="center" id="button_day" onclick="change_page($(this))">Расписание</a>
-        <a class="center" id="button_month" onclick="change_page($(this))">Дедлайны</a>
+        <a class="center" id="button_lists" onmousedown="change_page($(this))">Списки</a>
+        <a class="center" id="button_day" onmousedown="change_page($(this))">Расписание</a>
+        <a class="center" id="button_month" onmousedown="change_page($(this))">Дедлайны</a>
         <span class="right" id="button_profile"  onmousedown="toggle_aside($('#profile_menu'))">
             <a>
                 <div class="nickname"></div>
@@ -64,7 +64,7 @@
         <span class="right"
               id="button_about"
               title="Установили Касперский и не паримся насчёт короновируса"
-              onclick="change_page($(this))"
+              onmousedown="change_page($(this))"
         >
             <a>Разработчики</a>
         </span>

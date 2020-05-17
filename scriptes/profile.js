@@ -1,7 +1,7 @@
 // Показ и скрытие меню
 function toggle_aside(menu) {
     if (menu.hasClass('opened')) {
-        $('body').off('click');
+        $('body').off('mousedown');
         menu.addClass('closed');
         // Сбор мусора
         setTimeout(function () {
@@ -14,21 +14,23 @@ function toggle_aside(menu) {
                 setTimeout(function () {$('#form_login').focus()}, 1)
             }
         });
-        $('body').off('click');
+        $('body').off('mousedown');
         hide_click(menu);
     }
 }
 
 // Сворачивание при клике в другой зоне
 function hide_click (menu) {
-    $('body').one('click', function hide_menu(event){
-        if (menu.hasClass('opened') &&
-            $('header .right').has(event.target).length === 0 &&
-            !$('#button_authorisation').is(event.target) &&
-            menu.has(event.target).length === 0 &&
-            !menu.is(event.target))
-        {toggle_aside(menu)}
-        else hide_click(menu)
+    $('body').one('mousedown', function hide_menu(event){
+        if (menu.hasClass('opened')) {
+            if ($('header .right').has(event.target).length === 0 &&
+                !$('#button_authorisation').is(event.target) &&
+                menu.has(event.target).length === 0 &&
+                !menu.is(event.target)) {
+                toggle_aside(menu)
+            } else hide_click(menu)
+        }
+        else {$('body').off('mousedown')}
     });
 }
 
@@ -60,13 +62,18 @@ function hide_set_click (button, area) {
     if (typeof area === "string") {area = $(area)}
     $('body').one('mousedown', function (event){
         if ($(area).hasClass('opened')) {
+            let menu = $('#profile_menu');
+            if (!menu.is(event.target) && !menu.has(event.target)) {
+                toggle_aside(menu);
+            }
             if ((area.has(event.target).length > 0) || (area.is(event.target))) {
                 hide_set_click(button, area)
             }
-            else if (!(button === event.target)) {
+            else if (button !== event.target) {
                 toggle_set_menu(button, area)
             }
         }
+        else {$('body').off('mousedown')}
     });
 }
 
@@ -191,6 +198,11 @@ function click_active() {
         }
         else {alert('На почту ' + user_data.email + ' выслано письмо для активации')}
     })
+}
+function click_restore() {
+    receive('/send_restore', function(data) {
+         {alert('На почту ' + data + ' выслано письмо для изменения пароля')}
+    }, $('#form_login').val())
 }
 function click_show_psw(field) {
     if (field.hasClass('show_psw')) {

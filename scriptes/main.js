@@ -22,5 +22,9 @@ jQuery(document).ready(function () {
             $('#menu_edit_email, #confirm_email').addClass('nonactive');
             $('#menu_edit_email').addClass('opened');
         }
+        if (restore) {
+            toggle_aside($('#profile_menu'));
+            toggle_set_menu($('#btn_change_pass'), $('#menu_edit_psw'))
+        }
     }
 });

@@ -196,7 +196,7 @@ main {
 	position: absolute;
 	top: 30px;
 	left: 0;
-	height: calc(100% - 90px);
+	height: calc(100% - 70px);
 	width: 100%;
 	padding: 0;
 	overflow: auto;
@@ -239,6 +239,7 @@ main.opened {
 	display: block;
 	opacity: 1;
 	top: 50px;
+	height: calc(100% - 90px);
 	transition: 0.3s ease;
 }
 

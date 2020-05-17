@@ -38,7 +38,7 @@ class User(object):
         self.lists = User.__ret_lists(self)
         self.day = User.__ret_day(self)
         self.month = User.__ret_month(self)
-        self.new_email = False
+        self._restore = 0
 
     # Возврат данных из БД #
     def __ret_lists(self):
@@ -191,7 +191,19 @@ class User(object):
         User.__com()
         User.__exe("SELECT login FROM users WHERE link = ?", (link, ))
         return User.__one()
-            
+
+    @staticmethod
+    def restore(link):
+        """Выдача логина и активации по ссылке"""
+        User.__exe("SELECT login, activated FROM users WHERE link = ?", (link, ))
+        return User.__one()
+
+    @staticmethod
+    def find_link(log_email):
+        """Выдача данных по логину пользователя"""
+        User.__exe("SELECT login, email, color FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        return User.__one()
+
     @staticmethod
     def check_user(log_email):
         """Проверка существования пользователя"""
@@ -214,13 +226,6 @@ class User(object):
             return False
         return check_password_hash(temp[0], ''.join(decrypt(pswsalt))[:-1])
 
-    # @staticmethod TODO: Доделать
-    # def restore(email):
-    #     User.__exe("SELECT (login, ) FROM users WHERE email=?", (email,))
-    #     if email is None:
-    #         return User.__one()[0]
-    #     else:
-    #         return User.__one() is not None
 
     @staticmethod
     def registration(log, email, pswsalt, theme, color):

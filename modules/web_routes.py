@@ -49,7 +49,7 @@ def req_send_activation(now):
             'title': 'Подтверждение почты',
             'button': 'Активировать',
             'login': now.log,
-            'link': get_link(now.email),
+            'link': "http://127.0.0.1:5000/activate/" + get_link(now.email),
             'color': now.color
         }
         send_mail(tm, now.email, data)
@@ -60,28 +60,25 @@ def req_send_activation(now):
 def req_change_theme(now, data):
     """Изменение темы"""
     now.change_theme(*data.split())
-    return jsonify(True)
 
 
 @user_req('/change_log')
 def req_change_log(now, data):
     """Изменение имени пользователя"""
     now.change_log(data)
-    return jsonify(True)
 
 
 @user_req('/change_email')
 def req_change_email(now, data):
     """Изменение имени пользователя"""
     now.change_email(data)
-    return jsonify(True)
 
 
 @user_req('/change_pass')
 def req_change_pass(now, data):
     """Изменение имени пользователя"""
     now.change_pass(data)
-    return jsonify(True)
+    users[log]._restore = 0
 
 
 @user_req('/change_avatar', 'img')
@@ -90,7 +87,6 @@ def req_change_avatar(now, file):
     temp_path = f'images/avatars/{now.log}.jpg'
     with open(temp_path, 'wb') as open_file:
         open_file.write(file.read())
-    return jsonify(True)
 
 
 @user_req('/delete_avatar')
@@ -99,7 +95,6 @@ def req_delete_avatar(now):
     temp_path = f'images/avatars/{now.log}.jpg'
     if os.path.isfile(temp_path):
         os.unlink(temp_path)
-    return jsonify(True)
 
 
 @user_req('/logout')
@@ -110,7 +105,6 @@ def req_logout(now):
     session.pop('token')
     session.pop('remember')
     User.authorisation = False
-    return jsonify(True)
 
 
 @user_req('/delete_user')
@@ -124,7 +118,6 @@ def req_delete_user(now):
     session.pop('token')
     session.pop('remember')
     User.authorisation = False
-    return jsonify(True)
 
 
 # Запросы
@@ -137,6 +130,34 @@ def req_activate(link):
         session['login'] = log
         session['token'] = users[log].token
         session['remember'] = True
+    return redirect('/')
+
+
+@tm.route('/send_restore', methods=['POST'])
+def req_send_restore():
+    """Отправка сообщения для активации"""
+    temp = User.find_link(request.get_json())
+    data = {
+        'title': 'Восстановление пароля',
+        'button': 'Изменить',
+        'login': temp[0],
+        'link': "http://127.0.0.1:5000/restore/" + get_link(temp[1]),
+        'color': temp[2]
+    }
+    send_mail(tm, temp[1], data)
+    return jsonify(temp[1])
+
+
+@tm.route('/restore/<link>', methods=['GET'])
+def req_restore(link):
+    temp = User.restore(link)
+    if temp:
+        log = temp[0]
+        users[log] = User(log)
+        session['login'] = log
+        session['token'] = users[log].token
+        session['remember'] = True
+        users[log]._restore = 1
     return redirect('/')
 
 
@@ -169,7 +190,6 @@ def req_register():
     session['login'] = temp['log']
     session['token'] = users[temp['log']].token
     session['remember'] = remember
-    return jsonify(True)
 
 
 @tm.route('/get_key', methods=['POST'])
@@ -205,17 +225,21 @@ def page_home():
         if session['token'] == users.get(session.get('login')).token:
             log = session['login']
             session['token'] = users[log].token = gen_salt(50)
+            if users[log]._restore:
+                restore = 1
+            else: restore = 0
             if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
             else: avatar = ''
             data = {
                 'profile_html': render_template('profile.html', login=log, avatar=avatar),
-                'login': log,
-                'email': users[log].email,
-                'theme': users[log].theme,
-                'color': users[log].color,
-                'salt': users[log].salt,
-                'activated': users[log].activated,
-                'avatar': avatar
+                'login':        log,
+                'email':        users[log].email,
+                'theme':        users[log].theme,
+                'color':        users[log].color,
+                'salt':         users[log].salt,
+                'activated':    users[log].activated,
+                'restore':      restore,
+                'avatar':       avatar
             }
 
             return render_template("base_log.html", **data)
