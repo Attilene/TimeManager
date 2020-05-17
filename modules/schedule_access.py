@@ -242,7 +242,7 @@ class User(object):
         """)
 
     @staticmethod
-    def _erase():
+    def big_red_button():
         """Стирание всех пользователей"""
         User.__exe("SELECT login FROM users")
         import os
