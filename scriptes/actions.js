@@ -16,6 +16,7 @@ function submit_warn(form) {
     setTimeout(function () {
         warn_inputs.removeClass('warning');
     }, 300);
+    return false
 }
 
 // Анимированная смена

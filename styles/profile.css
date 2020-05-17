@@ -183,6 +183,8 @@ aside menu p:hover {transform: scale(1.1)}
     pointer-events: visible;
     opacity: 1;
 }
+
+#confirm_email p:last-of-type {color: #ff6464}
 /*------------------------------------------------*/
 /*--------------------Инпуты----------------------*/
 aside menu input {
@@ -229,8 +231,7 @@ aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; o
 aside label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
 
 label[for=set_login] {top: 4px}
-label[for=set_email] {top: 13px}
-label[for=set_psw] {top: 13px}
+label[for=set_email], label[for=set_psw] {top: 53px}
 /*--------------------------------------------------*/
 /*-----------------Кнопочки-------------------*/
 aside menu input+button {

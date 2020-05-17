@@ -133,6 +133,19 @@ def req_activate(link):
     return redirect('/')
 
 
+@tm.route('/restore/<link>', methods=['GET'])
+def req_restore(link):
+    temp = User.restore(link)
+    if temp:
+        log = temp[0]
+        users[log] = User(log)
+        session['login'] = log
+        session['token'] = users[log].token
+        session['remember'] = True
+        users[log]._restore = 1
+    return redirect('/')
+
+
 @tm.route('/send_restore', methods=['POST'])
 def req_send_restore():
     """Отправка сообщения для активации"""
@@ -146,19 +159,6 @@ def req_send_restore():
     }
     send_mail(tm, temp[1], data)
     return jsonify(temp[1])
-
-
-@tm.route('/restore/<link>', methods=['GET'])
-def req_restore(link):
-    temp = User.restore(link)
-    if temp:
-        log = temp[0]
-        users[log] = User(log)
-        session['login'] = log
-        session['token'] = users[log].token
-        session['remember'] = True
-        users[log]._restore = 1
-    return redirect('/')
 
 
 @tm.route('/login', methods=['POST'])
@@ -178,7 +178,7 @@ def req_login():
             "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg'),
             "activated": u.activated
         })
-    else: redirect('/')
+    else: return redirect('/')
 
 
 @tm.route('/register', methods=['POST'])
@@ -190,6 +190,7 @@ def req_register():
     session['login'] = temp['log']
     session['token'] = users[temp['log']].token
     session['remember'] = remember
+    return jsonify(True)
 
 
 @tm.route('/get_key', methods=['POST'])

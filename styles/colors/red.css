@@ -15,3 +15,4 @@ aside menu p, #set_login:focus {color: #ff6464}
 
 aside #menu_confirm_delete button.yes {background-color: #ff0000 !important;}
 aside menu form input.warning, #set_login.warning {border-color: #ff0000 !important}
+#confirm_email p:last-of-type {color: #ff0000 !important;}
