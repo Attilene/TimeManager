@@ -75,7 +75,6 @@ header .center {
 
 header .center:hover, header .center:hover {
 	transform: scale(1.1);
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	background: rgba(255, 255, 255, 0.2);
 }
 /*--------------------------------------------*/
@@ -141,7 +140,6 @@ header .right .avatar {
 @media (min-width: 1200px) { /* Анимации для большого окна*/
 	header .right:hover, header .right:active {
 		transform: scale(1.05);
-		text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
 	}
@@ -180,7 +178,6 @@ footer .right {
 }
 
 footer .right:hover, footer .right:active {
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	background: rgba(255, 255, 255, 0.2);
 }
 
