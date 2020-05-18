@@ -30,6 +30,10 @@
     height: 60px;
     justify-self: center;
     border-radius: 30px;
+    grid-gap: 5%;
+    gap: 5%;
+    column-gap: 5%;
+    row-gap: 5%;
 }
 
 #dev_head:hover {transform: scale(1.05)}
@@ -47,10 +51,18 @@
     padding: 0;
     height: 60px;
     border-radius: 30px;
+    grid-gap: 5%;
+    gap: 5%;
+    column-gap: 5%;
+    row-gap: 5%;
 }
 
 .card_head:hover {transform: scale(1.1)}
 #developers .card {
+    grid-gap: 5%;
+    gap: 5%;
+    column-gap: 5%;
+    row-gap: 5%;
     padding: 0 10px 50px 10px;
 }
 #developers .card p {margin: 10px}
