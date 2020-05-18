@@ -1,0 +1,89 @@
+div.body * {
+    font-family: "Comfortaa Bold", "Comic Sans MS", sans-serif;
+    font-size: 1.1em;
+}
+
+div.body {
+    margin: 20px auto 0;
+    width: 70%;
+    min-width: 700px;
+}
+
+.day div {
+    margin: 4vh 0;
+    min-height: 40px;
+}
+
+.day form {
+    display: inline-grid;
+    grid-template-columns: 80px auto;
+    float: left;
+    width: 91%;
+    padding: 4px;
+    border-radius: 20px;
+    background: blue;
+}
+
+.day .time {
+    display: inline-grid;
+    grid-template-columns: 40% auto 40%;
+    color: blue;
+    padding: 0 7px;
+    margin: 0;
+    border-radius: 17px;
+    background: white;
+}
+
+.time {
+    height: 100%;
+    position: relative;
+}
+
+.time span {
+    position: absolute;
+    top: calc(50% - 17px)
+}
+
+.day .time span * {
+    text-align: center;
+    justify-self: center;
+}
+
+.day .time span input {
+    font-size: 1.2em;
+    color: blue;
+    width: 30px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.hours {float: left; grid-row: 0}
+.minutes {float: right; grid-row: 2}
+
+.body .task {
+    text-align: center;
+    padding: 0 10px;
+    margin: 0 0 0 10px;
+    width: calc(100% - 33px);
+    height: 34px;
+    min-height: 34px;
+    line-height: 34px;
+    resize: vertical;
+    background: none;
+    border: none;
+    border-radius: 17px;
+}
+
+.body .task::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.body div button {
+    width: 40px;
+    height: 40px;
+    background: blue;
+    border: none;
+    border-radius: 20px;
+}

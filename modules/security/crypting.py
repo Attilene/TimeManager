@@ -29,5 +29,6 @@ def get_link(email):
     hashing = SHA256.new(email.encode('utf-8'))
     return hashing.hexdigest()[:64]
 
+
 def escepinator(s):
     return s.replace('\'', '\'\'')
