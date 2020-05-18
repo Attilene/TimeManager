@@ -9,7 +9,8 @@ aside menu div.theme::before {color: #6464ff}
 @-webkit-keyframes autofill {to {background-color: rgba(100, 100, 255, 0.5)}}
 aside menu input {background-color: #6464ff; border-color: #6464ff}
 aside menu input.fill, #restore:hover {background-color: rgba(100, 100, 255, 0.5)}
-aside menu form button:hover {background-color: #6464ff}
-aside menu p, #set_login:focus {color: #6464ff}
-#menu_confirm_delete button, #confirm_email button {background-color: #6464ff}
+aside menu form button:hover, .time input:hover, .time input:focus {background-color: #6464ff}
+aside menu p, #set_login:focus, .time input, .time  {color: #6464ff}
+#menu_confirm_delete button, #confirm_email button, .item .bout button {background-color: #6464ff}
+.item textarea {background-color: rgba(100, 100, 255, 0.5); border-color: #6464ff}
 

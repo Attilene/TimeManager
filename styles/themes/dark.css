@@ -11,6 +11,8 @@ aside menu div.dark {background: #808080;}
 aside menu input {text-shadow: none}
 #authorisation_menu #checkbox_remember_me:checked~#remember_me {border: 3px solid #4b4b4b}
 aside input:disabled {background: rgba(245, 245, 245, 0.5); border: 3px solid rgba(235, 235, 235, 0.5)}
-#hat svg {fill: darkgray}
+svg {fill: darkgray}
+#avatar:hover #avatar_inside {filter: brightness(110%)}
+.time input:hover, .time input:focus {color: darkgray}
 
 *:hover, label, input {text-shadow: none !important}

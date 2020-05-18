@@ -28,38 +28,50 @@ div.body {
 
 
 .time input {
-    color: blue;
     font-size: 1.2em;
     padding: 0;
     background: none;
     border: none;
     line-height: 40px;
     border-radius: 20px;
-    transition: 0.2s ease-in-out;
 }
 
 .time input:hover, .time input:focus {
-    color: white;
     background-color: #55c0bb;
 }
 
 .item textarea {
     resize: vertical;
     padding: 0;
+    box-sizing: border-box;
     height: 40px;
-    line-height: 40px;
+    line-height: 34px;
     min-height: 40px;
-    background-color: blue;
     border-radius: 20px;
+    border-bottom-right-radius: 10px;
+    border: 3px solid white;
 }
 
-.item textarea::placeholder {}
 
-
-
-
+.item .bout {
+    height: 40px;
+}
 
 .item .bout button {
     height: 40px;
     width: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+}
+
+.bout svg {
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.time input, textarea {
+    transition: 0.2s ease-in-out;
+    transition-property: color, background-color;
 }

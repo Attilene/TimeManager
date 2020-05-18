@@ -17,7 +17,6 @@ aside {
 
 /*---------------Шапка------------------------*/
 #hat {width: 100%; height: 170px}
-#hat svg {fill: white}
 /*---------------Заголовок--------------------*/
 #set_login {
     text-align: center;
@@ -79,7 +78,7 @@ aside {
     border-radius: 50%;
 }
 
-#avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px) brightness(80%)}
+#avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px)}
 /*---------------Внутренности--------------------*/
 #avatar svg, #avatar hr {position: absolute; transform: scale(0.7); opacity: 0}
 

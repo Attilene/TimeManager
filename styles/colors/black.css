@@ -9,9 +9,10 @@ aside menu div.theme::before {color: #000}
 @-webkit-keyframes autofill {to {background: rgba(0, 0, 0, 0.5)}}
 aside menu input {background-color: #000; border-color: #000}
 aside menu input.fill, #restore:hover {background-color: rgba(0, 0, 0, 0.5)}
-aside menu form button:hover {background-color: #000}
-aside menu p, #set_login:focus {color: #000}
-#menu_confirm_delete button, #confirm_email button {background-color: #000}
+aside menu form button:hover, .time input:hover, .time input:focus {background-color: #000}
+aside menu p, #set_login:focus, .time input, .time  {color: #000}
+#menu_confirm_delete button, #confirm_email button, .item .bout button {background-color: #000}
+.item textarea {background-color: rgba(0, 0, 0, 0.5); border-color: #000}
 
 header a.center:hover, header span.right:hover, aside menu input,
 aside label[for=remember_me] {
