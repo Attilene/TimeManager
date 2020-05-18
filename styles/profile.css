@@ -189,7 +189,6 @@ aside menu p:hover {transform: scale(1.1)}
 aside menu input {
 	font-family: "Comfortaa Bold", sans-serif;
 	font-size: 1em;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	padding: 0 10px;
 	box-sizing: border-box;
 	margin: 0 16px;
@@ -204,13 +203,12 @@ aside menu input {
 aside menu input::placeholder {opacity: 1; text-indent: 5px}
 aside menu input.fill {padding-right: 35px}
 aside menu form input.warning, #set_login.warning {border-color: rgba(255, 100, 100, 0.5)}
-aside form input.change {color: transparent; text-shadow: 0 0 0 transparent}
+aside form input.change {color: transparent}
 /*------------------------------------------------*/
 /*-----------------Подсказки------------------*/
 aside label {
 	z-index: 9;
 	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	position: absolute;
 	height: 36px;
 	line-height: 36px;
@@ -220,14 +218,14 @@ aside label {
 	opacity: 0;
 	overflow: hidden;
 	pointer-events: none;
-	transition-property: opacity, color, right, background, text-shadow;
+	transition-property: opacity, color, right, background;
 }
 
 aside label.achive {background: rgba(115, 176, 118, 0.7)}
 aside label.warning {background: rgba(255, 139, 139, 0.7)}
 
 aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; opacity: 1;}
-aside label.show.change {color: transparent; text-shadow: 0 0 0 transparent}
+aside label.show.change {color: transparent}
 
 label[for=set_login] {top: 4px}
 label[for=set_email], label[for=set_psw] {top: 53px}
