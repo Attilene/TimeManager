@@ -79,6 +79,7 @@ aside {
 #avatar:hover #avatar_inside {transform: scale(1.03); filter: blur(2px)}
 /*---------------Внутренности--------------------*/
 #avatar svg, #avatar hr {position: absolute; transform: scale(0.7); opacity: 0}
+#avatar svg {pointer-events: visible}
 
 #change_avatar {
     width: 43px;
@@ -218,8 +219,8 @@ aside label {
 	transition-property: opacity, color, right, background;
 }
 
-aside label.achive {background: rgba(115, 176, 118, 0.7)}
-aside label.warning {background: rgba(255, 139, 139, 0.7)}
+aside label.achive {background: #73B076}
+aside label.warning {background: #FF8B8B}
 
 aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; opacity: 1;}
 aside label.show.change {color: transparent}
@@ -321,8 +322,9 @@ aside menu div.dark::before {content: 'Тёмная тема'}
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
-aside * {transition:  0.1s ease-in-out}
-aside menu{transition: opacity 0.2s linear}
+aside * {transition:  0.15s ease-in-out}
+aside menu {transition: opacity 0.2s linear}
+aside form input {transition: 0.2s ease-out}
 #hat * {transition:  0.2s ease-in-out}
 #avatar_inside {transition: 0.5s}
 aside menu div.theme::before {transition: 0.2s ease-in}
@@ -346,7 +348,6 @@ aside input.fill+button:active {transform: scale(0.7); opacity: 0; transition: 0
 #menu_confirm_delete button:active, #confirm_email button:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 aside menu div.theme:hover button.choice {transition: 0.15s ease-in-out}
-aside form input:focus {transition: 0.2s ease-out}
 aside form input.change {transition: 0.1s}
 /*--------------------------------------------*/
 

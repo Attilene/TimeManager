@@ -13,7 +13,7 @@ aside menu p, #set_login:focus, .time * {color: #000}
 #menu_confirm_delete button, #confirm_email button, .item .bout button {background-color: #000}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #000}
 .item textarea {background-color: rgba(0, 0, 0, 0.5)}
-.time.input {background-color: #000}
+.time.input, #add_day_task {background-color: #000}
 
 header a.center:hover, header span.right:hover, aside menu input,
 aside label[for=remember_me] {

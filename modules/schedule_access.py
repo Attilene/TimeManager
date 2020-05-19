@@ -78,8 +78,9 @@ class User(object):
 
     def change_pass(self, pswsalt):
         psw, salt = decrypt(pswsalt)
+        hash_sum = set_sum(pswsalt)
         hashed_psw = generate_password_hash(psw + salt[:-1])
-        User.__exe("UPDATE users SET password = ? WHERE login = ?", (hashed_psw, self.log))
+        User.__exe("UPDATE users SET password = ?, hash_sum = ? WHERE login = ?", (hashed_psw, hash_sum, self.log))
         User.__com()
 
     def change_theme(self, theme, color):
@@ -214,7 +215,7 @@ class User(object):
         """Быстрая проверка пароля"""
         User.__exe("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         hash_sum, login = User.__one()
-        return set_sum(decrypt(pswsalt)[0], login) == hash_sum
+        return set_sum(decrypt(pswsalt)[0]) == hash_sum
 
     @staticmethod
     def check_psw(log_email, pswsalt):
@@ -230,10 +231,11 @@ class User(object):
         """Регистрация"""
         psw, salt = decrypt(pswsalt)
         hashed_psw = generate_password_hash(psw + salt[:-1])
+
         User.__exe(
             """INSERT INTO users (login, email, password, theme, color, salt, link, hash_sum, activated)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (log, email, hashed_psw, theme, color, salt, get_link(email), set_sum(psw, log), False))
+            (log, email, hashed_psw, theme, color, salt, get_link(email), set_sum(psw), False))
         User.__com()
         User.__scr(f"""
             CREATE TABLE IF NOT EXISTS 'month_{escepinator(log)}' (digit INTEGER, month VARCHAR(30), task TEXT);

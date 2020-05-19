@@ -18,9 +18,10 @@ html, body {
 	min-width: 750px;
 }
 
+body.START {opacity: 0 !important;}
+body._START_ {transition: opacity 0.3s linear !important}
 a {text-decoration: none}
 svg {pointer-events: none}
-#preload * {transition: none; pointer-events: none}
 
 /*Курсор*/
 header .left, header .center, header .right, footer span  {cursor: pointer}

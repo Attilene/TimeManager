@@ -17,16 +17,18 @@ div.body {
 .item {
     float: left;
     display: inline-grid;
-    grid-template-columns: 100px auto 70px;
+    grid-template-columns: 120px auto 70px;
     margin: 20px 0;
     width: 100%;
 }
 
 .time {
+    padding: 0 10px;
     margin: 0 10px;
     display: inline-grid;
     grid-template-columns: 35px 10px 35px;
     height: 40px;
+    border-radius: 20px;
 }
 
 .time span {
@@ -50,17 +52,13 @@ div.body {
     resize: vertical;
     padding: 0;
     height: 40px;
-    line-height: 34px;
+    line-height: 40px;
     min-height: 40px;
     border: none;
     border-radius: 20px;
-    border-bottom-right-radius: 10px;
 }
 
-
-.item .bout {
-    height: 40px;
-}
+.item .bout {height: 40px}
 
 .item .bout button {
     height: 40px;
@@ -76,7 +74,26 @@ div.body {
     height: 30px;
 }
 
-.time input, textarea {
-    transition: 0.2s ease-in-out;
-    transition-property: color, background-color;
+.bout button:hover {transform: scale(1.2)}
+
+#add_day_task {
+    text-align: center;
+    padding: 5px;
+    height: 40px;
+    width: 200px;
+    border: none;
+    border-radius: 20px;
 }
+
+#add_day_task svg {
+    margin: auto;
+    width: 30px;
+    height: 30px;
+}
+
+#add_day_task:hover {transform: scale(1.1)}
+
+.time *, .time, .bout button, #add_day_task {transition: 0.2s ease-in-out}
+.time:hover, .bout button:hover, #add_day_task:hover {transition: 0.1s ease-in-out}
+.bout button:active, #add_day_task:active {transform: scale(1)}
+

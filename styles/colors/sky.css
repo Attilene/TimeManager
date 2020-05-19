@@ -13,4 +13,4 @@ aside menu p, #set_login:focus, .time * {color: #55c0bb}
 #menu_confirm_delete button, #confirm_email button, .item .bout button {background-color: #55c0bb}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #55c0bb}
 .item textarea {background-color: rgba(85, 192, 187, 0.5)}
-.time.input {background-color: #55c0bb}
+.time.input, #add_day_task {background-color: #55c0bb}

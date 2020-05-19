@@ -6,11 +6,10 @@ aside menu div.light {background: white}
 aside menu div.dark {background: #cdcdcd}
 #developers hr {border: 2px solid white}
 @-webkit-keyframes autofill {to {color: white}}
-::placeholder {color: rgba(255, 255, 255, 0.5)}
+::placeholder {color: rgba(255, 255, 255, 0.7)}
 #restore:hover {color: white}
 aside input:disabled {background: rgba(155, 155, 155, 0.5)}
 svg  {fill: white}
-.time input:hover, .time input:focus {color: white}
 #avatar:hover #avatar_inside {filter: brightness(80%)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
 .time.input * {color: white}

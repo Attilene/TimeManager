@@ -53,7 +53,7 @@
 .card_head:hover {transform: scale(1.1)}
 #developers .card {padding: 0 10px 50px 10px;}
 #developers .card p {margin: 10px}
-#developers .card p:hover {transform: scale(1.2)}
+#developers .card p:hover {transform: scale(1.1)}
 
 @media (min-width: 1500px) {#developers .card p {margin: 20px; transition: 0.2s ease-in-out}  }
 
@@ -65,8 +65,7 @@
 #developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}
 
 #developers img {
-    margin: 15px;
-    margin-top: 20px;
+    margin: 13% auto 10px;
     width: 80%;
     border-radius: 50%;
     justify-self: center;
@@ -74,8 +73,7 @@
 }
 
 #developers .card:hover img{
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.71);
-    border-radius: 30%;
+    border-radius: 25%;
     transform: scale(1.1);
 }
 

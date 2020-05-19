@@ -89,7 +89,10 @@ def req_change_theme(now, data):
 @user_req('/change_log')
 def req_change_log(now, data):
     """Изменение имени пользователя"""
+    temp_log = now.log
     now.change_log(data)
+    users.update({data: users.pop(temp_log)})
+    session['login'] = data
 
 
 @user_req('/change_email')
@@ -261,6 +264,7 @@ def page_home():
     if session.get('remember') and session.get('login') and session.get('token') and users.get(session.get('login')):
         if session['token'] == users.get(session.get('login')).token:
             log = session['login']
+            now = users[log]
             session['token'] = users[log].token = gen_salt(50)
             if users[log]._restore:
                 restore = 1
@@ -268,18 +272,17 @@ def page_home():
             if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
             else: avatar = ''
             data = {
-                'profile_html': render_template('profile.html', login=log, avatar=avatar),
                 'login':        log,
-                'email':        users[log].email,
-                'theme':        users[log].theme,
-                'color':        users[log].color,
-                'salt':         users[log].salt,
-                'activated':    users[log].activated,
+                'email':        now.email,
+                'theme':        now.theme,
+                'color':        now.color,
+                'salt':         now.salt,
+                'activated':    now.activated,
                 'restore':      restore,
                 'avatar':       avatar
             }
 
-            return render_template("base_log.html", **data)
+            return render_template("base_log.html", **data, now.ret)
     if session.get('login'): session.pop('login')
     if session.get('token'): session.pop('token')
     if session.get('remember'): session.pop('remember')

@@ -2,6 +2,8 @@ let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
 
 jQuery(document).ready(function () {
+    $('body').removeClass('START');
+    setTimeout(function () {$('body').removeClass('_START_')}, close_time('body._START_'));
     clear_fields();
     // Советы
     $('aside form input').on('mouseenter', function () {
@@ -23,6 +25,7 @@ jQuery(document).ready(function () {
         }
         if (restore) {
             toggle_aside($('#profile_menu'));
+            toggle_set_menu($('#menu_edit_psw'));
         }
     }
 });

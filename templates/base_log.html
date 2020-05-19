@@ -27,7 +27,7 @@
     <title>Time Manager</title>
 </head>
 
-<body>
+<body class="START _START_">
     <header>
         <span class="left" onclick="if (!user_logined) {guest_auth()}">
             <a>Time Manager</a>
@@ -50,7 +50,7 @@
         </span>
     </header>
 
-    <aside id="profile_menu">{{ profile_html|safe }}</aside>
+    <aside id="profile_menu">{% include 'profile.html' %}</aside>
     <aside class='empty' id="authorisation_menu">{% include 'authorisation.html' %}</aside>
 
     <main id="page_help" class="opened">{% include 'help.html' %}</main>
