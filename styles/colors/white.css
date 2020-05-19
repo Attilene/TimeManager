@@ -7,12 +7,13 @@ header a.center:hover, header span.right:hover, aside menu input, .item textarea
 ::-webkit-scrollbar-thumb:hover{background-color: #fff}
 
 @-webkit-keyframes autofill {to {background-color: rgba(255, 255, 255, 0.5)}}
-aside menu input, .item textarea {background-color: #fff; border-color: #fff}
-aside menu input.fill, textarea, #restore:hover {background-color: rgba(255, 255, 255, 0.5)}
-aside menu form button:hover, .time input:hover, .time input:focus {background-color: #fff}
-aside menu p, #set_login:focus, .time input, .time  {color: #fff}
+aside menu input {background-color: #fff}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(255, 255, 255, 0.5)}
+aside menu p, #set_login:focus, .time * {color: #fff}
 #menu_confirm_delete button, #confirm_email button, .item .bout button {background-color: #fff}
-.item textarea {background-color: rgba(255, 255, 255, 0.5); border-color: #fff}
+#authorisation_menu #checkbox_remember_me:checked~label {color: #fff}
+.item textarea {background-color: rgba(255, 255, 255, 0.5)}
+.time.input {background-color: #fff}
 
 header .center:hover {background-color: rgba(0, 0, 0, 0.1)}
 footer span:last-of-type:hover {background-color: rgba(0, 0, 0, 0.1);}

@@ -176,7 +176,7 @@ function registration() {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         user_logined = true;
-        setTimeout(clear_fields, 200)
+        clear_fields()
     });
 }
 
@@ -214,7 +214,7 @@ function authorisation(login, password) {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         user_logined = true;
-        setTimeout(clear_fields, 200)
+        clear_fields()
     }, [login, password, $('#checkbox_remember_me').is(':checked')]);
 }
 

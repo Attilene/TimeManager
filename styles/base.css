@@ -19,6 +19,7 @@ html, body {
 }
 
 a {text-decoration: none}
+svg {pointer-events: none}
 #preload * {transition: none; pointer-events: none}
 
 /*Курсор*/
@@ -47,7 +48,6 @@ header {
 	height: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 1200px) { /*Опции для маленького окна*/
@@ -161,7 +161,6 @@ footer {
 	overflow: hidden;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
-	box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
 }
 
 footer span {width: max-content; margin: auto 10%;}
@@ -198,6 +197,7 @@ main {
 	left: 0;
 	height: calc(100% - 70px);
 	width: 100%;
+	min-width: 750px;
 	padding: 0;
 	overflow: auto;
 }

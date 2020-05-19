@@ -6,11 +6,11 @@ aside menu div.light {background: white}
 aside menu div.dark {background: #cdcdcd}
 #developers hr {border: 2px solid white}
 @-webkit-keyframes autofill {to {color: white}}
-::placeholder {color: rgba(255, 255, 255, 0.8)}
+::placeholder {color: rgba(255, 255, 255, 0.5)}
 #restore:hover {color: white}
-#authorisation_menu #checkbox_remember_me:checked~#remember_me {border: 3px solid white}
-#authorisation_menu input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
-aside input:disabled {background: rgba(155, 155, 155, 0.5); border: 3px solid rgba(155, 155, 155, 0.5)}
+aside input:disabled {background: rgba(155, 155, 155, 0.5)}
 svg  {fill: white}
 .time input:hover, .time input:focus {color: white}
 #avatar:hover #avatar_inside {filter: brightness(80%)}
+#authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
+.time.input * {color: white}

@@ -6,7 +6,8 @@ function toggle_aside(menu) {
         // Сбор мусора
         setTimeout(function () {
             menu.removeClass('opened closed').css({display: ''})
-        }, close_time(menu))
+        }, close_time(menu));
+        toggle_set_menu($('#menu.opened'))
     } else {
         menu.fadeIn(0, function () {
             menu.addClass('opened');
@@ -34,53 +35,39 @@ function hide_click (menu) {
     });
 }
 
-function toggle_set_menu(set_button, set_menu) {
-    if (typeof set_button === "string") {set_button = $(set_button)}
+function toggle_set_menu(set_menu) {
     if (typeof set_menu === "string") {set_menu = $(set_menu)}
     if (!set_menu.hasClass('nonactive')) {
+        let time = close_time($('#profile_menu menu'));
         if (set_menu.hasClass('opened')) {
-            set_menu.stop().slideUp(200, function () {
+            set_menu.removeClass('opened').stop().slideUp(time, function () {
                 set_menu.removeAttr('style')
             });
-            set_menu.removeClass('opened');
-            let temp = set_menu.children('form').children('input');
+            let temp = set_menu.find('input');
             fade_change(temp, function () {temp.removeClass('fill').val('')});
         }
         else {
-            set_menu.stop().slideDown(200, function () {
-                set_menu.removeAttr('style').css({display: 'block'})
-            });
-            set_menu.addClass('opened');
-            hide_set_click(set_button, set_menu)
+            let temp = $('#profile_menu menu.opened');
+            if (temp.length > 0) {
+                temp.stop().slideUp(200, function () {
+                    temp.removeAttr('style').find('input').removeClass('fill').val('');
+                    set_menu.stop().slideDown(time, function () {
+                        set_menu.removeAttr('style').css({display: 'block'})
+                    });
+                    set_menu.addClass('opened');
+                }).removeClass('opened');
+            }
+            else {
+                set_menu.stop().slideDown(time, function () {
+                    set_menu.removeAttr('style').css({display: 'block'})}).addClass('opened')
+            }
         }
     }
 }
 
-// Сворачивание при клике в другой зоне
-function hide_set_click (button, area) {
-    if (typeof button === "string") {button = $(button)}
-    if (typeof area === "string") {area = $(area)}
-    $('body').one('mousedown', function (event){
-        if ($(area).hasClass('opened')) {
-            let menu = $('#profile_menu');
-            if (!menu.is(event.target) && !menu.has(event.target)) {
-                toggle_aside(menu);
-            }
-            if ((area.has(event.target).length > 0) || (area.is(event.target))) {
-                hide_set_click(button, area)
-            }
-            else if (button !== event.target) {
-                toggle_set_menu(button, area)
-            }
-        }
-        else {$('body').off('mousedown')}
-    });
-}
-
 function clear_fields() {
     let inputs = $('#user input, #set_psw, #set_email');
-    inputs.val('');
-    inputs.removeClass('fill');
+    fade_change(inputs, function () {inputs.removeClass('fill').val('')});
     change_auth('empty');
     toggle_aside($('aside.opened'));
     warning(inputs);
@@ -194,7 +181,7 @@ function click_active() {
     receive('/send_activation', function(data) {
         if (data === 'active') {
             $('#menu_edit_email, #confirm_email').removeClass('nonactive');
-            toggle_set_menu($('#btn_change_email'), $('#menu_edit_email'))
+            toggle_set_menu($('#menu_edit_email'))
         }
         else {alert('На почту ' + user_data.email + ' выслано письмо для активации')}
     })

@@ -7,10 +7,10 @@ aside menu div.theme::before {color: #55c0bb}
 ::-webkit-scrollbar-thumb:hover{background-color: #55c0bb}
 
 @-webkit-keyframes autofill {to {background-color: rgba(85, 192, 187, 0.5)}}
-aside menu input, .item textarea {background-color: #55c0bb; border-color: #55c0bb}
-aside menu input.fill, textarea, #restore:hover {background-color: rgba(85, 192, 187, 0.5)}
-aside menu form button:hover, .time input:hover, .time input:focus {background-color: #55c0bb}
-aside menu p, #set_login:focus, .time input, .time  {color: #55c0bb}
+aside menu input {background-color: #55c0bb}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(85, 192, 187, 0.5)}
+aside menu p, #set_login:focus, .time * {color: #55c0bb}
 #menu_confirm_delete button, #confirm_email button, .item .bout button {background-color: #55c0bb}
-.item textarea {background-color: rgba(85, 192, 187, 0.5); border-color: #55c0bb}
-
+#authorisation_menu #checkbox_remember_me:checked~label {color: #55c0bb}
+.item textarea {background-color: rgba(85, 192, 187, 0.5)}
+.time.input {background-color: #55c0bb}

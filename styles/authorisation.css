@@ -104,7 +104,7 @@ form#user {
 	text-align: center;
 	margin: 0 auto;
 	padding: 0 5px;
-	width: 150px;
+	width: 140px;
 	height: 0;
 	border-radius: 30px;
 	position: relative;
@@ -129,26 +129,20 @@ form#user {
 
 #authorisation_menu #remember_me {
 	z-index: 13;
+	font-size: 1.1em;
 	position: absolute;
 	padding: 0 10px;
-	width: 100px;
-	height: 22px;
-	line-height: 22px;
-	left: 112px; bottom: 8px;
-	border: 0 solid transparent;
+	width: 106px;
+	height: 28px;
+	line-height: 28px;
+	left: 109px; bottom: 8px;
 	border-radius: 20px;
 	opacity: 0;
 	pointer-events: none;
 }
 
 #authorisation_menu #remember_me:hover {transform: scale(1.05); background: rgba(255, 255, 255, 0.2);}
-
-#authorisation_menu.login #remember_me {opacity: 1; pointer-events: visible; bottom: -32px}
-#authorisation_menu #checkbox_remember_me:checked~label {
-	bottom: -35px;
-	left: 109px;
-	border-width: 3px;
-}
+#authorisation_menu.login #remember_me {opacity: 1; pointer-events: visible; bottom: -35px}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 

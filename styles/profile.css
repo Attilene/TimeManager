@@ -3,7 +3,6 @@
 
 aside {
     z-index: 10;
-    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
     display: none;
     opacity: 0;
     position: fixed;
@@ -49,17 +48,16 @@ aside {
 #edit:hover div:hover, #exit:hover div:hover, #edit:hover div:active, #exit:hover div:active {
     background: rgba(255, 255, 255, 0.2); transform: scale(1.1)}
 #edit, #exit {width: 35%; height: 125px}
-#edit svg, #exit svg {width: 80px; position: absolute; top: 28px}
+#edit svg, #exit svg {width: 80px; position: absolute; top: 25px}
 /*---------------Левая часть--------------------*/
-#edit svg {left: 20px; pointer-events: none}
+#edit svg {left: 20px}
 /*----------------------------------------------*/
 /*---------------Середина--------------------*/
 #avatar {
     margin-top: 8px;
-    width: 97px;
-    height: 97px;
+    width: 101px;
+    height: 101px;
     position: relative;
-    border: 4px solid white;
     border-radius: 60px;
     overflow: hidden;
 }
@@ -85,8 +83,8 @@ aside {
 #change_avatar {
     width: 43px;
     height: 43px;
-    top: 3px;
-    left: 27px;
+    top: 5px;
+    left: 31px;
 }
 
 #avatar hr {
@@ -94,20 +92,20 @@ aside {
     box-sizing: border-box;
     border-radius: 2px;
     width: 31px;
-    top: 39px; left: 33px;
+    top: 41px; left: 35px;
 }
 
 #remove_avatar {
     width: 31px;
     height: 31px;
-    bottom: 8px;
-    left: 33px;
+    bottom: 10px;
+    left: 37px;
     fill: #ff6464 !important;
 }
 
 #avatar:hover svg, #avatar:hover hr {transform: scale(1); opacity: 1}
 #avatar:hover svg:hover {transform: scale(1.2)}
-#avatar:hover hr {width: 51px; left: 23px}
+#avatar:hover hr {width: 51px; left: 25px}
 
 #avatar.none #change_avatar {
     width: 55px;
@@ -140,10 +138,9 @@ aside menu {
     margin: 4px;
     border-radius: 16px;
     opacity: 0;
-    transition: opacity 0.2s;
 }
 
-aside menu.opened, #settings, #authorisation_menu menu {display: block; opacity: 1}
+aside menu.opened, #settings, #authorisation_menu menu, aside menu.nonactive {display: block; opacity: 1}
 #menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
 
 #menu_confirm_delete {
@@ -190,12 +187,12 @@ aside menu input {
 	font-family: "Comfortaa Bold", sans-serif;
 	font-size: 1em;
 	padding: 0 10px;
-	box-sizing: border-box;
 	margin: 0 16px;
+    box-sizing: border-box;
 	width: 310px;
 	height: 36px;
 	line-height: 36px;
-    border: 3px solid white;
+    border: none;
 	border-radius: 18px;
 	overflow: hidden;
 }
@@ -260,7 +257,6 @@ menu button svg {
 	position: relative;
 	top: 2px;
 	right: 1px;
-	pointer-events: none;
 }
 
 #erase_set_email, #show_set_psw {top: 48px}
@@ -325,7 +321,8 @@ aside menu div.dark::before {content: 'Тёмная тема'}
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
-aside * {transition:  0.2s ease-in-out}
+aside * {transition:  0.1s ease-in-out}
+aside menu{transition: opacity 0.2s linear}
 #hat * {transition:  0.2s ease-in-out}
 #avatar_inside {transition: 0.5s}
 aside menu div.theme::before {transition: 0.2s ease-in}
