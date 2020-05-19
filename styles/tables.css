@@ -7,7 +7,7 @@ div.body * {
 div.body {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 0 5%;
+    padding: 2vh 5% 0;
     width: calc(30% + 500px);
     min-width: 750px;
     height: 100%;
@@ -17,10 +17,12 @@ div.body {
 .item {
     float: left;
     display: inline-grid;
-    grid-template-columns: 120px auto 70px;
-    margin: 20px 0;
+    margin: 2vh 0;
     width: 100%;
 }
+
+.item.day {grid-template-columns: 120px auto 70px}
+.item.day {grid-template-columns: 120px auto 70px}
 
 .time {
     padding: 0 10px;
@@ -40,7 +42,7 @@ div.body {
     line-height: 40px;
 }
 
-.time input {
+.time input, .time select {
     font-size: 1.5em;
     line-height: 40px;
     padding: 0;
@@ -78,6 +80,7 @@ div.body {
 
 #add_day_task {
     text-align: center;
+    margin: 2vh auto;
     padding: 5px;
     height: 40px;
     width: 200px;

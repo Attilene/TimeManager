@@ -149,9 +149,6 @@ function registration() {
         'remember': $('#checkbox_remember_me').is(':checked')
     }, function () {
         // Загрузка страниц
-        insert_page('#page_lists', 'lists');
-        insert_page('#page_month', 'month');
-        insert_page('#page_day', 'day');
         user_data.login = in_login.val();
         user_data.email = in_email.val();
         $('#menu_edit_email, #confirm_email').addClass('nonactive');
@@ -185,12 +182,18 @@ function authorisation(login, password) {
     // Запрос
     receive('/login', function (data) {
         // Загрузка страниц
-        insert_page('#page_lists', 'lists');
-        insert_page('#page_month', 'month');
-        insert_page('#page_day', 'day');
+        $('#page_day').html(data.day);
+        $('#page_month').html(data.month);
+        $('#page_lists').html(data.lists);
         // Синхронизация данных
         change_theme(data.theme, data.color);
-        user_data = data;
+        user_data = {
+            'login': data.login,
+            'email': data.email,
+            'theme': data.theme,
+            'color': data.color,
+            'activated': data.activated
+        };
         // Установка имени пользователя
         $('header .right a div.nickname').text(data.login);
         $('#set_login').val(data.login);
@@ -200,7 +203,6 @@ function authorisation(login, password) {
             $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
             $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
         }
-        delete user_data.avatar;
         // Появление кнопок
         $('#authorisation').css({display: 'block'});
         $('header .center, header .right').fadeIn(0);

@@ -1,1 +1,28 @@
-<h1 style="background: red">month</h1>
+{#<div class="body">#}
+{#    {% for hour, minute, task in table_day %}#}
+{#        <form class="item">#}
+{#            <span class="time">#}
+{#            <input class="hours" type="text" value="{{ hour }}"#}
+{#                   onfocus="$(this).parent().addClass('input')"#}
+{#                   onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"#}
+{#            >#}
+{#            <span>:</span>#}
+{#            <input class="minutes" type="text" value="{{ minute }}"#}
+{#                   onfocus="$(this).parent().addClass('input')"#}
+{#                   onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"#}
+{#            >#}
+{#            </span>#}
+{#            <textarea class="task" placeholder="Задача">{{ task }}</textarea>#}
+{#            <span class="bout"><button type="button" class="del_day" onmousedown="$('::-webkit-resizer').mousedown()">#}
+{#                <svg id="email_btn_del_task">#}
+{#                    <use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use>#}
+{#                </svg>#}
+{#            </button></span>#}
+{#        </form>#}
+{#    {% endfor %}#}
+{#    <button id="add_month_task">#}
+{#        <svg id="btn_add_month">#}
+{#            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>#}
+{#        </svg>#}
+{#    </button>#}
+{#</div>#}

@@ -215,7 +215,10 @@ def req_login():
             "theme": u.theme,
             "color": u.color,
             "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg'),
-            "activated": u.activated
+            "activated": u.activated,
+            "day": render_template('day.html', table_day=u.ret_day()),
+            "month": render_template('month.html', table_month=u.ret_month()),
+            "lists": render_template('lists.html', lists=u.ret_lists())
         })
     else: return redirect('/')
 
@@ -250,13 +253,6 @@ def req_fast_check_password():
     return jsonify(User.fast_check_psw(**request.get_json()))
 
 
-@tm.route('/get_page', methods=['POST'])
-def req_get_page():
-    """Отсылка HTML шаблонов"""
-    page = request.get_json()
-    return render_template(f'{page}.html')
-
-
 # Главная страница
 @tm.route('/')
 def page_home():
@@ -268,6 +264,7 @@ def page_home():
             session['token'] = users[log].token = gen_salt(50)
             if users[log]._restore:
                 restore = 1
+                users[log]._restore = 0
             else: restore = 0
             if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
             else: avatar = ''
@@ -276,13 +273,15 @@ def page_home():
                 'email':        now.email,
                 'theme':        now.theme,
                 'color':        now.color,
-                'salt':         now.salt,
                 'activated':    now.activated,
                 'restore':      restore,
-                'avatar':       avatar
+                'avatar':       avatar,
+                'table_day':    now.ret_day(),
+                'table_month':  now.ret_month(),
+                'lists':        now.ret_lists()
             }
 
-            return render_template("base_log.html", **data, now.ret)
+            return render_template("base_log.html", **data)
     if session.get('login'): session.pop('login')
     if session.get('token'): session.pop('token')
     if session.get('remember'): session.pop('remember')

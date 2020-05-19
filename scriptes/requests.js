@@ -30,20 +30,6 @@ function send(url, data, success=null, async=true) {
     });
 }
 
-function insert_page(selector, file_name, func=null, async=true) {
-    // Получение HTML шаблона
-    $.ajax({
-        url: '/get_page',
-        async: async,
-        dataType: 'html',
-        data: `"${file_name}"`,
-        success: function (data) {
-            if (func !== null) {$(selector).html(func)}
-            else {$(selector).html(data)}
-        }
-    });
-}
-
 function send_image(img, func) {
     // Отправка изображения
     $.ajax({

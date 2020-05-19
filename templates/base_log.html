@@ -22,6 +22,7 @@
     <script type="text/javascript" src="time_manager/scriptes/encrypt.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/actions.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/profile.js"></script>
+    <script type="text/javascript" src="time_manager/scriptes/table.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/authorise.js"></script>
     <script type="text/javascript" src="time_manager/scriptes/main.js"></script>
     <title>Time Manager</title>
@@ -78,10 +79,9 @@
         'email': "{{ email }}",
         'theme': "{{ theme }}",
         'color': "{{ color }}",
-        'salt': "{{ salt }}",
         'activated': {{ activated }}
     };
-    window.restore = {{ restore }};
+    window.restore = 0{{ restore }};
     user_logined = true;
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
 </script>

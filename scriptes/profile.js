@@ -67,10 +67,10 @@ function toggle_set_menu(set_menu) {
 
 function clear_fields() {
     let inputs = $('#user input, #set_psw, #set_email');
+    warning(inputs);
     fade_change(inputs, function () {inputs.removeClass('fill').val('')});
     change_auth('empty');
     toggle_aside($('aside.opened'));
-    warning(inputs);
     inputs.prev('label').removeClass('show');
 }
 
@@ -229,11 +229,11 @@ function input_set_email(in_set_email) {
                 warning(in_set_email, 'Смена почты гостевой записи невозможна', 'warning')
             }
             else if (user_data.email === temp) {
-                if (user_data.activated) {
-                    warning(in_set_email, 'Почта подтверждена', 'achive')
+                if ($('#confirm_email').hasClass('nonactive')) {
+                    warning(in_set_email, 'Почта не подтверждена', 'warning');
                 }
                 else {
-                    warning(in_set_email, 'Почта не подтверждена', 'warning')
+                    warning(in_set_email, 'Почта подтверждена', 'achive');
                 }
             }
             else if (data) {

@@ -251,7 +251,7 @@ class User(object):
         """)
 
     @staticmethod
-    def big_red_button():
+    def Perri_Utkonos():
         """Стирание всех пользователей"""
         User.__exe("SELECT login FROM users")
         import os
