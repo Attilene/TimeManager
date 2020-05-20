@@ -88,6 +88,39 @@ class User(object):
         User.__exe("UPDATE users SET theme = ?, color = ? WHERE login = ?", (theme, color, self.log))
         User.__com()
 
+    def del_user(self):
+        User.__exe("DELETE FROM users WHERE login = ?", (self.log,))
+        User.__com()
+        User.__scr(f"""
+            DROP TABLE IF EXISTS 'month_{self._log}';
+            DROP TABLE IF EXISTS 'day_{self._log}';
+            DROP TABLE IF EXISTS 'list_{self._log}'
+        """)
+
+    # Работа с данными #
+    # Добавление #
+    def add_list(self, name, task):
+        number = 1
+        User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ?", (name,))
+        num_bd = User.__all()
+        if num_bd:
+            number = num_bd[-1][0] + 1
+        User.__exe(f"INSERT INTO 'list_{self._log}' (name, task, number) VALUES (?, ?, ?)",
+                   (name, task, number))
+        User.__com()
+
+    def add_day(self, hour, minute, task):
+        User.__exe(f"INSERT INTO 'day_{self._log}' (hour, minute, task) VALUES (?, ?, ?)",
+                   (hour, minute, task))
+        User.__com()
+
+    def add_month(self, digit, month, task):
+        month = month.lower()
+        User.__exe(f"INSERT INTO 'month_{self._log}' (digit, month, task) VALUES (?, ?, ?)",
+                   (digit, month, task))
+        User.__com()
+
+    # Изменение #
     def change_day(self, old, new):
         new_data = {**old, **new}
         User.__exe(f"SELECT * FROM 'day_{self._log}' WHERE hour = ? AND minute = ? AND task = ?",
@@ -123,38 +156,6 @@ class User(object):
             if User.__one()[0] != el[1]:
                 User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
                            (el[1], name, el[0]))
-        User.__com()
-
-    def del_user(self):
-        User.__exe("DELETE FROM users WHERE login = ?", (self.log,))
-        User.__com()
-        User.__scr(f"""
-            DROP TABLE IF EXISTS 'month_{self._log}';
-            DROP TABLE IF EXISTS 'day_{self._log}';
-            DROP TABLE IF EXISTS 'list_{self._log}'
-        """)
-
-    # Работа с данными #
-    # Добавление #
-    def add_list(self, name, task):
-        number = 1
-        User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ?", (name,))
-        num_bd = User.__all()
-        if num_bd:
-            number = num_bd[-1][0] + 1
-        User.__exe(f"INSERT INTO 'list_{self._log}' (name, task, number) VALUES (?, ?, ?)",
-                   (name, task, number))
-        User.__com()
-
-    def add_day(self, hour, minute, task):
-        User.__exe(f"INSERT INTO 'day_{self._log}' (hour, minute, task) VALUES (?, ?, ?)",
-                   (hour, minute, task))
-        User.__com()
-
-    def add_month(self, digit, month, task):
-        month = month.lower()
-        User.__exe(f"INSERT INTO 'month_{self._log}' (digit, month, task) VALUES (?, ?, ?)",
-                   (digit, month, task))
         User.__com()
 
     # Удаление #

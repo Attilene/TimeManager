@@ -8,7 +8,7 @@ aside menu div.dark {background: #cdcdcd}
 @-webkit-keyframes autofill {to {color: white}}
 ::placeholder {color: rgba(255, 255, 255, 0.7)}
 #restore:hover {color: white}
-aside input:disabled {background: rgba(155, 155, 155, 0.5)}
+*:disabled {background: rgba(155, 155, 155, 0.5) !important}
 svg  {fill: white}
 #avatar:hover #avatar_inside {filter: brightness(80%)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}

@@ -2,12 +2,12 @@
     {% for hour, minute, task in table_day %}
         <form class="item day">
             <span class="time">
-            <input class="hours" type="text" value="{{ hour }}"
+            <input class="hour" type="text" value="{{ hour }}"
                    onfocus="$(this).parent().addClass('input')"
                    onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"
             >
             <span>:</span>
-            <input class="minutes" type="text" value="{{ minute }}"
+            <input class="minute" type="text" value="{{ minute }}"
                    onfocus="$(this).parent().addClass('input')"
                    onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"
             >

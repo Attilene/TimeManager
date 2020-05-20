@@ -147,6 +147,9 @@ def req_delete_user(now):
     User.authorisation = False
 
 
+@user_req('/add_day')
+
+
 # Запросы
 @tm.route('/activate/<link>', methods=['GET'])
 def req_activate(link):
