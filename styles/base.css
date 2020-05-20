@@ -52,7 +52,7 @@ header {
 	border-bottom-right-radius: 20px;
 }
 
-@media (max-width: 1200px) { /*Опции для маленького окна*/
+@media (max-width: 1400px) { /*Опции для маленького окна*/
 	header {grid-template-columns: 30% 1fr 1fr 1fr 5%; grid-column-gap: 2%}
 	header .right div {display: none}
 }
@@ -129,7 +129,7 @@ header .right .avatar {
 	opacity: 0;
 }
 
-@media (max-width: 1200px) {  /*Анимация для маленького окна*/
+@media (max-width: 1400px) {  /*Анимация для маленького окна*/
 	header .right {}
 	header .right:hover #set_icon, header .right:active #set_icon  {
 		transform: scale(1);
@@ -139,7 +139,7 @@ header .right .avatar {
 	header .right:hover .avatar, header .right:active .avatar {filter: brightness(70%)}
 }
 
-@media (min-width: 1200px) { /* Анимации для большого окна*/
+@media (min-width: 1400px) { /* Анимации для большого окна*/
 	header .right:hover, header .right:active {
 		transform: scale(1.05);
 		background: rgba(255, 255, 255, 0.2);
@@ -209,7 +209,7 @@ main {
 /*-----------------Возврат(время)-------------*/
 header, footer {transition: background-color 0.15s}
 header *, footer * {transition: 0.2s ease-out}
-@media (max-width: 1200px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
+@media (max-width: 1400px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
 .change_theme {
 	transition-duration: 0.2s;
 	transition-timing-function: linear;
@@ -221,10 +221,10 @@ body aside#profile_menu svg.change_theme {transition-duration: 0.05s !important}
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {
 	transition: 0.1s ease;}
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
 	header .right:hover svg {transition: 0.2s ease}
 	header .right:hover .avatar {transition: 0.2s ease-out}}
-@media (min-width: 1201px) {
+@media (min-width: 1400px) {
 	header .right:hover {transition: 0.1s ease}
 	header .right:hover img {transition: 0.1s ease-out}}
 /*--------------------------------------------*/
@@ -232,7 +232,7 @@ header .left:hover, header .center:hover, header .right:hover, footer span:hover
 header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(1); transition: 0.05s ease-out}
 header .left:active {transform: skewX(-10deg)}
 header .right:active {transform: scale(0.95)}
-@media (max-width: 1200px) {header .right:active {transform: scale(0.85)}}
+@media (max-width: 1400px) {header .right:active {transform: scale(0.85)}}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 

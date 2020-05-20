@@ -17,7 +17,7 @@ function del_day_task(form) {
 
 function click_add_day(btn) {
     let obj = $('<form class="item day" style="height: 0; margin: 0; opacity: 0;">\n' +
-        '            <span class="time">\n' +
+        '            <span class="time input">\n' +
         '            <input class="hour" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                   focus_input_day($(this).closest(\'.item\'));\n' +
@@ -60,22 +60,24 @@ function focus_input_day(form) {
 
 function blur_input_day(form) {
     let new_data = get_data(form);
-    if (form.hasClass('new')) {
-        if (new_data.task === '') {
-            del_day_task(form);
-            $('#add_day_task').slideDown(200);
+        if (new_data !== old_data) {
+            if (form.hasClass('new')) {
+                if (new_data.task === '') {
+                    del_day_task(form);
+                    $('#add_day_task').slideDown(200);
 
+                }
+                else if (new_data.hour !== '' && new_data.minute !== '' && new_data.task !== ''){
+                    receive('/add_day', function (data) {
+                        if (data === 'exist') {del_day_task(form)}
+                    }, new_data);
+                    $('#add_day_task').slideDown(200);
+                }
+            }
+            else {
+                receive('/change_day', function (data) {
+                    if (data === 'exist') {del_day_task(form)}
+                }, [old_data, new_data])
+            }
         }
-        else if (new_data.hour !== '' && new_data.minute !== '' && new_data.task !== ''){
-            receive('/add_day', function (data) {
-                if (data === 'exist') {del_day_task(form)}
-            }, new_data);
-            $('#add_day_task').slideDown(200);
-        }
-    }
-    else if (new_data !== old_data) {
-        receive('/change_day', function (data) {
-            if (data === 'exist') {del_day_task(form)}
-        }, [old_data, new_data])
-    }
 }

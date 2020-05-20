@@ -89,10 +89,11 @@ def req_change_theme(now, data):
 @user_req('/change_log')
 def req_change_log(now, data):
     """Изменение имени пользователя"""
+    session['login'] = data
     temp_log = now.log
     now.change_log(data)
-    users.update({data: users.pop(temp_log)})
-    session['login'] = data
+    users[data] = users.pop(temp_log)
+    os.rename(f'images/avatars/{temp_log}.jpg', f'images/avatars/{data}.jpg')
 
 
 @user_req('/change_email')
@@ -122,6 +123,7 @@ def req_delete_avatar(now):
     temp_path = f'images/avatars/{now.log}.jpg'
     if os.path.isfile(temp_path):
         os.unlink(temp_path)
+        os.mkdir('images/avatars/')
 
 
 @user_req('/logout')

@@ -20,7 +20,7 @@ aside {
 #set_login {
     text-align: center;
     font-family: "Comfortaa Bold", sans-serif;
-	font-size: 1.7em;
+	font-size: 1.5em;
     box-sizing: border-box;
     margin: 4px;
 	width: 342px;
@@ -46,7 +46,7 @@ aside {
 }
 
 #edit:hover div:hover, #exit:hover div:hover, #edit:hover div:active, #exit:hover div:active {
-    background: rgba(255, 255, 255, 0.2); transform: scale(1.1)}
+    background: rgba(255, 255, 255, 0.2); transform: scale(1.15)}
 #edit, #exit {width: 35%; height: 125px}
 #edit svg, #exit svg {width: 80px; position: absolute; top: 25px}
 /*---------------Левая часть--------------------*/
@@ -363,6 +363,7 @@ aside.opened {
 aside.closed {
 	z-index: 9;
 	opacity: 0;
+    pointer-events: none;
 	top: 50px;
 	transition: 0.1s ease-out;
 }
