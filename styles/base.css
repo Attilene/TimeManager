@@ -19,7 +19,7 @@ html, body {
 }
 
 body.START {opacity: 0 !important;}
-body._START_ {transition: opacity 0.3s linear !important}
+body._START_ {transition: opacity 0.2s linear !important}
 a {text-decoration: none}
 svg {pointer-events: none}
 *:disabled {pointer-events: none}

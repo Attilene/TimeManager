@@ -5,8 +5,19 @@ jQuery(document).ready(function () {
     $('body').removeClass('START');
     setTimeout(function () {$('body').removeClass('_START_')}, close_time('body._START_'));
     clear_fields();
-    if (sessionStorage.getItem('page')) {$(`#page_${sessionStorage.page}`).addClass('opened')}
-    else {$(`#page_help`).addClass('opened')}
+    // Запоминание страницы
+    if (sessionStorage.getItem('page')) {
+        if (!user_logined && (sessionStorage.page === 'day' ||
+            sessionStorage.page === 'month' ||
+            sessionStorage.page === 'lists')) {
+            sessionStorage.page = 'help'
+        }
+        $(`#page_${sessionStorage.page}`).addClass('opened')
+    }
+    else {
+        $(`#page_help`).addClass('opened');
+        sessionStorage.page = 'help'
+    }
     // Советы
     $('aside form input').on('mouseenter', function () {
         let input = $(this);

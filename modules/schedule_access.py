@@ -26,8 +26,6 @@ class User(object):
                 hash_sum   VARCHAR(64),
                 activated  BOOLEAN)
                 """)
-    __month_list = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
-                    'ноябрь', 'декабрь', ]
     authorisation = False
 
     def __init__(self, log_email):
@@ -55,7 +53,7 @@ class User(object):
 
     def ret_month(self):
         User.__exe(f"SELECT * FROM 'month_{self._log}'")
-        return list(sorted(User.__all(), key=lambda x: (User.__month_list.index(x[1]), x[0])))
+        return list(sorted(User.__all(), key=lambda x: (x[1], x[0])))
 
     # Изменение данных пользователя #
     def change_log(self, log):
@@ -71,8 +69,8 @@ class User(object):
         self._log = new_log
 
     def change_email(self, email):
-        User.__exe("UPDATE users SET email = ?, link =?, activated = ? WHERE login = ?", (
-            email, get_link(email), False, self.log))
+        User.__exe("UPDATE users SET email = ?, link =?, activated = ? WHERE login = ?",
+                   (email, get_link(email), False, self.log))
         User.__com()
         self.email, self.activated = email, 0
 
@@ -101,6 +99,9 @@ class User(object):
     # Добавление #
     def add_list(self, name, task):
         number = 1
+        User.__exe(f"SELECT name, task FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, task))
+        if User.__one() is not None:
+            return False
         User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ?", (name,))
         num_bd = User.__all()
         if num_bd:
@@ -108,40 +109,68 @@ class User(object):
         User.__exe(f"INSERT INTO 'list_{self._log}' (name, task, number) VALUES (?, ?, ?)",
                    (name, task, number))
         User.__com()
+        return True
 
     def add_day(self, hour, minute, task):
         User.__exe(f"SELECT * FROM 'day_{self._log}' WHERE hour = ? AND minute = ? AND task = ?", (hour, minute, task))
-        if User.__one() is not None: return False
+        if User.__one() is not None:
+            return False
         User.__exe(f"INSERT INTO 'day_{self._log}' (hour, minute, task) VALUES (?, ?, ?)", (hour, minute, task))
         User.__com()
         return True
 
     def add_month(self, digit, month, task):
-        month = month.lower()
+        User.__exe(f"SELECT * FROM 'month_{self._log}' WHERE digit = ? AND month = ? AND task = ?", (digit, month, task))
+        if User.__one() is not None:
+            return False
         User.__exe(f"INSERT INTO 'month_{self._log}' (digit, month, task) VALUES (?, ?, ?)",
                    (digit, month, task))
         User.__com()
+        return True
 
     # Изменение #
     def change_day(self, old, new):
-        new_data = {**old, **new}
         User.__exe(f"SELECT * FROM 'day_{self._log}' WHERE hour = ? AND minute = ? AND task = ?",
-                   (new_data['hour'], new_data['minute'], new_data['task']))
+                   (new['hour'], new['minute'], new['task']))
         if User.__one() is not None:
             return False
         User.__exe(f"UPDATE 'day_{self._log}' SET hour = ?, minute = ?, task = ? WHERE hour = ? AND minute = ? AND task = ?",
-                   (new_data['hour'], new_data['minute'], new_data['task'], old['hour'], old['minute'], old['task']))
+                   (new['hour'], new['minute'], new['task'], old['hour'], old['minute'], old['task']))
         User.__com()
         return True
 
     def change_month(self, old, new):
-        new_data = {**old, **new}
         User.__exe(f"SELECT * FROM 'month_{self._log}' WHERE digit = ? AND month = ? AND task = ?",
-                   (new_data['digit'], new_data['month'], new_data['task']))
+                   (new['digit'], new['month'], new['task']))
         if User.__one() is not None:
             return False
         User.__exe(f"UPDATE 'month_{self._log}' SET digit = ?, month = ?, task = ? WHERE digit = ? AND month = ? AND task = ?",
-            (new_data['digit'], new_data['month'], new_data['task'], old['digit'], old['month'], old['task']))
+                   (new['digit'], new['month'], new['task'], old['digit'], old['month'], old['task']))
+        User.__com()
+        return True
+
+    def change_list(self, old, new):
+        User.__exe(f"SELECT name, task FROM 'list_{self._log}' WHERE name = ? AND task = ?",
+                   (new['name'], new['task']))
+        if User.__one() is not None:
+            return False
+        User.__exe(f"UPDATE 'list_{self._log}' SET name = ?, task = ? WHERE name = ? AND task = ?",
+                   (new['name'], new['task'], old['name'], old['task']))
+        lists = self.ret_lists()
+        for i, value in enumerate(lists[new['name']], 1):
+            lists[new['name']][i - 1][1] = i
+        for el in lists[new['name']]:
+            User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (new['name'], el[0]))
+            if User.__one()[0] != el[1]:
+                User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
+                           (el[1], new['name'], el[0]))
+        for i, value in enumerate(lists[old['name']], 1):
+            lists[old['name']][i - 1][1] = i
+        for el in lists[old['name']]:
+            User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (old['name'], el[0]))
+            if User.__one()[0] != el[1]:
+                User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
+                           (el[1], old['name'], el[0]))
         User.__com()
         return True
 
@@ -188,7 +217,6 @@ class User(object):
         User.__com()
 
     def del_month(self, digit, month, task):
-        month = month.lower()
         User.__exe(f"DELETE FROM 'month_{self._log}' WHERE digit = ? AND month = ? AND task = ?",
                    (digit, month, task))
         User.__com()
@@ -248,7 +276,7 @@ class User(object):
             (log, email, hashed_psw, theme, color, salt, get_link(email), set_sum(psw), False))
         User.__com()
         User.__scr(f"""
-            CREATE TABLE IF NOT EXISTS 'month_{_log}' (digit INTEGER, month VARCHAR(30), task TEXT);
+            CREATE TABLE IF NOT EXISTS 'month_{_log}' (digit INTEGER, month INTEGER, task TEXT);
             CREATE TABLE IF NOT EXISTS 'day_{_log}' (hour INTEGER, minute INTEGER, task TEXT);
             CREATE TABLE IF NOT EXISTS 'list_{_log}' (name TEXT, task TEXT, number INTEGER)
         """)
@@ -266,12 +294,13 @@ class User(object):
         if len(log_list) > 0:
             for log in log_list:
                 _log = escepinator(log[0])
-                User.__scr(f"""DROP TABLE IF EXISTS 'list_{-log}';
+                User.__scr(f"""DROP TABLE IF EXISTS 'list_{_log}';
                     DROP TABLE IF EXISTS 'month_{_log}';
                     DROP TABLE IF EXISTS 'day_{_log}'""")
         User.__exe("DELETE FROM users")
         User.__com()
         print('Очистка базы данных завершена успешно')
+
 
 # User._erase()
 # Создание таблицы-----------------------------------------------------------------------------------------
@@ -294,13 +323,14 @@ class User(object):
 # print(now_user.email)
 # print(now_user.change_avatar(False))
 # print(now_user.fast_check_psw('Attilene', '726b9c5fc5baf0a6d0fc92659715757b599a77b87202fb81ce23ad7662543ace'))
-# now_user.add_month(23, 'январь', 'dfjfkdjf')
-# now_user.add_month(24, 'январь', 'dfjfkdjf')
-# now_user.add_month(25, 'январь', 'dfjfkdjf')
+# now_user.add_month(23, 1, 'dfjfkdjf')
+# now_user.add_month(24, 3, 'dfjfkdjf')
+# now_user.add_month(25, 9, 'dfjfkdjf')
 # now_user.add_list('1', 'dfjfkdjfdsfdgf')
 # now_user.add_list('2', 'dfjf')
 # now_user.add_list('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
 # now_user.add_list('1', 'werty')
+# print(now_user.change_list({'name': '1', 'task': 'dfjfkdjfdsfdgf'}, {'name': '2'}))
 # now_user.change_num('1', 'werty', 2)
 # now_user.del_list_task('1', 'werty', 2)
 # now_user.add_day(22, 33, 'jdfkjf')
