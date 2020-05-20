@@ -148,6 +148,9 @@ def req_delete_user(now):
 
 
 @user_req('/add_day')
+def req_add_day(now, data):
+    """Добавление дневной задачи"""
+    return jsonify(now.add_day(**data))
 
 
 # Запросы

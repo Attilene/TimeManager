@@ -110,9 +110,11 @@ class User(object):
         User.__com()
 
     def add_day(self, hour, minute, task):
-        User.__exe(f"INSERT INTO 'day_{self._log}' (hour, minute, task) VALUES (?, ?, ?)",
-                   (hour, minute, task))
+        User.__exe(f"SELECT * FROM 'day_{self._log}' WHERE hour = ? AND minute = ? AND task = ?", (hour, minute, task))
+        if User.__one() is not None: return False
+        User.__exe(f"INSERT INTO 'day_{self._log}' (hour, minute, task) VALUES (?, ?, ?)", (hour, minute, task))
         User.__com()
+        return True
 
     def add_month(self, digit, month, task):
         month = month.lower()
