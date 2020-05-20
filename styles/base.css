@@ -15,7 +15,7 @@ html, body {
 	width: 100%;
 	height: 100%;
 	overflow: auto;
-	min-width: 750px;
+	min-width: 958px;
 }
 
 body.START {opacity: 0 !important;}
@@ -45,7 +45,7 @@ header {
 	grid-column-gap: 4%;
 	position: absolute;
 	top: 0;
-	min-width: 750px;
+	min-width: 958px;
 	width: 100%;
 	height: 50px;
 	border-bottom-left-radius: 20px;
@@ -155,7 +155,7 @@ footer {
 	z-index: 20;
 	display: inline-grid;
 	grid-template-columns: 1fr 2fr 1fr;
-	min-width: 750px;
+	min-width: 958px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
@@ -199,7 +199,7 @@ main {
 	left: 0;
 	height: calc(100% - 70px);
 	width: 100%;
-	min-width: 750px;
+	min-width: 958px;
 	padding: 0;
 	overflow: auto;
 }

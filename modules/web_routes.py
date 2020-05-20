@@ -154,9 +154,16 @@ def req_add_day(now, data):
     else: return jsonify('exist')
 
 
+@user_req('/change_day')
+def req_change_day(now, data):
+    """Изменение дневной задачи"""
+    if now.change_day(*data): return jsonify(True)
+    else: return jsonify('exist')
+
+
 @user_req('/del_day')
 def req_del_day(now, data):
-    """Добавление дневной задачи"""
+    """Удаление дневной задачи"""
     now.del_day(**data)
 
 
