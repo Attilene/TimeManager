@@ -16,7 +16,6 @@ div.body {
 
 .item {
     grid-template-columns: 120px auto 70px;
-    float: left;
     display: inline-grid;
     margin: 2vh 0;
     width: 100%;

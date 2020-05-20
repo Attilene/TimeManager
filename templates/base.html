@@ -33,9 +33,9 @@
         <span class="left" onmousedown="if (!user_logined) {guest_auth()}">
             <a>Time Manager</a>
         </span>
-        <a class="center" id="button_lists" onmousedown="change_page($(this))">Списки</a>
-        <a class="center" id="button_day" onmousedown="change_page($(this))">Расписание</a>
-        <a class="center" id="button_month" onmousedown="change_page($(this))">Дедлайны</a>
+        <a class="center" id="button_lists" onmousedown="change_page('lists')">Списки</a>
+        <a class="center" id="button_day" onmousedown="change_page('day')">Расписание</a>
+        <a class="center" id="button_month" onmousedown="change_page('month')">Дедлайны</a>
         <span class="right" id="button_profile"  onmousedown="toggle_aside($('#profile_menu'))">
             <a>
                 <div class="nickname"></div>
@@ -54,7 +54,7 @@
     <aside id="profile_menu">{% include 'profile.html' %}</aside>
     <aside class='empty' id="authorisation_menu">{% include 'authorisation.html' %}</aside>
 
-    <main id="page_help" class="opened">{% include 'help.html' %}</main>
+    <main id="page_help">{% include 'help.html' %}</main>
     <main id="page_lists"></main>
     <main id="page_day"></main>
     <main id="page_month"></main>
@@ -66,7 +66,7 @@
         <span class="right"
               id="button_about"
               title="Установили Касперский и не паримся насчёт короновируса"
-              onmousedown="change_page($(this))"
+              onmousedown="change_page('about')"
         >
             <a>Разработчики</a>
         </span>

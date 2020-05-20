@@ -150,7 +150,14 @@ def req_delete_user(now):
 @user_req('/add_day')
 def req_add_day(now, data):
     """Добавление дневной задачи"""
-    return jsonify(now.add_day(**data))
+    if now.add_day(**data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/del_day')
+def req_del_day(now, data):
+    """Добавление дневной задачи"""
+    now.del_day(**data)
 
 
 # Запросы

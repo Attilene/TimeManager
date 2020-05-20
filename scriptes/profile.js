@@ -110,6 +110,8 @@ function logout() {
     $('#page_month').html('');
     // Восстанавление темы
     change_theme('light', 'blue');
+    // Восстанавление страницы
+    change_page('help');
     // Сброс аватара
     $('#avatar_inside').css({background: ''});
     $('header .right picture').css({background: ''});

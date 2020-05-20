@@ -56,9 +56,8 @@ function change_theme(theme, color) {
 }
 
 // Смена страницы
-function change_page(button) {
-    let page = button.attr('id').slice(7);
-    let temp = $('main.opened').attr('id').slice(5);
+function change_page(page) {
+    let temp = sessionStorage.page;
     if (page !== temp) {
         $(`#page_${temp}`).addClass('closed');
         $(`#page_${page}`).fadeIn(0, function () {
@@ -71,6 +70,7 @@ function change_page(button) {
                 $(this).addClass('opened')
             });
         }, close_time('main.closed'));
+        sessionStorage.page = page
     }
 }
 

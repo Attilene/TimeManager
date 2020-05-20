@@ -3,17 +3,27 @@
         <form class="item day">
             <span class="time">
             <input class="hour" type="text" value="{{ hour }}"
-                   onfocus="$(this).parent().addClass('input')"
-                   onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"
+                   onfocus="$(this).parent().addClass('input');
+                   focus_input_day($(this).closest('form'))"
+                   onblur="$(this).parent().removeClass('input');
+                   if ($(this).val() === '') $(this).val(0);
+                   blur_input_day($(this).closest('form'))"
+
             >
             <span>:</span>
             <input class="minute" type="text" value="{{ minute }}"
-                   onfocus="$(this).parent().addClass('input')"
-                   onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"
+                   onfocus="$(this).parent().addClass('input');
+                   focus_input_day($(this).closest('form'))"
+                   onblur="$(this).parent().removeClass('input');
+                   if ($(this).val() === '') $(this).val(0);
+                   blur_input_day($(this).closest('form'))"
             >
             </span>
-            <textarea class="task" placeholder="Задача">{{ task }}</textarea>
-            <span class="bout"><button type="button" class="del_day" onmousedown="$('::-webkit-resizer').mousedown()">
+            <textarea class="task" placeholder="Задача"
+                      onfocus="focus_input_day($(this).closest('form'))"
+                      onblur="blur_input_day($(this).closest('form'))"
+            >{{ task }}</textarea>
+            <span class="bout"><button type="button" class="del_day" onmousedown="del_day_task($(this).closest('form'))">
                 <svg id="email_btn_del_task">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use>
                 </svg>

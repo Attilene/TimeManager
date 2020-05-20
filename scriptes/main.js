@@ -5,6 +5,8 @@ jQuery(document).ready(function () {
     $('body').removeClass('START');
     setTimeout(function () {$('body').removeClass('_START_')}, close_time('body._START_'));
     clear_fields();
+    if (sessionStorage.getItem('page')) {$(`#page_${sessionStorage.page}`).addClass('opened')}
+    else {$(`#page_help`).addClass('opened')}
     // Советы
     $('aside form input').on('mouseenter', function () {
         let input = $(this);
