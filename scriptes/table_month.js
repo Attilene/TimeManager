@@ -73,8 +73,8 @@ function blur_input_month(form) {
             $('#add_month_task').slideDown(200);
         }
     }
-    else if (new_month_data.hour !== old_month_data.digit &&
-        new_month_data.minute !== old_month_data.month &&
+    else if (new_month_data.hour !== old_month_data.digit ||
+        new_month_data.minute !== old_month_data.month ||
         new_month_data.task !== old_month_data.task) {
         receive('/change_month', function (data) {
             if (data === 'exist') {del_month_task(form)}

@@ -14,7 +14,7 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	overflow: auto;
+	overflow: hidden;
 	min-width: 958px;
 }
 
@@ -198,14 +198,14 @@ footer .right {justify-self: end}
 main {
 	display: none;
 	opacity: 0;
+	padding: 50px 0 40px 0;
 	text-align: center;
 	position: absolute;
-	top: 30px;
+	top: -20px;
 	left: 0;
 	height: calc(100% - 70px);
 	width: 100%;
 	min-width: 958px;
-	padding: 0;
 	overflow: auto;
 }
 /*--------------------------------------------*/
@@ -246,7 +246,7 @@ main.opened {
 	z-index: 5;
 	display: block;
 	opacity: 1;
-	top: 50px;
+	top: 0;
 	height: calc(100% - 90px);
 	transition: 0.3s ease;
 }
@@ -254,7 +254,7 @@ main.opened {
 main.closed {
 	z-index: 4;
 	opacity: 0;
-	top: 70px;
+	top: 20px;
 	transition: 0.2s ease-out;
 }
 /*--------------------------------------------*/

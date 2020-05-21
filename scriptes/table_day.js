@@ -48,7 +48,6 @@ function click_add_day(btn) {
         '            </button>\n' +
         '        </form>');
     btn.before(obj);
-    btn.slideUp(200);
     btn.prev().animate({height: '40px', margin: '3vh 0', opacity: 1}, 200, 'swing', function () {
         $(this).removeAttr('style').addClass('new').children('.task').focus();
     });
@@ -60,25 +59,20 @@ function focus_input_day(form) {
 
 function blur_input_day(form) {
     let new_day_data = get_day_data(form);
-        console.log(old_day_data, new_day_data);
-
     if (form.hasClass('new')) {
         if (new_day_data.task === '') {
             del_day_task(form);
-            $('#add_day_task').slideDown(200);
         }
         else if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== ''){
             receive('/add_day', function (data) {
                 if (data === 'exist') {del_day_task(form)}
                 else {form.removeClass('new')}
             }, new_day_data);
-            $('#add_day_task').slideDown(200);
         }
     }
-    else if (new_day_data.hour !== old_day_data.hour &&
-        new_day_data.minute !== old_day_data.minute &&
+    else if (new_day_data.hour !== old_day_data.hour ||
+        new_day_data.minute !== old_day_data.minute ||
         new_day_data.task !== old_day_data.task) {
-        console.log(old_day_data, new_day_data);
         receive('/change_day', function (data) {
             if (data === 'exist') {del_day_task(form)}
         }, [old_day_data, new_day_data]);
