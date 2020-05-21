@@ -1,16 +1,16 @@
-header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #55c0bb}
-aside menu div.theme {border-color: #55c0bb}
-aside menu div.theme::before {color: #55c0bb}
-::selection {background-color: rgba(85, 192, 187, 0.5)}
+header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #6593b5}
+aside menu div.theme {border-color: #6593b5}
+aside menu div.theme::before {color: #6593b5}
+::selection {background-color: rgba(101, 147, 181, 0.5)}
 
-::-webkit-scrollbar-thumb {background-color: rgba(85, 192, 187, 0.5)}
-::-webkit-scrollbar-thumb:hover{background-color: #55c0bb}
+::-webkit-scrollbar-thumb {background-color: rgba(101, 147, 181, 0.5)}
+::-webkit-scrollbar-thumb:hover{background-color: #6593b5}
 
-@-webkit-keyframes autofill {to {background-color: rgba(85, 192, 187, 0.5)}}
-aside menu input {background-color: #55c0bb}
-aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(85, 192, 187, 0.5)}
-aside menu p, #set_login:focus, .time * {color: #55c0bb}
-#menu_confirm_delete button, #confirm_email button, .item button {background-color: #55c0bb}
-#authorisation_menu #checkbox_remember_me:checked~label {color: #55c0bb}
-.item textarea, #add_day_task {background-color: rgba(85, 192, 187, 0.5)}
-.time.input {background-color: #55c0bb}
+@-webkit-keyframes autofill {to {background-color: rgba(101, 147, 181, 0.5)}}
+aside menu input {background-color: #6593b5}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(101, 147, 181, 0.5)}
+aside menu p, #set_login:focus, .time * {color: #6593b5}
+#menu_confirm_delete button, #confirm_email button, .item button {background-color: #6593b5}
+#authorisation_menu #checkbox_remember_me:checked~label {color: #6593b5}
+.item textarea, #add_day_task {background-color: rgba(101, 147, 181, 0.5)}
+.time.input {background-color: #6593b5}
