@@ -12,5 +12,5 @@ aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(70, 1
 aside menu p, #set_login:focus, .time * {color: #46aa46}
 #menu_confirm_delete button, #confirm_email button, .item button {background-color: #46aa46}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #46aa46}
-.item textarea, #add_day_task {background-color: rgba(70, 170, 70, 0.5)}
+.item textarea, #add_day_task, #add_month_task {background-color: rgba(70, 170, 70, 0.5)}
 .time.input {background-color: #46aa46}

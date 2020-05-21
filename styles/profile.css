@@ -223,6 +223,7 @@ aside label.achive {background: #73B076}
 aside label.warning {background: #FF8B8B}
 
 aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; opacity: 1;}
+aside.opened label.empty.show {right: 340px; opacity: 0}
 aside label.show.change {color: transparent}
 
 label[for=set_login] {top: 4px}

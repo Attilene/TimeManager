@@ -74,7 +74,7 @@ div.body {
 
 .item button:hover {transform: scale(1.2)}
 
-#add_day_task {
+#add_day_task, #add_month_task {
     text-align: center;
     margin: 0 auto;
     padding: 5px;
@@ -85,14 +85,14 @@ div.body {
     transition-property: transform !important;
 }
 
-#add_day_task svg {
+#add_day_task svg, #add_month_task svg {
     margin: auto;
     width: 30px;
     height: 30px;
 }
 
-#add_day_task:hover {transform: scale(1.1)}
+#add_day_task:hover, #add_month_task:hover {transform: scale(1.1)}
 
-.time *, .time, .item button, #add_day_task {transition: 0.2s ease-in-out}
-.time:hover, .item button:hover, #add_day_task:hover {transition-duration: 0.1s}
-.item button:active, #add_day_task:active {transform: scale(1)}
+.time *, .time, .item button, #add_day_task, #add_month_task {transition: 0.2s ease-in-out}
+.time:hover, .item button:hover, #add_day_task:hover, #add_month_task:hover {transition-duration: 0.1s}
+.item button:active, #add_day_task:active, #add_month_task:active {transform: scale(1)}

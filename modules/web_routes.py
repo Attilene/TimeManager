@@ -176,6 +176,26 @@ def req_del_day(now, data):
     now.del_day(**data)
 
 
+@user_req('/add_day')
+def req_add_month(now, data):
+    """Добавление дневной задачи"""
+    if now.add_month(**data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/change_day')
+def req_change_month(now, data):
+    """Изменение дневной задачи"""
+    if now.change_month(*data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/del_day')
+def req_del_month(now, data):
+    """Удаление дневной задачи"""
+    now.del_month(**data)
+
+
 # Запросы
 @tm.route('/activate/<link>', methods=['GET'])
 def req_activate(link):
@@ -309,7 +329,6 @@ def page_home():
                 'table_month':  now.ret_month(),
                 'lists':        now.ret_lists()
             }
-
             return render_template("base_log.html", **data)
     if session.get('login'): session.pop('login')
     if session.get('token'): session.pop('token')

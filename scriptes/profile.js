@@ -130,7 +130,7 @@ function logout() {
 // Изменение никнейма
 function input_set_login(in_set_log) {
     let temp = in_set_log.val();
-    if (temp === '') {warning($(this))}
+    if (temp === '') {warning(in_set_log)}
     else if (temp === user_data.login) {warning(in_set_log, 'Ваш никнейм', 'achive')}
     else if (temp.length <= 33) {
         receive('/check_user', function (data) {
@@ -179,11 +179,11 @@ function click_remove_avatar() {
 }
 
 // Кнопки
-function click_active() {
+function click_active(menu) {
     receive('/send_activation', function(data) {
         if (data === 'active') {
+            menu.addClass('opened');
             $('#menu_edit_email, #confirm_email').removeClass('nonactive');
-            toggle_set_menu($('#menu_edit_email'))
         }
         else {alert('На почту ' + user_data.email + ' выслано письмо для активации')}
     })

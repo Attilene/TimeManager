@@ -1,6 +1,6 @@
-let old_data = {};
+let old_day_data = {};
 
-function get_data(form) {
+function get_day_data(form) {
     return {
         "hour": form.children('.time').children('.hour').val(),
         "minute": form.children('.time').children('.minute').val(),
@@ -9,9 +9,9 @@ function get_data(form) {
 }
 
 function del_day_task(form) {
-    if (!form.hasClass('new')) {receive('/del_day', null, get_data(form))}
+    if (!form.hasClass('new')) {receive('/del_day', null, get_day_data(form))}
     form.animate({height: 0, margin: '0 auto', opacity: 0, transition: 'none', overflow: 'hidden', 'min-height': 0}, 200, 'swing', function () {
-            $(this).remove()
+        $(this).remove()
     });
 }
 
@@ -21,7 +21,7 @@ function click_add_day(btn) {
         '            <input class="hour" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                   focus_input_day($(this).closest(\'.item\'));\n' +
-        '                   old_data = get_data($(this).parent())"\n' +
+        '                   old_day_data = get_day_data($(this).parent())"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                   if ($(this).val() === \'\') $(this).val(0);\n' +
         '                   blur_input_day($(this).closest(\'.item\'))"\n' +
@@ -31,14 +31,14 @@ function click_add_day(btn) {
         '            <input class="minute" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                   focus_input_day($(this).closest(\'.item\'));\n' +
-        '                   old_data = get_data($(this).parent())"\n' +
+        '                   old_day_data = get_day_data($(this).parent())"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                   if ($(this).val() === \'\') $(this).val(0);\n' +
         '                   blur_input_day($(this).closest(\'form\'))"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
-        '                      onfocus="old_data = get_data($(this).parent())"\n' +
+        '                      onfocus="old_day_data = get_day_data($(this).parent())"\n' +
         '                      onblur="blur_input_day($(this).closest(\'.item\'))"\n' +
         '            ></textarea>\n' +
         '            <button type="button" class="del_day" onmousedown="del_day_task($(this).parent())">\n' +
@@ -55,30 +55,31 @@ function click_add_day(btn) {
 }
 
 function focus_input_day(form) {
-    if (!form.hasClass('new')) {old_data = get_data(form)}
+    if (!form.hasClass('new')) {old_day_data = get_day_data(form)}
 }
 
 function blur_input_day(form) {
-    let new_data = get_data(form);
-    console.log(old_data, new_data);
+    let new_day_data = get_day_data(form);
+        console.log(old_day_data, new_day_data);
+
     if (form.hasClass('new')) {
-        if (new_data.task === '') {
+        if (new_day_data.task === '') {
             del_day_task(form);
             $('#add_day_task').slideDown(200);
         }
-        else if (new_data.hour !== '' && new_data.minute !== '' && new_data.task !== ''){
-            receive('/add_day', function (data) {
-                if (data === 'exist') {del_day_task(form)}
-                else {form.removeClass('new')}
-            }, new_data);
-            $('#add_day_task').slideDown(200);
+        else if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== ''){
+            // receive('/add_day', function (data) {
+            //     if (data === 'exist') {del_day_task(form)}
+            //     else {form.removeClass('new')}
+            // }, new_day_data);
+            // $('#add_day_task').slideDown(200);
         }
     }
-    else if (new_data.hour !== old_data.hour &&
-        new_data.minute !== old_data.minute &&
-        new_data.task !== old_data.task) {
+    else if (new_day_data.hour !== old_day_data.hour &&
+        new_day_data.minute !== old_day_data.minute &&
+        new_day_data.task !== old_day_data.task) {
         receive('/change_day', function (data) {
             if (data === 'exist') {del_day_task(form)}
-        }, [old_data, new_data]);
+        }, [old_day_data, new_day_data]);
     }
 }

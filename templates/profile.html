@@ -1,13 +1,14 @@
 <div id="hat">
     <form onsubmit="
-    if ($(this).prev('label').hasClass('warning')) submit_warn($(this));
-    else $(this).children('input').blur(); return false
+    if ($(this).prev('label').hasClass('warning')) {submit_warn($(this))}
+    else {$(this).children('input').blur()}
+    return false;
     ">
         <label for="set_login"></label>
         <input id="set_login" type="text" autocomplete="off"
                value="{{ login }}"
                oninput="input_set_login($(this))"
-               onblur="warning($(this)); blur_set_login($(this))"
+               onblur="warning($(this))"
         >
     </form>
     <span id="edit">
@@ -64,7 +65,7 @@
     </form>
     <form id="confirm_email">
         <p>Почта не подтверждена</p>
-        <button type="button" onclick="click_active()">Подтвердить</button>
+        <button type="button" onclick="click_active($(this).closest('menu'))">Подтвердить</button>
     </form>
 </menu>
 
