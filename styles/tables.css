@@ -22,7 +22,7 @@ div.body {
 }
 
 .item.del {
-    left: 40px;
+    left: 20px;
     opacity: 0;
 }
 
@@ -104,7 +104,7 @@ div.body {
     overflow: visible;
     height: 0;
     position: relative;
-    bottom: 50px;
+    bottom: 42px;
     opacity: 0;
     pointer-events: none;
 }
@@ -114,4 +114,4 @@ body .item.new~button {opacity: 0; pointer-events: none}
 
 .time *, .time, .item button, #add_day_task, #add_month_task, .alert {transition: 0.2s ease-out}
 .item button:active, #add_day_task:active, #add_month_task:active, .alert:active {transform: scale(1)}
-.item {transition: 0.2s ease-out; transition-property: opacity, left}
+.item {transition: 0.1s ease-out; transition-property: opacity, left}

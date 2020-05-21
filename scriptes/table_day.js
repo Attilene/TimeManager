@@ -13,10 +13,7 @@ function del_day_task(form) {
     form.addClass('del');
     setTimeout(function () {
         form.animate({height: 0, margin: '0 auto', opacity: 0}, 200, 'swing', function () {
-            $(this).remove()
-        });
-    }, 200);
-
+            $(this).remove()})}, close_time(form));
 }
 
 function click_add_day(btn) {

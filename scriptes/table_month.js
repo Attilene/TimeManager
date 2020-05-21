@@ -10,9 +10,10 @@ function get_month_data(form) {
 
 function del_month_task(form) {
     if (!form.hasClass('new')) {receive('/del_month', null, get_month_data(form))}
-    form.animate({height: 0, margin: '0 auto', opacity: 0, transition: 'none', overflow: 'hidden', 'min-height': 0}, 200, 'swing', function () {
-        $(this).remove()
-    });
+    form.addClass('del');
+    setTimeout(function () {
+        form.animate({height: 0, margin: '0 auto', opacity: 0}, 200, 'swing', function () {
+            $(this).remove()});}, close_time(form));
 }
 
 function click_add_month(btn) {
