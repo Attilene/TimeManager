@@ -252,7 +252,8 @@ class User(object):
     def fast_check_psw(log_email, pswsalt):
         """Быстрая проверка пароля"""
         User.__exe("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
-        hash_sum, login = User.__one()
+        try: hash_sum, login = User.__one()
+        except TypeError: return False
         return set_sum(decrypt(pswsalt)[0]) == hash_sum
 
     @staticmethod

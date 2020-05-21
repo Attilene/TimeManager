@@ -7,7 +7,7 @@
         <input id="set_login" type="text" autocomplete="off"
                value="{{ login }}"
                oninput="input_set_login($(this))"
-               onblur="warning($(this))"
+               onblur="warning($(this)); blur_set_login($(this))"
         >
     </form>
     <span id="edit">

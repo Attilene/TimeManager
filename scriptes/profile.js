@@ -135,7 +135,7 @@ function input_set_login(in_set_log) {
     else if (temp.length <= 33) {
         receive('/check_user', function (data) {
             if (data) {warning(in_set_log, 'Никнейм занят', 'warning')}
-            else {send('/change_log', temp, function () {
+            else {send('/change_log', [user_data.login, temp], function () {
                 $('header .right a div.nickname').text(temp);
                 warning(in_set_log, 'Никнейм изменён', 'achive');
                 user_data.login = temp

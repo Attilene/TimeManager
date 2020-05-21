@@ -91,6 +91,11 @@ header .right {
 	justify-self: end;
 }
 
+header .right.change {
+	background: none !important;
+	color: transparent !important;
+}
+
 header .right a {
 	display: inline-grid;
 	grid-template-columns: auto 38px;

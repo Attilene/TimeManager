@@ -21,7 +21,16 @@ def user_req(url, img=None):
     def wrap(func):
         def wrapper():
             if session.get('login'):
-                if users[session['login']].token == session['token']:
+                if url == '/change_log':
+                    old, new = request.get_json()
+                    if users.get(old):
+                        if users[old].token == session['token']:
+                            users[new] = users.pop(old)
+                            session['login'] = new
+                            func(users[new], old, new)
+                            return jsonify(True)
+                    return abort(505)
+                elif users[session['login']].token == session['token']:
                     if img: data = request.files.get(img)
                     else: data = request.get_json()
                     if data:
@@ -29,8 +38,8 @@ def user_req(url, img=None):
                     else: temp = func(users[session['login']])
                     if temp: return temp
                     else: return jsonify(True)
-                else: abort(505)
-            else: abort(505)
+                else: return abort(505)
+            else: return abort(505)
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
     return wrap
 
@@ -87,13 +96,11 @@ def req_change_theme(now, data):
 
 
 @user_req('/change_log')
-def req_change_log(now, data):
+def req_change_log(now, old, new):
     """Изменение имени пользователя"""
-    session['login'] = data
-    temp_log = now.log
-    now.change_log(data)
-    users[data] = users.pop(temp_log)
-    os.rename(f'images/avatars/{temp_log}.jpg', f'images/avatars/{data}.jpg')
+    now.change_log(new)
+    try: os.rename(f'images/avatars/{old}.jpg', f'images/avatars/{new}.jpg')
+    except FileNotFoundError: pass
 
 
 @user_req('/change_email')
@@ -120,10 +127,10 @@ def req_change_avatar(now, file):
 @user_req('/delete_avatar')
 def req_delete_avatar(now):
     """Удаление аватарки"""
-    temp_path = f'images/avatars/{now.log}.jpg'
-    if os.path.isfile(temp_path):
-        os.unlink(temp_path)
-        os.mkdir('images/avatars/')
+    try: os.unlink(f'images/avatars/{now.log}.jpg')
+    except FileNotFoundError: pass
+    try: os.mkdir('images/avatars/')
+    except FileExistsError: pass
 
 
 @user_req('/logout')

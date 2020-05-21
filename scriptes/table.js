@@ -60,24 +60,25 @@ function focus_input_day(form) {
 
 function blur_input_day(form) {
     let new_data = get_data(form);
-        if (new_data !== old_data) {
-            if (form.hasClass('new')) {
-                if (new_data.task === '') {
-                    del_day_task(form);
-                    $('#add_day_task').slideDown(200);
-
-                }
-                else if (new_data.hour !== '' && new_data.minute !== '' && new_data.task !== ''){
-                    receive('/add_day', function (data) {
-                        if (data === 'exist') {del_day_task(form)}
-                    }, new_data);
-                    $('#add_day_task').slideDown(200);
-                }
-            }
-            else {
-                receive('/change_day', function (data) {
-                    if (data === 'exist') {del_day_task(form)}
-                }, [old_data, new_data])
-            }
+    console.log(old_data, new_data);
+    if (form.hasClass('new')) {
+        if (new_data.task === '') {
+            del_day_task(form);
+            $('#add_day_task').slideDown(200);
         }
+        else if (new_data.hour !== '' && new_data.minute !== '' && new_data.task !== ''){
+            receive('/add_day', function (data) {
+                if (data === 'exist') {del_day_task(form)}
+                else {form.removeClass('new')}
+            }, new_data);
+            $('#add_day_task').slideDown(200);
+        }
+    }
+    else if (new_data.hour !== old_data.hour &&
+        new_data.minute !== old_data.minute &&
+        new_data.task !== old_data.task) {
+        receive('/change_day', function (data) {
+            if (data === 'exist') {del_day_task(form)}
+        }, [old_data, new_data]);
+    }
 }
