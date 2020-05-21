@@ -69,6 +69,7 @@
 }
 
 #developers .card hr {
+    border: 2px solid white;
     border-radius: 2px;
     width: 50%;
     height: 0

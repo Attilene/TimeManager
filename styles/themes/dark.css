@@ -4,13 +4,13 @@ body, aside menu, #set_login:focus {background: darkgray}
 #hat #change_avatar {fill: darkgray}
 aside menu div.light {background: darkgray}
 aside menu div.dark {background: #808080;}
-#developers hr {border: 2px solid gray}
+#developers hr {border-color: gray}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 ::placeholder {color: rgba(75, 75, 75, 0.7)}
 #restore:hover {color: darkgray}
 *:disabled {background: rgba(245, 245, 245, 0.5) !important;}
 svg {fill: darkgray}
-#avatar:hover #avatar_inside {filter: brightness(110%)}
+#avatar:hover #avatar_inside {filter: brightness(110%) blur(2px)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: darkgray}
 .time:hover * {color: #737373}
 .time.input * {color: #4b4b4b}

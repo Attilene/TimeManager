@@ -68,16 +68,17 @@ function blur_input_day(form) {
             $('#add_day_task').slideDown(200);
         }
         else if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== ''){
-            // receive('/add_day', function (data) {
-            //     if (data === 'exist') {del_day_task(form)}
-            //     else {form.removeClass('new')}
-            // }, new_day_data);
-            // $('#add_day_task').slideDown(200);
+            receive('/add_day', function (data) {
+                if (data === 'exist') {del_day_task(form)}
+                else {form.removeClass('new')}
+            }, new_day_data);
+            $('#add_day_task').slideDown(200);
         }
     }
     else if (new_day_data.hour !== old_day_data.hour &&
         new_day_data.minute !== old_day_data.minute &&
         new_day_data.task !== old_day_data.task) {
+        console.log(old_day_data, new_day_data);
         receive('/change_day', function (data) {
             if (data === 'exist') {del_day_task(form)}
         }, [old_day_data, new_day_data]);

@@ -4,12 +4,12 @@ body , aside menu, #set_login:focus {background: white}
 #hat #change_avatar {fill: white}
 aside menu div.light {background: white}
 aside menu div.dark {background: #cdcdcd}
-#developers hr {border: 2px solid white}
+#developers hr {border-color: white}
 @-webkit-keyframes autofill {to {color: white}}
 ::placeholder {color: rgba(255, 255, 255, 0.7)}
 #restore:hover {color: white}
 *:disabled {background: rgba(155, 155, 155, 0.5) !important}
 svg  {fill: white}
-#avatar:hover #avatar_inside {filter: brightness(80%)}
+#avatar:hover #avatar_inside {filter: brightness(80%) blur(2px)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
 .time.input * {color: white}

@@ -105,9 +105,9 @@ function logout() {
     user_data = {'login': '', 'theme': user_data.theme, 'color': user_data.color};
     set_menu.removeClass('opened');
     // Очистка страниц
-    $('#page_lists').html('');
-    $('#page_day').html('');
-    $('#page_month').html('');
+    $('#page_lists')[0].innerHTML = '';
+    $('#page_day')[0].innerHTML = '';
+    $('#page_month')[0].innerHTML = '';
     // Восстанавление темы
     change_theme('light', 'blue');
     // Восстанавление страницы
@@ -130,7 +130,7 @@ function logout() {
 // Изменение никнейма
 function input_set_login(in_set_log) {
     let temp = in_set_log.val();
-    if (temp === '') {warning(in_set_log)}
+    if (temp === '') {warning(in_set_log, 'Введите никнейм', 'warning')}
     else if (temp === user_data.login) {warning(in_set_log, 'Ваш никнейм', 'achive')}
     else if (temp.length <= 33) {
         receive('/check_user', function (data) {
@@ -152,7 +152,7 @@ function onchange_get_file(file) {
         if (size <= 10) {
             if (user_data.login !== '') {
                 let img = new FormData();
-                img.set('img', file, `${user_data.login}.jpg`);
+                img.set('img', file, `${user_data.email}.jpg`);
                 send_image(img, function () {
                     const fr = new FileReader();
                     fr.onload = (function(theFile) {

@@ -182,9 +182,9 @@ function authorisation(login, password) {
     // Запрос
     receive('/login', function (data) {
         // Загрузка страниц
-        $('#page_day').html(data.day);
-        $('#page_month').html(data.month);
-        $('#page_lists').html(data.lists);
+        $('#page_day')[0].innerHTML = data.day;
+        $('#page_month')[0].innerHTML = data.month;
+        $('#page_lists')[0].innerHTML = data.lists;
         // Синхронизация данных
         change_theme(data.theme, data.color);
         user_data = {
@@ -200,8 +200,8 @@ function authorisation(login, password) {
         // Загрузка аватара
         if (data.avatar) {
             $('#avatar').removeClass('none');
-            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`});
-            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.login}.jpg)`})
+            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.email}.jpg)`});
+            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.email}.jpg)`})
         }
         // Появление кнопок
         $('#authorisation').css({display: 'block'});

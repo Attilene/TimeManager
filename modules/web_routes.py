@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, redirect, jsonify, session, a
 from flask_mail import Mail, Message
 from flask_script import Manager, Shell
 
-from mail import send_mail
 from schedule_access import *
 from security.crypting import get_link
 
@@ -27,7 +26,7 @@ def user_req(url, img=None):
                         if users[old].token == session['token']:
                             users[new] = users.pop(old)
                             session['login'] = new
-                            func(users[new], old, new)
+                            func(users[new], new)
                             return jsonify(True)
                     return abort(505)
                 elif users[session['login']].token == session['token']:
@@ -96,16 +95,16 @@ def req_change_theme(now, data):
 
 
 @user_req('/change_log')
-def req_change_log(now, old, new):
+def req_change_log(now, new):
     """Изменение имени пользователя"""
     now.change_log(new)
-    try: os.rename(f'images/avatars/{old}.jpg', f'images/avatars/{new}.jpg')
-    except FileNotFoundError: pass
 
 
 @user_req('/change_email')
 def req_change_email(now, data):
     """Изменение имени пользователя"""
+    try: os.rename(f'images/avatars/{now.email}.jpg', f'images/avatars/{data}.jpg')
+    except FileNotFoundError: pass
     now.change_email(data)
 
 
@@ -119,7 +118,7 @@ def req_change_pass(now, data):
 @user_req('/change_avatar', 'img')
 def req_change_avatar(now, file):
     """Изменение аватарки"""
-    temp_path = f'images/avatars/{now.log}.jpg'
+    temp_path = f'images/avatars/{now.email}.jpg'
     with open(temp_path, 'wb') as open_file:
         open_file.write(file.read())
 
@@ -127,7 +126,7 @@ def req_change_avatar(now, file):
 @user_req('/delete_avatar')
 def req_delete_avatar(now):
     """Удаление аватарки"""
-    try: os.unlink(f'images/avatars/{now.log}.jpg')
+    try: os.unlink(f'images/avatars/{now.email}.jpg')
     except FileNotFoundError: pass
     try: os.mkdir('images/avatars/')
     except FileExistsError: pass
@@ -263,7 +262,7 @@ def req_login():
             "email": u.email,
             "theme": u.theme,
             "color": u.color,
-            "avatar": os.path.isfile(f'images/avatars/{u.log}.jpg'),
+            "avatar": os.path.isfile(f'images/avatars/{u.email}.jpg'),
             "activated": u.activated,
             "day": render_template('day.html', table_day=u.ret_day()),
             "month": render_template('month.html', table_month=u.ret_month()),
@@ -315,7 +314,7 @@ def page_home():
                 restore = 1
                 users[log]._restore = 0
             else: restore = 0
-            if os.path.isfile(f'images/avatars/{log}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{log}.jpg)"'
+            if os.path.isfile(f'images/avatars/{now.email}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{now.email}.jpg)"'
             else: avatar = ''
             data = {
                 'login':        log,
