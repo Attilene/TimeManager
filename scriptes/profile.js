@@ -130,19 +130,28 @@ function logout() {
 // Изменение никнейма
 function input_set_login(in_set_log) {
     let temp = in_set_log.val();
-    if (temp === '') {warning(in_set_log, 'Введите никнейм', 'warning')}
+    if (temp === '') {warning(in_set_log, 'Введите никнейм')}
     else if (temp === user_data.login) {warning(in_set_log, 'Ваш никнейм', 'achive')}
     else if (temp.length <= 33) {
         receive('/check_user', function (data) {
             if (data) {warning(in_set_log, 'Никнейм занят', 'warning')}
-            else {send('/change_log', [user_data.login, temp], function () {
+            else {
                 $('header .right a div.nickname').text(temp);
-                warning(in_set_log, 'Никнейм изменён', 'achive');
+                warning(in_set_log, 'Никнейм свободен', 'achive');
                 user_data.login = temp
-            })}
+            }
         })
     }
-    else {warning(in_login, 'Длина никнейма не может превышать 33 символа', 'warning')}
+    else {warning(in_set_log, 'Длина никнейма не может превышать 33 символа', 'warning')}
+}
+
+function onblur_set_login(field) {
+    if (field.prev().hasClass('warning') && user_data.login !== field.val()) {
+        field.val(user_data.login);
+        submit_warn(field.parent());
+    }
+    else {send('/change_log', [user_data.login, field.val()])}
+    warning(field);
 }
 
 // Добавление/смена аватара
