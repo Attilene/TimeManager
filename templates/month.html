@@ -2,22 +2,31 @@
     {% for digit, month, task in table_month %}
         <form class="item month">
             <span class="time">
-            <input class="digit" type="text" value="{{ digit }}"
-                   onfocus="$(this).parent().addClass('input')"
-                   onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"
+            <input class="hour" type="text" value="{{ digit }}"
+                   onfocus="$(this).parent().addClass('input');
+                       focus_input_month($(this).closest('.item'))"
+                   onblur="$(this).parent().removeClass('input');
+                       if ($(this).val() === '') $(this).val(0);
+                       blur_input_month($(this).closest('.item'))"
             >
-            <span>.</span>
-            <input class="month" type="text" value="{{ month }}"
-                   onfocus="$(this).parent().addClass('input')"
-                   onblur="$(this).parent().removeClass('input'); if ($(this).val() === '') $(this).val(0)"
+            <span>:</span>
+            <input class="minute" type="text" value="{{ month }}"
+                   onfocus="$(this).parent().addClass('input');
+                       focus_input_month($(this).closest('.item'))"
+                   onblur="$(this).parent().removeClass('input');
+                       if ($(this).val() === '') $(this).val(0);
+                       blur_input_month($(this).closest('.item'))"
             >
             </span>
-            <textarea class="task" placeholder="Задача">{{ task }}</textarea>
-            <span class="bout"><button type="button" class="del_month" onmousedown="$('::-webkit-resizer').mousedown()">
+            <textarea class="task" placeholder="Задача"
+                      onfocus="old_month_data = get_month_data($(this).parent())"
+                      onblur="blur_input_month($(this).closest('.item'))"
+            >{{ task }}</textarea>
+            <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">
                 <svg id="email_btn_del_task">
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use>
                 </svg>
-            </button></span>
+            </button>
         </form>
     {% endfor %}
     <button id="add_month_task" onmousedown="click_add_month($(this))">
@@ -25,4 +34,6 @@
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
         </svg>
     </button>
+    <br>
+    <a class="alert">Введите данные</a>
 </div>

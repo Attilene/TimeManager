@@ -9,7 +9,7 @@ aside menu div.theme::before {color: #6464ff}
 @-webkit-keyframes autofill {to {background-color: rgba(100, 100, 255, 0.5)}}
 aside menu input {background-color: #6464ff}
 aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(100, 100, 255, 0.5)}
-aside menu p, #set_login:focus, .time * {color: #6464ff}
+aside menu p, #set_login:focus, .time *, .alert {color: #6464ff}
 #menu_confirm_delete button, #confirm_email button, .item button {background-color: #6464ff}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #6464ff}
 .item textarea, #add_day_task, #add_month_task {background-color: rgba(100, 100, 255, 0.5)}

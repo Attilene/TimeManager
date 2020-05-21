@@ -10,31 +10,32 @@ function get_day_data(form) {
 
 function del_day_task(form) {
     if (!form.hasClass('new')) {receive('/del_day', null, get_day_data(form))}
-    form.animate({height: 0, margin: '0 auto', opacity: 0, transition: 'none', overflow: 'hidden', 'min-height': 0}, 200, 'swing', function () {
-        $(this).remove()
-    });
+    form.addClass('del');
+    setTimeout(function () {
+        form.animate({height: 0, margin: '0 auto', opacity: 0}, 200, 'swing', function () {
+            $(this).remove()
+        });
+    }, 200);
+
 }
 
 function click_add_day(btn) {
-    let obj = $('<form class="item day" style="height: 0; margin: 0; opacity: 0;">\n' +
-        '            <span class="time input">\n' +
+    let obj = $(' <form class="item day" style="height: 0; margin: 0; opacity: 0;">\n' +
+        '            <span class="time">\n' +
         '            <input class="hour" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
-        '                   focus_input_day($(this).closest(\'.item\'));\n' +
-        '                   old_day_data = get_day_data($(this).parent())"\n' +
+        '                       focus_input_day($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
-        '                   if ($(this).val() === \'\') $(this).val(0);\n' +
-        '                   blur_input_day($(this).closest(\'.item\'))"\n' +
-        '\n' +
+        '                       if ($(this).val() === \'\') $(this).val(0);\n' +
+        '                       blur_input_day($(this).closest(\'.item\'))"\n' +
         '            >\n' +
         '            <span>:</span>\n' +
         '            <input class="minute" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
-        '                   focus_input_day($(this).closest(\'.item\'));\n' +
-        '                   old_day_data = get_day_data($(this).parent())"\n' +
+        '                       focus_input_day($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
-        '                   if ($(this).val() === \'\') $(this).val(0);\n' +
-        '                   blur_input_day($(this).closest(\'form\'))"\n' +
+        '                       if ($(this).val() === \'\') $(this).val(0);\n' +
+        '                       blur_input_day($(this).closest(\'.item\'))"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +

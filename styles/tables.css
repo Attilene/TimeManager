@@ -1,5 +1,4 @@
 div.body * {
-    font-family: "Comfortaa Bold", "Comic Sans MS", sans-serif;
     font-size: 1.1em;
     text-align: center;
 }
@@ -7,17 +6,24 @@ div.body * {
 div.body {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 3vh 2%;
+    padding: 3vh 2% 0;
     width: calc(20% + 765px);
     min-width: 958px;
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .item {
     margin: 3vh 0;
+    left: 0;
     width: 100%;
     position: relative;
+}
+
+.item.del {
+    left: 40px;
+    opacity: 0;
 }
 
 .time {
@@ -58,6 +64,7 @@ div.body {
 }
 
 .item button {
+    float: right;
     height: 40px;
     width: 40px;
     margin: 0 20px;
@@ -82,7 +89,6 @@ div.body {
     width: 200px;
     border: none;
     border-radius: 20px;
-    transition-property: transform !important;
 }
 
 #add_day_task svg, #add_month_task svg {
@@ -93,6 +99,19 @@ div.body {
 
 #add_day_task:hover, #add_month_task:hover {transform: scale(1.1)}
 
-.time *, .time, .item button, #add_day_task, #add_month_task {transition: 0.2s ease-in-out}
-.time:hover, .item button:hover, #add_day_task:hover, #add_month_task:hover {transition-duration: 0.1s}
-.item button:active, #add_day_task:active, #add_month_task:active {transform: scale(1)}
+.alert {
+    margin: auto;
+    overflow: visible;
+    height: 0;
+    position: relative;
+    bottom: 50px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body .item.new~.alert {opacity: 1; pointer-events: visible}
+body .item.new~button {opacity: 0; pointer-events: none}
+
+.time *, .time, .item button, #add_day_task, #add_month_task, .alert {transition: 0.2s ease-out}
+.item button:active, #add_day_task:active, #add_month_task:active, .alert:active {transform: scale(1)}
+.item {transition: 0.2s ease-out; transition-property: opacity, left}

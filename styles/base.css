@@ -5,10 +5,10 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	font-family: "Comfortaa Bold", "Comic Sans MS", sans-serif;
 }
 
 html, body {
-	font-family: "Comfortaa Bold", sans-serif;
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
@@ -19,7 +19,7 @@ html, body {
 }
 
 body.START {opacity: 0 !important;}
-body._START_ {transition: opacity 0.2s linear !important}
+body._START_ {transition: opacity 0.4s linear !important}
 a {text-decoration: none}
 svg {pointer-events: none}
 *:disabled {pointer-events: none}

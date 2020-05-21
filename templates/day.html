@@ -4,21 +4,18 @@
             <span class="time">
             <input class="hour" type="text" value="{{ hour }}"
                    onfocus="$(this).parent().addClass('input');
-                   focus_input_day($(this).closest('.item'));
-                   old_day_data = get_day_data($(this).parent())"
+                       focus_input_day($(this).closest('.item'))"
                    onblur="$(this).parent().removeClass('input');
-                   if ($(this).val() === '') $(this).val(0);
-                   blur_input_day($(this).closest('.item'))"
-
+                       if ($(this).val() === '') $(this).val(0);
+                       blur_input_day($(this).closest('.item'))"
             >
             <span>:</span>
             <input class="minute" type="text" value="{{ minute }}"
                    onfocus="$(this).parent().addClass('input');
-                   focus_input_day($(this).closest('.item'));
-                   old_day_data = get_day_data($(this).parent())"
+                       focus_input_day($(this).closest('.item'))"
                    onblur="$(this).parent().removeClass('input');
-                   if ($(this).val() === '') $(this).val(0);
-                   blur_input_day($(this).closest('form'))"
+                       if ($(this).val() === '') $(this).val(0);
+                       blur_input_day($(this).closest('.item'))"
             >
             </span>
             <textarea class="task" placeholder="Задача"
@@ -37,4 +34,6 @@
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
         </svg>
     </button>
+    <br>
+    <a class="alert">Введите данные</a>
 </div>

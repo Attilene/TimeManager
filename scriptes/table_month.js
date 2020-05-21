@@ -16,25 +16,22 @@ function del_month_task(form) {
 }
 
 function click_add_month(btn) {
-    let obj = $('<form class="item month" style="height: 0; margin: 0; opacity: 0;">\n' +
-        '            <span class="time input">\n' +
-        '            <input class="hour" type="text" value=""\n' +
+    let obj = $(' <form class="item month" style="height: 0; margin: 0; opacity: 0;">\n' +
+        '            <span class="time">\n' +
+        '            <input class="digit" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
-        '                   focus_input_month($(this).closest(\'.item\'));\n' +
-        '                   old_month_data = get_month_data($(this).parent())"\n' +
+        '                       focus_input_month($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
-        '                   if ($(this).val() === \'\') $(this).val(0);\n' +
-        '                   blur_input_month($(this).closest(\'.item\'))"\n' +
-        '\n' +
+        '                       if ($(this).val() === \'\') $(this).val(0);\n' +
+        '                       blur_input_month($(this).closest(\'.item\'))"\n' +
         '            >\n' +
-        '            <span>.</span>\n' +
-        '            <input class="minute" type="text" value=""\n' +
+        '            <span>:</span>\n' +
+        '            <input class="month" type="text" value=""\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
-        '                   focus_input_month($(this).closest(\'.item\'));\n' +
-        '                   old_month_data = get_month_data($(this).parent())"\n' +
+        '                       focus_input_month($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
-        '                   if ($(this).val() === \'\') $(this).val(0);\n' +
-        '                   blur_input_month($(this).closest(\'form\'))"\n' +
+        '                       if ($(this).val() === \'\') $(this).val(0);\n' +
+        '                       blur_input_month($(this).closest(\'.item\'))"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
@@ -48,7 +45,6 @@ function click_add_month(btn) {
         '            </button>\n' +
         '        </form>');
     btn.before(obj);
-    btn.slideUp(200);
     btn.prev().animate({height: '40px', margin: '3vh 0', opacity: 1}, 200, 'swing', function () {
         $(this).removeAttr('style').addClass('new').children('.task').focus();
     });
@@ -63,18 +59,16 @@ function blur_input_month(form) {
     if (form.hasClass('new')) {
         if (new_month_data.task === '') {
             del_month_task(form);
-            $('#add_month_task').slideDown(200);
         }
-        else if (new_month_data.hour !== '' && new_month_data.minute !== '' && new_month_data.task !== ''){
+        else if (new_month_data.digit !== '' && new_month_data.month !== '' && new_month_data.task !== ''){
             receive('/add_month', function (data) {
                 if (data === 'exist') {del_month_task(form)}
                 else {form.removeClass('new')}
             }, new_month_data);
-            $('#add_month_task').slideDown(200);
         }
     }
-    else if (new_month_data.hour !== old_month_data.digit ||
-        new_month_data.minute !== old_month_data.month ||
+    else if (new_month_data.digit !== old_month_data.digit ||
+        new_month_data.month !== old_month_data.month ||
         new_month_data.task !== old_month_data.task) {
         receive('/change_month', function (data) {
             if (data === 'exist') {del_month_task(form)}

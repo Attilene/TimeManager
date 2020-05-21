@@ -2,8 +2,7 @@ let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
 
 jQuery(document).ready(function () {
-    $('body').removeClass('START');
-    setTimeout(function () {$('body').removeClass('_START_')}, close_time('body._START_'));
+    $('body').css({opacity: 0}).animate({opacity: 1}, 1000);
     clear_fields();
     // Запоминание страницы
     if (sessionStorage.getItem('page')) {

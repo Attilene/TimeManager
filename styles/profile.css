@@ -19,7 +19,6 @@ aside {
 /*---------------Заголовок--------------------*/
 #set_login {
     text-align: center;
-    font-family: "Comfortaa Bold", sans-serif;
 	font-size: 1.5em;
     box-sizing: border-box;
     margin: 4px;
@@ -153,7 +152,6 @@ aside menu p {height: 20px; width: max-content; margin: 10px auto}
 aside menu p:hover {transform: scale(1.1)}
 
 #menu_confirm_delete button, #confirm_email button {
-	font-family: "Comfortaa Bold", sans-serif;
     font-size: 1em;
     margin: 10px 15px;
     padding: 0 15px;
@@ -185,7 +183,6 @@ aside menu p:hover {transform: scale(1.1)}
 /*------------------------------------------------*/
 /*--------------------Инпуты----------------------*/
 aside menu input {
-	font-family: "Comfortaa Bold", sans-serif;
 	font-size: 1em;
 	padding: 0 10px;
 	margin: 0 16px;

@@ -175,21 +175,21 @@ def req_del_day(now, data):
     now.del_day(**data)
 
 
-@user_req('/add_day')
+@user_req('/add_month')
 def req_add_month(now, data):
     """Добавление дневной задачи"""
     if now.add_month(**data): return jsonify(True)
     else: return jsonify('exist')
 
 
-@user_req('/change_day')
+@user_req('/change_month')
 def req_change_month(now, data):
     """Изменение дневной задачи"""
     if now.change_month(*data): return jsonify(True)
     else: return jsonify('exist')
 
 
-@user_req('/del_day')
+@user_req('/del_month')
 def req_del_month(now, data):
     """Удаление дневной задачи"""
     now.del_month(**data)
