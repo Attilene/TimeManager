@@ -12,27 +12,31 @@ function del_day_task(form) {
     if (!form.hasClass('new')) {receive('/del_day', null, get_day_data(form))}
     form.addClass('del');
     setTimeout(function () {
-        form.animate({height: 0, margin: '0 auto', opacity: 0}, 200, 'swing', function () {
-            $(this).remove()})}, close_time(form));
+        form.slideUp(close_time(form), function () {
+            $(this).remove()
+        })
+    }, close_time(form))
 }
 
 function click_add_day(btn) {
-    let obj = $(' <form class="item day" style="height: 0; margin: 0; opacity: 0;">\n' +
+    let obj = $('<form class="item day"  style="height: 0; margin: 0; opacity: 0">\n' +
         '            <span class="time">\n' +
-        '            <input class="hour" type="text" value=""\n' +
+        '            <input class="hour" type="text" value="" max="24" min="0"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                       focus_input_day($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\') $(this).val(0);\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
+        '                   onkeydown="change_val(event)"\n' +
         '            >\n' +
         '            <span>:</span>\n' +
-        '            <input class="minute" type="text" value=""\n' +
+        '            <input class="minute" type="text" max="60" min="0"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                       focus_input_day($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\') $(this).val(0);\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
+        '                   onkeydown="change_val(event)"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
@@ -76,3 +80,14 @@ function blur_input_day(form) {
         }, [old_day_data, new_day_data]);
     }
 }
+
+function change_val(event) {
+    let key = event.keyCode;
+    if (key === 38 || key === 40) event.preventDefault();
+    let input = $(event.target);
+    let int = parseInt(input.val());
+    if (key === 38 && int < input[0].max) {input.val(int + 1); console.log('up')}
+    if (key === 40 && int > input[0].min) {input.val(int - 1);console.log('down')}
+}
+
+

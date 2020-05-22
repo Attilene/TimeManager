@@ -147,12 +147,15 @@ function registration() {
         'theme':   user_data.theme,
         'color':   user_data.color,
         'remember': $('#checkbox_remember_me').is(':checked')
-    }, function () {
+    }, function (data) {
         // Загрузка страниц
         user_data.login = in_login.val();
         user_data.email = in_email.val();
         $('#menu_edit_email, #confirm_email').addClass('nonactive');
         $('#menu_edit_email').addClass('opened');
+        $('#page_day')[0].innerHTML = data.day;
+        $('#page_month')[0].innerHTML = data.month;
+        $('#page_lists')[0].innerHTML = data.lists;
         // Закрытие меню
         $('#authorisation span').click();
         let menu = $('#authorisation_menu');

@@ -52,15 +52,16 @@ function toggle_set_menu(set_menu) {
                 temp.stop().slideUp(200, function () {
                     temp.removeAttr('style').find('input').removeClass('fill').val('');
                     set_menu.stop().slideDown(time, function () {
-                        set_menu.removeAttr('style').css({display: 'block'})
+                        set_menu.removeAttr('style').css({display: 'block'});
                     });
-                    set_menu.addClass('opened');
+                    set_menu.addClass('opened').find('input').focus();
                 }).removeClass('opened');
             }
             else {
                 set_menu.stop().slideDown(time, function () {
                     set_menu.removeAttr('style').css({display: 'block'})}).addClass('opened')
             }
+            setTimeout(function () {set_menu.find('input').focus()}, close_time(set_menu));
         }
     }
 }

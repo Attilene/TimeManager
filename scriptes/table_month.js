@@ -11,28 +11,31 @@ function get_month_data(form) {
 function del_month_task(form) {
     if (!form.hasClass('new')) {receive('/del_month', null, get_month_data(form))}
     form.addClass('del');
-    setTimeout(function () {
-        form.animate({height: 0, margin: '0 auto', opacity: 0}, 200, 'swing', function () {
-            $(this).remove()});}, close_time(form));
+    setTimeout(function () {form.slideUp(close_time(form), function () {
+            $(this).remove()
+        })
+    }, close_time(form));
 }
 
 function click_add_month(btn) {
-    let obj = $(' <form class="item month" style="height: 0; margin: 0; opacity: 0;">\n' +
+    let obj = $('<form class="item month" style="height: 0; margin: 0; opacity: 0">\n' +
         '            <span class="time">\n' +
-        '            <input class="digit" type="text" value=""\n' +
+        '            <input class="digit" type="text" value="" max="31" min="1"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                       focus_input_month($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\') $(this).val(0);\n' +
         '                       blur_input_month($(this).closest(\'.item\'))"\n' +
+        '                   onkeydown="change_val(event)"\n' +
         '            >\n' +
         '            <span>:</span>\n' +
-        '            <input class="month" type="text" value=""\n' +
+        '            <input class="month" type="text" value="" max="12" min="1"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                       focus_input_month($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\') $(this).val(0);\n' +
         '                       blur_input_month($(this).closest(\'.item\'))"\n' +
+        '                   onkeydown="change_val(event)"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +

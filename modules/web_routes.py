@@ -250,6 +250,7 @@ def req_send_restore(temp=None):
 
 @tm.route('/login', methods=['POST'])
 def req_login():
+    session.permanent = True
     log, pswsalt, remember = request.get_json()
     if User.check_psw(log, pswsalt):
         u = User(log)
@@ -273,6 +274,7 @@ def req_login():
 
 @tm.route('/register', methods=['POST'])
 def req_register():
+    session.permanent = True
     temp = request.get_json()
     remember = temp.pop('remember')
     User.registration(**temp)
@@ -280,7 +282,11 @@ def req_register():
     session['login'] = temp['log']
     session['token'] = users[temp['log']].token
     session['remember'] = remember
-    return jsonify(True)
+    return jsonify({
+        "day": render_template('day.html'),
+        "month": render_template('month.html'),
+        "lists": render_template('lists.html')
+    })
 
 
 @tm.route('/get_key', methods=['POST'])
@@ -304,12 +310,10 @@ def req_fast_check_password():
 # Главная страница
 @tm.route('/')
 def page_home():
-    session.permanent = True
     if session.get('remember') and session.get('login') and session.get('token') and users.get(session.get('login')):
         if session['token'] == users.get(session.get('login')).token:
             log = session['login']
             now = users[log]
-            session['token'] = users[log].token = gen_salt(50)
             if users[log]._restore:
                 restore = 1
                 users[log]._restore = 0

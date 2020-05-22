@@ -64,7 +64,7 @@ form#user {
 /*--------------------------------------------*/
 /*----------------Инпуты----------------------*/
 #authorisation_menu input.hidden {
-	opacity: 0;
+	opacity: 0 !important;
 	border-width: 0;
 	height: 0;
 	margin: 0 16px;

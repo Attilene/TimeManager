@@ -24,12 +24,14 @@ div.body {
 .item.del {
     left: 20px;
     opacity: 0;
+    transition-timing-function: ease-in !important;
 }
 
 .time {
-    padding: 0 10px;
-    margin: 0 10px;
-    width: 80px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    margin: 0;
+    width: 110px;
     float: left;
     height: 40px;
     border-radius: 20px;
@@ -39,15 +41,15 @@ div.body {
     width: 10px;
     font-size: 1.5em;
     position: relative;
-    bottom: 2px;
+    bottom: 3px;
     line-height: 40px;
 }
 
 .time input {
+    box-sizing: border-box;
     font-size: 1.5em;
     line-height: 40px;
-    width: 30px;
-    padding: 0;
+    width: 35px;
     background: none;
     border: none;
 }

@@ -2,20 +2,22 @@
     {% for hour, minute, task in table_day %}
         <form class="item day">
             <span class="time">
-            <input class="hour" type="text" value="{{ hour }}"
+            <input class="hour" type="text" value="{{ hour }}" max="24" min="0"
                    onfocus="$(this).parent().addClass('input');
                        focus_input_day($(this).closest('.item'))"
                    onblur="$(this).parent().removeClass('input');
                        if ($(this).val() === '') $(this).val(0);
                        blur_input_day($(this).closest('.item'))"
+                   onkeydown="change_val(event)"
             >
             <span>:</span>
-            <input class="minute" type="text" value="{{ minute }}"
+            <input class="minute" type="text" value="{{ minute }}" max="60" min="0"
                    onfocus="$(this).parent().addClass('input');
                        focus_input_day($(this).closest('.item'))"
                    onblur="$(this).parent().removeClass('input');
                        if ($(this).val() === '') $(this).val(0);
                        blur_input_day($(this).closest('.item'))"
+                   onkeydown="change_val(event)"
             >
             </span>
             <textarea class="task" placeholder="Задача"
