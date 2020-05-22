@@ -40,4 +40,11 @@ jQuery(document).ready(function () {
             toggle_set_menu($('#menu_edit_psw'));
         }
     }
+    // Настройка времени колесиком
+    $('.time input').on('wheel', function (event) {
+        let input = $(event.target);
+        let int = parseInt(input.val());
+        if (event.originalEvent.deltaY < 0 && int < event.target.max) {input.val(int + 1)}
+        if (event.originalEvent.deltaY > 0 && int > event.target.min) {input.val(int - 1)}
+    })
 });

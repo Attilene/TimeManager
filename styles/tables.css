@@ -41,9 +41,10 @@ div.body {
     width: 10px;
     font-size: 1.5em;
     position: relative;
-    bottom: 3px;
     line-height: 40px;
 }
+
+.day .time span {bottom: 3px}
 
 .time input {
     box-sizing: border-box;

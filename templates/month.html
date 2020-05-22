@@ -10,7 +10,7 @@
                        blur_input_month($(this).closest('.item'))"
                    onkeydown="change_val(event)"
             >
-            <span>:</span>
+            <span>.</span>
             <input class="month" type="text" value="{{ month }}" max="12" min="1"
                    onfocus="$(this).parent().addClass('input');
                        focus_input_month($(this).closest('.item'))"
@@ -23,6 +23,7 @@
             <textarea class="task" placeholder="Задача"
                       onfocus="old_month_data = get_month_data($(this).parent())"
                       onblur="blur_input_month($(this).closest('.item'))"
+                      onkeydown="change_val(event)"
             >{{ task }}</textarea>
             <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">
                 <svg id="email_btn_del_task">
