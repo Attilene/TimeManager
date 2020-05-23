@@ -1,19 +1,19 @@
-header, footer, aside, div.name, #dev_head, .card_head, .card {background: #000}
-aside menu div.theme {border-color: #000}
-aside menu div.theme::before {color: #000}
-::selection {background-color: rgba(0, 0, 0, 0.5)}
+header, footer, aside, div.name, #dev_head, .card_head, .card {background: #2c2c2c}
+aside menu div.theme {border-color: #2c2c2c}
+aside menu div.theme::before {color: #2c2c2c}
+::selection {background-color: rgba(44, 44, 44, 0.5)}
 
-::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 0.5)}
-::-webkit-scrollbar-thumb:hover{background-color: #000}
+::-webkit-scrollbar-thumb {background-color: rgba(44, 44, 44, 0.5)}
+::-webkit-scrollbar-thumb:hover{background-color: #2c2c2c}
 
-@-webkit-keyframes autofill {to {background: rgba(0, 0, 0, 0.5)}}
-aside menu input, input.fill+button:hover {background-color: #000}
-aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(0, 0, 0, 0.5)}
-aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #000}
-#menu_confirm_delete button, #confirm_email button, .item button {background-color: #000}
-#authorisation_menu #checkbox_remember_me:checked~label {color: #000}
-.item textarea, #add_day_task, #add_month_task {background-color: rgba(0, 0, 0, 0.5)}
-.time.input {background-color: #000}
+@-webkit-keyframes autofill {to {background: rgba(44, 44, 44, 0.5)}}
+aside menu input, input.fill+button:hover {background-color: #2c2c2c}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(44, 44, 44, 0.5)}
+aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #2c2c2c}
+#menu_confirm_delete button, #confirm_email button, .item button {background-color: #2c2c2c}
+#authorisation_menu #checkbox_remember_me:checked~label {color: #2c2c2c}
+.item textarea, #add_day_task, #add_month_task {background-color: rgba(44, 44, 44, 0.5)}
+.time.input {background-color: #2c2c2c}
 
 header a.center:hover, header span.right:hover, aside menu input,
 aside label[for=remember_me] {

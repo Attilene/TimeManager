@@ -1,20 +1,20 @@
-header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #ff6464}
-aside menu div.theme {border-color: #ff6464}
-aside menu div.theme::before {color: #ff6464}
-::selection {background-color: rgba(255, 100, 100, 0.5)}
+header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #eb7575}
+aside menu div.theme {border-color: #eb7575}
+aside menu div.theme::before {color: #eb7575}
+::selection {background-color: rgba(235, 117, 117, 0.5)}
 
-::-webkit-scrollbar-thumb {background-color: rgba(255, 100, 100, 0.5)}
-::-webkit-scrollbar-thumb:hover{background-color: #ff6464}
+::-webkit-scrollbar-thumb {background-color: rgba(235, 117, 117, 0.5)}
+::-webkit-scrollbar-thumb:hover{background-color: #eb7575}
 
-@-webkit-keyframes autofill {to {background-color: rgba(255, 100, 100, 0.5)}}
-aside menu input, input.fill+button:hover {background-color: #ff6464}
-aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(255, 100, 100, 0.5)}
-aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #ff6464}
-#menu_confirm_delete button, #confirm_email button, .item button {background-color: #ff6464}
-#authorisation_menu #checkbox_remember_me:checked~label {color: #ff6464}
-.item textarea, #add_day_task, #add_month_task {background-color: rgba(255, 100, 100, 0.5)}
-.time.input {background-color: #ff6464}
+@-webkit-keyframes autofill {to {background-color: rgba(235, 117, 117, 0.5)}}
+aside menu input, input.fill+button:hover {background-color: #eb7575}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(235, 117, 117, 0.5)}
+aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #eb7575}
+#menu_confirm_delete button, #confirm_email button, .item button {background-color: #eb7575}
+#authorisation_menu #checkbox_remember_me:checked~label {color: #eb7575}
+.item textarea, #add_day_task, #add_month_task {background-color: rgba(235, 117, 117, 0.5)}
+.time.input {background-color: #eb7575}
 
-aside #menu_confirm_delete button.yes {background-color: #ff0000 !important;}
-aside menu form input.warning, #set_login.warning {border-color: #ff0000 !important}
-#confirm_email p:last-of-type {color: #ff0000 !important;}
+aside #menu_confirm_delete button.yes {background-color: #ff5454 !important;}
+aside menu form input.warning, #set_login.warning {border-color: #ff5454 !important}
+#confirm_email p:last-of-type {color: #ff5454 !important;}

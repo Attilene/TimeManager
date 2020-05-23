@@ -1,9 +1,9 @@
-* {color: #4b4b4b}
-body, aside menu, #set_login:focus {background: darkgray}
+* {color: #2c2c2c}
+body, aside menu, #set_login:focus {background: #2c2c2c}
 #avatar {border-color: darkgray}
 #hat #change_avatar {fill: darkgray}
-aside menu div.light {background: darkgray}
-aside menu div.dark {background: #808080;}
+aside menu div.light {background: #525252}
+aside menu div.dark {background: #2c2c2c;}
 #developers hr {border-color: gray}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 ::placeholder {color: rgba(75, 75, 75, 0.7)}

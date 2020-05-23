@@ -1,16 +1,16 @@
-header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #b450b4}
-aside menu div.theme {border-color: #b450b4}
-aside menu div.theme::before {color: #b450b4}
-::selection {background-color: rgba(180, 80, 180, 0.5)}
+header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #b478c2}
+aside menu div.theme {border-color: #b478c2}
+aside menu div.theme::before {color: #b478c2}
+::selection {background-color: rgba(180, 120, 194, 0.5)}
 
-::-webkit-scrollbar-thumb {background-color: rgba(180, 80, 180, 0.51)}
-::-webkit-scrollbar-thumb:hover{background-color: #b450b4}
+::-webkit-scrollbar-thumb {background-color: rgba(180, 120, 194, 0.51)}
+::-webkit-scrollbar-thumb:hover{background-color: #b478c2}
 
-@-webkit-keyframes autofill {to {background-color: rgba(180, 80, 180, 0.5)}}
-aside menu input, input.fill+button:hover {background-color: #b450b4}
-aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(180, 80, 180, 0.5)}
-aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #b450b4}
-#menu_confirm_delete button, #confirm_email button, .item button {background-color: #b450b4}
-#authorisation_menu #checkbox_remember_me:checked~label {color: #b450b4}
-.item textarea, #add_day_task, #add_month_task {background-color: rgba(180, 80, 180, 0.5)}
-.time.input {background-color: #b450b4}
+@-webkit-keyframes autofill {to {background-color: rgba(180, 120, 194, 0.5)}}
+aside menu input, input.fill+button:hover {background-color: #b478c2}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(180, 120, 194, 0.5)}
+aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #b478c2}
+#menu_confirm_delete button, #confirm_email button, .item button {background-color: #b478c2}
+#authorisation_menu #checkbox_remember_me:checked~label {color: #b478c2}
+.item textarea, #add_day_task, #add_month_task {background-color: rgba(180, 120, 194, 0.5)}
+.time.input {background-color: #b478c2}

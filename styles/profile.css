@@ -307,12 +307,12 @@ aside menu div.dark::before {content: 'Тёмная тема'}
 #settings div.theme:hover button:hover {transform: scale(1.15)}
 #settings div.theme:hover button.choice {width: 24px}
 
-#settings button[data-color=red] {background: #ff6464}
-#settings button[data-color=blue] {background: #6464ff}
-#settings button[data-color=green] {background: #46aa46}
-#settings button[data-color=purple] {background: #b450b4}
-#settings button[data-color=sky] {background: #55c0bb}
-#settings button[data-color=black] {background: #000}
+#settings button[data-color=red] {background: #eb7575}
+#settings button[data-color=blue] {background: #7188c7}
+#settings button[data-color=green] {background: #60bda1}
+#settings button[data-color=purple] {background: #b478c2}
+#settings button[data-color=sky] {background: #6593b5}
+#settings button[data-color=black] {background: #2c2c2c}
 #settings button[data-color=white] {background: #fff}
 /*----------------------------------------------*/
 /*----------------------------------------------*/
