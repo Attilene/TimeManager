@@ -22,11 +22,11 @@ function del_day_task(form) {
 }
 
 function click_add_day(btn) {
-    let obj = $('<form class="item day" style="height: 0; margin: 0; opacity: 0">\n' +
+    let obj = $('<form class="item day new" style="margin: 0; height: 0; opacity: 0">\n' +
         '            <span class="time">\n' +
         '            <input class="hour" type="text" max="23" min="0" placeholder="?" \n' +
-        '                   onfocus="$(this).parent().addClass(\'input\'); ' +
-        '                       old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                   onfocus="$(this).parent().addClass(\'input\');\n' +
+        '                        old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
@@ -35,8 +35,8 @@ function click_add_day(btn) {
         '            >\n' +
         '            <span>:</span>\n' +
         '            <input class="minute" type="text" max="59" min="0" placeholder="?"\n' +
-        '                   onfocus="$(this).parent().addClass(\'input\'); ' +
-        '                       old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                   onfocus="$(this).parent().addClass(\'input\');\n' +
+        '                        old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
@@ -161,5 +161,3 @@ function set_val(input, val) {
     input.val(new_val);
     if (Math.floor(max / 10) < new_val) {to_next(input)}
 }
-
-
