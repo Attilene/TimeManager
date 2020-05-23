@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
 function warning(field, text='', type='empty') {
     if (typeof field === "string") {field = $(field)}
     let label = field.prev();
-    if (!label.hasClass(type) || label.text() !== text) {
+    if (label.hasClass('empty') || label.text() !== text) {
         if (label.hasClass('empty')) {
             label.removeClass('warning achive empty').addClass(type);
             label.css({width: label.css('width')})
@@ -26,7 +26,7 @@ function warning(field, text='', type='empty') {
                         .text(text)
                         .animate({
                             width: (25 + (text.length * 9)) + 'px'
-                        }, close_time(label))
+                        }, 200)
                 } else label.text('')
             })
         }

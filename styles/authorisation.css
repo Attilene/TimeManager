@@ -141,7 +141,7 @@ form#user {
 	pointer-events: none;
 }
 
-#authorisation_menu #remember_me:hover {transform: scale(1.05); background: rgba(255, 255, 255, 0.2);}
+#authorisation_menu #remember_me:hover {transform: scale(1.1); background: rgba(255, 255, 255, 0.2);}
 #authorisation_menu.login #remember_me {opacity: 1; pointer-events: visible; bottom: -35px}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
@@ -154,10 +154,11 @@ form#user {
 #erase_email, #show_repass {transition-timing-function: ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
-#authorisation span:hover, #restore:hover {transition: 0.1s ease-in}
+#authorisation span:hover, #restore:hover, #remember_me:hover {transition: 0.1s ease-in}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 #authorisation span:active, #restore:active {transform: scale(1); transition: 0.05s ease-out}
+#authorisation_menu #remember_me:active {transform: scale(1); transition: 0.1s ease-in-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 /*---------------Открытие---------------------*/
