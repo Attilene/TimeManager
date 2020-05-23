@@ -115,6 +115,6 @@ div.body {
 body .item.new~.alert {opacity: 1; pointer-events: visible}
 body .item.new~button {opacity: 0; pointer-events: none}
 
-.time *, .time, .item button, #add_day_task, #add_month_task, .alert {transition: 0.2s ease-out}
+.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert {transition: 0.2s ease-out}
 .item button:active, #add_day_task:active, #add_month_task:active, .alert:active {transform: scale(1)}
 .item {transition: 0.1s ease-out; transition-property: opacity, left}

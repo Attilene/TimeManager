@@ -202,13 +202,31 @@ main {
 	padding: 50px 0 40px 0;
 	text-align: center;
 	position: absolute;
-	top: -20px;
-	left: 0;
-	height: calc(100% - 70px);
+	top: 0;
+	left: 20px;
+	height: calc(100% - 90px);
 	width: 100%;
 	min-width: 958px;
 	overflow: auto;
 }
+
+
+/*---------------Открытие---------------------*/
+main.opened {
+	z-index: 5;
+	display: block;
+	opacity: 1;
+	left: 0;
+	transition: 0.2s ease-out 0.2s;
+}
+
+main.closed {
+	z-index: 4;
+	opacity: 0;
+	left: -40px;
+	transition: 0.2s ease-in;
+}
+/*--------------------------------------------*/
 /*--------------------------------------------*/
 
 /*-----------------Анимации-------------------*/
@@ -222,7 +240,7 @@ header *, footer * {transition: 0.2s ease-out}
 	transition-property: background, border, color, fill, opacity, top
 }
 
-body aside#profile_menu svg.change_theme {transition-duration: 0.05s !important}
+svg.change_theme {transition-duration: 0.05s !important}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {
@@ -242,20 +260,3 @@ header .right:active {transform: scale(0.95)}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
 
-/*---------------Открытие---------------------*/
-main.opened {
-	z-index: 5;
-	display: block;
-	opacity: 1;
-	top: 0;
-	height: calc(100% - 90px);
-	transition: 0.3s ease;
-}
-
-main.closed {
-	z-index: 4;
-	opacity: 0;
-	top: 20px;
-	transition: 0.2s ease-out;
-}
-/*--------------------------------------------*/

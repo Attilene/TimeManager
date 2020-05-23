@@ -21,28 +21,28 @@ function del_month_task(form) {
 function click_add_month(btn) {
     let obj = $('<form class="item month" style="height: 0; margin: 0; opacity: 0">\n' +
         '            <span class="time input">\n' +
-        '            <input class="digit" type="text" value="" max="31" min="1"\n' +
+        '            <input class="digit" type="text" max="31" min="1"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                       focus_input_month($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\') $(this).val(0);\n' +
         '                       blur_input_month($(this).closest(\'.item\'))"\n' +
-        '                   onkeydown="change_val(event)"\n' +
+        '                   onkeydown="key_func(event)"\n' +
         '            >\n' +
         '            <span>.</span>\n' +
-        '            <input class="month" type="text" value="" max="12" min="1"\n' +
+        '            <input class="month" type="text" max="12" min="1"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                       focus_input_month($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\') $(this).val(0);\n' +
         '                       blur_input_month($(this).closest(\'.item\'))"\n' +
-        '                   onkeydown="change_val(event)"\n' +
+        '                   onkeydown="key_func(event)"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
         '                      onfocus="old_month_data = get_month_data($(this).parent())"\n' +
         '                      onblur="blur_input_month($(this).closest(\'.item\'))"\n' +
-        '                      onkeydown="change_val(event)"' +
+        '                      onkeydown="key_func(event)"' +
         '            ></textarea>\n' +
         '            <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">\n' +
         '                <svg id="email_btn_del_task">\n' +

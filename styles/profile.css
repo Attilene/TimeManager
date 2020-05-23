@@ -338,7 +338,7 @@ aside form button:hover {transition: 0.1s ease}
 #menu_confirm_delete button:hover {transition: 0.1s ease}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
-aside input.fill+button:active {transform: scale(0.7); opacity: 0; transition: 0.05s ease-out}
+aside input.fill+button:active {transform: scale(0.8); background-color: rgba(0, 0, 0, 0); transition: 0.1s ease-out}
 #edit:hover div:active, #exit:hover div:active {transform: scale(1); transition: 0.05s ease-out}
 #profile_menu #avatar svg:active {transform: scale(0.9); transition: 0.05s ease-out}
 #profile_menu menu p:active {transform: scale(1); transition: 0.05s ease-out}

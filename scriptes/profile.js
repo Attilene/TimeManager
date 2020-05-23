@@ -139,7 +139,6 @@ function input_set_login(in_set_log) {
             else {
                 $('header .right a div.nickname').text(temp);
                 warning(in_set_log, 'Никнейм свободен', 'achive');
-                user_data.login = temp
             }
         })
     }
@@ -147,11 +146,14 @@ function input_set_login(in_set_log) {
 }
 
 function onblur_set_login(field) {
-    if (field.prev().hasClass('warning') && user_data.login !== field.val()) {
+    if (field.prev().hasClass('warning') || user_data.login === field.val()) {
         field.val(user_data.login);
         submit_warn(field.parent());
     }
-    else {send('/change_log', [user_data.login, field.val()])}
+    else {
+        send('/change_log', [user_data.login, field.val()]);
+        user_data.login = field.val()
+    }
     warning(field);
 }
 

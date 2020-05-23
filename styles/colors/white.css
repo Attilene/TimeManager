@@ -1,19 +1,19 @@
 header, footer, aside, div.name, #dev_list, #dev_head, .card_head, .card {background-color: #fff}
 aside menu div.theme {border-color: #fff}
-header a.center:hover, header span.right:hover, aside menu input, .item textarea {text-shadow: none}
+aside menu div.theme::before {color: #fff}
 ::selection {background-color: rgba(255, 255, 255, 0.5); color: black}
 
 ::-webkit-scrollbar-thumb {background-color: rgba(255, 255, 255, 0.5)}
 ::-webkit-scrollbar-thumb:hover{background-color: #fff}
 
 @-webkit-keyframes autofill {to {background-color: rgba(255, 255, 255, 0.5)}}
-aside menu input {background-color: #fff}
+aside menu input, input.fill+button:hover {background-color: #fff}
 aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(255, 255, 255, 0.5)}
-aside menu p, #set_login:focus, .time *, .alert {color: #fff}
+aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #fff}
 #menu_confirm_delete button, #confirm_email button, .item button {background-color: #fff}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #fff}
 .item textarea, #add_day_task, #add_month_task {background-color: rgba(255, 255, 255, 0.5)}
-.time.input {background-color: #fff}
+.time.input {background-color: white}
 
 header .center:hover {background-color: rgba(0, 0, 0, 0.1)}
 footer span:last-of-type:hover {background-color: rgba(0, 0, 0, 0.1);}
@@ -25,5 +25,3 @@ footer span:last-of-type:hover {background-color: rgba(0, 0, 0, 0.1);}
 @media (min-width: 1001px) { header .right:hover {background-color: rgba(0, 0, 0, 0.1)}}
 aside #hat #edit_profile div:hover {background-color: rgba(0, 0, 0, 0.1)}
 aside menu div.theme::before {color: #fff}
-header a.center:hover, header span.right:hover, aside menu input, aside label[for=remember_me] {
-    text-shadow: none}

@@ -41,10 +41,19 @@ jQuery(document).ready(function () {
         }
     }
     // Настройка времени колесиком
-    $('.time input').on('wheel', function (event) {
-        let input = $(event.target);
-        let int = parseInt(input.val());
-        if (event.originalEvent.deltaY < 0 && int < event.target.max) {input.val(int + 1)}
-        if (event.originalEvent.deltaY > 0 && int > event.target.min) {input.val(int - 1)}
+    $('main').on('wheel', 'div.body',function (event) {
+        if ($('.time').has(event.target).length > 0) {
+            event.preventDefault();
+            let input = $(event.target);
+            let int = parseInt(input.val());
+            if (event.originalEvent.deltaY < 0) {
+                if (int < input[0].max) {input.val(int + 1)}
+                if (isNaN(int)) {input.val(input[0].min)}
+            }
+            if (event.originalEvent.deltaY > 0) {
+                if (int > input[0].min) {input.val(int - 1)}
+                if (isNaN(int)) {input.val(input[0].max)}
+            }
+        }
     })
 });

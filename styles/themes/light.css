@@ -12,4 +12,4 @@ aside menu div.dark {background: #cdcdcd}
 svg  {fill: white}
 #avatar:hover #avatar_inside {filter: brightness(80%) blur(2px)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
-.time.input * {color: white}
+.time.input *, .time.input input::placeholder {color: white}

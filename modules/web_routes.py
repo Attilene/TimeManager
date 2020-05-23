@@ -20,25 +20,27 @@ def user_req(url, img=None):
     def wrap(func):
         def wrapper():
             if session.get('login'):
-                if url == '/change_log':
-                    old, new = request.get_json()
-                    if users.get(old):
-                        if users[old].token == session['token']:
-                            users[new] = users.pop(old)
-                            session['login'] = new
-                            func(users[new], new)
-                            return jsonify(True)
-                    return abort(505)
-                elif users[session['login']].token == session['token']:
-                    if img: data = request.files.get(img)
-                    else: data = request.get_json()
-                    if data:
-                        temp = func(users[session['login']], data)
-                    else: temp = func(users[session['login']])
-                    if temp: return temp
-                    else: return jsonify(True)
-                else: return abort(505)
-            else: return abort(505)
+                try:
+                    if url == '/change_log':
+                        old, new = request.get_json()
+                        if users.get(old):
+                            if users[old].token == session['token']:
+                                users[new] = users.pop(old)
+                                session['login'] = new
+                                func(users[new], new)
+                                return jsonify(True)
+                        return redirect('/')
+                    elif users[session['login']].token == session['token']:
+                        if img: data = request.files.get(img)
+                        else: data = request.get_json()
+                        if data:
+                            temp = func(users[session['login']], data)
+                        else: temp = func(users[session['login']])
+                        if temp: return temp
+                        else: return jsonify(True)
+                    else: return redirect('/')
+                except KeyError: return redirect('/')
+            else: return redirect('/')
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
     return wrap
 
@@ -158,6 +160,8 @@ def req_delete_user(now):
 @user_req('/add_day')
 def req_add_day(now, data):
     """Добавление дневной задачи"""
+    if not data['hour'].isdigit(): data['hour'] = '0'
+    if not data['minute'].isdigit(): data['minute'] = '0'
     if now.add_day(**data): return jsonify(True)
     else: return jsonify('exist')
 
@@ -165,6 +169,8 @@ def req_add_day(now, data):
 @user_req('/change_day')
 def req_change_day(now, data):
     """Изменение дневной задачи"""
+    if not data[1]['hour'].isdigit(): data[1]['hour'] = '0'
+    if not data[1]['minute'].isdigit(): data[1]['minute'] = '0'
     if now.change_day(*data): return jsonify(True)
     else: return jsonify('exist')
 
@@ -178,6 +184,8 @@ def req_del_day(now, data):
 @user_req('/add_month')
 def req_add_month(now, data):
     """Добавление дневной задачи"""
+    if not data['digit'].isdigit(): data['month'] = '0'
+    if not data['digit'].isdigit(): data['month'] = '0'
     if now.add_month(**data): return jsonify(True)
     else: return jsonify('exist')
 
@@ -185,6 +193,8 @@ def req_add_month(now, data):
 @user_req('/change_month')
 def req_change_month(now, data):
     """Изменение дневной задачи"""
+    if not data[1]['digit'].isdigit(): data[1]['month'] = '0'
+    if not data[1]['digit'].isdigit(): data[1]['month'] = '0'
     if now.change_month(*data): return jsonify(True)
     else: return jsonify('exist')
 
