@@ -71,6 +71,7 @@ function clear_fields() {
     warning(inputs);
     fade_change(inputs, function () {inputs.removeClass('fill').val('')});
     change_auth('empty');
+    $('#authorisation span, header .right').click();
     toggle_aside($('aside.opened'));
     inputs.prev('label').removeClass('show');
 }
