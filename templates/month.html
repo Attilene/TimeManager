@@ -28,9 +28,7 @@
             </span>
             <textarea class="task" placeholder="Задача"
                       onfocus="old_month_data = get_month_data($(this).closest('.item'))"
-                      onmouseenter="old_month_data = get_month_data($(this).closest('.item'))"
                       onblur="blur_input_month($(this).closest('.item'))"
-                      onmouseleave="blur_input_month($(this).closest('.item'))"
                       onkeydown="key_func(event)"
             >{{ task }}</textarea>
             <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">

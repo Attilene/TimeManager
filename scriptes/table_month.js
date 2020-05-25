@@ -55,9 +55,7 @@ function click_add_month(btn) {
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
         '                      onfocus="old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
-        '                      onmouseenter="old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
         '                      onblur="blur_input_month($(this).closest(\'.item\'))"\n' +
-        '                      onmouseleave="blur_input_month($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +
         '            ></textarea>\n' +
         '            <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">\n' +

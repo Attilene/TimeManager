@@ -28,9 +28,7 @@
             </span>
             <textarea class="task" placeholder="Задача"
                       onfocus="old_day_data = get_day_data($(this).closest('.item'))"
-                      onmouseenter="old_day_data = get_day_data($(this).closest('.item'))"
                       onblur="blur_input_day($(this).closest('.item'))"
-                      onmouseleave="blur_input_day($(this).closest('.item'))"
                       onkeydown="key_func(event)"
             >{{ task }}</textarea>
             <button type="button" class="del_day" onmousedown="del_day_task($(this).parent())">

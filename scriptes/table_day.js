@@ -52,9 +52,7 @@ function click_add_day(btn) {
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
         '                      onfocus="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
-        '                      onmouseenter="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
         '                      onblur="blur_input_day($(this).closest(\'.item\'))"\n' +
-        '                      onmouseleave="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +
         '            ></textarea>\n' +
         '            <button type="button" class="del_day" onmousedown="del_day_task($(this).parent())">\n' +
