@@ -83,6 +83,26 @@ function guest_auth() {
     // Установка имени
     $('header .right a div.nickname').text('Guest');
     $('#set_login').val('Guest');
+    // Вставка страниц
+    $('#page_day')[0].innerHTML = '<div class="body">\n' +
+        '    <button id="add_day_task" onmousedown="click_add_day($(this))">\n' +
+        '        <svg id="btn_add_day">\n' +
+        '            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
+        '        </svg>\n' +
+        '    </button>\n' +
+        '    <br>\n' +
+        '    <a class="alert">Введите данные</a>\n' +
+        '</div>';
+    $('#page_month')[0].innerHTML = '<div class="body">\n' +
+        '    <button id="add_month_task" onmousedown="click_add_month($(this))">\n' +
+        '        <svg id="btn_add_month">\n' +
+        '            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
+        '        </svg>\n' +
+        '    </button>\n' +
+        '    <br>\n' +
+        '    <a class="alert">Введите данные</a>\n' +
+        '</div>';
+    $('#page_lists')[0].innerHTML = '';
     // Сбор мусора
     setTimeout(function () {
         $('#authorisation, header .center, header .right').removeAttr('style')

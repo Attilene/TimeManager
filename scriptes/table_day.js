@@ -9,7 +9,8 @@ function get_day_data(form) {
 }
 
 function del_day_task(form) {
-    if (!form.hasClass('new')) {
+    if (user_data.login !== '') {
+        if (!form.hasClass('new')) {
         if (form.find(':focus').length === 0) {receive('/del_day', null, get_day_data(form))}
         else {receive('/del_day', null, old_day_data)}
     }
@@ -19,6 +20,7 @@ function del_day_task(form) {
             $(this).remove()
         })
     }, close_time(form))
+    }
 }
 
 function click_add_day(btn) {
@@ -68,24 +70,29 @@ function click_add_day(btn) {
 }
 
 function blur_input_day(form) {
-    let new_day_data = get_day_data(form);
-    if (form.hasClass('new')) {
-        if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== ''){
-            receive('/add_day', function (data) {
-                if (data === 'exist') {del_day_task(form)}
-                else {
-                    form.removeClass('new');
-                    form.find('input').removeAttr('placeholder')
+    if (user_data.login !== '') {
+        let new_day_data = get_day_data(form);
+        if (form.hasClass('new')) {
+            if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
+                receive('/add_day', function (data) {
+                    if (data === 'exist') {
+                        del_day_task(form)
+                    } else {
+                        form.removeClass('new');
+                        form.find('input').removeAttr('placeholder')
+                    }
+                }, new_day_data);
+            }
+        } else if (new_day_data.hour !== old_day_data.hour ||
+            new_day_data.minute !== old_day_data.minute ||
+            new_day_data.task !== old_day_data.task) {
+            receive('/change_day', function (data) {
+                if (data === 'exist') {
+                    del_day_task(form);
+                    console.log(old_day_data, new_day_data)
                 }
-            }, new_day_data);
+            }, [old_day_data, new_day_data]);
         }
-    }
-    else if (new_day_data.hour !== old_day_data.hour ||
-        new_day_data.minute !== old_day_data.minute ||
-        new_day_data.task !== old_day_data.task) {
-        receive('/change_day', function (data) {
-            if (data === 'exist') {del_day_task(form); console.log(old_day_data, new_day_data)}
-        }, [old_day_data, new_day_data]);
     }
 }
 

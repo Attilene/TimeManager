@@ -9,16 +9,21 @@ function get_month_data(form) {
 }
 
 function del_month_task(form) {
-    if (!form.hasClass('new')) {
-        if (form.find(':focus').length === 0) {receive('/del_month', null, get_month_data(form))}
-        else {receive('/del_month', null, old_month_data)}
+    if (user_data.login !== '') {
+        if (!form.hasClass('new')) {
+            if (form.find(':focus').length === 0) {
+                receive('/del_month', null, get_month_data(form))
+            } else {
+                receive('/del_month', null, old_month_data)
+            }
+        }
+        form.addClass('del');
+        setTimeout(function () {
+            form.slideUp(200, function () {
+                $(this).remove()
+            })
+        }, close_time(form))
     }
-    form.addClass('del');
-    setTimeout(function () {
-        form.slideUp(200, function () {
-            $(this).remove()
-        })
-    }, close_time(form))
 }
 
 function click_add_month(btn) {
@@ -68,23 +73,28 @@ function click_add_month(btn) {
 }
 
 function blur_input_month(form) {
-    let new_month_data = get_month_data(form);
-    if (form.hasClass('new')) {
-        if (new_month_data.digit !== '' && new_month_data.month !== '' && new_month_data.task !== ''){
-            receive('/add_month', function (data) {
-                if (data === 'exist') {del_month_task(form)}
-                else {
-                    form.removeClass('new');
-                    form.find('input').removeAttr('placeholder')
+    if (user_data.login !== '') {
+        let new_month_data = get_month_data(form);
+        if (form.hasClass('new')) {
+            if (new_month_data.digit !== '' && new_month_data.month !== '' && new_month_data.task !== '') {
+                receive('/add_month', function (data) {
+                    if (data === 'exist') {
+                        del_month_task(form)
+                    } else {
+                        form.removeClass('new');
+                        form.find('input').removeAttr('placeholder')
+                    }
+                }, new_month_data);
+            }
+        } else if (new_month_data.digit !== old_month_data.digit ||
+            new_month_data.month !== old_month_data.month ||
+            new_month_data.task !== old_month_data.task) {
+            receive('/change_month', function (data) {
+                if (data === 'exist') {
+                    del_month_task(form);
+                    console.log(old_month_data, new_month_data)
                 }
-            }, new_month_data);
+            }, [old_month_data, new_month_data]);
         }
-    }
-    else if (new_month_data.digit !== old_month_data.digit ||
-        new_month_data.month !== old_month_data.month ||
-        new_month_data.task !== old_month_data.task) {
-        receive('/change_month', function (data) {
-            if (data === 'exist') {del_month_task(form); console.log(old_month_data, new_month_data)}
-        }, [old_month_data, new_month_data]);
     }
 }
