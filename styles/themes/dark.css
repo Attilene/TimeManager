@@ -13,3 +13,4 @@ svg {fill: #2c2c2c}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: darkgray}
 .time:hover *, .time:hover input::placeholder  {color: #737373}
 .time.input *, .time.input input::placeholder {color: #4b4b4b}
+.time.input::selection {background-color: rgba(0, 0, 0, 0.2)}

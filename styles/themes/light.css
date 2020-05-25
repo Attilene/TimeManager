@@ -12,3 +12,4 @@ svg  {fill: white}
 #avatar:hover #avatar_inside {filter: brightness(80%) blur(2px)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
 .time.input * {color: white}
+.time.input::selection {background-color: rgba(255, 255, 255, 0.2)}
