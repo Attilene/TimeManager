@@ -1,5 +1,3 @@
-let old_day_data = {};
-
 function get_day_data(form) {
     return {
         "hour": form.children('.time').children('.hour').val(),
@@ -8,13 +6,15 @@ function get_day_data(form) {
     }
 }
 
+function save_day(form) {form.data('old', get_day_data(form));}
+
 function del_day_task(form) {
     if (user_data.login !== '') {
         if (!form.hasClass('new')) {
             if (form.find(':focus').length === 0) {
                 receive('/del_day', null, get_day_data(form))
             } else {
-                receive('/del_day', null, old_day_data)
+                receive('/del_day', null, form.data('old'))
             }
         }
     }
@@ -28,33 +28,30 @@ function del_day_task(form) {
 
 function click_add_day(btn) {
     let obj = $('<form class="item day new" style="margin: 0; height: 0; opacity: 0">\n' +
-        '            <span class="time">\n' +
+        '            <span class="time"\n' +
+        '                  onmouseenter="save_day($(this).parent())"\n' +
+        '                  onmouseleave="blur_input_day($(this).parent())"\n' +
+        '            >\n' +
         '            <input class="hour" type="text" max="23" min="0" placeholder="?" \n' +
-        '                   onfocus="$(this).parent().addClass(\'input\');\n' +
-        '                        old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
-        '                   onmouseenter="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                   onfocus="$(this).parent().addClass(\'input\'); save_day($(this).parent())"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
-        '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
+        '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(\'00\');\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
-        '                   onmouseleave="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
         '            <span>:</span>\n' +
         '            <input class="minute" type="text" max="59" min="0" placeholder="?"\n' +
-        '                   onfocus="$(this).parent().addClass(\'input\');\n' +
-        '                        old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
-        '                   onmouseenter="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                   onfocus="$(this).parent().addClass(\'input\'); save_day($(this).parent())"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
-        '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
+        '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(\'00\');\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
-        '                   onmouseleave="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
-        '                      onfocus="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                      onfocus="save_day($(this).parent())"\n' +
         '                      onblur="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +
         '            ></textarea>\n' +
@@ -71,14 +68,17 @@ function click_add_day(btn) {
 }
 
 function blur_input_day(form) {
+    let old = form.data('old');
     let new_day_data = get_day_data(form);
+    form.data('old', new_day_data);
     if (form.hasClass('new')) {
         if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
             if (user_data.login !== '') {
                 receive('/add_day', function (data) {
                     if (data === 'exist') {
-                        del_day_task(form)
+                        del_day_task(form);
                     } else {
+                        form.data('old', get_day_data(form));
                         form.removeClass('new');
                         form.find('input').removeAttr('placeholder')
                     }
@@ -89,15 +89,17 @@ function blur_input_day(form) {
                 form.find('input').removeAttr('placeholder')
             }
         }
-    } else if (new_day_data.hour !== old_day_data.hour ||
-        new_day_data.minute !== old_day_data.minute ||
-        new_day_data.task !== old_day_data.task) {
+    } else if (new_day_data.hour !== old.hour ||
+        new_day_data.minute !== old.minute ||
+        new_day_data.task !== old.task) {
         receive('/change_day', function (data) {
             if (data === 'exist') {
                 del_day_task(form);
             }
-            old_day_data = new_day_data
-        }, [old_day_data, new_day_data]);
+            else {
+                form.data('old', new_day_data);
+            }
+        }, [old, new_day_data]);
     }
 }
 
@@ -115,14 +117,14 @@ function key_func(event) {
         else if (key === 39) to_next(input);
         else if (input[0].tagName === 'INPUT') {
             if (key === 38) {
-                if (int < input[0].max) {input.val(int + 1)}
-                else {input.val(input[0].min)}
-                if (isNaN(int)) {input.val(input[0].min)}
+                if (int < event.target.max) {set_val(input, int + 1)}
+                else {input.val(event.target.min)}
+                if (isNaN(int)) {set_val(input, event.target.min)}
             }
             else if (key === 40) {
-                if (int > input[0].min) {input.val(int - 1)}
-                else {input.val(input[0].max)}
-                if (isNaN(int)) {input.val(input[0].max)}
+                if (int > event.target.min) {set_val(input, int - 1)}
+                else {input.val(event.target.max)}
+                if (isNaN(int)) {set_val(input, event.target.max)}
             }
         }
         else if (input[0].tagName === 'TEXTAREA') {
@@ -160,13 +162,14 @@ function to_prev(input) {
 
 function input_time(input) {
     let val = input.val();
-    if (val === '') {input.val('')}
-    else if (/^[0-9]+$/.test(val)) {set_val(input, val)}
-    else if (/^[0-9].[0-9]$/.test(val)) {set_val(input, val[0] + val[2])}
-    else if (/^[0-9]+$/.test(val.slice(0, 2))) {set_val(input, val.slice(0, 2))}
-    else if (/^[0-9]+$/.test(val.slice(1))) {set_val(input, val.slice(1))}
-    else if (/^[0-9]+$/.test(val[0])) {set_val(input, val[0])}
-    else input.val(0);
+    let new_val = 0;
+    if (val === '') {input.val(0)}
+    else if (/^[0-9]+$/.test(val)) {new_val = val}
+    else if (/^[0-9].[0-9]$/.test(val)) {new_val = val[0] + val[2]}
+    else if (/^[0-9]+$/.test(val.slice(0, 2))) {new_val = val.slice(0, 2)}
+    else if (/^[0-9]+$/.test(val.slice(1))) {new_val = val.slice(1)}
+    else if (/^[0-9]+$/.test(val[0])) {new_val = val[0]}
+    if (set_val(input, new_val)) to_next(input)
 }
 
 function set_val(input, val) {
@@ -177,6 +180,9 @@ function set_val(input, val) {
     if (isNaN(int)) {new_val = 0}
     else if (int > max) {new_val = parseInt(val[input[0].selectionStart - 1])}
     else if (int < min) {new_val = min}
+    if (new_val < 10) {new_val = '0' + new_val}
     input.val(new_val);
-    if (Math.floor(max / 10) < new_val) {to_next(input)}
+    if (Math.floor(max / 10) < new_val) return true
 }
+
+

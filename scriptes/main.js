@@ -2,6 +2,9 @@ let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
 
 jQuery(document).ready(function () {
+    $('input').on('', function () {
+        console.log($(this).val())
+    });
     $('body').css({opacity: 0}).animate({opacity: 1}, 1000);
     clear_fields();
     // Запоминание страницы
@@ -47,14 +50,14 @@ jQuery(document).ready(function () {
             let input = $(event.target);
             let int = parseInt(input.val());
             if (event.originalEvent.deltaY < 0) {
-                if (int < input[0].max) {input.val(int + 1)}
-                else {input.val(input[0].min)}
-                if (isNaN(int)) {input.val(input[0].min)}
+                 if (int < event.target.max) {set_val(input, int + 1)}
+                else {input.val(event.target.min)}
+                if (isNaN(int)) {set_val(input, event.target.min)}
             }
             if (event.originalEvent.deltaY > 0) {
-                if (int > input[0].min) {input.val(int - 1)}
-                else {input.val(input[0].max)}
-                if (isNaN(int)) {input.val(input[0].max)}
+                if (int > event.target.min) {set_val(input, int - 1)}
+                else {input.val(event.target.max)}
+                if (isNaN(int)) {set_val(input, event.target.max)}
             }
         }
     })

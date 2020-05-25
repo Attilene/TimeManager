@@ -1,33 +1,42 @@
 <div class="body">
     {% for digit, month, task in table_month %}
         <form class="item month">
-            <span class="time">
-            <input class="digit" type="text" value="{{ digit }}" max="31" min="1"
-                   onfocus="$(this).parent().addClass('input');
-                        old_month_data = get_month_data($(this).closest('.item'))"
-                   onmouseenter="old_month_data = get_month_data($(this).closest('.item'))"
+            <span class="time"
+                  onmouseenter="save_month($(this).parent())"
+                  onmouseleave="blur_input_month($(this).parent())"
+            >
+            <input class="digit" type="text"
+            {% if month < 10 %}
+               value="{{ '0' + digit|string }}"
+            {% else %}
+                value="{{ digit }}"
+            {% endif %}
+            max="31" min="1"
+                   onfocus="$(this).parent().addClass('input'); save_month($(this).parent())"
                    onblur="$(this).parent().removeClass('input');
                        if ($(this).val() === '' && !$(this).closest('.item').hasClass('new')) $(this).val(0);
                        blur_input_month($(this).closest('.item'))"
-                   onmouseleave="blur_input_month($(this).closest('.item'))"
                    onkeydown="key_func(event)"
                    oninput="input_time($(this))"
             >
-            <span>.</span>
-            <input class="month" type="text" value="{{ month }}" max="12" min="1"
-                   onfocus="$(this).parent().addClass('input');
-                        old_month_data = get_month_data($(this).closest('.item'))"
-                   onmouseenter="old_month_data = get_month_data($(this).closest('.item'))"
+            <span>:</span>
+            <input class="month" type="text"
+            {% if month < 10 %}
+                value="{{ '0' + month|string }}"
+            {% else %}
+                value="{{ month }}"
+            {% endif %}
+            max="12" min="1"
+                   onfocus="$(this).parent().addClass('input'); save_month($(this).parent())"
                    onblur="$(this).parent().removeClass('input');
                        if ($(this).val() === '' && !$(this).closest('.item').hasClass('new')) $(this).val(0);
                        blur_input_month($(this).closest('.item'))"
-                   onmouseleave="blur_input_month($(this).closest('.item'))"
                    onkeydown="key_func(event)"
                    oninput="input_time($(this))"
             >
             </span>
             <textarea class="task" placeholder="Задача"
-                      onfocus="old_month_data = get_month_data($(this).closest('.item'))"
+                      onfocus="save_month($(this).parent())"
                       onblur="blur_input_month($(this).closest('.item'))"
                       onkeydown="key_func(event)"
             >{{ task }}</textarea>

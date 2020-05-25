@@ -22,7 +22,7 @@ div.body {
 }
 
 .item.del {
-    left: 20px;
+    left: 40px;
     opacity: 0;
     transition-timing-function: ease-in !important;
 }
@@ -58,7 +58,7 @@ div.body {
 .item textarea {
     resize: vertical;
     padding: 0;
-    width: calc(100% - 220px);
+    width: calc(100% - 260px);
     height: 40px;
     line-height: 40px;
     min-height: 40px;
@@ -70,7 +70,7 @@ div.body {
     float: right;
     height: 40px;
     width: 40px;
-    margin: 0 20px;
+    margin: 0 50px 0 20px;
     padding: 0;
     border: none;
     border-radius: 20px;
