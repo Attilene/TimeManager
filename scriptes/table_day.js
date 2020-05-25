@@ -85,7 +85,7 @@ function blur_input_day(form) {
 
 function key_func(event) {
     let key = event.keyCode;
-    if (key === 8 && event.target.selectionStart === 0) {event.preventDefault(); to_prev($(event.target))}
+    if (key === 8 && event.target.selectionStart === 0 && event.target.selectionEnd === 0) {event.preventDefault(); to_prev($(event.target)); console.log(event.target.selectionStart, event.target.selectionEnd)}
     else if (key === 38 || key === 40 ||
         (key === 37 && !(event.target.tagName === 'TEXTAREA' && event.target.selectionStart > 0)) ||
         (key === 39 && !(event.target.tagName === 'TEXTAREA'))
