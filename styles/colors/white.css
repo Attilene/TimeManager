@@ -14,14 +14,3 @@ aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color
 #authorisation_menu #checkbox_remember_me:checked~label {color: #fff}
 .item textarea, #add_day_task, #add_month_task {background-color: rgba(255, 255, 255, 0.5)}
 .time.input {background-color: white}
-
-header .center:hover {background-color: rgba(0, 0, 0, 0.1)}
-footer span:last-of-type:hover {background-color: rgba(0, 0, 0, 0.1);}
-#edit:hover div:hover, #exit:hover div:hover {background: rgba(0, 0, 0, 0.1)}
-#set_login {text-shadow: none !important}
-#set_login:hover {background-color: rgba(0, 0, 0, 0.1)}
-#set_login:focus {background-color: rgba(0, 0, 0, 0.2)}
-
-@media (min-width: 1001px) { header .right:hover {background-color: rgba(0, 0, 0, 0.1)}}
-aside #hat #edit_profile div:hover {background-color: rgba(0, 0, 0, 0.1)}
-aside menu div.theme::before {color: #fff}

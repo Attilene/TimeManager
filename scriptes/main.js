@@ -48,10 +48,12 @@ jQuery(document).ready(function () {
             let int = parseInt(input.val());
             if (event.originalEvent.deltaY < 0) {
                 if (int < input[0].max) {input.val(int + 1)}
+                else {input.val(input[0].min)}
                 if (isNaN(int)) {input.val(input[0].min)}
             }
             if (event.originalEvent.deltaY > 0) {
                 if (int > input[0].min) {input.val(int - 1)}
+                else {input.val(input[0].max)}
                 if (isNaN(int)) {input.val(input[0].max)}
             }
         }

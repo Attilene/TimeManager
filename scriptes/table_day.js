@@ -11,8 +11,12 @@ function get_day_data(form) {
 function del_day_task(form) {
     if (user_data.login !== '') {
         if (!form.hasClass('new')) {
-        if (form.find(':focus').length === 0) {receive('/del_day', null, get_day_data(form))}
-        else {receive('/del_day', null, old_day_data)}
+            if (form.find(':focus').length === 0) {
+                receive('/del_day', null, get_day_data(form))
+            } else {
+                receive('/del_day', null, old_day_data)
+            }
+        }
     }
     form.addClass('del');
     setTimeout(function () {
@@ -20,7 +24,6 @@ function del_day_task(form) {
             $(this).remove()
         })
     }, close_time(form))
-    }
 }
 
 function click_add_day(btn) {
@@ -68,10 +71,10 @@ function click_add_day(btn) {
 }
 
 function blur_input_day(form) {
-    if (user_data.login !== '') {
-        let new_day_data = get_day_data(form);
-        if (form.hasClass('new')) {
-            if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
+    let new_day_data = get_day_data(form);
+    if (form.hasClass('new')) {
+        if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
+            if (user_data.login !== '') {
                 receive('/add_day', function (data) {
                     if (data === 'exist') {
                         del_day_task(form)
@@ -79,17 +82,22 @@ function blur_input_day(form) {
                         form.removeClass('new');
                         form.find('input').removeAttr('placeholder')
                     }
-                }, new_day_data);
+                }, new_day_data)
             }
-        } else if (new_day_data.hour !== old_day_data.hour ||
-            new_day_data.minute !== old_day_data.minute ||
-            new_day_data.task !== old_day_data.task) {
-            receive('/change_day', function (data) {
-                if (data === 'exist') {
-                    del_day_task(form);
-                }
-            }, [old_day_data, new_day_data]);
+            else {
+                form.removeClass('new');
+                form.find('input').removeAttr('placeholder')
+            }
         }
+    } else if (new_day_data.hour !== old_day_data.hour ||
+        new_day_data.minute !== old_day_data.minute ||
+        new_day_data.task !== old_day_data.task) {
+        receive('/change_day', function (data) {
+            if (data === 'exist') {
+                del_day_task(form);
+            }
+            old_day_data = new_day_data
+        }, [old_day_data, new_day_data]);
     }
 }
 
@@ -108,10 +116,12 @@ function key_func(event) {
         else if (input[0].tagName === 'INPUT') {
             if (key === 38) {
                 if (int < input[0].max) {input.val(int + 1)}
+                else {input.val(input[0].min)}
                 if (isNaN(int)) {input.val(input[0].min)}
             }
             else if (key === 40) {
                 if (int > input[0].min) {input.val(int - 1)}
+                else {input.val(input[0].max)}
                 if (isNaN(int)) {input.val(input[0].max)}
             }
         }
@@ -163,7 +173,6 @@ function set_val(input, val) {
     let int = parseInt(val);
     let max = input[0].max;
     let min = input[0].min;
-    let ed = Math.floor(max / 10) + 1;
     let new_val = int;
     if (isNaN(int)) {new_val = 0}
     else if (int > max) {new_val = parseInt(val[input[0].selectionStart - 1])}

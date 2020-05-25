@@ -14,8 +14,3 @@ aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color
 #authorisation_menu #checkbox_remember_me:checked~label {color: #2c2c2c}
 .item textarea, #add_day_task, #add_month_task {background-color: rgba(44, 44, 44, 0.5)}
 .time.input {background-color: #2c2c2c}
-
-header a.center:hover, header span.right:hover, aside menu input,
-aside label[for=remember_me] {
-    text-shadow: none}
-aside {box-shadow: -2px 2px 4px rgba(255, 255, 255, 0.2)}

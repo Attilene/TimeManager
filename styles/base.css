@@ -76,10 +76,7 @@ header .center {
 	text-align: center;
 }
 
-header .center:hover, header .center:hover {
-	transform: scale(1.1);
-	background: rgba(255, 255, 255, 0.2);
-}
+header .center:hover, header .center:active {transform: scale(1.1)}
 /*--------------------------------------------*/
 /*--------------Пользователь------------------*/
 header .right {
@@ -148,7 +145,6 @@ header .right .avatar {
 @media (min-width: 1400px) { /* Анимации для большого окна*/
 	header .right:hover, header .right:active {
 		transform: scale(1.05);
-		background: rgba(255, 255, 255, 0.2);
 		margin-right: 15px;
 	}
 
@@ -179,13 +175,9 @@ footer .right {
 	text-align: center;
 	width: 140px;
 	padding: 0 calc(10% - 25px);
-	height: 24px;
-	line-height: 24px;
-	border-radius: 12px;
-}
-
-footer .right:hover, footer .right:active {
-	background: rgba(255, 255, 255, 0.2);
+	height: 26px;
+	line-height: 26px;
+	border-radius: 13px;
 }
 
 footer .left {
@@ -209,7 +201,6 @@ main {
 	min-width: 958px;
 	overflow: auto;
 }
-
 
 /*---------------Открытие---------------------*/
 main.opened {
@@ -235,9 +226,9 @@ header, footer {transition: background-color 0.15s}
 header *, footer * {transition: 0.2s ease-out}
 @media (max-width: 1400px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
 .change_theme {
-	transition-duration: 0.2s;
-	transition-timing-function: linear;
-	transition-property: background, border, color, fill, opacity, top
+	transition-duration: 0.2s !important;
+	transition-timing-function: linear !important;
+	transition-property: background, border, color, fill, opacity, top !important;
 }
 
 svg.change_theme {transition-duration: 0.05s !important}
