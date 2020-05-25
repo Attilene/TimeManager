@@ -27,9 +27,11 @@ function click_add_month(btn) {
         '            <input class="digit" type="text" max="31" min="1" placeholder="?" \n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                        old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
+        '                   onmouseenter="old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
         '                       blur_input_month($(this).closest(\'.item\'))"\n' +
+        '                   onmouseleave="blur_input_month($(this).closest(\'.item\'))"\n' +
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
@@ -37,16 +39,20 @@ function click_add_month(btn) {
         '            <input class="month" type="text" max="12" min="1" placeholder="?" \n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                        old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
+        '                   onmouseenter="old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
         '                       blur_input_month($(this).closest(\'.item\'))"\n' +
+        '                   onmouseleave="blur_input_month($(this).closest(\'.item\'))"\n' +
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
         '                      onfocus="old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
+        '                      onmouseenter="old_month_data = get_month_data($(this).closest(\'.item\'))"\n' +
         '                      onblur="blur_input_month($(this).closest(\'.item\'))"\n' +
+        '                      onmouseleave="blur_input_month($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +
         '            ></textarea>\n' +
         '            <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">\n' +

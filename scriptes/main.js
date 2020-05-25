@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
     }
     // Настройка времени колесиком
     $('main').on('wheel', 'div.body',function (event) {
-        if ($('.time').has(event.target).length > 0 && $(event.target).is(':focus')) {
+        if ($('.time').has(event.target).length > 0) {
             event.preventDefault();
             let input = $(event.target);
             let int = parseInt(input.val());

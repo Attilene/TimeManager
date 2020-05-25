@@ -27,9 +27,11 @@ function click_add_day(btn) {
         '            <input class="hour" type="text" max="23" min="0" placeholder="?" \n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                        old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                   onmouseenter="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
+        '                   onmouseleave="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
@@ -37,16 +39,20 @@ function click_add_day(btn) {
         '            <input class="minute" type="text" max="59" min="0" placeholder="?"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\');\n' +
         '                        old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                   onmouseenter="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +
         '                       if ($(this).val() === \'\' && !$(this).closest(\'.item\').hasClass(\'new\')) $(this).val(0);\n' +
         '                       blur_input_day($(this).closest(\'.item\'))"\n' +
+        '                   onmouseleave="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
         '            </span>\n' +
         '            <textarea class="task" placeholder="Задача"\n' +
         '                      onfocus="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
+        '                      onmouseenter="old_day_data = get_day_data($(this).closest(\'.item\'))"\n' +
         '                      onblur="blur_input_day($(this).closest(\'.item\'))"\n' +
+        '                      onmouseleave="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +
         '            ></textarea>\n' +
         '            <button type="button" class="del_day" onmousedown="del_day_task($(this).parent())">\n' +
