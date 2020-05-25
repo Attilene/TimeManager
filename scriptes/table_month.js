@@ -92,7 +92,6 @@ function blur_input_month(form) {
             receive('/change_month', function (data) {
                 if (data === 'exist') {
                     del_month_task(form);
-                    console.log(old_month_data, new_month_data)
                 }
             }, [old_month_data, new_month_data]);
         }
