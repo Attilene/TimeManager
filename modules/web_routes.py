@@ -87,7 +87,7 @@ def req_send_activation(now):
         msg.html = render_template('mail.html', **data)
         thr = Thread(target=async_send_mail, args=[tm, msg])
         thr.start()
-        return jsonify('nonactive')
+        return jsonify(now.email)
 
 
 @user_req('/change_theme')

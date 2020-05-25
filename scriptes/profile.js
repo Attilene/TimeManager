@@ -198,7 +198,7 @@ function click_active(menu) {
             menu.addClass('opened');
             $('#menu_edit_email, #confirm_email').removeClass('nonactive');
         }
-        else if (data === 'nonactive') {alert('На почту ' + user_data.email + ' выслано письмо для активации')}
+        else {alert('На почту ' + data + ' выслано письмо для активации')}
     })
 }
 

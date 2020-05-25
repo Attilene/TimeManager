@@ -348,7 +348,7 @@ aside menu div.theme:hover button.choice {transition: 0.15s ease-in-out}
 aside form input.change {transition: 0.1s}
 #settings button:active {
     transition-duration: 0.2s;
-    transition-timing-function: cubic-bezier(.3, 0, .5, 3)
+    transition-timing-function: cubic-bezier(.41,.15,.62,2.5)
 }
 /*--------------------------------------------*/
 
