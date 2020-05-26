@@ -328,8 +328,9 @@ aside menu div.dark::before {content: 'Тёмная тема'}
 aside * {transition:  0.15s ease-in-out}
 aside menu {transition: opacity 0.2s linear}
 aside form input {transition: 0.2s ease-out}
-#hat *, #hat #set_login, #avatar:before {transition:  0.2s ease-in-out}
+#hat *, #hat #set_login {transition:  0.2s ease-in-out}
 #hat #avatar *, #hat #avatar {transition: 0.2s ease-in-out}
+#hat #avatar #avatar_inside, #avatar::before {transition: 0.4s ease-in-out}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu div.theme button {transition: 0.2s ease-out}
 aside form svg {transition: 0.1s ease-in-out}
@@ -337,6 +338,7 @@ aside form svg {transition: 0.1s ease-in-out}
 /*-----------------При наведении---------------*/
 #hat *:hover {transition: 0.1s ease}
 #hat #avatar:hover *, #hat #avatar:hover {transition: 0.15s ease-in-out}
+#hat #avatar:hover #avatar_inside, #avatar:hover::before {transition: 0.3s ease-in-out}
 aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}
 #profile_menu menu p:hover {transition: 0.2s ease}
