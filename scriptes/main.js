@@ -2,9 +2,6 @@ let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
 
 jQuery(document).ready(function () {
-    $('input').on('', function () {
-        console.log($(this).val())
-    });
     $('body').css({opacity: 0}).animate({opacity: 1}, 1000);
     clear_fields();
     // Запоминание страницы

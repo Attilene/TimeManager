@@ -6,7 +6,7 @@
                   onmouseleave="blur_input_day($(this).parent())"
             >
             <input class="hour" type="text"
-            {% if minute < 10 %}
+            {% if hour < 10 %}
                value="{{ '0' + hour|string }}"
             {% else %}
                 value="{{ hour }}"
@@ -41,14 +41,14 @@
                       onkeydown="key_func(event)"
             >{{ task }}</textarea>
             <button type="button" class="del_day" onmousedown="del_day_task($(this).parent())">
-                <svg id="email_btn_del_task">
+                <svg>
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use>
                 </svg>
             </button>
         </form>
     {% endfor %}
     <button id="add_day_task" onmousedown="click_add_day($(this))">
-        <svg id="btn_add_day">
+        <svg>
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
         </svg>
     </button>

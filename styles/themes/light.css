@@ -3,7 +3,7 @@ body , aside menu {background-color: white}
 #hat #change_avatar {fill: white}
 aside menu div.light {background-color: white}
 aside menu div.dark {background-color: #dbdbdb}
-#developers hr {border-color: white}
+#developers hr, #avatar hr {border-color: white}
 @-webkit-keyframes autofill {to {color: white}}
 ::placeholder {color: rgba(255, 255, 255, 0.7)}
 #restore:hover {color: white}
@@ -20,3 +20,7 @@ footer .right:hover, footer .right:active {background: rgba(255, 255, 255, 0.2)}
 #set_login:hover {background: rgba(255, 255, 255, 0.2)}
 #set_login:focus {background-color: white}
 .time.input input::placeholder {color: rgba(255, 255, 255, 0.5)}
+#profile_menu menu button.yes {background-color: #ff6464}
+#remove_avatar {fill: #ff6464}
+aside menu form input.warning, #set_login.warning {background-color: #ff6464}
+#confirm_email p:last-of-type {color: #ff6464}

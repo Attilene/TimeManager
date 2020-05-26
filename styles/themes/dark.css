@@ -3,14 +3,14 @@ body, aside menu {background-color: #2c2c2c}
 #hat #change_avatar {fill: #2c2c2c}
 aside menu div.light {background-color: #525252}
 aside menu div.dark {background-color: #2c2c2c;}
-#developers hr {border-color: gray}
+#developers hr, #avatar hr {border-color: #2c2c2c}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 ::placeholder {color: rgba(75, 75, 75, 0.7)}
-#restore:hover {color: darkgray}
+#restore:hover {color: rgba(0, 0, 0, 0.1)}
 *:disabled {background: rgba(245, 245, 245, 0.5) !important;}
 svg {fill: #2c2c2c}
-#avatar:hover #avatar_inside {filter: brightness(110%) blur(2px)}
-#authorisation_menu #checkbox_remember_me:checked~label {background-color: darkgray}
+#avatar:hover #avatar_inside {filter: blur(2px)}
+#authorisation_menu #checkbox_remember_me:checked~label {background-color: #2c2c2c}
 .time.input *, .time.input input::placeholder {color: #4b4b4b}
 body .time input::selection {background-color: rgba(0, 0, 0, 0.1) !important}
 header .center:hover, header .center:active {background: rgba(0, 0, 0, 0.1)}
@@ -20,3 +20,9 @@ footer .right:hover, footer .right:active {background: rgba(0, 0, 0, 0.1)}
 #set_login:hover {background: rgba(0, 0, 0, 0.1)}
 #set_login:focus {background-color: #2c2c2c}
 .time.input input::placeholder {color: rgba(0, 0, 0, 0.5)}
+#profile_menu menu button.yes {background-color: #af3b3b !important;}
+#remove_avatar {fill: #af3b3b !important}
+aside menu form input.warning, #set_login.warning {background-color: #af4141}
+#confirm_email p:last-of-type {color: #af4141 !important}
+
+#avatar:not(.none):hover::before {opacity: 1}

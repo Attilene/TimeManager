@@ -74,7 +74,7 @@ aside {
 
 #avatar:hover #avatar_inside {transform: scale(1.03)}
 /*---------------Внутренности--------------------*/
-#avatar svg, #avatar hr {position: absolute; transform: scale(0.7); opacity: 0}
+#avatar svg, #avatar hr {position: absolute; transform: scale(0.7); opacity: 0; z-index: 20}
 #avatar svg {pointer-events: visible}
 
 #change_avatar {
@@ -89,7 +89,7 @@ aside {
     box-sizing: border-box;
     border-radius: 2px;
     width: 31px;
-    top: 41px; left: 35px;
+    top: 42px; left: 35px;
 }
 
 #remove_avatar {
@@ -97,7 +97,19 @@ aside {
     height: 31px;
     bottom: 10px;
     left: 37px;
-    fill: #ff6464 !important;
+}
+
+#avatar::before {
+    z-index: 10;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%)
 }
 
 #avatar:hover svg, #avatar:hover hr {transform: scale(1); opacity: 1}
@@ -159,7 +171,6 @@ aside menu p:hover {transform: scale(1.1)}
 }
 
 #menu_confirm_delete button:hover, #confirm_email button:hover {transform: scale(1.1)}
-#profile_menu menu button.yes {background-color: #ff6464 !important;}
 /*-----------------Подтверждение------------------*/
 #confirm_email {
     text-align: center;
@@ -175,8 +186,6 @@ aside menu p:hover {transform: scale(1.1)}
     pointer-events: visible;
     opacity: 1;
 }
-
-#confirm_email p:last-of-type {color: #ff6464}
 /*------------------------------------------------*/
 /*--------------------Инпуты----------------------*/
 aside menu input {
@@ -194,8 +203,8 @@ aside menu input {
 
 aside menu input::placeholder {opacity: 1; text-indent: 5px}
 aside menu input.fill {padding-right: 35px}
-aside menu form input.warning, #set_login.warning {border-color: rgba(255, 100, 100, 0.5)}
-aside form input.change {color: transparent}
+aside menu form input.warning, #set_login.warning {background-color: rgba(235, 117, 117, 0.5)}
+aside form input.change {color: transparent !important;}
 /*------------------------------------------------*/
 /*-----------------Подсказки------------------*/
 aside label {
@@ -217,7 +226,7 @@ aside label.achive {background: #73B076}
 aside label.warning {background: #FF8B8B}
 
 aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; opacity: 1;}
-aside.opened label.empty {right: 340px; opacity: 0 !important;}
+aside.opened label.empty {right: 340px; opacity: 0}
 
 label[for=set_login] {top: 4px}
 label[for=set_email], label[for=set_psw] {top: 53px}
@@ -319,15 +328,15 @@ aside menu div.dark::before {content: 'Тёмная тема'}
 aside * {transition:  0.15s ease-in-out}
 aside menu {transition: opacity 0.2s linear}
 aside form input {transition: 0.2s ease-out}
-#hat *, #hat #set_login {transition:  0.2s ease-in-out}
-#avatar_inside {transition: 0.5s}
+#hat *, #hat #set_login, #avatar:before {transition:  0.2s ease-in-out}
+#hat #avatar *, #hat #avatar {transition: 0.2s ease-in-out}
 aside menu div.theme::before {transition: 0.2s ease-in}
 aside menu div.theme button {transition: 0.2s ease-out}
 aside form svg {transition: 0.1s ease-in-out}
 /*--------------------------------------------*/
 /*-----------------При наведении---------------*/
 #hat *:hover {transition: 0.1s ease}
-#avatar:hover #avatar_inside {transition: 0.3s}
+#hat #avatar:hover *, #hat #avatar:hover {transition: 0.15s ease-in-out}
 aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}
 #profile_menu menu p:hover {transition: 0.2s ease}

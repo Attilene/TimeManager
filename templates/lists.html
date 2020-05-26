@@ -1,1 +1,18 @@
-<h1 style="background: red">list</h1>
+<div class="body">
+    {% for name, list in lists.items() %}
+        <div class="back">
+            <input placeholder="Название" class="title" value="{{ name }}">
+            <button type="button" class="del_list">
+                <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use></svg>
+            </button>
+            {% for task in list %}
+                <form class="list_task">
+                    <textarea placeholder="Задача">{{ task }}</textarea>
+                    <button class="del_list_task" type="button">
+                        <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use></svg>
+                    </button>
+                </form>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

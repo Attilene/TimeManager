@@ -68,12 +68,12 @@ function toggle_set_menu(set_menu) {
 
 function clear_fields() {
     let inputs = $('#user input, #set_psw, #set_email');
+    inputs.prev('label').removeClass('show');
     warning(inputs);
     fade_change(inputs, function () {inputs.removeClass('fill').val('')});
     change_auth('empty');
-    $('#authorisation span, header .right').click();
     toggle_aside($('aside.opened'));
-    inputs.prev('label').removeClass('show');
+    $('#authorisation span, header .right').click();
 }
 
 function act_field(field, func, empty_func=null) {

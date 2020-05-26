@@ -242,7 +242,7 @@ header .left:hover, header .center:hover, header .right:hover, footer span:hover
 	header .right:hover .avatar {transition: 0.2s ease-out}}
 @media (min-width: 1400px) {
 	header .right:hover {transition: 0.1s ease}
-	header .right:hover img {transition: 0.1s ease-out}}
+	header .right:hover .avatar {transition: 0.15s ease-out}}
 /*--------------------------------------------*/
 /*-----------------При нажатии----------------*/
 header .left:active, header .center:active, header .right:active, footer span:active {transform: scale(1); transition: 0.05s ease-out}

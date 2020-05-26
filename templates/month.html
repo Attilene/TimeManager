@@ -6,7 +6,7 @@
                   onmouseleave="blur_input_month($(this).parent())"
             >
             <input class="digit" type="text"
-            {% if month < 10 %}
+            {% if digit < 10 %}
                value="{{ '0' + digit|string }}"
             {% else %}
                 value="{{ digit }}"
@@ -41,14 +41,14 @@
                       onkeydown="key_func(event)"
             >{{ task }}</textarea>
             <button type="button" class="del_month" onmousedown="del_month_task($(this).parent())">
-                <svg id="email_btn_del_task">
+                <svg>
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use>
                 </svg>
             </button>
         </form>
     {% endfor %}
     <button id="add_month_task" onmousedown="click_add_month($(this))">
-        <svg id="btn_add_month">
+        <svg>
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
         </svg>
     </button>

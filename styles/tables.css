@@ -5,6 +5,7 @@ div.body * {
 
 div.body {
     box-sizing: border-box;
+    text-align: center;
     margin: 0 auto;
     padding: 3vh 2% 0;
     width: calc(20% + 765px);
@@ -13,6 +14,8 @@ div.body {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+@media (min-width: 1400px) {#page_lists div.body {width: 1400px}}
 
 .item {
     margin: 3vh 0;
@@ -76,7 +79,7 @@ div.body {
     border-radius: 20px;
 }
 
-.item button svg {
+.item button svg, .list_task button svg, .back button svg {
     margin: 5px;
     width: 30px;
     height: 30px;
@@ -115,6 +118,85 @@ div.body {
 body .item.new~.alert {opacity: 1; pointer-events: visible}
 body .item.new~button {opacity: 0; pointer-events: none}
 
-.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert {transition: 0.2s ease-out}
-.item button:active, #add_day_task:active, #add_month_task:active, .alert:active {transform: scale(1)}
+#page_lists button {width: 40px; height: 40px}
+
+.back {
+    display: inline-block;
+    vertical-align: top;
+    margin: 4vh 30px;
+    position: relative;
+    width: 400px;
+    height: max-content;
+    overflow: visible;
+    border-radius: 20px;
+    background: skyblue;
+}
+
+.back .title {
+    text-align: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    width: 400px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background: blue;
+}
+
+.back button.del_list {
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: -50px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background: red;
+}
+
+.back button.del_list svg {
+    width: 26px;
+    height: 26px;
+    margin: 7px;
+}
+
+.list_task {
+    margin: 10px 0;
+    width: 450px;
+    height: max-content;
+}
+
+.list_task textarea {
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 10px;
+    resize: vertical;
+    position: relative;
+    right: 5px;
+    width: 400px;
+    height: 40px;
+    line-height: 40px;
+    min-height: 40px;
+    background: none;
+    border: none;
+}
+
+.list_task button {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    float: right;
+    background: blue;
+}
+
+.back button:hover {transform: scale(1.2)}
+
+.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert, .back button {transition: 0.2s ease-out}
+.item button:hover, #add_day_task:hover, #add_month_task:hover, .alert, .back button:hover {transition: 0.1s ease-in-out}
+.item button:active, #add_day_task:active, #add_month_task:active, .alert:active, .back button:active {transform: scale(1)}
+.back button:active {opacity: 0}
 .item {transition: 0.1s ease-out; transition-property: opacity, left}
