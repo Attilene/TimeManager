@@ -175,7 +175,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
     float: left;
     text-align: center;
     margin: 0;
-    padding: 0 10px;
+    padding: 5px 10px;
     resize: none;
     width: 380px;
     height: 30px;
@@ -188,7 +188,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
 
 .list_task textarea:hover {
     background-color: rgba(113, 136, 199, 0.2);
-    padding: 5px 10px;
+    padding: 10px;
 }
 
 .list_task button, .back button.del_list {
