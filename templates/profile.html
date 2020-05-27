@@ -52,12 +52,12 @@
 
 <menu id="menu_edit_psw">
         <p>Изменение пароля</p>
-
-    <form
-            onsubmit="submit_warn($(this)); return false"
-    >
+    <form onsubmit="submit_warn($(this)); return false">
         <label for="set_psw" class="empty"></label>
-        <input id="set_psw" placeholder="Новый пароль" type="password" oninput="act_field($(this), input_set_psw)">
+        <input id="set_psw" placeholder="Новый пароль" type="password"
+               oninput="act_field($(this), input_set_psw)"
+               onblur="accept_change_psw($(this))"
+        >
         <button id="show_set_psw" type="button" onmousedown="click_show_psw($(this).prev())">
             <svg>
                 <use xlink:href="time_manager/images/sprites.svg#sprite_btn_show"></use>

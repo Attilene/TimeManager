@@ -124,7 +124,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
 .back {
     display: inline-block;
     vertical-align: top;
-    margin: 2vh 5%;
+    margin: 3vh 4%;
     position: relative;
     width: 400px;
     height: max-content;
@@ -144,10 +144,8 @@ body .item.new~button {opacity: 0; pointer-events: none}
     position: relative;
 }
 
-.back .title {
-    margin-bottom: 20px;
-    height: 40px;
-}
+.list_task {margin: 5px 0;}
+.back .title {height: 40px; margin-bottom: 10px}
 
 .back .title input {
     position: absolute;
@@ -170,7 +168,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
     margin: 7px;
 }
 
-.title input:hover~.del_list {margin-right: -5px}
+.del_list {margin-right: -5px}
 
 .list_task textarea {
     text-align: center;
@@ -212,7 +210,9 @@ body .item.new~button {opacity: 0; pointer-events: none}
 .back .list_task:hover button, .back .title:hover button {right: 0; opacity: 1}
 
 #add_list_task {
-    margin: 8px;
+    position: relative;
+    bottom: 3px;
+    margin: 4px;
     padding: 0;
     width: 100px;
     height: 30px;
@@ -232,8 +232,9 @@ body .item.new~button {opacity: 0; pointer-events: none}
 .time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert, .back button,
 .back .title input, .back
 {transition: 0.2s ease-out}
-.item button:hover, #add_day_task:hover, #add_month_task:hover, .alert, .back button:hover, .back .title:hover input,
+.item button:hover, #add_day_task:hover, #add_month_task:hover, #add_day_task:hover, .alert, .back form button:hover, .back .title:hover *,
 .time:hover, .back:hover
 {transition: 0.1s ease-in-out}
-.item button:active, #add_day_task:active, #add_month_task:active, .alert:active, .back button:active {transform: scale(1)}
+.item button:active, #add_day_task:active, #add_month_task:active, #add_list_task:active, .alert:active, .back form button:active
+{transform: scale(1)}
 .item.del {transition: 0.1s ease-out; transition-property: opacity, left;}

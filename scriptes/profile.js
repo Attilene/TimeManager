@@ -273,18 +273,41 @@ function input_set_email(in_set_email) {
 // Смена пароля
 function input_set_psw(in_set_psw) {
     let temp = in_set_psw.val();
-    if (temp === '') {warning(in_set_psw)}
-    else if (temp.length > 99) { warning(in_set_psw, 'Длина пароля должна быть не больше 99 символов', 'warning')}
-    else if (temp.length < 8) { warning(in_set_psw, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
-    else if (!RegExp('[0-9]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать цифры', 'warning')}
-    else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать буквы', 'warning')}
-    else if (user_data.login === '') {warning(in_set_psw, 'Смена пароля гостевой записи невозможна', 'warning')}
-    else {
+    if (temp === '') {warning(in_pass); toggle_repass('off')}
+    else if (temp.length > 99) { warning(in_pass, 'Длина пароля должна быть не больше 99 символов', 'warning')}
+    else if (temp.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
+    else if (!RegExp('[0-9]+').test(temp)) { warning(in_pass, 'Пароль должен содержать цифры', 'warning')}
+    else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_pass, 'Пароль должен содержать буквы', 'warning')}
+    else {let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
+        let len = in_pass.val().length;
+        if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
+        else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
+        else if (len < 20 || len < 16 && test) {warning(in_pass, 'Очень надежный пароль', 'achive')}
+    }
+    // if (temp === '') {warning(in_set_psw)}
+    // else if (temp.length > 99) { warning(in_set_psw, 'Длина пароля должна быть не больше 99 символов', 'warning')}
+    // else if (temp.length < 8) { warning(in_set_psw, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
+    // else if (!RegExp('[0-9]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать цифры', 'warning')}
+    // else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать буквы', 'warning')}
+    // else if (user_data.login === '') {warning(in_set_psw, 'Смена пароля гостевой записи невозможна', 'warning')}
+    // else {
+    //     receive('/check_user', function (data) {
+    //         if (data) {
+    //             receive('/change_pass', function () {
+    //                 warning(in_set_psw, 'Пароль изменен', 'achive')
+    //             }, pack_psw(temp, data[0]))
+    //         }
+    //     }, user_data.login);
+    // }
+}
+
+function accept_change_psw(field) {
+    if (field.prev('label').hasClass('achive')) {
         receive('/check_user', function (data) {
             if (data) {
                 receive('/change_pass', function () {
-                    warning(in_set_psw, 'Пароль изменен', 'achive')
-                }, pack_psw(temp, data[0]))
+                    warning(field, 'Пароль изменен', 'achive')
+                }, pack_psw(field.val(), data[0]))
             }
         }, user_data.login);
     }
