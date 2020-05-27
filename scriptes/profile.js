@@ -237,6 +237,7 @@ function click_show_psw(field) {
 
 // Смена почты
 function input_set_email(in_set_email) {
+    validate(in_set_email);
     let temp = in_set_email.val();
     if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}[.]){1,3}(com|by|ru|cc|net|ws})$/.test(temp) && temp.length < 100) {
         receive('/check_user', function (data) {
@@ -262,9 +263,10 @@ function input_set_email(in_set_email) {
                 user_data.email = temp
             }
         }, temp)
-    }
-    else {
+    } else if (temp) {
         warning(in_set_email, 'Некорректный формат почты', 'warning');
+    } else {
+        warning(in_set_email)
     }
 }
 

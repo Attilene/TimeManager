@@ -39,6 +39,7 @@ jQuery(document).ready(function () {
             toggle_aside($('#profile_menu'));
             toggle_set_menu($('#menu_edit_psw'));
         }
+        $('textarea').each(function (index, element) {autosize(element)})
     }
     // Настройка времени колесиком
     $('main').on('wheel', 'div.body',function (event) {
@@ -57,5 +58,5 @@ jQuery(document).ready(function () {
                 if (isNaN(int)) {set_val(input, event.target.max)}
             }
         }
-    })
+    });
 });

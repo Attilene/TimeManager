@@ -10,7 +10,7 @@ aside menu div.theme::before {color: #2c2c2c}
 aside menu input, input.fill+button:hover {background-color: #2c2c2c}
 aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(44, 44, 44, 0.5)}
 aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #2c2c2c}
-#menu_confirm_delete button, #confirm_email button, .item button {background-color: #2c2c2c}
+#menu_confirm_delete button, #confirm_email button, .item button, .back .title input,  .del_list_task {background-color: #2c2c2c}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #2c2c2c}
-.item textarea, #add_day_task, #add_month_task {background-color: rgba(44, 44, 44, 0.5)}
+.item textarea, #add_day_task, #add_month_task, .back {background-color: rgba(44, 44, 44, 0.5)}
 .time.input {background-color: #2c2c2c}

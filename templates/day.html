@@ -35,7 +35,8 @@
                    oninput="input_time($(this))"
             >
             </span>
-            <textarea class="task" placeholder="Задача"
+            <textarea class="task" placeholder="Задача" rows=1
+                      oninput="autosize(this)"
                       onfocus="save_day($(this).parent())"
                       onblur="blur_input_day($(this).closest('.item'))"
                       onkeydown="key_func(event)"

@@ -11,36 +11,38 @@ function warning(field, text='', type='empty') {
     let label = field.prev();
     if (label.hasClass('empty') || label.text() !== text) {
         if (label.hasClass('empty')) {
-            label.removeClass('warning achive empty').addClass(type);
-            label.css({width: label.css('width')})
+            label
                 .text(text)
                 .css({
                     width: (25 + (text.length * 9)) + 'px'
-                })
+                });
+            label.removeClass('warning achive empty').addClass(type);
         }
         else {
             label.removeClass('warning achive empty').addClass(type);
             fade_change(label, function () {
                 if (type !== 'empty') {
-                    label.css({width: label.css('width')})
+                    label
                         .text(text)
+                        .stop()
                         .animate({
                             width: (25 + (text.length * 9)) + 'px'
-                        }, 200)
+                        }, 140)
                 } else label.text('')
             })
         }
     }
 }
 
-// function validate(field) {
-//     if (typeof field === "string") {field = $(field)}
-//     let str = field.val();
-//     let cor_str = '';
-//     let chrs = ['#', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"', '%', '$'];
-//     for (let i = 0; i < str.length; i++) {if (!chrs.includes(str[i])) {cor_str += str[i]}}
-//     field.val(cor_str)
-// }
+function validate(field) {
+    if (typeof field === "string") {field = $(field)}
+    let str = field.val();
+    let cor_str = '';
+    let chrs = ['#', ';', '(', ')', '{', '}', '\\', '/', '|', '[', ']', '\'', '\"', '%', '$'];
+    for (let i = 0; i < str.length; i++) {if (!chrs.includes(str[i])) {cor_str += str[i]}}
+    if (cor_str.length === 0) {field.removeClass('fill')}
+    field.val(cor_str)
+}
 
 function check_empty() {
     if (in_login.val() === '' && in_email.val() === '') {
@@ -188,6 +190,7 @@ function authorisation(login, password) {
         $('#page_day')[0].innerHTML = data.day;
         $('#page_month')[0].innerHTML = data.month;
         $('#page_lists')[0].innerHTML = data.lists;
+        $('textarea').each(function (index, element) {autosize(element)})
         // Синхронизация данных
         change_theme(data.theme, data.color);
         user_data = {
@@ -274,6 +277,7 @@ function click_show_repsw(field) {
 }
 
 function input_email() {
+    validate(in_email);
     let temp = in_email.val();
     if (/[a-zA-Z0-9]+@([a-zA-Z]{2,10}[.]){1,3}(com|by|ru|cc|net|ws)$/.test(temp) && temp.length < 100) {
         warning(in_email, 'Корректный формат почты', 'achive');
@@ -292,8 +296,10 @@ function input_email() {
                 try_reg()
             }
         }, temp)
-    } else {
+    } else if (temp) {
         warning(in_email, 'Некорректный формат почты', 'warning');
+    } else {
+        warning(in_email)
     }
 }
 

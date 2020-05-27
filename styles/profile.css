@@ -226,7 +226,7 @@ aside label.achive {background: #73B076}
 aside label.warning {background: #FF8B8B}
 
 aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; opacity: 1;}
-aside.opened label.empty {right: 340px; opacity: 0}
+aside label.change {color: transparent !important}
 
 label[for=set_login] {top: 4px}
 label[for=set_email], label[for=set_psw] {top: 53px}
@@ -338,6 +338,7 @@ aside form svg {transition: 0.1s ease-in-out}
 /*-----------------При наведении---------------*/
 #hat *:hover {transition: 0.1s ease}
 #hat #avatar:hover *, #hat #avatar:hover {transition: 0.15s ease-in-out}
+#hat #avatar:hover svg:hover {transition: 0.15s ease}
 #hat #avatar:hover #avatar_inside, #avatar:hover::before {transition: 0.3s ease-in-out}
 aside menu div.theme:hover::before {transition: 0.1s ease-in}
 aside menu div.theme:hover button:hover {transition: 0.1s ease}

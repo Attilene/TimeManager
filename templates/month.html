@@ -36,6 +36,7 @@
             >
             </span>
             <textarea class="task" placeholder="Задача"
+                      oninput="autosize(this)"
                       onfocus="save_month($(this).parent())"
                       onblur="blur_input_month($(this).closest('.item'))"
                       onkeydown="key_func(event)"

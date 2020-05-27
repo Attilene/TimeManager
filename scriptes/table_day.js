@@ -50,7 +50,8 @@ function click_add_day(btn) {
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
         '            </span>\n' +
-        '            <textarea class="task" placeholder="Задача"\n' +
+        '            <textarea class="task" placeholder="Задача" rows=1\n' +
+        '                      oninput="autosize(this)"\n' +
         '                      onfocus="save_day($(this).parent())"\n' +
         '                      onblur="blur_input_day($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +
@@ -106,7 +107,8 @@ function blur_input_day(form) {
 function key_func(event) {
     let key = event.keyCode;
     if (key === 8 && event.target.selectionStart === 0 && event.target.selectionEnd === 0) {event.preventDefault(); to_prev($(event.target))}
-    else if (key === 38 || key === 40 ||
+    else if ((key === 38 && event.target.selectionStart === 0) ||
+        (key === 40 && event.target.selectionStart === $(event.target).val().length) ||
         (key === 37 && !(event.target.tagName === 'TEXTAREA' && event.target.selectionStart > 0)) ||
         (key === 39 && !(event.target.tagName === 'TEXTAREA'))
         ) {
@@ -185,4 +187,29 @@ function set_val(input, val) {
     if (Math.floor(max / 10) < new_val) return true
 }
 
+// function get_height(el) {
+//     $(el).height(0);
+//     el.lastHeight = el.scrollHeight;
+//     $(el).height(el.lastHeight);
+// }
+//
+// function autosize(el){
+//     let lastHeight = el.lastHeight;
+//     $(el).height(0);
+//     let newHeight = el.scrollHeight;
+//     $(el).height(lastHeight);
+//     if (lastHeight === undefined) {
+//         $(el).height(0).height(newHeight)
+//     }
+//     else if (newHeight < lastHeight) {
+//         $(el).height(0).height(lastHeight).animate({height: newHeight + 'px'}, 100)
+//     }
+//     else {
+//         $(el).height(newHeight)
+//     }
+//     console.log(lastHeight, newHeight);
+// }
 
+function autosize(el) {
+    $(el).height(0).height(el.scrollHeight)
+}

@@ -50,7 +50,8 @@ function click_add_month(btn) {
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
         '            </span>\n' +
-        '            <textarea class="task" placeholder="Задача"\n' +
+        '            <textarea class="task" placeholder="Задача"\n rows=1' +
+        '                      oninput="autosize(this)"\n' +
         '                      onfocus="save_month($(this).parent())"\n' +
         '                      onblur="blur_input_month($(this).closest(\'.item\'))"\n' +
         '                      onkeydown="key_func(event)"\n' +

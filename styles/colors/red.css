@@ -10,12 +10,12 @@ aside menu div.theme::before {color: #eb7575}
 aside menu input, input.fill+button:hover {background-color: #eb7575}
 aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(235, 117, 117, 0.5)}
 aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #eb7575}
-#menu_confirm_delete button, #confirm_email button, .item button {background-color: #eb7575}
+#menu_confirm_delete button, #confirm_email button, .item button, .back .title input,  .del_list_task {background-color: #eb7575}
 #authorisation_menu #checkbox_remember_me:checked~label {color: #eb7575}
-.item textarea, #add_day_task, #add_month_task {background-color: rgba(235, 117, 117, 0.5)}
+.item textarea, #add_day_task, #add_month_task, .back {background-color: rgba(235, 117, 117, 0.5)}
 .time.input {background-color: #eb7575}
 
-aside #menu_confirm_delete button.yes {background-color: #ff5454}
+aside #menu_confirm_delete button.yes, .del_list {background-color: #ff5454}
 aside menu form input.warning, #set_login.warning {background-color: #ff5454}
 #confirm_email p:last-of-type {color: #ff5454}
 #remove_avatar {fill: #ff5454}
