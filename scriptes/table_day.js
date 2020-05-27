@@ -80,13 +80,11 @@ function blur_input_day(form) {
                         del_day_task(form);
                     } else {
                         form.data('old', get_day_data(form));
-                        form.removeClass('new');
                         form.find('input').removeAttr('placeholder')
                     }
                 }, new_day_data)
             }
             else {
-                form.removeClass('new');
                 form.find('input').removeAttr('placeholder')
             }
         }
@@ -211,5 +209,8 @@ function set_val(input, val) {
 // }
 
 function autosize(el) {
-    $(el).height(0).height(el.scrollHeight)
+    let temp = $(el);
+    temp.height(0).height(el.scrollHeight - 10);
+    if (temp.val() === '') {temp.addClass('new')}
+    else {temp.removeClass('new')}
 }

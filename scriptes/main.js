@@ -1,6 +1,5 @@
 let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
-
 jQuery(document).ready(function () {
     $('body').css({opacity: 0}).animate({opacity: 1}, 1000);
     clear_fields();

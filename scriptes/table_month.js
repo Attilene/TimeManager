@@ -80,13 +80,11 @@ function blur_input_month(form) {
                         del_month_task(form);
                     } else {
                         form.data('old', get_month_data(form));
-                        form.removeClass('new');
                         form.find('input').removeAttr('placeholder')
                     }
                 }, new_month_data)
             }
             else {
-                form.removeClass('new');
                 form.find('input').removeAttr('placeholder')
             }
         }

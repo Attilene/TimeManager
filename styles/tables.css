@@ -15,8 +15,6 @@ div.body {
     overflow-y: auto;
 }
 
-@media (min-width: 1400px) {#page_lists div.body {width: 1400px}}
-
 .item {
     margin: 3vh 0;
     left: 0;
@@ -40,6 +38,8 @@ div.body {
     border-radius: 20px;
 }
 
+.time:hover {transform: scale(1.1)}
+
 .time span {
     width: 10px;
     font-size: 1.5em;
@@ -60,11 +60,11 @@ div.body {
 
 .item .task {
     resize: none;
-    padding: 0 10px;
+    padding: 5px 10px;
     width: calc(100% - 280px);
-    height: 40px;
-    line-height: 40px;
-    min-height: 40px;;
+    height: 30px;
+    line-height: 30px;
+    min-height: 30px;
     border: none;
     border-radius: 20px;
     overflow: hidden;
@@ -119,17 +119,21 @@ div.body {
 body .item.new~.alert {opacity: 1; pointer-events: visible}
 body .item.new~button {opacity: 0; pointer-events: none}
 
-#page_lists button {width: 40px; height: 40px}
+#page_lists div.body {width: 100%; padding: 3vh 20px 0 }
 
 .back {
     display: inline-block;
     vertical-align: top;
-    margin: 2vh 40px;
+    margin: 2vh 5%;
     position: relative;
     width: 400px;
     height: max-content;
     overflow: visible;
     border-radius: 20px;
+}
+
+.back:hover {
+    transform: scale(1.03);
 }
 
 .list_task, .title {
@@ -141,6 +145,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
 
 .back .title {
     margin-bottom: 10px;
+    height: 40px;
 }
 
 .back .title input {
@@ -164,22 +169,26 @@ body .item.new~button {opacity: 0; pointer-events: none}
     margin: 7px;
 }
 
-.title {height: 40px}
+.title input:hover~.del_list {margin-right: -5px}
 
 .list_task textarea {
+    float: left;
     text-align: center;
     margin: 0;
     padding: 0 10px;
     resize: none;
-    position: relative;
-    right: 10px;
     width: 380px;
-    height: 40px;
-    line-height: 40px;
-    min-height: 40px;
+    height: 30px;
+    line-height: 30px;
+    min-height: 30px;
     background: none;
     border: none;
     overflow: hidden;
+}
+
+.list_task textarea:hover {
+    background-color: rgba(113, 136, 199, 0.2);
+    padding: 5px 10px;
 }
 
 .list_task button, .back button.del_list {
@@ -194,15 +203,32 @@ body .item.new~button {opacity: 0; pointer-events: none}
     opacity: 0;
 }
 
-.back button:hover {transform: scale(1.2)}
-
+.back form button:hover {transform: scale(1.2)}
 .back .list_task:hover button, .back .title:hover button {right: 0; opacity: 1}
 
-.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert, .back button {transition: 0.2s ease-out}
-.item button:hover, #add_day_task:hover, #add_month_task:hover, .alert, .back button:hover {transition: 0.1s ease-in-out}
-.item button:active, #add_day_task:active, #add_month_task:active, .alert:active, .back button:active {transform: scale(1)}
-.back button:active {opacity: 0}
-.item.del {transition: 0.1s ease-out; transition-property: opacity, left;}
+#add_list_task {
+    margin-bottom: 8px;
+    padding: 0;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 15px;
+    background-color: transparent;
+}
 
-.back .title input {transition: 0.2s ease-out}
-/*.back .title:hover {transition: 0.1s ease-out}*/
+#add_list_task:hover {transform: scale(1.1);}
+
+#add_list_task svg {
+    width: 20px;
+    height: 20px;
+}
+
+.list_task textarea {transition:0.2s ease-out; transition-property: padding, background-color}
+.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert, .back button,
+.back .title input, .back
+{transition: 0.2s ease-out}
+.item button:hover, #add_day_task:hover, #add_month_task:hover, .alert, .back button:hover, .back .title:hover input,
+.time:hover, .title input:hover~.del_list, .back:hover
+{transition: 0.1s ease-in-out}
+.item button:active, #add_day_task:active, #add_month_task:active, .alert:active, .back button:active {transform: scale(1)}
+.item.del {transition: 0.1s ease-out; transition-property: opacity, left;}
