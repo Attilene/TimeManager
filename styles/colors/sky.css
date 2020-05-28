@@ -14,3 +14,5 @@ aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color
 .item textarea, #add_day_task, #add_month_task, #add_list_task, .back {background-color: rgba(101, 147, 181, 0.5)}
 #add_day_task:hover, #add_month_task:hover, #add_list_task:hover {background-color: #6593b5}
 .time.input {background-color: #6593b5}
+.list_task textarea:hover {background-color: rgba(101, 147, 181, 0.2)}
+.list_task textarea:focus {background-color: rgba(101, 147, 181, 0.4);}

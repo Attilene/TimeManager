@@ -185,13 +185,10 @@ body .item.new~button {opacity: 0; pointer-events: none}
 }
 
 .list_task textarea:hover, .list_task textarea:focus {
-    background-color: rgba(113, 136, 199, 0.2);
     margin-top: -5px;
     margin-bottom: -5px;
     padding: 5px 10px;
 }
-
-.list_task textarea:focus {background-color: rgba(113, 136, 199, 0.4);}
 
 .list_task button, .back button.del_list {
     padding: 0;
