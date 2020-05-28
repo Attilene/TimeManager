@@ -12,7 +12,7 @@ svg  {fill: white}
 #avatar:hover #avatar_inside {filter: brightness(80%) blur(2px)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
 .time.input * {color: white}
-body .time input::selection {background-color: rgba(255, 255, 255, 0.2) !important}
+.time input::selection, .back .title input::selection {background-color: rgba(255, 255, 255, 0.2) !important}
 header .center:hover, header .center:active {background: rgba(255, 255, 255, 0.2)}
 @media (min-width: 1400px) {header .right:hover, header .right:active {background: rgba(255, 255, 255, 0.2)}}
 footer .right:hover, footer .right:active {background: rgba(255, 255, 255, 0.2)}
