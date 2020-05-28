@@ -1,20 +1,11 @@
 <div id="help_body">
-    <p>Добро пожаловать!</p>
-    <div id="upper">
-        <p id="man_text">Инструкция</p>
-        <div id="man_li">
-            <span id="m_guest"></span>
-            <span id=m_reg"></span>
-            <span id="m_log"></span>
-            <span id="m_act"></span>
-            <div id="mf_guest"></div>
-            <div id=mf_reg"></div>
-            <div id="mf_log"></div>
-            <div id="mf_act"></div>
-        </div>
-    </div>
-    <p>Поробуйте гостувую учетную запись</p>
-    <button id="guest_log" type="button"
+    <p id="subtitle">Добро пожаловать!</p>
+    <div class= "man_card" id="m_guest"></div>
+    <div class= "man_card" id=m_reg"></div>
+    <div class= "man_card" id="m_log"></div>
+    <div class= "man_card" id="m_act"></div>
+    <p id="try_guest">Поробуйте гостевую учетную запись</p>
+    <button id="btn_guest_log" type="button"
             onmousedown="if (!user_logined) {guest_auth()}"
     >Начать!</button>
 </div>

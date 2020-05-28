@@ -74,10 +74,10 @@
     height: 0
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1600px) {
     #developers {width: 75%}
 }
-@media (min-width: 1200px) and (max-width: 1500px) {
+@media (min-width: 1200px) and (max-width: 1600px) {
     #developers {width: 90%; transition: 0.2s ease-in-out}
 }
 @media (max-width: 1200px) {

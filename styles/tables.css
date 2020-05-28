@@ -166,7 +166,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
     border-radius: 25px;
 }
 
-.back .title input:hover, .back .title input:focus {transform: scale(1.05)}
+.back .title:hover input, .back .title input:focus {transform: scale(1.05)}
 
 .del_list {margin-right: -10px}
 

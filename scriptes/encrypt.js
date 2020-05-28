@@ -1,10 +1,11 @@
 let key = '';
 let salt = '';
 
-
 receive('/get_key', function (data) {
     key = data;
-    $('#form_login').attr('placeholder', 'Логин / Почта').removeAttr('disabled')
+    jQuery(document).ready(function () {
+        $('#form_login').attr('placeholder', 'Логин / Почта').removeAttr('disabled')
+    })
 });
 
 function sha_256(text) {
