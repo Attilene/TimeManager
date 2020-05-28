@@ -38,7 +38,7 @@ div.body {
     border-radius: 20px;
 }
 
-.time:hover {transform: scale(1.1)}
+.time:hover, .time.input {transform: scale(1.1)}
 
 .time span {
     width: 10px;
@@ -56,7 +56,10 @@ div.body {
     width: 35px;
     background: none;
     border: none;
+    transform-origin: center;
 }
+
+.time input:hover {transform: scale(1.1)}
 
 .item .task {
     resize: none;
@@ -233,7 +236,7 @@ body .item.new~button {opacity: 0; pointer-events: none}
 .back .title input, .back
 {transition: 0.2s ease-out}
 .item button:hover, #add_day_task:hover, #add_month_task:hover, #add_day_task:hover, .alert, .back form button:hover, .back .title:hover *,
-.time:hover, .back:hover
+.time:hover, .time input, .back:hover
 {transition: 0.1s ease-in-out}
 .item button:active, #add_day_task:active, #add_month_task:active, #add_list_task:active, .alert:active, .back form button:active
 {transform: scale(1)}

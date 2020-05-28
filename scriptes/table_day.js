@@ -1,9 +1,15 @@
 function get_day_data(form) {
-    return {
+    var a = {
         "hour": form.children('.time').children('.hour').val(),
         "minute": form.children('.time').children('.minute').val(),
         "task": form.children('.task').val()
+    };
+    if (!form.hasClass('new')) {
+        if (form.find('.task').val() === '') {
+            a.task = form.data('old').task
+        }
     }
+    return a
 }
 
 function save_day(form) {form.data('old', get_day_data(form));}
@@ -80,11 +86,13 @@ function blur_input_day(form) {
                         del_day_task(form);
                     } else {
                         form.data('old', get_day_data(form));
+                        form.removeClass('new');
                         form.find('input').removeAttr('placeholder')
                     }
                 }, new_day_data)
             }
             else {
+                form.removeClass('new');
                 form.find('input').removeAttr('placeholder')
             }
         }
@@ -104,8 +112,9 @@ function blur_input_day(form) {
 
 function key_func(event) {
     let key = event.keyCode;
-    if (key === 8 && event.target.selectionStart === 0 && event.target.selectionEnd === 0) {event.preventDefault(); to_prev($(event.target))}
-    else if ((key === 38 && event.target.selectionStart === 0) ||
+    // if (key === 8 && event.target.selectionStart === 0 && event.target.selectionEnd === 0) {event.preventDefault(); to_prev($(event.target))}
+    // else
+    if ((key === 38 && event.target.selectionStart === 0) ||
         (key === 40 && event.target.selectionStart === $(event.target).val().length) ||
         (key === 37 && !(event.target.tagName === 'TEXTAREA' && event.target.selectionStart > 0)) ||
         (key === 39 && !(event.target.tagName === 'TEXTAREA'))
@@ -211,6 +220,4 @@ function set_val(input, val) {
 function autosize(el) {
     let temp = $(el);
     temp.height(0).height(el.scrollHeight - 10);
-    if (temp.val() === '') {temp.addClass('new')}
-    else {temp.removeClass('new')}
 }
