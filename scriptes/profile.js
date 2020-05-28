@@ -169,7 +169,8 @@ function onchange_get_file(file) {
                 send_image(img, function () {
                     $('#avatar_inside').css({'background-image': `url(${URL.createObjectURL(blob)})`});
                     $('header .right picture').css({'background-image': `url(${URL.createObjectURL(blob)})`});
-                    $('#avatar').removeClass('none')
+                    $('#avatar').removeClass('none');
+                    $('#get_file').val('');
                 })
             });
 

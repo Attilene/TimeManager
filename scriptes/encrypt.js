@@ -79,10 +79,10 @@ function reduceFileSize(file, callback) {
         reader.readAsArrayBuffer(file);
     }
 
-    function imgToCanvasWithOrientation(img, rawWidth, rawHeight, orientation) {
+    function imgToCanvasWithOrientation(img, rawWidth, rawHeight, orientation, x, y) {
         var canvas = document.createElement('canvas');
-        canvas.width = rawWidth;
-        canvas.height = rawHeight;
+        canvas.width = 110;
+        canvas.height = 110;
         var ctx = canvas.getContext('2d');
         switch (orientation) {
             case 2: ctx.transform(-1, 0, 0, 1, rawWidth, 0); break;
@@ -97,7 +97,7 @@ function reduceFileSize(file, callback) {
             ctx.scale(-1, 1);
             rawWidth = - rawWidth
         }
-        ctx.drawImage(img, 0, 0, rawWidth, rawHeight);
+        ctx.drawImage(img, x, y, rawWidth, rawHeight);
         return canvas;
     }
 
@@ -110,18 +110,15 @@ function reduceFileSize(file, callback) {
         URL.revokeObjectURL(this.src);
         getExifOrientation(file, function(orientation) {
             let w = img.width, h = img.height;
-            let maxWidth = Infinity, maxHeight = Infinity;
-            if (w > h) {maxWidth = 110}
-            else {maxHeight = 110}
             let scale = (orientation > 4 ?
-                Math.min(maxHeight / w, maxWidth / h, 1) :
-                Math.min(maxWidth / w, maxHeight / h, 1));
+                Math.min(110 / w, Infinity / h, 1) :
+                Math.min(Infinity / w, 110 / h, 1));
             h = Math.round(h * scale);
             w = Math.round(w * scale);
-            console.log(w, h);
-
-            let canvas = imgToCanvasWithOrientation(img, w, h, orientation);
-            canvas.toBlob(function(blob) {
+            let shiftY = 0, shiftX = 0;
+            if (w < h) {shiftY = -((h - 110) / 2)}
+            else {shiftX = -((w - 110) / 2)}
+            imgToCanvasWithOrientation(img, w, h, orientation, shiftX, shiftY).toBlob(function(blob) {
                 callback(blob);
             }, 'image/jpeg', 1);
         });
