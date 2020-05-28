@@ -141,7 +141,8 @@ function change_auth(mode) {
 }
 
 function registration() {
-    let temp_psw = pack_psw(in_pass.val(), gen_salt());
+    salt = gen_salt();
+    let temp_psw = pack_psw(in_pass.val(), salt);
     send('/register', {
         'log':     in_login.val(),
         'email':   in_email.val(),

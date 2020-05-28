@@ -76,7 +76,7 @@ class User(object):
 
     def change_pass(self, pswsalt):
         psw, salt = decrypt(pswsalt)
-        hash_sum = set_sum(pswsalt)
+        hash_sum = set_sum(psw)
         hashed_psw = generate_password_hash(psw + salt[:-1])
         User.__exe("UPDATE users SET password = ?, hash_sum = ? WHERE login = ?", (hashed_psw, hash_sum, self.log))
         User.__com()

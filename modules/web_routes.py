@@ -113,7 +113,8 @@ def req_change_email(now, data):
 @user_req('/change_pass')
 def req_change_pass(now, data):
     """Изменение имени пользователя"""
-    now.change_pass(data)
+    if (not User.fast_check_psw(now.log, data)):
+        now.change_pass(data)
     users[now.log]._restore = 0
 
 
@@ -337,6 +338,7 @@ def page_home():
                 'color':        now.color,
                 'activated':    now.activated,
                 'restore':      restore,
+                'salt':         now.salt,
                 'avatar':       avatar,
                 'table_day':    now.ret_day(),
                 'table_month':  now.ret_month(),

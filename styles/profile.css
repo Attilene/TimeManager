@@ -63,8 +63,8 @@ aside {
 #avatar_inside {
     background-image: url(../images/default.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
     width: calc(100% + 2px);
     height: calc(100% + 2px);
     position: absolute;
