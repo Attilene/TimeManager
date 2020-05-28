@@ -1,5 +1,9 @@
-#help_ {
-    background: url(../images/bg.jpg) no-repeat center/;
+#help_body {
+    position: absolute;
+    top: -50px;
+    left: -40px;
+    width: calc(100% + 80px);
+    height: calc(100% + 90px);
 }
 
 

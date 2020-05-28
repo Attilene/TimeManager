@@ -14,5 +14,7 @@
         </div>
     </div>
     <p>Поробуйте гостувую учетную запись</p>
-    <button id="guest_log" type="button">Начать!</button>
+    <button id="guest_log" type="button"
+            onmousedown="if (!user_logined) {guest_auth()}"
+    >Начать!</button>
 </div>

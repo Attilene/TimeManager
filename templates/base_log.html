@@ -8,6 +8,7 @@
     {#         Стили         #}
     <link href="time_manager/styles/fonts/fonts.css" rel="stylesheet" type="text/css" />
     <link href="time_manager/styles/base.css" rel="stylesheet" type="text/css"/>
+    <link href="time_manager/styles/help.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/tables.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/profile.css" rel="stylesheet" type="text/css"/>
     <link href="time_manager/styles/authorisation.css" rel="stylesheet" type="text/css"/>
@@ -33,7 +34,7 @@
 
 <body style="opacity: 0">
     <header>
-        <span class="left" onclick="if (!user_logined) {guest_auth()}">
+        <span class="left" onmousedown="change_page('help')">
             <a>Time Manager</a>
         </span>
         <a class="center" id="button_lists" onmousedown="change_page('lists')">Списки</a>
