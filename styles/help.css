@@ -13,12 +13,14 @@
     margin: 5vh 0 3vh;
 }
 
+#subtitle:hover {transform: scale(1.1);}
+
 .man_card {
     transform: scale(0.9);
     display: inline-block;
     margin: 0 1%;
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     border-radius: 115px;
     background: red;
 }
@@ -30,17 +32,38 @@
     margin: 3vh auto;
 }
 
+#try_guest:hover {transform: scale(1.1);}
+
 #btn_guest_log {
-
+    font-size: 1.3em;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    height: 40px;
+    background: none;
+    border: 3px solid white;
+    border-radius: 30px;
 }
 
-@media (min-height: 600px) {
+#btn_guest_log:hover {transform: scale(1.1)}
+
+@media (min-height: 550px) and (max-height: 750px) {
+    #subtitle {margin: 6vh 0}
+    #try_guest {margin: 10vh auto 5vh}
+}
+
+
+@media (min-height: 750px) {
     #subtitle {margin: 8vh 0}
-    #try_guest {margin: 13vh auto 5vh}
+    #try_guest {margin: 20vh auto 5vh}
+    #btn_guest_log {width: 250px; height: 50px}
 }
+
 
 @media (min-height: 550px) and (min-width: 1300px) {
     .man_card {width: 210px; height: 210px}
 }
 
 #page_help * {transition: 0.2s ease-out}
+#btn_guest_log:hover {transition: 0.1s ease}
+#subtitle:active, #try_guest:active, #btn_guest_log:active {transform: scale(1); transition: 0.05s}
