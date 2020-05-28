@@ -81,7 +81,7 @@ aside {
     width: 43px;
     height: 43px;
     top: 5px;
-    left: 29px;
+    left: 30px;
 }
 
 #avatar hr {
@@ -96,7 +96,7 @@ aside {
     width: 31px;
     height: 31px;
     bottom: 10px;
-    left: 35px;
+    left: 37px;
 }
 
 #avatar::before {
@@ -118,8 +118,8 @@ aside {
 #avatar.none #change_avatar {
     width: 55px;
     height: 55px;
-    top: 21px;
-    left: 21px;
+    top: 23px;
+    left: 23px;
 }
 
 #avatar.none hr, #avatar.none #remove_avatar {opacity: 0; pointer-events: none}

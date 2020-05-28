@@ -36,7 +36,7 @@ function pack_psw(psw, salt) {
     return  forge.util.encode64(encrypted);
 }
 
-function reduceFileSize(file, callback) {
+function reduceFileSize(file, size, callback) {
 
     function getExifOrientation(file, callback) {
         if (file.slice) {
@@ -81,8 +81,7 @@ function reduceFileSize(file, callback) {
 
     function imgToCanvasWithOrientation(img, rawWidth, rawHeight, orientation, x, y) {
         var canvas = document.createElement('canvas');
-        canvas.width = 110;
-        canvas.height = 110;
+        canvas.width = canvas.height = size;
         var ctx = canvas.getContext('2d');
         switch (orientation) {
             case 2: ctx.transform(-1, 0, 0, 1, rawWidth, 0); break;
@@ -111,13 +110,13 @@ function reduceFileSize(file, callback) {
         getExifOrientation(file, function(orientation) {
             let w = img.width, h = img.height;
             let scale = (orientation > 4 ?
-                Math.min(110 / w, Infinity / h, 1) :
-                Math.min(Infinity / w, 110 / h, 1));
+                Math.min(size / w, Infinity / h, 1) :
+                Math.min(Infinity / w, size / h, 1));
             h = Math.round(h * scale);
             w = Math.round(w * scale);
             let shiftY = 0, shiftX = 0;
-            if (w < h) {shiftY = -((h - 110) / 2)}
-            else {shiftX = -((w - 110) / 2)}
+            if (w < h) {shiftY = -((h - size) / 2)}
+            else {shiftX = -((w - size) / 2)}
             imgToCanvasWithOrientation(img, w, h, orientation, shiftX, shiftY).toBlob(function(blob) {
                 callback(blob);
             }, 'image/jpeg', 1);

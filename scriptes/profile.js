@@ -163,7 +163,7 @@ function onchange_get_file(file) {
     if (file) {
         let size = ((file.size) / 1024 / 1024).toFixed(1);
         if (size <= 30) {
-            reduceFileSize(file, function (blob) {
+            reduceFileSize(file, 110, function (blob) {
                 let img = new FormData();
                 img.set('img', blob, `${user_data.email}.jpg`);
                 send_image(img, function () {
