@@ -200,7 +200,6 @@ main {
 	height: calc(100% - 90px);
 	width: 100%;
 	min-width: 958px;
-	overflow: auto;
 }
 
 /*---------------Открытие---------------------*/

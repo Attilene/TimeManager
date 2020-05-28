@@ -1,208 +1,251 @@
-/*#page_help {*/
-/*    background: url("../images/bg.jpg") no-repeat;*/
+#help_ {
+    background: url(../images/bg.jpg) no-repeat center/;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*!*#page_help {*!*/
+/*!*    background: url("../images/bg.jpg") no-repeat;*!*/
+/*!*}*!*/
+
+/*!* Левый верхний элемент начать гостевой режим *!*/
+
+/*#start {*/
+
+/*    position: absolute;*/
+/*    width: 374px;*/
+/*    height: 374px;*/
+
+/*    background: #6464FF;*/
+/*    border-radius: 38px;*/
+/*    transform: rotate(-90deg);*/
 /*}*/
 
-/* Левый верхний элемент начать гостевой режим */
+/*#start_text_info {*/
 
-#start {
+/*    position: absolute;*/
+/*    width: 321px;*/
+/*    height: 197px;*/
 
-    position: absolute;
-    width: 374px;
-    height: 374px;
+/*    font-family: Roboto, sans-serif;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    font-size: 18px;*/
+/*    line-height: 21px;*/
+/*    text-align: center;*/
 
-    background: #6464FF;
-    border-radius: 38px;
-    transform: rotate(-90deg);
-}
+/*    color: #F8F8F8;*/
 
-#start_text_info {
-
-    position: absolute;
-    width: 321px;
-    height: 197px;
-
-    font-family: Roboto, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 21px;
-    text-align: center;
-
-    color: #F8F8F8;
-
-}
-
-
-#start_button {
-
-    position: absolute;
-    width: 64px;
-    height: 321px;
-
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 38px;
-    transform: rotate(-90deg);
-
-}
-
-#start_button_text {
-    position: absolute;
-    width: 327px;
-    height: 53px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 42px;
-    text-align: center;
-    text-transform: capitalize;
-
-    color: #6464FF;
-}
-
-
-#start_line {
-
-    /* Line 2 */
-
-    position: absolute;
-    width: 374px;
-    height: 0px;
-
-    border: 1px solid rgba(255, 255, 255, 0.75);
-
-}
-
-#start_now_text {
-
-    position: absolute;
-    width: 321px;
-    height: 42px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 42px;
-    text-align: center;
-
-    color: #F8F8F8;
-
-}
-
-/* Позиция для видеозаписи */
-#video {
-    position: absolute;
-    width: 665px;
-    height: 374px;
-
-    background: #C4C4C4;
-}
-
-/* Текст описание */
-
-#desc_back {
-    position: absolute;
-    width: 475px;
-    height: 1061px;
-
-    background: #6464FF;
-    border-radius: 38px;
-    transform: rotate(-90deg);
-}
-
-#desc_tome_manager {
-
-    position: absolute;
-    width: 599px;
-    height: 53px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 42px;
-    text-transform: uppercase;
-
-    color: #F8F8F8;
-
-}
-
-#desc_line {
-
-    position: absolute;
-    width: 1061px;
-    height: 0px;
-
-    border: 1px solid #FFFFFF;
-}
-
-#desc_text {
-    position: absolute;
-    width: 993px;
-    height: 387px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 21px;
-
-    color: #F8F8F8;
-}
-
-
-#page_help *, #page_help {
-    font-family: "Comfortaa Bold", "Comic Sans MS", sans-serif;
-    font-size: 1.1em;
-    text-align: center;
-}
-
-#page_help {background: url(../images/bg.jpg); position: relative}
-
-/*#page_help {*/
-/*    border: 5px solid white;*/
-/*    border-radius: 50px;*/
-/*    width: 500px;*/
-/*    height: 300px;*/
 /*}*/
 
-/*#page_help {*/
-/*    width: 200px;*/
-/*    margin-top: 5%;*/
-/*    margin: auto;*/
+
+/*#start_button {*/
+
+/*    position: absolute;*/
+/*    width: 64px;*/
+/*    height: 321px;*/
+
+/*    background: #FFFFFF;*/
+/*    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+/*    border-radius: 38px;*/
+/*    transform: rotate(-90deg);*/
+
 /*}*/
 
-start_button {
-  position: relative;
-  display: inline-block;
-  font-size: 90%;
-  font-weight: 700;
-  color: rgb(209,209,217);
-  text-decoration: none;
-  text-shadow: 0 -1px 2px rgba(0,0,0,.2);
-  padding: .5em 1em;
-  outline: none;
-  border-radius: 3px;
-  background: linear-gradient(rgb(110,112,120), rgb(81,81,86)) rgb(110,112,120);
-  box-shadow:
-   0 1px rgba(255,255,255,.2) inset,
-   0 3px 5px rgba(0,1,6,.5),
-   0 0 1px 1px rgba(0,1,6,.2);
-  transition: .2s ease-in-out;
-}
+/*#start_button_text {*/
+/*    position: absolute;*/
+/*    width: 327px;*/
+/*    height: 53px;*/
 
-start_button:hover:not(:active) {
-  background: linear-gradient(rgb(126,126,134), rgb(70,71,76)) rgb(126,126,134);
-}
+/*    font-family: Roboto;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    font-size: 36px;*/
+/*    line-height: 42px;*/
+/*    text-align: center;*/
+/*    text-transform: capitalize;*/
 
-start_button:active {
-  top: 1px;
-  background: linear-gradient(rgb(76,77,82), rgb(56,57,62)) rgb(76,77,82);
-  box-shadow:
-   0 0 1px rgba(0,0,0,.5) inset,
-   0 2px 3px rgba(0,0,0,.5) inset,
-   0 1px 1px rgba(255,255,255,.1);
-}
+/*    color: #6464FF;*/
+/*}*/
+
+
+/*#start_line {*/
+
+/*    !* Line 2 *!*/
+
+/*    position: absolute;*/
+/*    width: 374px;*/
+/*    height: 0px;*/
+
+/*    border: 1px solid rgba(255, 255, 255, 0.75);*/
+
+/*}*/
+
+/*#start_now_text {*/
+
+/*    position: absolute;*/
+/*    width: 321px;*/
+/*    height: 42px;*/
+
+/*    font-family: Roboto;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    font-size: 36px;*/
+/*    line-height: 42px;*/
+/*    text-align: center;*/
+
+/*    color: #F8F8F8;*/
+
+/*}*/
+
+/*!* Позиция для видеозаписи *!*/
+/*#video {*/
+/*    position: absolute;*/
+/*    width: 665px;*/
+/*    height: 374px;*/
+
+/*    background: #C4C4C4;*/
+/*}*/
+
+/*!* Текст описание *!*/
+
+/*#desc_back {*/
+/*    position: absolute;*/
+/*    width: 475px;*/
+/*    height: 1061px;*/
+
+/*    background: #6464FF;*/
+/*    border-radius: 38px;*/
+/*    transform: rotate(-90deg);*/
+/*}*/
+
+/*#desc_tome_manager {*/
+
+/*    position: absolute;*/
+/*    width: 599px;*/
+/*    height: 53px;*/
+
+/*    font-family: Roboto;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    font-size: 36px;*/
+/*    line-height: 42px;*/
+/*    text-transform: uppercase;*/
+
+/*    color: #F8F8F8;*/
+
+/*}*/
+
+/*#desc_line {*/
+
+/*    position: absolute;*/
+/*    width: 1061px;*/
+/*    height: 0px;*/
+
+/*    border: 1px solid #FFFFFF;*/
+/*}*/
+
+/*#desc_text {*/
+/*    position: absolute;*/
+/*    width: 993px;*/
+/*    height: 387px;*/
+
+/*    font-family: Roboto;*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*    font-size: 18px;*/
+/*    line-height: 21px;*/
+
+/*    color: #F8F8F8;*/
+/*}*/
+
+
+/*#page_help *, #page_help {*/
+/*    font-family: "Comfortaa Bold", "Comic Sans MS", sans-serif;*/
+/*    font-size: 1.1em;*/
+/*    text-align: center;*/
+/*}*/
+
+/*#page_help {background: url(../images/bg.jpg); position: relative}*/
+
+/*!*#page_help {*!*/
+/*!*    border: 5px solid white;*!*/
+/*!*    border-radius: 50px;*!*/
+/*!*    width: 500px;*!*/
+/*!*    height: 300px;*!*/
+/*!*}*!*/
+
+/*!*#page_help {*!*/
+/*!*    width: 200px;*!*/
+/*!*    margin-top: 5%;*!*/
+/*!*    margin: auto;*!*/
+/*!*}*!*/
+
+/*start_button {*/
+/*  position: relative;*/
+/*  display: inline-block;*/
+/*  font-size: 90%;*/
+/*  font-weight: 700;*/
+/*  color: rgb(209,209,217);*/
+/*  text-decoration: none;*/
+/*  text-shadow: 0 -1px 2px rgba(0,0,0,.2);*/
+/*  padding: .5em 1em;*/
+/*  outline: none;*/
+/*  border-radius: 3px;*/
+/*  background: linear-gradient(rgb(110,112,120), rgb(81,81,86)) rgb(110,112,120);*/
+/*  box-shadow:*/
+/*   0 1px rgba(255,255,255,.2) inset,*/
+/*   0 3px 5px rgba(0,1,6,.5),*/
+/*   0 0 1px 1px rgba(0,1,6,.2);*/
+/*  transition: .2s ease-in-out;*/
+/*}*/
+
+/*start_button:hover:not(:active) {*/
+/*  background: linear-gradient(rgb(126,126,134), rgb(70,71,76)) rgb(126,126,134);*/
+/*}*/
+
+/*start_button:active {*/
+/*  top: 1px;*/
+/*  background: linear-gradient(rgb(76,77,82), rgb(56,57,62)) rgb(76,77,82);*/
+/*  box-shadow:*/
+/*   0 0 1px rgba(0,0,0,.5) inset,*/
+/*   0 2px 3px rgba(0,0,0,.5) inset,*/
+/*   0 1px 1px rgba(255,255,255,.1);*/
+/*}*/
