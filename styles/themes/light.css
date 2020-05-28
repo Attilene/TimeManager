@@ -24,3 +24,5 @@ footer .right:hover, footer .right:active {background: rgba(255, 255, 255, 0.2)}
 #remove_avatar {fill: #ff6464}
 aside menu form input.warning, #set_login.warning {background-color: #ff6464}
 #confirm_email p:last-of-type {color: #ff6464}
+#avatar:not(.none):hover::before {background-color: rgba(0, 0, 0, 0.2)
+}

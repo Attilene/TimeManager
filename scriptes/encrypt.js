@@ -37,6 +37,7 @@ function pack_psw(psw, salt) {
 }
 
 function reduceFileSize(file, callback) {
+
     function getExifOrientation(file, callback) {
         if (file.slice) {
             file = file.slice(0, 131072);
@@ -100,8 +101,7 @@ function reduceFileSize(file, callback) {
         return canvas;
     }
 
-    var quality = 1;
-    var img = new Image();
+    let img = new Image();
     img.onerror = function() {
         URL.revokeObjectURL(this.src);
         callback(file);
@@ -109,26 +109,21 @@ function reduceFileSize(file, callback) {
     img.onload = function() {
         URL.revokeObjectURL(this.src);
         getExifOrientation(file, function(orientation) {
-            var w = img.width, h = img.height;
-            if (w < h) {
-                var maxWidth = 300;
-                var maxHeight = Infinity
-            }
-            else {
-
-                var maxWidth = Infinity;
-                var maxHeight = 300
-            }
-            var scale = (orientation > 4 ?
+            let w = img.width, h = img.height;
+            let maxWidth = Infinity, maxHeight = Infinity;
+            if (w > h) {maxWidth = 110}
+            else {maxHeight = 110}
+            let scale = (orientation > 4 ?
                 Math.min(maxHeight / w, maxWidth / h, 1) :
                 Math.min(maxWidth / w, maxHeight / h, 1));
             h = Math.round(h * scale);
             w = Math.round(w * scale);
+            console.log(w, h);
 
-            var canvas = imgToCanvasWithOrientation(img, w, h, orientation);
+            let canvas = imgToCanvasWithOrientation(img, w, h, orientation);
             canvas.toBlob(function(blob) {
                 callback(blob);
-            }, 'image/jpeg', quality);
+            }, 'image/jpeg', 1);
         });
     };
     img.src = URL.createObjectURL(file);
