@@ -7,9 +7,8 @@ div.body {
     box-sizing: border-box;
     text-align: center;
     margin: 0 auto;
-    padding: 3vh 2% 0;
-    width: calc(20% + 765px);
-    min-width: 958px;
+    padding: 3vh 0 0;
+    width: 958px;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -31,7 +30,7 @@ div.body {
 .time {
     box-sizing: border-box;
     padding: 0 5px;
-    margin: 0;
+    margin-left: 20px;
     width: 110px;
     float: left;
     height: 40px;
@@ -63,8 +62,9 @@ div.body {
 
 .item .task {
     resize: none;
+    margin-left: 20px;
     padding: 5px 10px;
-    width: calc(100% - 280px);
+    width: calc(100% - 260px);
     height: 30px;
     line-height: 30px;
     min-height: 30px;
@@ -77,10 +77,18 @@ div.body {
     float: right;
     height: 40px;
     width: 40px;
-    margin: 0 50px 0 20px;
+    margin: 0 20px 0 20px;
     padding: 0;
+    position: relative;
+    right: 20px;
     border: none;
     border-radius: 20px;
+    opacity: 0;
+}
+
+.item:hover button {
+    right: 0;
+    opacity: 1;
 }
 
 .item button svg, .list_task button svg, .back button svg {

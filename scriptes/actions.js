@@ -70,7 +70,7 @@ function change_page(page) {
                 $(this).addClass('opened')
             });
         }, close_time('main.closed'));
-        sessionStorage.page = page
+        sessionStorage.page = page;
     }
 }
 

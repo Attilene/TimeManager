@@ -1,5 +1,26 @@
 let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
 let user_logined = false;
+let manuals = {
+    'm_reg': new Image(),
+    'm_act': new Image(),
+    'm_add': new Image(),
+    'm_theme': new Image()
+};
+
+manuals.m_reg.src = 'time_manager/images/manual/reg.gif';
+manuals.m_reg.onload = function () {$('#m_reg').addClass('ready')
+    .children('.cover')[0].src = manuals.m_reg.src};
+manuals.m_act.src = 'time_manager/images/manual/act.gif';
+manuals.m_act.onload = function () {$('#m_act').addClass('ready')
+    .children('.cover')[0].src = manuals.m_act.src};
+manuals.m_add.src = 'time_manager/images/manual/add.gif';
+manuals.m_add.onload = function () {$('#m_add').addClass('ready')
+    .children('.cover')[0].src = manuals.m_add.src};
+manuals.m_theme.src = 'time_manager/images/manual/theme.gif';
+manuals.m_theme.onload = function () {$('#m_theme').addClass('ready')
+    .children('.cover')[0].src = manuals.m_theme.src};
+
+
 jQuery(document).ready(function () {
     $('body').css({opacity: 0}).animate({opacity: 1}, 1000);
     clear_fields();
@@ -58,9 +79,12 @@ jQuery(document).ready(function () {
             }
         }
     });
-    // Подгрузка гиф
-    $('.man_card img').onload = function () {
-        $(this).parent().addClass('ready');
-        console.log(1)
-    }
+    // Гифки
+    $('.man_card').on('mouseenter click', function () {
+        let img = $(this).children('.cover');
+        if ($(this).hasClass('ready')) {
+            img.attr('src', manuals[this.id].src);
+        }
+    })
+
 });
