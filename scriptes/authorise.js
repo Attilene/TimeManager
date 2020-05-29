@@ -192,8 +192,9 @@ function authorisation(login, password) {
         $('#page_day')[0].innerHTML = data.day;
         $('#page_month')[0].innerHTML = data.month;
         $('#page_lists')[0].innerHTML = data.lists;
-        $('textarea').each(function (index, element) {autosize(element)});
         $('#page_help').addClass('help_login');
+        $('textarea').each(function (index, element) {autosize(element); console.log(1)});
+        console.log(2)
         // Синхронизация данных
         change_theme(data.theme, data.color);
         user_data = {

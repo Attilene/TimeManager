@@ -65,12 +65,12 @@ div.body {
     margin-left: 20px;
     padding: 5px 10px;
     width: calc(100% - 260px);
-    height: 30px;
+    height: auto;
     line-height: 30px;
     min-height: 30px;
     border: none;
     border-radius: 20px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .item button {

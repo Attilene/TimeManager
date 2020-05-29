@@ -41,7 +41,9 @@ class User(object):
         User.__exe(f"SELECT * FROM 'list_{self._log}'")
         lists = {}
         for name, task, number in User.__all():
-            if name in lists:
+            if task == str():
+                continue
+            elif name in lists:
                 lists[name].append(task)
             else:
                 lists[name] = [task]
@@ -97,7 +99,15 @@ class User(object):
 
     # Работа с данными #
     # Добавление #
-    def add_list(self, name, task):
+    def add_list(self, name):
+        User.__exe(f"SELECT name FROM 'list_{self._log}' WHERE name = ?", (name,))
+        if User.__one() is not None:
+            return False
+        User.__exe(f"INSERT INTO 'list_{self.log}' (name, task, number) VALUES (?, ?, ?)", (name, str(), 0))
+        User.__com()
+        return True
+
+    def add_list_task(self, name, task):
         number = 1
         User.__exe(f"SELECT name, task FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, task))
         if User.__one() is not None:
@@ -327,10 +337,13 @@ class User(object):
 # now_user.add_month(23, 1, 'dfjfkdjf')
 # now_user.add_month(24, 3, 'dfjfkdjf')
 # now_user.add_month(25, 9, 'dfjfkdjf')
-# now_user.add_list('1', 'dfjfkdjfdsfdgf')
-# now_user.add_list('2', 'dfjf')
-# now_user.add_list('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
-# now_user.add_list('1', 'werty')
+# now_user.add_list('1')
+# now_user.add_list('1')
+# now_user.add_list_task('1', 'dfjfkdjfdsfdgf')
+# now_user.add_list_task('2', 'dfjf')
+# now_user.add_list_task('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+# now_user.add_list_task('1', 'werty')
+# print(now_user.ret_lists())
 # print(now_user.change_list({'name': '1', 'task': 'dfjfkdjfdsfdgf'}, {'name': '2'}))
 # now_user.change_num('1', 'werty', 2)
 # now_user.del_list_task('1', 'werty', 2)

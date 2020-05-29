@@ -1,5 +1,5 @@
 function get_day_data(form) {
-    var a = {
+    let a = {
         "hour": form.children('.time').children('.hour').val(),
         "minute": form.children('.time').children('.minute').val(),
         "task": form.children('.task').val()
@@ -194,30 +194,7 @@ function set_val(input, val) {
     if (Math.floor(max / 10) < new_val) return true
 }
 
-// function get_height(el) {
-//     $(el).height(0);
-//     el.lastHeight = el.scrollHeight;
-//     $(el).height(el.lastHeight);
-// }
-//
-// function autosize(el){
-//     let lastHeight = el.lastHeight;
-//     $(el).height(0);
-//     let newHeight = el.scrollHeight;
-//     $(el).height(lastHeight);
-//     if (lastHeight === undefined) {
-//         $(el).height(0).height(newHeight)
-//     }
-//     else if (newHeight < lastHeight) {
-//         $(el).height(0).height(lastHeight).animate({height: newHeight + 'px'}, 100)
-//     }
-//     else {
-//         $(el).height(newHeight)
-//     }
-//     console.log(lastHeight, newHeight);
-// }
-
 function autosize(el) {
     let temp = $(el);
-    temp.height(0).height(el.scrollHeight - 10);
+    temp.height(0).height(temp[0].scrollHeight - 10);
 }
