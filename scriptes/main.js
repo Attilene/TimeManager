@@ -86,5 +86,4 @@ jQuery(document).ready(function () {
             img.attr('src', manuals[this.id].src);
         }
     })
-
 });
