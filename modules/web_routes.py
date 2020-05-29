@@ -105,7 +105,7 @@ def req_change_log(now, new):
 @user_req('/change_email')
 def req_change_email(now, data):
     """Изменение имени пользователя"""
-    try: os.rename(f'images/avatars/{now.email}.jpg', f'images/avatars/{data}.jpg')
+    try: os.rename(f'images/avatars/{now.email}.png', f'images/avatars/{data}.png')
     except FileNotFoundError: pass
     now.change_email(data)
 
@@ -121,7 +121,7 @@ def req_change_pass(now, data):
 @user_req('/change_avatar', 'img')
 def req_change_avatar(now, file):
     """Изменение аватарки"""
-    temp_path = f'images/avatars/{now.email}.jpg'
+    temp_path = f'images/avatars/{now.email}.png'
     with open(temp_path, 'wb') as open_file:
         open_file.write(file.read())
 
@@ -129,7 +129,7 @@ def req_change_avatar(now, file):
 @user_req('/delete_avatar')
 def req_delete_avatar(now):
     """Удаление аватарки"""
-    try: os.unlink(f'images/avatars/{now.email}.jpg')
+    try: os.unlink(f'images/avatars/{now.email}.png')
     except FileNotFoundError: pass
     try: os.mkdir('images/avatars/')
     except FileExistsError: pass
@@ -148,7 +148,7 @@ def req_logout(now):
 @user_req('/delete_user')
 def req_delete_user(now):
     """Удаление учётной записи"""
-    temp_path = f'images/avatars/{now.log}.jpg'
+    temp_path = f'images/avatars/{now.log}.png'
     if os.path.isfile(temp_path): os.remove(temp_path)
     now.del_user()
     users.pop(now.log)
@@ -274,7 +274,7 @@ def req_login():
             "email": u.email,
             "theme": u.theme,
             "color": u.color,
-            "avatar": os.path.isfile(f'images/avatars/{u.email}.jpg'),
+            "avatar": os.path.isfile(f'images/avatars/{u.email}.png'),
             "activated": u.activated,
             "day": render_template('day.html', table_day=u.ret_day()),
             "month": render_template('month.html', table_month=u.ret_month()),
@@ -329,7 +329,8 @@ def page_home():
                 restore = 1
                 users[log]._restore = 0
             else: restore = 0
-            if os.path.isfile(f'images/avatars/{now.email}.jpg'): avatar = f'style="background-image: url(time_manager/images/avatars/{now.email}.jpg)"'
+            if os.path.isfile(f'images/avatars/{now.email}.png'):
+                avatar = f'style="background-image: url(time_manager/images/avatars/{now.email}.png)"'
             else: avatar = ''
             data = {
                 'login':        log,

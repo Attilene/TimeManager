@@ -120,7 +120,7 @@ function reduceFileSize(file, size, callback) {
             else {shiftX = -((w - size) / 2)}
             imgToCanvasWithOrientation(img, w, h, orientation, shiftX, shiftY).toBlob(function(blob) {
                 callback(blob);
-            }, 'image/jpeg', 1);
+            }, 'image/png', 1);
         });
     };
     img.src = URL.createObjectURL(file);

@@ -110,6 +110,7 @@ function logout() {
     $('#page_lists')[0].innerHTML = '';
     $('#page_day')[0].innerHTML = '';
     $('#page_month')[0].innerHTML = '';
+    $('#page_help').removeClass('help_login');
     // Восстанавление темы
     change_theme('light', 'blue');
     // Восстанавление страницы
@@ -165,7 +166,7 @@ function onchange_get_file(file) {
         if (size <= 30) {
             reduceFileSize(file, 110, function (blob) {
                 let img = new FormData();
-                img.set('img', blob, `${user_data.email}.jpg`);
+                img.set('img', blob, `${user_data.email}.png`);
                 send_image(img, function () {
                     $('#avatar_inside').css({'background-image': `url(${URL.createObjectURL(blob)})`});
                     $('header .right picture').css({'background-image': `url(${URL.createObjectURL(blob)})`});

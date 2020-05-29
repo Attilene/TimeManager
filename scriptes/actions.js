@@ -103,6 +103,7 @@ function guest_auth() {
         '    <a class="alert">Введите данные</a>\n' +
         '</div>';
     $('#page_lists')[0].innerHTML = '';
+    $('#page_help').addClass('help_login');
     // Сбор мусора
     setTimeout(function () {
         $('#authorisation, header .center, header .right').removeAttr('style')

@@ -159,6 +159,7 @@ function registration() {
         $('#page_day')[0].innerHTML = data.day;
         $('#page_month')[0].innerHTML = data.month;
         $('#page_lists')[0].innerHTML = data.lists;
+        $('#page_help').addClass('help_login');
         // Закрытие меню
         $('#authorisation span').click();
         let menu = $('#authorisation_menu');
@@ -191,7 +192,8 @@ function authorisation(login, password) {
         $('#page_day')[0].innerHTML = data.day;
         $('#page_month')[0].innerHTML = data.month;
         $('#page_lists')[0].innerHTML = data.lists;
-        $('textarea').each(function (index, element) {autosize(element)})
+        $('textarea').each(function (index, element) {autosize(element)});
+        $('#page_help').addClass('help_login');
         // Синхронизация данных
         change_theme(data.theme, data.color);
         user_data = {
@@ -207,8 +209,8 @@ function authorisation(login, password) {
         // Загрузка аватара
         if (data.avatar) {
             $('#avatar').removeClass('none');
-            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.email}.jpg)`});
-            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.email}.jpg)`})
+            $('#avatar_inside').css({'background-image': `url(time_manager/images/avatars/${data.email}.png)`});
+            $('header .right picture').css({'background-image': `url(time_manager/images/avatars/${data.email}.png)`})
         }
         // Появление кнопок
         $('#authorisation').css({display: 'block'});

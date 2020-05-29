@@ -30,9 +30,9 @@
 #try_guest {
     font-size: 1.2em;
     margin: 3vh auto;
+    position: relative;
+    top: 0;
 }
-
-#try_guest:hover {transform: scale(1.1);}
 
 #btn_guest_log {
     font-size: 1.3em;
@@ -40,20 +40,36 @@
     margin: 0;
     width: 200px;
     height: 40px;
+    position: relative;
+    top: 0;
     background: none;
     border: 3px solid white;
     border-radius: 30px;
 }
 
-#btn_guest_log:hover {transform: scale(1.1)}
+#thank {
+    transform: scale(3);
+    font-size: 1.2em;
+    margin: auto;
+    width: max-content;
+    position: relative;
+    bottom: 50px;
+    opacity: 0;
+    pointer-events: none;
+}
 
-@media (min-height: 550px) and (max-height: 750px) {
+#btn_guest_log:hover, #try_guest:hover {transform: scale(1.1)}
+#page_help.help_login #try_guest, #page_help.help_login #btn_guest_log {opacity: 0; top: 40px}
+#page_help.help_login #thank {opacity: 1; transform: scale(1); pointer-events: visible}
+#page_help.help_login #thank:hover {transform: scale(1.1) skewX(-20deg)}
+
+@media (min-height: 500px) { /* Для среднего экрана */
     #subtitle {margin: 6vh 0}
     #try_guest {margin: 10vh auto 5vh}
 }
 
 
-@media (min-height: 750px) {
+@media (min-height: 750px) { /* Для большого экрана */
     #subtitle {margin: 8vh 0}
     #try_guest {margin: 20vh auto 5vh}
     #btn_guest_log {width: 250px; height: 50px}
@@ -66,4 +82,60 @@
 
 #page_help * {transition: 0.2s ease-out}
 #btn_guest_log:hover {transition: 0.1s ease}
-#subtitle:active, #try_guest:active, #btn_guest_log:active {transform: scale(1); transition: 0.05s}
+#subtitle:active, #try_guest:active, #btn_guest_log:active, #page_help.help_login #thank:active {transform: scale(1); transition: 0.05s}
+#page_help.help_login #try_guest, #page_help.help_login #btn_guest_log {transition: 0.1s ease-in}
+
+
+
+
+
+
+
+
+
+
+
+	.cssload-container div {
+	width: 29px;
+	height: 29px;
+	position: absolute;
+	background-color: #7188c7;
+	top: 45%;
+	border-radius: 50%;
+}
+
+.cssload-container div:nth-child(1) {
+	background-color: #7188c7;
+	animation: cssload-move 2.3s infinite cubic-bezier(0.2, 0.64, 0.81, 0.23);
+}
+
+.cssload-container div:nth-child(2) {
+	background-color: #7188c7;
+	animation: cssload-move 2.3s 172.5ms infinite cubic-bezier(0.2, 0.64, 0.81, 0.23);
+}
+
+.cssload-container div:nth-child(3) {
+	background-color: #7188c7;
+	animation: cssload-move 2.3s 345ms infinite cubic-bezier(0.2, 0.64, 0.81, 0.23);
+}
+
+.cssload-container div:nth-child(4) {
+	background-color: #7188c7;
+	animation: cssload-move 2.3s 517.5ms infinite cubic-bezier(0.2, 0.64, 0.81, 0.23);
+}
+
+
+
+@keyframes cssload-move {
+	0% {
+		left: 0%;
+        opacity: 0;
+	}
+    50% {
+        opacity: 1;
+    }
+	100% {
+		left: 100%;
+        opacity: 0;
+	}
+}
