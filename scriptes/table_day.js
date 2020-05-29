@@ -5,14 +5,14 @@ function get_day_data(form) {
         "task": form.children('.task').val()
     };
     if (!form.hasClass('new')) {
-        if (form.find('.task').val() === '') {
+        if (form.children('.task').val() === '') {
             a.task = form.data('old').task
         }
     }
     return a
 }
 
-function save_day(form) {form.data('old', get_day_data(form));}
+function save_day(form) {form.data('old', get_day_data(form))}
 
 function del_day_task(form) {
     if (user_data.login !== '') {
@@ -196,5 +196,6 @@ function set_val(input, val) {
 
 function autosize(el) {
     let temp = $(el);
+    console.log(temp[0].scrollHeight - 10)
     temp.height(0).height(temp[0].scrollHeight - 10);
 }

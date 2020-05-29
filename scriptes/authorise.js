@@ -156,9 +156,9 @@ function registration() {
         user_data.email = in_email.val();
         $('#menu_edit_email, #confirm_email').addClass('nonactive');
         $('#menu_edit_email').addClass('opened');
-        $('#page_day')[0].innerHTML = data.day;
-        $('#page_month')[0].innerHTML = data.month;
-        $('#page_lists')[0].innerHTML = data.lists;
+        $('#page_day').html(data.day);
+        $('#page_month').html(data.month);
+        $('#page_lists').html(data.lists);
         $('#page_help').addClass('help_login');
         // Закрытие меню
         $('#authorisation span').click();
@@ -189,12 +189,13 @@ function authorisation(login, password) {
     // Запрос
     receive('/login', function (data) {
         // Загрузка страниц
-        $('#page_day')[0].innerHTML = data.day;
-        $('#page_month')[0].innerHTML = data.month;
-        $('#page_lists')[0].innerHTML = data.lists;
+        $('#page_day').html(data.day);
+        $('#page_month').html(data.month);
+        $('#page_lists').html(data.lists);
         $('#page_help').addClass('help_login');
-        $('textarea').each(function (index, element) {autosize(element); console.log(1)});
-        console.log(2)
+        $('header .center').one('mousedown', function () {
+            $('main.opened textarea').each(function (index, element) {autosize(element)})
+        });
         // Синхронизация данных
         change_theme(data.theme, data.color);
         user_data = {

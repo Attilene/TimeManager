@@ -59,7 +59,7 @@ jQuery(document).ready(function () {
             toggle_aside($('#profile_menu'));
             toggle_set_menu($('#menu_edit_psw'));
         }
-        $('textarea').each(function (index, element) {autosize(element)})
+        $('textarea').each(function (index, element) {autosize(element)});
     }
     // Настройка времени колесиком
     $('main').on('wheel', 'div.body',function (event) {

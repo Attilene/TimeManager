@@ -1,9 +1,15 @@
 function get_month_data(form) {
-    return {
+    let a = {
         "digit": form.children('.time').children('.digit').val(),
         "month": form.children('.time').children('.month').val(),
         "task": form.children('.task').val()
+    };
+    if (!form.hasClass('new')) {
+        if (form.children('.task').val() === '') {
+            a.task = form.data('old').task
+        }
     }
+    return a
 }
 
 function save_month(form) {form.data('old', get_month_data(form));}

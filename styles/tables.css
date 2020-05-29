@@ -70,7 +70,7 @@ div.body {
     min-height: 30px;
     border: none;
     border-radius: 20px;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .item button {

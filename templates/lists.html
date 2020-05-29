@@ -2,21 +2,21 @@
     {% for name in lists %}
         <div class="back">
             <form class="title">
-                <input placeholder="Название" value="{{ name }}">
+                <input class="name" placeholder="Название" value="{{ name }}">
                 <button type="button" class="del_list">
                     <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use></svg>
                 </button>
             </form>
-            {% for task in lists[name] %}
-                <form class="list_task">
-                    <textarea placeholder="Задача" rows="1"
-                              oninput="autosize(this)"
-                    >{{ task }}</textarea>
-                    <button class="del_list_task" type="button">
-                        <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use></svg>
-                    </button>
-                </form>
-            {% endfor %}
+                {% for task in lists[name] %}
+            <form class="list_task" onclick="get_list_data($(this))">
+                <textarea class="task" placeholder="Задача" rows="1"
+                          oninput="autosize(this)"
+                >{{ task }}</textarea>
+                <button class="del_list_task" type="button">
+                    <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use></svg>
+                </button>
+            </form>
+                {% endfor %}
             <button id="add_list_task" type="button">
                 <svg>
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
