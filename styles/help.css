@@ -24,9 +24,24 @@
     position: relative;
     border-radius: 115px;
     background: rgba(255, 255, 255, 0.3);
+    overflow: hidden;
 }
 
 .man_card:hover {transform: scale(1)}
+
+.man_card img {
+    transform: scale(1.01);
+    filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.man_card.ready img {
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+}
 
 #try_guest {
     font-size: 1.2em;
@@ -84,9 +99,8 @@
 #page_help * {transition: 0.2s ease-out}
 #btn_guest_log:hover {transition: 0.1s ease}
 #subtitle:active, #try_guest:active, #btn_guest_log:active, #page_help.help_login #thank:active {transform: scale(1); transition: 0.05s}
+.man_card:active {transform: scale(0.9); transition: 0.05s}
 #page_help.help_login #try_guest, #page_help.help_login #btn_guest_log {transition: 0.1s ease-in}
-
-
 
 
 .clock_load{
@@ -98,6 +112,8 @@
     left: calc(50% - 66px);
     top: calc(50% - 66px);
 }
+
+.man_card.ready .clock_load {opacity: 0}
 
 .clock_load::after, .clock_load::before {
     content: "";

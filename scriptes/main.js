@@ -58,4 +58,9 @@ jQuery(document).ready(function () {
             }
         }
     });
+    // Подгрузка гиф
+    $('.man_card img').onload = function () {
+        $(this).parent().addClass('ready');
+        console.log(1)
+    }
 });
