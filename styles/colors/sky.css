@@ -1,18 +1,18 @@
-header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #6593b5}
-aside menu div.theme {border-color: #6593b5}
-aside menu div.theme::before {color: #6593b5}
-::selection {background-color: rgba(101, 147, 181, 0.5)}
+header, footer, aside, div.name, #dev_head, .card_head, .card {background-color: #41aab0}
+aside menu div.theme {border-color: #41aab0}
+aside menu div.theme::before {color: #41aab0}
+::selection {background-color: rgba(65, 170, 176, 0.5)}
 
-::-webkit-scrollbar-thumb {background-color: rgba(101, 147, 181, 0.5)}
-::-webkit-scrollbar-thumb:hover{background-color: #6593b5}
+::-webkit-scrollbar-thumb {background-color: rgba(65, 170, 176, 0.5)}
+::-webkit-scrollbar-thumb:hover{background-color: #41aab0}
 
-@-webkit-keyframes autofill {to {background-color: rgba(101, 147, 181, 0.5)}}
-aside menu input, input.fill+button:hover {background-color: #6593b5}
-aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(101, 147, 181, 0.5)}
-aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #6593b5}
-#menu_confirm_delete button, #confirm_email button, .item button, .back .title input, .del_list_task {background-color: #6593b5}
-.item textarea, #add_day_task, #add_month_task, #add_list_task, .back {background-color: rgba(101, 147, 181, 0.5)}
-#add_day_task:hover, #add_month_task:hover, #add_list_task:hover {background-color: #6593b5}
-.time.input {background-color: #6593b5}
-.list_task textarea:hover {background-color: rgba(101, 147, 181, 0.2)}
-.list_task textarea:focus {background-color: rgba(101, 147, 181, 0.4);}
+@-webkit-keyframes autofill {to {background-color: rgba(65, 170, 176, 0.5)}}
+aside menu input, input.fill+button:hover {background-color: #41aab0}
+aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(65, 170, 176, 0.5)}
+aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #41aab0}
+#menu_confirm_delete button, #confirm_email button, .item button, .back .title input, .del_list_task {background-color: #41aab0}
+.item textarea, #add_day_task, #add_month_task, #add_list_task, .back {background-color: rgba(65, 170, 176, 0.5)}
+#add_day_task:hover, #add_month_task:hover, #add_list_task:hover {background-color: #41aab0}
+.time.input {background-color: #41aab0}
+.list_task textarea:hover {background-color: rgba(65, 170, 176, 0.2)}
+.list_task textarea:focus {background-color: rgba(65, 170, 176, 0.4);}
