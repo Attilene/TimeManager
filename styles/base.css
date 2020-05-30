@@ -112,6 +112,7 @@ header .right .avatar {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+	position: relative;
 	margin-top: -4px;
 	margin-right: -2px;
 	overflow: hidden;
@@ -122,6 +123,21 @@ header .right .avatar {
 	justify-self: end;
 }
 
+
+header .right .avatar::before {
+    z-index: 10;
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 40px;
+	height: 40px;
+	border-radius: 19px;
+    pointer-events: none;
+    background: transparent;
+	overflow: hidden;
+}
+
 #set_icon {
 	transform: scale(0.6);
 	z-index: 30;
@@ -129,18 +145,15 @@ header .right .avatar {
 	height: 36px;
 	position: absolute;
 	top: -2px; right: -1px;
-	fill: #fff;
 	opacity: 0;
+	pointer-events: none;
 }
 
 @media (max-width: 1400px) {  /*Анимация для маленького окна*/
-	header .right {}
 	header .right:hover #set_icon, header .right:active #set_icon  {
 		transform: scale(1);
-		opacity: 60%;
+		opacity: 80%;
 	}
-
-	header .right:hover .avatar, header .right:active .avatar {filter: brightness(70%)}
 }
 
 @media (min-width: 1400px) { /* Анимации для большого окна*/
@@ -223,7 +236,7 @@ main.closed {
 /*-----------------Анимации-------------------*/
 /*-----------------Возврат(время)-------------*/
 header, footer {transition: background-color 0.15s}
-header *, footer * {transition: 0.2s ease-out}
+header *, footer *, header .right .avatar::before {transition: 0.2s ease-out}
 @media (max-width: 1400px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
 .change_theme {
 	transition-duration: 0.2s !important;

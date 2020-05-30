@@ -2,26 +2,40 @@
     {% for name in lists %}
         <div class="back">
             <form class="title">
-                <input class="name" placeholder="Название" value="{{ name }}">
-                <button type="button" class="del_list">
+                <input class="name" placeholder="Название" value="{{ name }}"
+                       onfocus="save_name($(this).parent())"
+                >
+                <button type="button" class="del_list"
+                        onmousedown="del_list($(this).closest('.back'))"
+                >
                     <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use></svg>
                 </button>
             </form>
                 {% for task in lists[name] %}
-            <form class="list_task" onclick="get_list_data($(this))">
+            <form class="list_task">
                 <textarea class="task" placeholder="Задача" rows="1"
+                          onfocus="save_list($(this).parent())"
                           oninput="autosize(this)"
                 >{{ task }}</textarea>
-                <button class="del_list_task" type="button">
+                <button class="del_list_task" type="button"
+                        onmousedown="del_list_task($(this).parent())"
+                >
                     <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use></svg>
                 </button>
             </form>
                 {% endfor %}
-            <button id="add_list_task" type="button">
+            <button id="add_list_task" type="button"
+
+            >
                 <svg>
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
                 </svg>
             </button>
         </div>
     {% endfor %}
+    <button id="add_list" onmousedown="click_add_list($(this))">
+        <svg>
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
+        </svg>
+    </button>
 </div>

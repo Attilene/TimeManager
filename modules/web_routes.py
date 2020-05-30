@@ -206,6 +206,46 @@ def req_del_month(now, data):
     now.del_month(**data)
 
 
+@user_req('/add_list')
+def req_add_list(now, data):
+    """Добавление списка задачи"""
+    if now.add_list(data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/add_list_task')
+def req_add_list_task(now, data):
+    """Добавление списка задачи"""
+    if now.add_list_task(**data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/change_list')
+def req_change_list(now, data):
+    """Изменение дневной задачи"""
+    if now.change_list(*data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/change_list_task')
+def req_change_list_task(now, data):
+    """Изменение дневной задачи"""
+    if now.change_list_task(*data): return jsonify(True)
+    else: return jsonify('exist')
+
+
+@user_req('/del_list')
+def req_del_list(now, data):
+    """Удаление дневной задачи"""
+    now.del_list(data)
+
+
+@user_req('/del_list_task')
+def req_del_list_task(now, data):
+    """Удаление дневной задачи"""
+    now.del_list_task(**data)
+
+
 # Запросы
 @tm.route('/activate/<link>', methods=['GET'])
 def req_activate(link):

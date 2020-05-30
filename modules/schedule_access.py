@@ -200,9 +200,9 @@ class User(object):
         User.__com()
 
     # Удаление #
-    def del_list_task(self, name, task, number):
-        User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ? AND task = ? AND number = ?",
-                   (name, task, number))
+    def del_list_task(self, name, task):
+        User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ? AND task = ?",
+                   (name, task))
         lists = self.ret_lists()
         if len(lists[name]) == 0:
             User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ?", (name,))

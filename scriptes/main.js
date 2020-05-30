@@ -8,17 +8,21 @@ let manuals = {
 };
 
 manuals.m_reg.src = 'time_manager/images/manual/reg.gif';
-manuals.m_reg.onload = function () {$('#m_reg').addClass('ready')
-    .children('.cover')[0].src = manuals.m_reg.src};
+manuals.m_reg.onload = function () {
+    $('#m_reg').addClass('ready').children('.cover')[0].src = manuals.m_reg.src;
+    setTimeout(function () {$('#m_reg .clock_load').hide()}, close_time($('#m_reg .clock_load')))};
 manuals.m_act.src = 'time_manager/images/manual/act.gif';
-manuals.m_act.onload = function () {$('#m_act').addClass('ready')
-    .children('.cover')[0].src = manuals.m_act.src};
+manuals.m_act.onload = function () {
+    $('#m_act').addClass('ready').children('.cover')[0].src = manuals.m_act.src;
+    setTimeout(function () {$('#m_act .clock_load').hide()}, close_time($('#m_act .clock_load')))};
 manuals.m_add.src = 'time_manager/images/manual/add.gif';
-manuals.m_add.onload = function () {$('#m_add').addClass('ready')
-    .children('.cover')[0].src = manuals.m_add.src};
+manuals.m_add.onload = function () {
+    $('#m_add').addClass('ready').children('.cover')[0].src = manuals.m_add.src;
+    setTimeout(function () {$('#m_add .clock_load').hide()}, close_time($('#m_add .clock_load')))};
 manuals.m_theme.src = 'time_manager/images/manual/theme.gif';
-manuals.m_theme.onload = function () {$('#m_theme').addClass('ready')
-    .children('.cover')[0].src = manuals.m_theme.src};
+manuals.m_theme.onload = function () {
+    $('#m_theme').addClass('ready').children('.cover')[0].src = manuals.m_theme.src;
+    setTimeout(function () {$('#m_theme .clock_load').hide()}, close_time($('#m_theme .clock_load')))};
 
 
 jQuery(document).ready(function () {

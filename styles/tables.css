@@ -22,8 +22,9 @@ div.body {
 }
 
 .item.del {
-    left: 40px;
-    opacity: 0;
+    left: 40px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
     transition-timing-function: ease-in !important;
 }
 
@@ -99,9 +100,10 @@ div.body {
 
 .item button:hover {transform: scale(1.2)}
 
-#add_day_task, #add_month_task {
+#add_day_task, #add_month_task, #add_list {
+    display: block;
     text-align: center;
-    margin: 10px auto;
+    margin: 2vh auto;
     padding: 5px;
     height: 40px;
     width: 200px;
@@ -109,13 +111,13 @@ div.body {
     border-radius: 20px;
 }
 
-#add_day_task svg, #add_month_task svg {
+#add_day_task svg, #add_month_task svg, #add_list svg {
     margin: auto;
     width: 30px;
     height: 30px;
 }
 
-#add_day_task:hover, #add_month_task:hover {transform: scale(1.1)}
+#add_day_task:hover, #add_month_task:hover, #add_list:hover {transform: scale(1.1)}
 
 .alert {
     margin: auto;
@@ -135,12 +137,20 @@ body .item.new~button {opacity: 0; pointer-events: none}
 .back {
     display: inline-block;
     vertical-align: top;
-    margin: 3vh 4%;
+    margin: 2vh 4%;
     position: relative;
     width: 400px;
     height: max-content;
     overflow: visible;
     border-radius: 20px;
+}
+
+.back.del {
+    transform: scale(0.5) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    transition-property: transform, opacity !important;
+    transition-timing-function: ease-in !important;
 }
 
 .back:hover {
@@ -156,8 +166,9 @@ body .item.new~button {opacity: 0; pointer-events: none}
     bottom: 5px;
 }
 
-.list_task {margin: 5px 0;}
-.back .title {height: 50px; margin-bottom: 10px}
+.list_task {margin: 5px 0}
+.list_task.del {opacity: 0; transition-property: opacity !important}
+.back .title {height: 50px}
 
 .back .title input {
     font-size: 1.3em;
@@ -175,7 +186,6 @@ body .item.new~button {opacity: 0; pointer-events: none}
 }
 
 .back .title:hover input, .back .title input:focus {transform: scale(1.05)}
-
 .del_list {margin-right: -10px}
 
 .list_task textarea {
@@ -246,12 +256,12 @@ body .item.new~button {opacity: 0; pointer-events: none}
 }
 
 .list_task textarea {transition:0.2s ease-in; transition-property: padding, background-color, margin}
-.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_month_task, .alert, .back button,
+.time *, .time input::placeholder, .time, .item button, #add_day_task, #add_list, #add_month_task, .alert, .back button,
 .back .title input, .back
 {transition: 0.2s ease-out}
-.item button:hover, #add_day_task:hover, #add_month_task:hover, #add_list_task:hover, .alert, .back form button:hover, .back .title:hover *,
+.item button:hover, #add_day_task:hover, #add_month_task:hover, #add_list:hover, #add_list_task:hover, .alert, .back form button:hover, .back .title:hover *,
 .time:hover, .time input, .back:hover
 {transition: 0.1s ease-in-out}
-.item button:active, #add_day_task:active, #add_month_task:active, #add_list_task:active, .alert:active, .back form button:active
+.item button:active, #add_day_task:active, #add_list:active, #add_month_task:active, #add_list_task:active, .alert:active, .back form button:active
 {transform: scale(1)}
 .item.del {transition: 0.1s ease-out; transition-property: opacity, left;}

@@ -11,8 +11,8 @@ aside menu input, input.fill+button:hover {background-color: #2c2c2c}
 aside menu input.fill, #restore:hover, .time:hover {background-color: rgba(44, 44, 44, 0.5)}
 aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color: #2c2c2c}
 #menu_confirm_delete button, #confirm_email button, .item button, .back .title input, .del_list_task {background-color: #2c2c2c}
-.item textarea, #add_day_task, #add_month_task, #add_list_task, .back {background-color: rgba(44, 44, 44, 0.5)}
-#add_day_task:hover, #add_month_task:hover, #add_list_task:hover {background-color: #2c2c2c}
+.item textarea, #add_day_task, #add_month_task, #add_list_task, #add_list, .back {background-color: rgba(44, 44, 44, 0.5)}
+#add_day_task:hover, #add_month_task:hover, #add_list:hover, #add_list_task:hover {background-color: #2c2c2c}
 .time.input {background-color: #2c2c2c}
 .list_task textarea:hover {background-color: rgba(44, 44, 44, 0.2)}
 .list_task textarea:focus {background-color: rgba(44, 44, 44, 0.4);}
