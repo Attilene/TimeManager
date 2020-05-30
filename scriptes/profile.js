@@ -70,10 +70,13 @@ function clear_fields() {
     let inputs = $('#user input, #set_psw, #set_email');
     inputs.prev('label').removeClass('show');
     warning(inputs);
-    fade_change(inputs, function () {inputs.removeClass('fill').val('')});
-    change_auth('empty');
-    toggle_aside($('aside.opened'));
     $('#authorisation span, header .right').click();
+    toggle_aside($('aside.opened'));
+    setTimeout(function () {
+        inputs.removeClass('fill').val('');
+        change_auth('empty');
+    }, close_time('aside.closed'))
+
 }
 
 function act_field(field, func, empty_func=null) {
@@ -104,7 +107,7 @@ function logout() {
         set_menu.removeAttr('style')
     });
     // Сброс данных
-    user_data = {'login': '', 'theme': user_data.theme, 'color': user_data.color};
+    user_data = {'theme': user_data.theme, 'color': user_data.color};
     set_menu.removeClass('opened');
     // Очистка страниц
     $('#page_lists')[0].innerHTML = '';
@@ -185,7 +188,7 @@ function click_remove_avatar() {
     $('#avatar').addClass('none');
     $('#avatar_inside').css({'background-image': ''});
     $('header .right picture').css({'background-image': ''});
-    if (user_data.login !== '') {receive('/delete_avatar')}
+    if (user_data.login !== undefined) {receive('/delete_avatar')}
 }
 
 // Кнопки
@@ -238,7 +241,7 @@ function input_set_email(in_set_email) {
     let temp = in_set_email.val();
     if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}[.]){1,3}(com|by|ru|cc|net|ws})$/.test(temp) && temp.length < 100) {
         receive('/check_user', function (data) {
-            if (user_data.login === '') {
+            if (user_data.login === undefined) {
                 warning(in_set_email, 'Смена почты гостевой записи невозможна', 'warning')
             }
             else if (user_data.email === temp) {
@@ -275,7 +278,7 @@ function input_set_psw(in_set_psw) {
     else if (temp.length < 8) { warning(in_set_psw, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
     else if (!RegExp('[0-9]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать цифры', 'warning')}
     else if (!RegExp('[a-zA-Zа-яА-Я]+').test(temp)) { warning(in_set_psw, 'Пароль должен содержать буквы', 'warning')}
-    else if (user_data.login === '') {warning(in_set_psw, 'Смена пароля гостевой записи невозможна', 'warning')}
+    else if (user_data.login === undefined) {warning(in_set_psw, 'Смена пароля гостевой записи невозможна', 'warning')}
     else {
         receive('/check_user', function (data) {
             if (data) {

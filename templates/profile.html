@@ -25,7 +25,7 @@
     >
         <div id="avatar_inside" {{ avatar|safe }}></div>
         <svg id="change_avatar" onmousedown="
-            if (user_data.login === '') {alert('Смена аватара недоступна для гостевой записи')}
+            if (user_data.login === undefined) {alert('Смена аватара недоступна для гостевой записи')}
             else {$('#get_file').click()}
         ">
             <use xlink:href="time_manager/images/sprites.svg#sprite_btn_change"></use>
@@ -38,7 +38,7 @@
     </span>
     <span id="exit">
         <div id="btn_exit" onmousedown="
-            if (user_data.login !== '') { receive('/logout') }
+            if (user_data.login !== undefined) { receive('/logout') }
             logout();
         ">
             Выйти
@@ -66,7 +66,7 @@
 <menu id="menu_confirm_delete">
     <p>Подтвердите удаление профиля</p  >
     <button class="yes" type="button" onclick="
-        if (user_data.login !== '') { receive('/delete_user') }
+        if (user_data.login !== undefined) { receive('/delete_user') }
         logout();
     ">
         Удалить

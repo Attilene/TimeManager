@@ -15,7 +15,7 @@ function get_day_data(form) {
 function save_day(form) {form.data('old', get_day_data(form))}
 
 function del_day_task(form) {
-    if (user_data.login !== '') {
+    if (user_data.login !== undefined) {
         if (!form.hasClass('new')) {
             if (form.find(':focus').length === 0) {
                 receive('/del_day', null, get_day_data(form))
@@ -80,7 +80,7 @@ function blur_input_day(form) {
     form.data('old', new_day_data);
     if (form.hasClass('new')) {
         if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
-            if (user_data.login !== '') {
+            if (user_data.login !== undefined) {
                 receive('/add_day', function (data) {
                     if (data === 'exist') {
                         del_day_task(form);

@@ -50,7 +50,7 @@ function change_theme(theme, color) {
         }
         $(`aside menu .theme button[data-theme="${temp_theme}"][data-color="${temp_color}"]`).removeClass('choice');
         $(`aside menu .theme button[data-theme="${theme}"][data-color="${color}`).addClass('choice');
-        if (user_data.login !== '') {send('/change_theme', `${theme} ${color}`)}
+        if (user_data.login !== undefined) {send('/change_theme', `${theme} ${color}`)}
         user_data.theme = theme;
         user_data.color = color;
     }

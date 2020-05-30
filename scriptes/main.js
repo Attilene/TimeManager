@@ -1,4 +1,4 @@
-let user_data = {'login': '', 'theme': 'light', 'color': 'blue'};
+let user_data = {'theme': 'light', 'color': 'blue'};
 let user_logined = false;
 let manuals = {
     'm_reg': new Image(),

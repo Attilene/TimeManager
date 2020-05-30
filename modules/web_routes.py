@@ -142,7 +142,6 @@ def req_logout(now):
     session.pop('login')
     session.pop('token')
     session.pop('remember')
-    User.authorisation = False
 
 
 @user_req('/delete_user')
@@ -155,7 +154,6 @@ def req_delete_user(now):
     session.pop('login')
     session.pop('token')
     session.pop('remember')
-    User.authorisation = False
 
 
 @user_req('/add_day')

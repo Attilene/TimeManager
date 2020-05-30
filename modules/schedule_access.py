@@ -38,12 +38,10 @@ class User(object):
 
     # Возврат данных из БД #
     def ret_lists(self):
-        User.__exe(f"SELECT * FROM 'list_{self._log}'")
+        User.__exe(f"SELECT * FROM 'list_{self._log}' GROUP BY name, number")
         lists = {}
         for name, task, number in User.__all():
-            if task == str():
-                continue
-            elif name in lists:
+            if name in lists:
                 lists[name].append(task)
             else:
                 lists[name] = [task]
@@ -103,7 +101,7 @@ class User(object):
         User.__exe(f"SELECT name FROM 'list_{self._log}' WHERE name = ?", (name,))
         if User.__one() is not None:
             return False
-        User.__exe(f"INSERT INTO 'list_{self.log}' (name, task, number) VALUES (?, ?, ?)", (name, str(), 0))
+        User.__exe(f"INSERT INTO 'list_{self.log}' (name, task, number) VALUES (?, ?, ?)", (name, '', -1))
         User.__com()
         return True
 
@@ -160,34 +158,36 @@ class User(object):
         return True
 
     def change_list(self, old, new):
+        User.__exe(f"SELECT name FROM 'list_{self._log}' WHERE name = ?", (new,))
+        if User.__one() is not None:
+            return False
+        User.__exe(f"UPDATE 'list_{self.log}' SET name = ? WHERE name = ?", (new, old))
+        User.__com()
+        return True
+
+    def change_list_task(self, old, new):
         User.__exe(f"SELECT name, task FROM 'list_{self._log}' WHERE name = ? AND task = ?",
                    (new['name'], new['task']))
         if User.__one() is not None:
             return False
         User.__exe(f"UPDATE 'list_{self._log}' SET name = ?, task = ? WHERE name = ? AND task = ?",
                    (new['name'], new['task'], old['name'], old['task']))
-        lists = self.ret_lists()
-        for i, value in enumerate(lists[new['name']], 1):
-            lists[new['name']][i - 1][1] = i
-        for el in lists[new['name']]:
-            User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (new['name'], el[0]))
-            if User.__one()[0] != el[1]:
-                User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
-                           (el[1], new['name'], el[0]))
-        for i, value in enumerate(lists[old['name']], 1):
-            lists[old['name']][i - 1][1] = i
-        for el in lists[old['name']]:
-            User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (old['name'], el[0]))
-            if User.__one()[0] != el[1]:
-                User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
-                           (el[1], old['name'], el[0]))
         User.__com()
         return True
 
     def change_num(self, name, task, new_num):
-        lists = self.ret_lists()
         User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, task))
-        buf = lists[name].pop(lists[name].index([task, User.__one()[0]]))
+        ans = User.__one()
+        if ans is None:
+            return False
+        User.__exe(f"SELECT * FROM 'list_{self._log}'")
+        lists = {}
+        for name, task, number in User.__all():
+            if name in lists:
+                lists[name].append([task, number])
+            else:
+                lists[name] = [[task, number]]
+        buf = lists[name].pop(lists[name].index([task, ans[0]]))
         buf[1] = new_num
         lists[name].insert(new_num - 1, buf)
         for i, value in enumerate(lists[name], 1):
@@ -198,12 +198,18 @@ class User(object):
                 User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
                            (el[1], name, el[0]))
         User.__com()
+        return True
 
     # Удаление #
     def del_list_task(self, name, task):
-        User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ? AND task = ?",
-                   (name, task))
-        lists = self.ret_lists()
+        User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, task))
+        User.__exe(f"SELECT * FROM 'list_{self._log}'")
+        lists = {}
+        for name, task, number in User.__all():
+            if name in lists:
+                lists[name].append([task, number])
+            else:
+                lists[name] = [[task, number]]
         if len(lists[name]) == 0:
             User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ?", (name,))
         else:
@@ -337,16 +343,15 @@ class User(object):
 # now_user.add_month(23, 1, 'dfjfkdjf')
 # now_user.add_month(24, 3, 'dfjfkdjf')
 # now_user.add_month(25, 9, 'dfjfkdjf')
-# now_user.add_list('1')
-# now_user.add_list('1')
-# now_user.add_list_task('1', 'dfjfkdjfdsfdgf')
-# now_user.add_list_task('2', 'dfjf')
-# now_user.add_list_task('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
-# now_user.add_list_task('1', 'werty')
+# now_user.add_list('1', 'dfjfkdjfdsfdgf')
+# now_user.add_list('2', 'dfjf')
+# now_user.add_list('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+# now_user.add_list('1', 'werty')
+# print(now_user.change_list('1', '2'))
+# print(now_user.change_list_task({'name': '1', 'task': 'werty'}, {'name': '1', 'task': 'debil'}))
+# print(now_user.change_num('1', 'werty', 1))
 # print(now_user.ret_lists())
-# print(now_user.change_list({'name': '1', 'task': 'dfjfkdjfdsfdgf'}, {'name': '2'}))
-# now_user.change_num('1', 'werty', 2)
-# now_user.del_list_task('1', 'werty', 2)
+# now_user.del_list_task('1', 'werty')
 # now_user.add_day(22, 33, 'jdfkjf')
 # now_user.add_day(24, 33, 'jdfkjf')
 # now_user.add_day(23, 33, 'jdfkjf')

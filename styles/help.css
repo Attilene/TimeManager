@@ -120,7 +120,6 @@
 .man_card:active {transform: scale(0.9); transition: 0.05s}
 #page_help.help_login #try_guest, #page_help.help_login #btn_guest_log {transition: 0.1s ease-in}
 
-
 .clock_load {
 	border-radius: 70px;
 	border: 6px solid white;

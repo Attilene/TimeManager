@@ -15,7 +15,7 @@ function get_month_data(form) {
 function save_month(form) {form.data('old', get_month_data(form));}
 
 function del_month_task(form) {
-    if (user_data.login !== '') {
+    if (user_data.login !== undefined) {
         if (!form.hasClass('new')) {
             if (form.find(':focus').length === 0) {
                 receive('/del_month', null, get_month_data(form))
@@ -80,7 +80,7 @@ function blur_input_month(form) {
     form.data('old', new_month_data);
     if (form.hasClass('new')) {
         if (new_month_data.digit !== '' && new_month_data.month !== '' && new_month_data.task !== '') {
-            if (user_data.login !== '') {
+            if (user_data.login !== undefined) {
                 receive('/add_month', function (data) {
                     if (data === 'exist') {
                         del_month_task(form);
