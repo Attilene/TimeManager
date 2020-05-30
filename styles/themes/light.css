@@ -28,4 +28,5 @@ aside menu form input.warning, #set_login.warning {background-color: #ff6464}
 @media (max-width: 1400px) {header .right:hover .avatar::before {background-color: rgba(0, 0, 0, 0.3)}}
 .clock_load { border-color: white}
 .clock_load::after, .clock_load::before { background-color: white}
+.man_card::before {color:white}
 

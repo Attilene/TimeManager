@@ -16,6 +16,10 @@ aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color
 .time.input {background-color: #eb7575}
 .list_task textarea:hover {background-color: rgba(235, 117, 117, 0.2)}
 .list_task textarea:focus {background-color: rgba(235, 117, 117, 0.4);}
+#main_clock {border-color: #eb7575}
+#main_clock::before, #main_clock::after {background-color: #eb7575}
+#main_clock p {color: #eb7575}
+
 
 aside #menu_confirm_delete button.yes, .del_list {background-color: #ff5454}
 aside menu form input.warning, #set_login.warning {background-color: #ff5454}

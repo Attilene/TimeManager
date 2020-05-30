@@ -16,3 +16,7 @@ aside menu p, #set_login:focus, .time *, .time input::placeholder, .alert {color
 .time.input {background-color: #41aab0}
 .list_task textarea:hover {background-color: rgba(65, 170, 176, 0.2)}
 .list_task textarea:focus {background-color: rgba(65, 170, 176, 0.4);}
+#main_clock {border-color: #41aab0}
+#main_clock::before, #main_clock::after {background-color: #41aab0}
+#main_clock p {color: #41aab0}
+

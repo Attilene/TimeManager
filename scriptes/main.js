@@ -6,7 +6,10 @@ let manuals = {
     'm_add': new Image(),
     'm_theme': new Image()
 };
-
+let bg = new Image();
+bg.src = 'time_manager/images/bg.jpg';
+bg.onload = function () {$('#help_body').addClass('ready').css({'background-image': `url(${bg.src})`});
+    setTimeout(function () {$('#main_clock').hide()}, close_time($('#main_clock')))};
 manuals.m_reg.src = 'time_manager/images/manual/reg.gif';
 manuals.m_reg.onload = function () {
     $('#m_reg').addClass('ready').children('.cover')[0].src = manuals.m_reg.src;
