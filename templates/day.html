@@ -1,4 +1,12 @@
 <div class="body">
+<button id="add_day_task" onmousedown="click_add_day($(this))">
+        <svg>
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
+        </svg>
+    </button>
+    <a class="alert"
+       onmouseenter="if ($(this).prev().hasClass('new')) {blur_input_day($(this).siblings('.item.new'))}"
+    >Введите данные</a>
     {% for hour, minute, task in table_day %}
         <form class="item day">
             <span class="time"
@@ -41,18 +49,12 @@
                       onblur="blur_input_day($(this).closest('.item'))"
                       onkeydown="key_func(event)"
             >{{ task }}</textarea>
-            <button type="button" class="del_day" onmousedown="del_day_task($(this).parent())">
+            <button type="button" class="del_day"onmousedown="del_day_task($(this).parent())">
                 <svg>
                     <use xlink:href="time_manager/images/sprites.svg#sprite_btn_del_task"></use>
                 </svg>
             </button>
         </form>
     {% endfor %}
-    <button id="add_day_task" onmousedown="click_add_day($(this))">
-        <svg>
-            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
-        </svg>
-    </button>
-    <br>
-    <a class="alert">Введите данные</a>
+
 </div>

@@ -70,19 +70,32 @@ jQuery(document).ready(function () {
     }
     // Настройка времени колесиком
     $('main').on('wheel', 'div.body',function (event) {
-        if ($('.time').has(event.target).length > 0) {
+        let temp = $('.time');
+        if (temp.has(event.target).length > 0 || temp.is(event.target)) {
             event.preventDefault();
-            let input = $(event.target);
-            let int = parseInt(input.val());
-            if (event.originalEvent.deltaY < 0) {
-                 if (int < event.target.max) {set_val(input, int + 1)}
-                else {input.val(event.target.min)}
-                if (isNaN(int)) {set_val(input, event.target.min)}
-            }
-            if (event.originalEvent.deltaY > 0) {
-                if (int > event.target.min) {set_val(input, int - 1)}
-                else {input.val(event.target.max)}
-                if (isNaN(int)) {set_val(input, event.target.max)}
+            if ($('.time input').is(event.target)) {
+                let input = $(event.target);
+                let int = parseInt(input.val());
+                if (event.originalEvent.deltaY < 0) {
+                    if (int < event.target.max) {
+                        set_val(input, int + 1)
+                    } else {
+                        input.val(event.target.min)
+                    }
+                    if (isNaN(int)) {
+                        set_val(input, event.target.min)
+                    }
+                }
+                if (event.originalEvent.deltaY > 0) {
+                    if (int > event.target.min) {
+                        set_val(input, int - 1)
+                    } else {
+                        input.val(event.target.max)
+                    }
+                    if (isNaN(int)) {
+                        set_val(input, event.target.max)
+                    }
+                }
             }
         }
     });

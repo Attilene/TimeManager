@@ -1,4 +1,12 @@
 <div class="body">
+    <button id="add_month_task" onmousedown="click_add_month($(this))">
+        <svg>
+            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
+        </svg>
+    </button>
+    <a class="alert"
+       onmouseenter="if ($(this).prev().hasClass('new')) {blur_input_month($(this).siblings('.item.new'))}"
+    >Введите данные</a>
     {% for digit, month, task in table_month %}
         <form class="item month">
             <span class="time"
@@ -48,11 +56,5 @@
             </button>
         </form>
     {% endfor %}
-    <button id="add_month_task" onmousedown="click_add_month($(this))">
-        <svg>
-            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
-        </svg>
-    </button>
-    <br>
-    <a class="alert">Введите данные</a>
+
 </div>

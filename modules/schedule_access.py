@@ -42,9 +42,13 @@ class User(object):
         lists = {}
         for name, task, number in User.__all():
             if name in lists:
-                lists[name].append(task)
+                if task is not None:
+                    lists[name].append(task)
             else:
-                lists[name] = [task]
+                if task is not None:
+                    lists[name] = [task]
+                else:
+                    lists[name] = []
         return lists
 
     def ret_day(self):

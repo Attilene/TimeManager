@@ -25,6 +25,7 @@ function del_day_task(form) {
         }
     }
     form.addClass('del');
+    form.prev().prev('button').removeClass('new');
     setTimeout(function () {
         form.slideUp(200, function () {
             $(this).remove()
@@ -68,9 +69,9 @@ function click_add_day(btn) {
         '                </svg>\n' +
         '            </button>\n' +
         '        </form>');
-    btn.before(obj);
-    btn.prev().animate({height: '40px', margin: '3vh 0', opacity: 1}, 200, 'swing', function () {
-        $(this).removeAttr('style').addClass('new').children('.task').focus();
+    btn.addClass('new').next().after(obj);
+    obj.animate({height: '40px', margin: '3vh 0 0', opacity: 1}, 200, 'swing', function () {
+        $(this).removeAttr('style').children('.task').focus();
     });
 }
 
@@ -87,6 +88,7 @@ function blur_input_day(form) {
                     } else {
                         form.data('old', get_day_data(form));
                         form.removeClass('new');
+                        form.prev().prev('button').removeClass('new');
                         form.find('input').removeAttr('placeholder')
                     }
                 }, new_day_data)
