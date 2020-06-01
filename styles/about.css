@@ -5,10 +5,13 @@
     margin: 10vh auto;
     height: max-content;
     display: grid;
+    display: -ms-grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 15% 15% 70%;
     grid-gap: 5%;
     gap: 5%;
+    -ms-grid-gap: 5%;
+    -ms-gap: 5%;
 }
 
 #dev_head {
