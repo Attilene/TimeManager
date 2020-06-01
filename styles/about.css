@@ -2,15 +2,13 @@
 #developers * {padding: 0}
 
 #developers {
-    margin: 10vh auto;
+    margin: 3vh auto;
     height: max-content;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 15% 15% 70%;
-    grid-gap: 5%;
-    gap: 5%;
-    column-gap: 5%;
-    row-gap: 5%;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 60px 60px auto;
+    column-gap: 3%;
+    row-gap: 3vh;
 }
 
 #dev_head {
@@ -21,8 +19,6 @@
     padding: 0 10%;
     height: 60px;
     justify-self: center;
-    justify-items: center;
-    justify-content: center;
     border-radius: 30px;
 }
 
@@ -40,11 +36,16 @@
     text-align: center;
     padding: 0;
     height: 60px;
+    width: 100%;
     border-radius: 30px;
 }
 
 .card_head:hover {transform: scale(1.1)}
-#developers .card {padding: 0 10px 50px 10px;}
+#developers .card {
+    padding: 0 10px 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
 #developers .card p {margin: 10px}
 #developers .card p:hover {transform: scale(1.1)}
 
@@ -77,22 +78,28 @@
     height: 0
 }
 
-@media (min-width: 1600px) {
-    #developers {width: 75%}
+@media (min-width: 1550px) {
+    #developers {
+        width: 75%;
+        column-gap: 5%;
+        row-gap: 6vh;
+    }
 }
-@media (min-width: 1200px) and (max-width: 1600px) {
-    #developers {width: 90%; transition: 0.2s ease-in-out}
+@media (min-width: 1200px) and (max-width: 1550px) {
+    #developers {
+        width: 90%;
+        column-gap: 4.5%;
+        row-gap: 4vh;
+    }
 }
 @media (max-width: 1200px) {
-    #developers {width: 98%; column-gap: 1%; row-gap: 1%; transition: 0.2s ease-in-out}
-    #developers .card_head {width: 95%; justify-self: center; transition: 0.2s ease-in-out}
-    #developers .card {width: 80%; justify-self: center; padding: 0 10px 20px; transition: 0.2s ease-in-out}
+    #developers {width: 98%}
 }
-@media (max-height: 850px) {  #developers {margin: 2% auto; transition: 0.2s ease-in-out} }
+/*@media (max-height: 850px) {  #developers {margin: 2% auto; transition: 0.2s ease-in-out} }*/
 
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
-#developers * {transition: 0.2s ease-out}
+#developers, #developers * {transition: 0.2s ease-out}
 /*--------------------------------------------*/
 /*-----------------При наведени---------------*/
 #developers *:hover {transition: 0.1s ease}
