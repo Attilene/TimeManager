@@ -34,7 +34,9 @@ function change_theme(theme, color) {
     if ((theme !== user_data.theme) || (color !== user_data.color)) {
         let temp_theme = user_data.theme;
         let temp_color = user_data.color;
-        let temp_obj = $('html');
+        let temp_obj = $('body, header, header *, footer, footer *, aside, aside menu, ' +
+            'div.theme, input, #developers *, svg, .time *, textarea, ::placeholder, main *,' +
+            '.clock_load, .man_card');
         temp_obj.addClass('change_theme');
         setTimeout(function () {
             temp_obj.removeClass('change_theme');

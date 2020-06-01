@@ -238,12 +238,13 @@ main.closed {
 header, footer {transition: background-color 0.15s}
 header *, footer *, header .right .avatar::before {transition: 0.2s ease-out}
 @media (max-width: 1400px) {  header .right:hover * {transition: 0.3s ease-in-out}	}
-html.change_theme * {
+.change_theme {
 	transition-duration: 0.2s !important;
 	transition-timing-function: linear !important;
-	transition-property: background-color, border-color, color, fill, opacity, width /*, top */ !important;
+	transition-property: background, border, color, fill, opacity, top !important;
 }
-html.change_theme svg {transition-duration: 0.05s !important}
+
+svg.change_theme {transition-duration: 0.05s !important}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {

@@ -35,9 +35,9 @@ function del_list(back) {
         }
     }
     back.addClass('del');
-    back.parent().prev().prev('button').removeClass('new');
+    back.prev().prev('button').removeClass('new');
     setTimeout(function () {
-        back.parent().animate({height: 0, width: 0, margin: 0}, 200, 'swing', function () {
+        back.animate({height: 0, width: 0, margin: 0}, 200, 'swing', function () {
             $(this).remove()
         })
     }, close_time(back))

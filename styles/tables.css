@@ -181,6 +181,15 @@ div.body {
     transition-property: opacity, transform !important;
 }
 
+.back_back.del {
+    transform: scale(0.5) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    transition-duration: 0.1s !important;
+    transition-property: transform, opacity !important;
+    transition-timing-function: ease-in !important;
+}
+
 .back {
     margin: 0;
     position: relative;
@@ -188,14 +197,6 @@ div.body {
     border-radius: 20px;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-}
-
-.back.del {
-    transform: scale(0.5) !important;
-    opacity: 0 !important;
-    pointer-events: none;
-    transition-property: transform, opacity !important;
-    transition-timing-function: ease-in !important;
 }
 
 .back:hover {
@@ -211,7 +212,8 @@ div.body {
 
 .list_task {transition-property: height !important}
 .list_task.del {opacity: 0; transition-property: opacity !important}
-.back .title {height: 50px; margin-bottom: 5px}
+.back .title {height: 50px}
+.back .title+.list_task {margin-top: 5px}
 
 .back .title input {
     font-size: 1.3em;
