@@ -53,8 +53,11 @@ function del_list_task(form) {
             }
         }
     }
-    form.addClass('del').next('button').removeClass('new');
-    form.slideUp(200, function () {$(this).remove()})
+    form.addClass('del');
+    form.slideUp(200, function () {
+        $(this).next('button').removeClass('new');
+        $(this).remove()
+    })
 }
 
 
