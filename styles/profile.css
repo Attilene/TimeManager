@@ -291,9 +291,7 @@ aside menu div.theme::before {
     line-height: 35px;
 }
 aside menu div.theme:hover::before {opacity: 0}
-
 aside menu div.light::before {content: 'Светлая тема'}
-
 aside menu div.dark::before {content: 'Тёмная тема'}
 /*----------------------------------------------*/
 
@@ -316,7 +314,7 @@ aside menu div.dark::before {content: 'Тёмная тема'}
 #settings button[data-color=blue] {background: #7188c7}
 #settings button[data-color=green] {background: #60bda1}
 #settings button[data-color=purple] {background: #b478c2}
-#settings button[data-color=sky] {background: #6593b5}
+#settings button[data-color=sky] {background: #41aab0}
 #settings button[data-color=black] {background: #2c2c2c}
 #settings button[data-color=white] {background: #fff}
 /*----------------------------------------------*/

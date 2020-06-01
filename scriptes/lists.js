@@ -25,8 +25,9 @@ function del_list(back) {
         }
     }
     back.addClass('del');
+    back.parent().prev().prev('button').removeClass('new');
     setTimeout(function () {
-        back.slideUp(200, function () {
+        back.parent().animate({height: 0, width: 0, margin: 0}, 200, 'swing', function () {
             $(this).remove()
         })
     }, close_time(back))
@@ -48,7 +49,7 @@ function del_list_task(form) {
 
 
 function click_add_list(btn) {
-    let obj = $('<div class="back_back" style="width: 0; margin: 2vh 0; opacity: 0">\n' +
+    let obj = $('<div class="back_back" style="height: 0; width: 0; line-height: 0; margin: 0; opacity: 0; pointer-events: none; transform: scale(0.6)">\n' +
         '            <div class="back">\n' +
         '                <form class="title">\n' +
         '                    <input class="name" placeholder="Название"\n' +
@@ -70,8 +71,8 @@ function click_add_list(btn) {
         '                </button>\n' +
         '            </div>\n' +
         '        </div>');
-    btn.after(obj);
-    btn.next().animate({opacity: 1, width: '400px', margin: '2vh 4%'}, 200, 'swing', function () {
-        $(this).removeAttr('style').find('input.name').focus();
+    btn.addClass('new').next().after(obj);
+    obj.animate({height: '85px', width: '400px', margin: '4vh 4% 0'}, 200, 'swing', function () {
+        $(this).addClass('new').removeAttr('style').find('input.name').focus();
     });
 }

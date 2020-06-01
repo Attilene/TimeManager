@@ -34,7 +34,7 @@ function del_day_task(form) {
 }
 
 function click_add_day(btn) {
-    let obj = $('<form class="item day new" style="margin: 0; height: 0; opacity: 0">\n' +
+    let obj = $('<form class="item day new" style="margin: 0; height: 0; opacity: 0; pointer-events: none">\n' +
         '            <span class="time"\n' +
         '                  onmouseenter="save_day($(this).parent())"\n' +
         '                  onmouseleave="blur_input_day($(this).parent())"\n' +
