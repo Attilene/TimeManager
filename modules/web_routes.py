@@ -16,6 +16,7 @@ mail = Mail(tm)
 manager = Manager(tm)
 users = {}
 
+
 def user_req(url, img=None):
     def wrap(func):
         def wrapper():

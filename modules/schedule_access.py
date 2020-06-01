@@ -105,7 +105,7 @@ class User(object):
         User.__exe(f"SELECT name FROM 'list_{self._log}' WHERE name = ?", (name,))
         if User.__one() is not None:
             return False
-        User.__exe(f"INSERT INTO 'list_{self.log}' (name, task, number) VALUES (?, ?, ?)", (name, '', -1))
+        User.__exe(f"INSERT INTO 'list_{self.log}' (name, task, number) VALUES (?, ?, ?)", (name, None, None))
         User.__com()
         return True
 
