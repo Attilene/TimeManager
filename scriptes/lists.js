@@ -75,15 +75,18 @@ function click_add_list(btn) {
         '                        <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use></svg>\n' +
         '                    </button>\n' +
         '                </form>\n' +
-        '                <button class="add_list_task" type="button" class="new" \n' +
+        '                <button class="add_list_task new" type="button" \n' +
         '                        onmousedown="click_add_list_task($(this))"\n' +
+        '                        onmouseenter="blur_list_name($(this).parent().siblings(\'.title\'))"\n' +
         '                >\n' +
         '                    <svg>\n' +
         '                        <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
         '                    </svg>\n' +
         '                </button>\n' +
         '                <a class="alert"\n' +
-        '                   onmouseenter="if ($(this).prev().hasClass(\'new\')) {blur_list_task($(this).siblings(\'.item.new\'))}"\n' +
+        '                   onmouseenter="' +
+        '                        if ($(this).closest(\'.back_back\').hasClass(\'new\')) {blur_list_name($(this).siblings(\'.title\'))}\n' +
+        '                        else {blur_list_task($(this).siblings(\'.list_task.new\'))}"\n' +
         '                >Введите данные</a>' +
         '            </div>\n' +
         '        </div>');
@@ -123,7 +126,7 @@ function blur_list_name(form) {
     let new_name = get_list_name(form);
     let back = form.closest('.back_back');
     form.data('old', new_name);
-    if (form.closest('.back_back').hasClass('new')) {
+    if (back.hasClass('new')) {
         if (new_name !== '') {
             if (user_data.login !== undefined) {
                 receive('/add_list', function (data) {
@@ -133,14 +136,14 @@ function blur_list_name(form) {
                         form.data('old', get_list_name(form));
                         back.removeClass('new');
                         back.prev().prev('button').removeClass('new');
-                        form.find('.add_list_task').removeClass('new')
+                        back.find('.add_list_task').removeClass('new')
                     }
                 }, new_name)
             }
             else {
                 back.removeClass('new');
                 back.prev().prev('button').removeClass('new');
-                form.find('.add_list_task').removeClass('new')
+                back.find('.add_list_task').removeClass('new')
             }
         }
     } else if (new_name !== old) {
@@ -154,3 +157,41 @@ function blur_list_name(form) {
         }, [old, new_name]);
     }
 }
+//
+// function blur_list_task(form) {
+//     let old = form.data('old');
+//     let new_day_data = get_day_data(form);
+//     form.data('old', new_day_data);
+//     if (form.hasClass('new')) {
+//         if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
+//             if (user_data.login !== undefined) {
+//                 receive('/add_day', function (data) {
+//                     if (data === 'exist') {
+//                         del_day_task(form);
+//                     } else {
+//                         form.data('old', get_day_data(form));
+//                         form.removeClass('new');
+//                         form.prev().prev('button').removeClass('new');
+//                         form.find('input').removeAttr('placeholder')
+//                     }
+//                 }, new_day_data)
+//             }
+//             else {
+//                 form.removeClass('new');
+//                 form.find('input').removeAttr('placeholder')
+//             }
+//         }
+//     } else if (new_day_data.hour !== old.hour ||
+//         new_day_data.minute !== old.minute ||
+//         new_day_data.task !== old.task) {
+//         receive('/change_day', function (data) {
+//             if (data === 'exist') {
+//                 del_day_task(form);
+//             }
+//             else {
+//                 form.data('old', new_day_data);
+//             }
+//         }, [old, new_day_data]);
+//     }
+// }
+//

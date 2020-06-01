@@ -220,6 +220,7 @@ class User(object):
             for i, value in enumerate(lists[name], 1):
                 lists[name][i - 1][1] = i
             for el in lists[name]:
+                print('1234', name, el, '12345')
                 User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?",
                            (name, el[0]))
                 if User.__one()[0] != el[1]:

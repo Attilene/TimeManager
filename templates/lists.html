@@ -5,7 +5,7 @@
         </svg>
     </button>
     <a class="alert"
-       onmouseenter="if ($(this).prev().hasClass('new')) {blur_input_list($(this).siblings('.item.new'))}"
+       onmouseenter="if ($(this).prev().hasClass('new')) {blur_list_name($(this).siblings('.back_back.new').find('.title'));console.log(1)}"
     >Напишите имя списка</a>
     {% for name in lists %}
         <div class="back_back">
@@ -36,15 +36,16 @@
                     </button>
                 </form>
                     {% endfor %}
-                <button class="add_list_task" type="button"
-                        onmousedown="click_add_list_task($(this))"
-                >
+                <button class="add_list_task" type="button" onmousedown="click_add_list_task($(this))">
                     <svg>
                         <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>
                     </svg>
                 </button>
                 <a class="alert"
-                   onmouseenter="if ($(this).prev().hasClass('new')) {blur_list_task($(this).siblings('.item.new'))}"
+                   onmouseenter="
+                        if ($(this).closest('.back_back').hasClass('new')) {blur_list_name($(this).siblings('.title'))}
+                        else {blur_list_task($(this).siblings('.list_task.new'))}
+                    "
                 >Введите данные</a>
             </div>
         </div>
