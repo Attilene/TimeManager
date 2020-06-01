@@ -86,24 +86,35 @@ function guest_auth() {
     $('#set_login').val('Guest');
     // Вставка страниц
     $('#page_day')[0].innerHTML = '<div class="body">\n' +
-        '    <button id="add_day_task" onmousedown="click_add_day($(this))">\n' +
-        '        <svg id="btn_add_day">\n' +
+        '<button id="add_day_task" onmousedown="click_add_day($(this))">\n' +
+        '        <svg>\n' +
         '            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
         '        </svg>\n' +
         '    </button>\n' +
-        '    <br>\n' +
-        '    <a class="alert">Введите данные</a>\n' +
+        '    <a class="alert"\n' +
+        '       onmouseenter="if ($(this).prev().hasClass(\'new\')) {blur_input_day($(this).siblings(\'.item.new\'))}"\n' +
+        '    >Введите данные</a>\n' +
         '</div>';
     $('#page_month')[0].innerHTML = '<div class="body">\n' +
         '    <button id="add_month_task" onmousedown="click_add_month($(this))">\n' +
-        '        <svg id="btn_add_month">\n' +
+        '        <svg>\n' +
         '            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
         '        </svg>\n' +
         '    </button>\n' +
-        '    <br>\n' +
-        '    <a class="alert">Введите данные</a>\n' +
+        '    <a class="alert"\n' +
+        '       onmouseenter="if ($(this).prev().hasClass(\'new\')) {blur_input_month($(this).siblings(\'.item.new\'))}"\n' +
+        '    >Введите данные</a>\n' +
         '</div>';
-    $('#page_lists')[0].innerHTML = '';
+    $('#page_lists')[0].innerHTML = '<div class="body lists">\n' +
+        '    <button id="add_list" onmousedown="click_add_list($(this))">\n' +
+        '        <svg>\n' +
+        '            <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
+        '        </svg>\n' +
+        '    </button>\n' +
+        '    <a class="alert"\n' +
+        '       onmouseenter="if ($(this).prev().hasClass(\'new\')) {blur_input_list($(this).siblings(\'.item.new\'))}"\n' +
+        '    >Введите данные</a>\n' +
+        '</div>\n';
     $('#page_help').addClass('help_login');
     // Сбор мусора
     setTimeout(function () {

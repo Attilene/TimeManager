@@ -13,7 +13,7 @@
                 <form class="title">
                     <input class="name" placeholder="Название" value="{{ name }}"
                            onfocus="save_name($(this).parent())"
-                           onmouseleave="blur_list_name($(this).parent())"
+                           onblur="blur_list_name($(this).parent())"
                     >
                     <button type="button" class="del_list"
                             onmousedown="del_list($(this).closest('.back'))"
@@ -26,7 +26,7 @@
                     <textarea class="task" placeholder="Задача" rows="1"
                               onfocus="save_list($(this).parent())"
                               oninput="autosize(this)"
-                              onmouseleave="blur_list_task($(this).parent())"
+                              onblur="blur_list_task($(this).parent())"
                               onkeydown="list_key_func(event)"
                     >{{ task }}</textarea>
                     <button class="del_list_task" type="button"

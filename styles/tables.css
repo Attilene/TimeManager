@@ -25,11 +25,6 @@ div.body {
     position: relative;
 }
 
-/*.item {*/
-/*    display: inline-block;*/
-/*    vertical-align: top;*/
-/*}*/
-
 .item.del {
     left: 40px !important;
     opacity: 0 !important;
@@ -124,8 +119,6 @@ div.body {
     border-radius: 20px;
 }
 
-@media (max-width: 1400px) {  #add_day_task, #add_month_task, #add_list {left: 0}  }
-
 #add_day_task svg, #add_month_task svg, #add_list svg {
     margin: auto;
     width: 30px;
@@ -137,11 +130,11 @@ div.body {
 .alert {
     margin: auto;
     width: 200px;
-    height: 7vh;
-    line-height: 7vh;
+    height: 40px;
+    line-height: 40px;
     position: absolute;
-    top: 17px;
-    left: calc(50% - 100px);
+    top: 2.7vh;
+    left: calc(50% - 80px);
     opacity: 0;
     pointer-events: none;
 }
@@ -151,24 +144,32 @@ div.body {
 #add_day_task.new~.alert, #add_month_task.new~.alert, #add_list.new~.alert {opacity: 1; pointer-events: visible}
 #add_day_task.new, #add_month_task.new, #add_list.new {opacity: 0; pointer-events: none}
 
-
 #page_lists div.body {
+    text-align: left;
+    padding: 3vh 60px 0;
     line-height: 0;
+    width: 1520px;
     left: 0;
-    padding: 3vh 80px 0;
     box-sizing: content-box;
 }
 
+#page_lists .alert {left: 720px}
+
 #add_list {left: 0;}
 
-#page_lists div.body {width: 1350px; text-align: left; padding: 3vh 100px 0;}
-@media (max-width: 1602px) {  #page_lists div.body {width: 900px; text-align: left}  }
-@media (max-width: 1260px) {  #page_lists div.body {width: 450px; text-align: left}  }
+@media (max-width: 1640px) {
+    #page_lists div.body {width: 1015px; text-align: left}
+    #page_lists .alert {left: 462px}
+}
+@media (max-width: 1135px) {
+    #page_lists div.body {width: 500px; text-align: left}
+    #page_lists .alert {left: 204px}
+}
 
 .back_back {
     display: inline-block;
     vertical-align: top;
-    margin: 4vh 50px 0;
+    margin: 3vh 50px 0;
     padding: 0;
     width: 400px;
     height: max-content;

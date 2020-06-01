@@ -54,7 +54,7 @@ function click_add_list(btn) {
         '                <form class="title">\n' +
         '                    <input class="name" placeholder="Название"\n' +
         '                           onfocus="save_name($(this).parent())"\n' +
-        '                           onmouseleave="blur_list_name($(this).parent())"\n' +
+        '                           onblur="blur_list_name($(this).parent())"\n' +
         '                    >\n' +
         '                    <button type="button" class="del_list"\n' +
         '                            onmousedown="del_list($(this).closest(\'.back\'))"\n' +
@@ -72,7 +72,12 @@ function click_add_list(btn) {
         '            </div>\n' +
         '        </div>');
     btn.addClass('new').next().after(obj);
-    obj.animate({height: '85px', width: '400px', margin: '4vh 4% 0'}, 200, 'swing', function () {
-        $(this).addClass('new').removeAttr('style').find('input.name').focus();
-    });
+    if (obj.next('.back_back').length > 0) {
+        obj.animate({height: '85px', width: '400px', margin: '3vh 50px 0'}, 200, 'swing', function () {
+            $(this).addClass('new').removeAttr('style').find('input.name').focus(); console.log(1)
+        });
+    }
+    else {
+        obj.addClass('new').removeAttr('style').find('input.name').focus();console.log(2)
+    }
 }
