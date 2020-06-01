@@ -9,6 +9,8 @@
     grid-template-rows: 15% 15% 70%;
     grid-gap: 5%;
     gap: 5%;
+    column-gap: 5%;
+    row-gap: 5%;
 }
 
 #dev_head {
@@ -82,7 +84,7 @@
     #developers {width: 90%; transition: 0.2s ease-in-out}
 }
 @media (max-width: 1200px) {
-    #developers {width: 98%; column-gap: 1%; transition: 0.2s ease-in-out}
+    #developers {width: 98%; column-gap: 1%; row-gap: 1%; transition: 0.2s ease-in-out}
     #developers .card_head {width: 95%; justify-self: center; transition: 0.2s ease-in-out}
     #developers .card {width: 80%; justify-self: center; padding: 0 10px 20px; transition: 0.2s ease-in-out}
 }
