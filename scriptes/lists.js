@@ -182,3 +182,40 @@ function blur_list_task(form) {
     }
 }
 
+function key_func(event) {
+    let key = event.keyCode;
+    // if (key === 8 && event.target.selectionStart === 0 && event.target.selectionEnd === 0) {event.preventDefault(); to_prev($(event.target))}
+    // else
+    if ((key === 38 && event.target.selectionStart === 0) ||
+        (key === 40 && event.target.selectionStart === $(event.target).val().length) ||
+        (key === 37 && !(event.target.tagName === 'TEXTAREA' && event.target.selectionStart > 0)) ||
+        (key === 39 && !(event.target.tagName === 'TEXTAREA'))
+        ) {
+        event.preventDefault();
+        let input = $(event.target);
+        let int = parseInt(input.val());
+        if (key === 37) to_prev(input);
+        else if (key === 39) to_next(input);
+        else if (input[0].tagName === 'INPUT') {
+            if (key === 38) {
+                if (int < event.target.max) {set_val(input, int + 1)}
+                else {input.val(event.target.min)}
+                if (isNaN(int)) {set_val(input, event.target.min)}
+            }
+            else if (key === 40) {
+                if (int > event.target.min) {set_val(input, int - 1)}
+                else {input.val(event.target.max)}
+                if (isNaN(int)) {set_val(input, event.target.max)}
+            }
+        }
+        else if (input[0].tagName === 'TEXTAREA') {
+            let form = input.closest('.item');
+            if (key === 38 && form.prev('.item').length > 0) {
+                form.prev().children('textarea')[0].focus()
+            } else if (key === 40 && form.next('.item').length > 0) {
+                form.next().children('textarea')[0].focus()
+            }
+        }
+    }
+}
+
