@@ -75,19 +75,17 @@ function click_add_list(btn) {
         '                        <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use></svg>\n' +
         '                    </button>\n' +
         '                </form>\n' +
-        '                <button class="add_list_task new" type="button" \n' +
-        '                        onmousedown="click_add_list_task($(this))"\n' +
-        '                        onmouseenter="blur_list_name($(this).parent().siblings(\'.title\'))"\n' +
-        '                >\n' +
+        '                <button class="add_list_task new" type="button" onmousedown="click_add_list_task($(this))">\n' +
         '                    <svg>\n' +
         '                        <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
         '                    </svg>\n' +
         '                </button>\n' +
         '                <a class="alert"\n' +
-        '                   onmouseenter="' +
+        '                   onmouseenter="\n' +
         '                        if ($(this).closest(\'.back_back\').hasClass(\'new\')) {blur_list_name($(this).siblings(\'.title\'))}\n' +
-        '                        else {blur_list_task($(this).siblings(\'.list_task.new\'))}"\n' +
-        '                >Введите данные</a>' +
+        '                        else {blur_list_task($(this).siblings(\'.list_task.new\'))}\n' +
+        '                    "\n' +
+        '                >Введите данные</a>\n' +
         '            </div>\n' +
         '        </div>');
     btn.addClass('new').next().after(obj);

@@ -267,7 +267,8 @@ div.body {
 }
 
 .back form button:hover {transform: scale(1.2)}
-.back .list_task:hover button, .back .title:hover button {right: -5px; opacity: 1}
+.back .title:hover button {right: -5px; opacity: 1}
+.back .list_task:hover button {right: 5px; opacity: 1}
 
 .add_list_task {
     position: relative;
