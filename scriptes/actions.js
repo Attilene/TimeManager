@@ -35,7 +35,7 @@ function change_theme(theme, color) {
         let temp_theme = user_data.theme;
         let temp_color = user_data.color;
         let temp_obj = $('body, header, header *, footer, footer *, aside, aside menu, ' +
-            'div.theme, input, #developers *, svg, .time *, textarea, main *,' +
+            'div.theme, input, #developers *, .time *, textarea, main *,' +
             '.clock_load, .man_card');
         temp_obj.addClass('change_theme');
         setTimeout(function () {
