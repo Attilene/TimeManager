@@ -210,6 +210,14 @@ div.body {
 .back .title {height: 50px}
 .back .title+.list_task {margin-top: 5px}
 
+
+
+.list_task.ghostClass, .list_task.chosenClass, .list_task.dragClass {
+    cursor: n-resize !important;
+    transition: none !important;
+}
+.list_task.dragClass {opacity: 0 !important;}
+
 .back .title input {
     font-size: 1.3em;
     text-align: center;
