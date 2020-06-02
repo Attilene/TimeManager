@@ -69,9 +69,9 @@
 
 #developers .card hr {
     border: none;
-    border-radius: 2px;
     width: 60%;
-    height: 0
+    height: 4px;
+    border-radius: 10px;
 }
 
 #developers .card svg {
@@ -80,8 +80,7 @@
 	fill: white;
 	width: 28px;
 	height: 28px;
-	margin: 8px;
-	margin-bottom: 4px;
+	margin: 8px 2% 4px;
 }
 
 #developers .card svg:hover {transform: scale(1.2)}

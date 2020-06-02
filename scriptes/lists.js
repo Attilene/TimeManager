@@ -197,28 +197,6 @@ function list_key_func(event) {
         else if (key === 40 && form.next('form').length > 0) {
             form.next().children('input, textarea').focus()
         }
-
-
-        // else if (input[0].tagName === 'INPUT') {
-        //     if (key === 38) {
-        //         if (int < event.target.max) {set_val(input, int + 1)}
-        //         else {input.val(event.target.min)}
-        //         if (isNaN(int)) {set_val(input, event.target.min)}
-        //     }
-        //     else if (key === 40) {
-        //         if (int > event.target.min) {set_val(input, int - 1)}
-        //         else {input.val(event.target.max)}
-        //         if (isNaN(int)) {set_val(input, event.target.max)}
-        //     }
-        // }
-        // else if (input[0].tagName === 'TEXTAREA') {
-        //     let form = input.closest('.item');
-        //     if (key === 38 && form.prev('.item').length > 0) {
-        //         form.prev().children('textarea')[0].focus()
-        //     } else if (key === 40 && form.next('.item').length > 0) {
-        //         form.next().children('textarea')[0].focus()
-        //     }
-        // }
     }
 }
 

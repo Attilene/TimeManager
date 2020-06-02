@@ -244,7 +244,7 @@ header *, footer *, header .right .avatar::before {transition: 0.2s ease-out}
 	transition-property: background, border, color, fill, opacity, top !important;
 }
 
-.change_theme svg {transition-duration: 0.05s !important}
+svg.change_theme {transition-duration: 0.05s !important}
 /*--------------------------------------------*/
 /*-----------------При наведени(время)--------*/
 header .left:hover, header .center:hover, header .right:hover, footer span:hover {

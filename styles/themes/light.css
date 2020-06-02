@@ -1,9 +1,8 @@
 * {color: white}
-body , aside menu {background-color: white}
+body , aside menu, #developers hr, #avatar hr {background-color: white}
 #hat #change_avatar {fill: white}
 aside menu div.light {background-color: white}
 aside menu div.dark {background-color: #dbdbdb}
-#developers hr, #avatar hr {border-color: white}
 @-webkit-keyframes autofill {to {color: white}}
 ::placeholder {color: rgba(255, 255, 255, 0.7)}
 #restore:hover {color: white}
