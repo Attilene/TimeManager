@@ -1,14 +1,15 @@
 #page_about {overflow: auto}
-#developers * {padding: 0}
+#developers * {padding: 0; text-align: center}
 
 #developers {
-    margin: 3vh auto;
+    margin: 4vh auto;
     height: max-content;
+    width: 70%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 60px 60px auto;
-    column-gap: 3%;
-    row-gap: 3vh;
+    column-gap: 6%;
+    row-gap: 4vh;
 }
 
 #dev_head {
@@ -16,7 +17,6 @@
     text-align: center;
     grid-column: 1/6;
     width: max-content;
-    padding: 0 10%;
     height: 60px;
     justify-self: center;
     border-radius: 30px;
@@ -36,30 +36,26 @@
     text-align: center;
     padding: 0;
     height: 60px;
-    width: 100%;
     border-radius: 30px;
 }
 
-.card_head:hover {transform: scale(1.1)}
+#developers .card_head:hover {transform: scale(1.1)}
 #developers .card {
     padding: 0 10px 10px;
-    width: 100%;
     box-sizing: border-box;
 }
-#developers .card p {margin: 10px}
-#developers .card p:hover {transform: scale(1.1)}
 
-@media (min-width: 1500px) {#developers .card p {margin: 20px; transition: 0.2s ease-in-out}  }
+#developers .card p {margin: 2vh auto}
+#developers .card p:hover {transform: scale(1.1)}
 
 #Rasim {line-height: 30px}
 #Rasim p {margin: 0}
-@media (max-width: 1200px) {#developers .card_head p {transform: scale(0.9); transition: 0.2s ease-in-out}  }
 
 #developers .card p, #developers .card {text-align: center; border-radius: 30px}
 #developers p, #developers h2, #developers h3 {transition: 0.3s ease-out}
 
 #developers img {
-    margin: 13% auto 10px;
+    margin: 14% auto 10px;
     width: 80%;
     border-radius: 50%;
     justify-self: center;
@@ -72,28 +68,31 @@
 }
 
 #developers .card hr {
-    border: 2px solid white;
-    border-radius: 2px;
-    width: 50%;
-    height: 0
+    border: none;
+    width: 60%;
+    height: 4px;
+    border-radius: 10px;
 }
 
-@media (min-width: 1550px) {
-    #developers {
-        width: 75%;
-        column-gap: 5%;
-        row-gap: 6vh;
-    }
+#developers .card svg {
+    pointer-events: visible;
+    cursor: pointer;
+	fill: white;
+	width: 28px;
+	height: 28px;
+	margin: 8px 2% 4px;
 }
-@media (min-width: 1200px) and (max-width: 1550px) {
-    #developers {
-        width: 90%;
-        column-gap: 4.5%;
-        row-gap: 4vh;
-    }
-}
-@media (max-width: 1200px) {
-    #developers {width: 98%}
+
+#developers .card svg:hover {transform: scale(1.2)}
+
+@media (max-width: 1650px) {  #developers {width: 80%;}  }
+@media (max-width: 1450px) {  #developers {width: 90%;}  }
+@media (max-width: 1300px) {  #developers {column-gap: 4%}  }
+@media (max-width: 1150px) {  #developers {width: 100%}  }
+@media (max-width: 1050px) {  #developers {column-gap: 2%}  }
+
+@media  {
+    
 }
 
 /*-----------------Анимации--------------------*/
@@ -106,6 +105,6 @@
 /*-----------------При нажатии----------------*/
 #developers *:active {transform: scale(1); transition: 0.05s ease-out}
 #developers .card:hover p:active {transform: scale(1); transition: 0.05s ease-out}
-#developers .card:hover img:active {transform: scale(1); transition: 0.05s ease-out}
+#developers .card:hover img:active, #developers .card:hover svg:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/

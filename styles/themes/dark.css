@@ -1,9 +1,8 @@
 * {color: #2c2c2c}
-body, aside menu {background-color: #2c2c2c}
+body, aside menu, #developers hr, #avatar hr {background-color: #2c2c2c}
 #hat #change_avatar {fill: #2c2c2c}
 aside menu div.light {background-color: #525252}
 aside menu div.dark {background-color: #2c2c2c;}
-#developers hr, #avatar hr {border-color: #2c2c2c}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}
 ::placeholder {color: rgba(75, 75, 75, 0.7)}
 #restore:hover {color: rgba(0, 0, 0, 0.1)}
