@@ -195,10 +195,13 @@ function list_key_func(event) {
         let form = input.closest('form');
         let back = form.closest('.back_back');
         if (key === 37 && back.prev('.back_back').length > 0) {
-            $(back.prev()[form.parent().children('form').index(form[0])]).focus();
+            $(back.prev().children('form')[form.parent().children('form').index(form[0])])
+                .children('input, textarea').focus();
         }
         else if (key === 39 && back.next('.back_back').length > 0) {
-            $(back.next()[form.parent().children('form').index(form[0])]).focus();
+            $(back.next().children('form')[form.parent().children('form').index(form[0])])
+                .children('input, textarea').focus();
+
         }
         else if (key === 38 && form.prev('form').length > 0) {
             form.prev().children('input, textarea').focus()
