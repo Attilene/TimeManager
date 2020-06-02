@@ -94,12 +94,14 @@ function blur_input_month(form) {
             }
             else {
                 form.removeClass('new');
-                form.find('input').removeAttr('placeholder')
+                form.find('input').removeAttr('placeholder');
+                form.prev().prev('button').removeClass('new');
             }
         }
-    } else if (new_month_data.digit !== old.digit ||
+    } else if  ((user_data.login !== undefined) && (
+        new_month_data.digit !== old.digit ||
         new_month_data.month !== old.month ||
-        new_month_data.task !== old.task) {
+        new_month_data.task !== old.task)) {
         receive('/change_month', function (data) {
             if (data === 'exist') {
                 del_month_task(form);

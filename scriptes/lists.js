@@ -116,14 +116,20 @@ function click_add_list_task(btn) {
 }
 
 function blur_list_name(form) {
-    let old = form.data('old');
-    let new_name = get_list_name(form);
     let back = form.closest('.back_back');
-    form.data('old', new_name);
-    if (back.hasClass('new')) {
-        if (new_name !== '') {
-            if (user_data.login !== undefined) {
-                receive('/add_list', function (data) {
+    console.log(user_data.login)
+    if (user_data.login === undefined) {
+        back.removeClass('new');
+        back.prev().prev('button').removeClass('new');
+        back.find('.add_list_task').removeClass('new')
+    }
+    else {
+        let old = form.data('old');
+        let new_name = get_list_name(form);
+        form.data('old', new_name);
+        if (back.hasClass('new')) {
+            if (new_name !== '') {
+                    receive('/add_list', function (data) {
                     if (data === 'exist') {
                         del_list(back)
                     } else {
@@ -133,28 +139,28 @@ function blur_list_name(form) {
                     }
                 }, new_name)
             }
-            else {
-                back.removeClass('new');
-                back.prev().prev('button').removeClass('new');
-                back.find('.add_list_task').removeClass('new')
-            }
+        } else if (new_name !== old) {
+            receive('/change_list', function (data) {
+                if (data === 'exist') {
+                    del_list(back);
+                }
+            }, [old, new_name]);
         }
-    } else if (new_name !== old) {
-        receive('/change_list', function (data) {
-            if (data === 'exist') {
-                del_list(back);
-            }
-        }, [old, new_name]);
     }
 }
 
 function blur_list_task(form) {
-    let old = form.data('old');
-    let new_list_data = get_list_data(form);
-    form.data('old', new_list_data);
-    if (form.hasClass('new')) {
-        if (new_list_data.task !== '') {
-            if (user_data.login !== undefined) {
+    console.log(user_data.login)
+    if (user_data.login === undefined) {
+        form.removeClass('new');
+        form.find('input').removeAttr('placeholder')
+    }
+    else {
+        let old = form.data('old');
+        let new_list_data = get_list_data(form);
+        form.data('old', new_list_data);
+        if (form.hasClass('new')) {
+            if (new_list_data.task !== '') {
                 receive('/add_list_task', function (data) {
                     if (data === 'exist') {
                         del_list_task(form);
@@ -164,17 +170,13 @@ function blur_list_task(form) {
                     }
                 }, new_list_data)
             }
-            else {
-                form.removeClass('new');
-                form.find('input').removeAttr('placeholder')
-            }
+        } else if (old.task !== new_list_data.task) {
+            receive('/change_list_task', function (data) {
+                if (data === 'exist') {
+                    del_list_task(form);
+                }
+            }, [old, new_list_data]);
         }
-    } else if (old.task !== new_list_data.task) {
-        receive('/change_list_task', function (data) {
-            if (data === 'exist') {
-                del_list_task(form);
-            }
-        }, [old, new_list_data]);
     }
 }
 

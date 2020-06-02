@@ -94,10 +94,12 @@ function blur_input_day(form) {
             }
             else {
                 form.removeClass('new');
-                form.find('input').removeAttr('placeholder')
+                form.find('input').removeAttr('placeholder');
+                form.prev().prev('button').removeClass('new');
             }
         }
-    } else if (new_day_data.hour !== old.hour ||
+    } else if (
+        new_day_data.hour !== old.hour ||
         new_day_data.minute !== old.minute ||
         new_day_data.task !== old.task) {
         receive('/change_day', function (data) {

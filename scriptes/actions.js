@@ -113,9 +113,9 @@ function guest_auth() {
         '        </svg>\n' +
         '    </button>\n' +
         '    <a class="alert"\n' +
-        '       onmouseenter="if ($(this).prev().hasClass(\'new\')) {blur_input_list($(this).siblings(\'.item.new\'))}"\n' +
-        '    >Введите данные</a>\n' +
-        '</div>\n';
+        '       onmouseenter="if ($(this).prev().hasClass(\'new\')) {blur_list_name($(this).siblings(\'.back_back.new\').find(\'.title\'))}"\n' +
+        '    >Напишите имя списка</a>\n' +
+        '</div>';
     $('#page_help').addClass('help_login');
     // Сбор мусора
     setTimeout(function () {
