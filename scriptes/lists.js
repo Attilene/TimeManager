@@ -187,18 +187,18 @@ function list_key_func(event) {
     let key = event.keyCode;
     if ((key === 38 && event.target.selectionStart === 0) ||
         (key === 40 && event.target.selectionStart === $(event.target).val().length) ||
-        (key === 37 && event.target.tagName === 'INPUT' && event.target.selectionStart === 0) ||
-        (key === 39 && event.target.tagName === 'INPUT' && event.target.selectionStart === $(event.target).val().length)
+        (key === 37 && event.target.selectionStart === 0) ||
+        (key === 39 && event.target.selectionStart === $(event.target).val().length)
         ) {
         event.preventDefault();
         let input = $(event.target);
         let form = input.closest('form');
         let back = form.closest('.back_back');
         if (key === 37 && back.prev('.back_back').length > 0) {
-            back.prev('.back_back').find('.name').focus()
+            $(back.prev()[form.parent().children('form').index(form[0])]).focus();
         }
         else if (key === 39 && back.next('.back_back').length > 0) {
-            back.next('.back_back').find('.name').focus()
+            $(back.next()[form.parent().children('form').index(form[0])]).focus();
         }
         else if (key === 38 && form.prev('form').length > 0) {
             form.prev().children('input, textarea').focus()
@@ -206,27 +206,6 @@ function list_key_func(event) {
         else if (key === 40 && form.next('form').length > 0) {
             form.next().children('input, textarea').focus()
         }
-
-        // else if (input[0].tagName === 'INPUT') {
-        //     if (key === 38) {
-        //         if (int < event.target.max) {set_val(input, int + 1)}
-        //         else {input.val(event.target.min)}
-        //         if (isNaN(int)) {set_val(input, event.target.min)}
-        //     }
-        //     else if (key === 40) {
-        //         if (int > event.target.min) {set_val(input, int - 1)}
-        //         else {input.val(event.target.max)}
-        //         if (isNaN(int)) {set_val(input, event.target.max)}
-        //     }
-        // }
-        // else if (input[0].tagName === 'TEXTAREA') {
-        //     let form = input.closest('.item');
-        //     if (key === 38 && form.prev('.item').length > 0) {
-        //         form.prev().children('textarea')[0].focus()
-        //     } else if (key === 40 && form.next('.item').length > 0) {
-        //         form.next().children('textarea')[0].focus()
-        //     }
-        // }
     }
 }
 
