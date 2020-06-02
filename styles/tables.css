@@ -72,7 +72,7 @@ div.body {
     margin-left: 20px;
     padding: 5px 10px;
     width: calc(100% - 260px);
-    height: auto;
+    height: max-content;
     line-height: 30px;
     min-height: 30px;
     border: none;
@@ -227,20 +227,15 @@ div.body {
 .list_task textarea {
     text-align: center;
     margin: 5px 0;
-    padding: 0 10px;
+    padding: 5px 10px;
     resize: none;
     width: 380px;
-    height: 30px;
+    height: max-content;
     line-height: 30px;
     min-height: 30px;
     background: none;
     border: none;
     overflow: hidden;
-}
-
-.list_task textarea:hover, .list_task textarea:focus {
-    margin: 0;
-    padding: 5px 10px;
 }
 
 .list_task button, .back button.del_list {

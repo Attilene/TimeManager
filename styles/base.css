@@ -214,14 +214,17 @@ main {
 	height: calc(100% - 90px);
 	width: 100%;
 	min-width: 958px;
+	pointer-events: none;
 }
 
+main.preload {z-index: -1 !important; display: block !important}
 /*---------------Открытие---------------------*/
 main.opened {
 	z-index: 5;
 	display: block;
 	opacity: 1;
 	left: 0;
+	pointer-events: visible;
 	transition: 0.2s ease-out 0.2s;
 }
 
@@ -229,6 +232,7 @@ main.closed {
 	z-index: 4;
 	opacity: 0;
 	left: -40px;
+	pointer-events: none;
 	transition: 0.2s ease-in;
 }
 /*--------------------------------------------*/

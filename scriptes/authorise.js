@@ -193,8 +193,9 @@ function authorisation(login, password) {
         $('#page_month').html(data.month);
         $('#page_lists').html(data.lists);
         $('#page_help').addClass('help_login');
-        $('header .center').one('mousedown', function () {
-            $('main.opened textarea').each(function (index, element) {autosize(element)})
+        $('header .center').one('mousedown', function sizing() {
+            $('main.opened .item .task').each(function (index, element) {autosize(element)});
+            $('main.opened .back_back .back .list_task textarea').each(function (index, element) {autosize_lists(element)})
         });
         // Синхронизация данных
         change_theme(data.theme, data.color);

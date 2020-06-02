@@ -194,5 +194,6 @@ function set_val(input, val) {
 
 function autosize(el) {
     let temp = $(el);
-    temp.height(0).height(temp[0].scrollHeight - 10);
+    temp.height(0).height(el.scrollHeight - 10);
+
 }

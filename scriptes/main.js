@@ -75,7 +75,10 @@ jQuery(document).ready(function () {
             toggle_aside($('#profile_menu'));
             toggle_set_menu($('#menu_edit_psw'));
         }
-        $('textarea').each(function (index, element) {autosize(element)});
+        $('main.opened textarea').each(function (index, element) {autosize(element)});
+        $('header .center').one('mousedown', function sizing() {
+            $('main.opened textarea').each(function (index, element) {autosize(element)});
+        });
     }
     // Настройка времени колесиком
     $('main').on('wheel', 'div.body',function (event) {
