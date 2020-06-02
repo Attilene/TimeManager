@@ -86,7 +86,6 @@ function blur_input_month(form) {
                     if (data === 'exist') {
                         del_month_task(form);
                     } else {
-                        form.data('old', get_month_data(form));
                         form.removeClass('new');
                         form.prev().prev('button').removeClass('new');
                         form.find('input').removeAttr('placeholder')
@@ -104,9 +103,6 @@ function blur_input_month(form) {
         receive('/change_month', function (data) {
             if (data === 'exist') {
                 del_month_task(form);
-            }
-            else {
-                form.data('old', new_month_data);
             }
         }, [old, new_month_data]);
     }

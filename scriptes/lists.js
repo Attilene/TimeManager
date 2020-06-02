@@ -68,6 +68,7 @@ function click_add_list(btn) {
         '                    <input class="name" placeholder="Название"\n' +
         '                           onfocus="save_name($(this).parent())"\n' +
         '                           onblur="blur_list_name($(this).parent())"\n' +
+        '                           onkeydown="list_key_func(event)"\n' +
         '                    >\n' +
         '                    <button type="button" class="del_list"\n' +
         '                            onmousedown="del_list($(this).closest(\'.back_back\'))"\n' +
@@ -75,19 +76,17 @@ function click_add_list(btn) {
         '                        <svg><use xlink:href="time_manager/images/sprites.svg#sprite_btn_remove"></use></svg>\n' +
         '                    </button>\n' +
         '                </form>\n' +
-        '                <button class="add_list_task new" type="button" \n' +
-        '                        onmousedown="click_add_list_task($(this))"\n' +
-        '                        onmouseenter="blur_list_name($(this).parent().siblings(\'.title\'))"\n' +
-        '                >\n' +
+        '                <button class="add_list_task new" type="button" onmousedown="click_add_list_task($(this))">\n' +
         '                    <svg>\n' +
         '                        <use xlink:href="time_manager/images/sprites.svg#sprite_btn_add"></use>\n' +
         '                    </svg>\n' +
         '                </button>\n' +
         '                <a class="alert"\n' +
-        '                   onmouseenter="' +
+        '                   onmouseenter="\n' +
         '                        if ($(this).closest(\'.back_back\').hasClass(\'new\')) {blur_list_name($(this).siblings(\'.title\'))}\n' +
-        '                        else {blur_list_task($(this).siblings(\'.list_task.new\'))}"\n' +
-        '                >Введите данные</a>' +
+        '                        else {blur_list_task($(this).siblings(\'.list_task.new\'))}\n' +
+        '                    "\n' +
+        '                >Введите данные</a>\n' +
         '            </div>\n' +
         '        </div>');
     btn.addClass('new').next().after(obj);
@@ -133,7 +132,6 @@ function blur_list_name(form) {
                     if (data === 'exist') {
                         del_list(back)
                     } else {
-                        form.data('old', get_list_name(form));
                         back.removeClass('new');
                         back.prev().prev('button').removeClass('new');
                         back.find('.add_list_task').removeClass('new')
@@ -151,47 +149,76 @@ function blur_list_name(form) {
             if (data === 'exist') {
                 del_list(back);
             }
-            else {
-                form.data('old', new_name);
-            }
         }, [old, new_name]);
     }
 }
-//
-// function blur_list_task(form) {
-//     let old = form.data('old');
-//     let new_day_data = get_day_data(form);
-//     form.data('old', new_day_data);
-//     if (form.hasClass('new')) {
-//         if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
-//             if (user_data.login !== undefined) {
-//                 receive('/add_day', function (data) {
-//                     if (data === 'exist') {
-//                         del_day_task(form);
-//                     } else {
-//                         form.data('old', get_day_data(form));
-//                         form.removeClass('new');
-//                         form.prev().prev('button').removeClass('new');
-//                         form.find('input').removeAttr('placeholder')
-//                     }
-//                 }, new_day_data)
-//             }
-//             else {
-//                 form.removeClass('new');
-//                 form.find('input').removeAttr('placeholder')
-//             }
-//         }
-//     } else if (new_day_data.hour !== old.hour ||
-//         new_day_data.minute !== old.minute ||
-//         new_day_data.task !== old.task) {
-//         receive('/change_day', function (data) {
-//             if (data === 'exist') {
-//                 del_day_task(form);
-//             }
-//             else {
-//                 form.data('old', new_day_data);
-//             }
-//         }, [old, new_day_data]);
-//     }
-// }
-//
+
+function blur_list_task(form) {
+    let old = form.data('old');
+    let new_list_data = get_list_data(form);
+    form.data('old', new_list_data);
+    if (form.hasClass('new')) {
+        if (new_list_data.task !== '') {
+            if (user_data.login !== undefined) {
+                receive('/add_list_task', function (data) {
+                    if (data === 'exist') {
+                        del_list_task(form);
+                    } else {
+                        form.removeClass('new');
+                        form.next('button').removeClass('new');
+                    }
+                }, new_list_data)
+            }
+            else {
+                form.removeClass('new');
+                form.find('input').removeAttr('placeholder')
+            }
+        }
+    } else if (old.task !== new_list_data.task) {
+        receive('/change_list_task', function (data) {
+            if (data === 'exist') {
+                del_list_task(form);
+            }
+        }, [old, new_list_data]);
+    }
+}
+
+function list_key_func(event) {
+    let key = event.keyCode;
+    if ((key === 38 && event.target.selectionStart === 0) ||
+        (key === 40 && event.target.selectionStart === $(event.target).val().length)
+        ) {
+        event.preventDefault();
+        let input = $(event.target);
+        let form = input.closest('form');
+        if (key === 38 && form.prev('form').length > 0) {
+            form.prev().children('input, textarea').focus()
+        }
+        else if (key === 40 && form.next('form').length > 0) {
+            form.next().children('input, textarea').focus()
+        }
+
+
+        // else if (input[0].tagName === 'INPUT') {
+        //     if (key === 38) {
+        //         if (int < event.target.max) {set_val(input, int + 1)}
+        //         else {input.val(event.target.min)}
+        //         if (isNaN(int)) {set_val(input, event.target.min)}
+        //     }
+        //     else if (key === 40) {
+        //         if (int > event.target.min) {set_val(input, int - 1)}
+        //         else {input.val(event.target.max)}
+        //         if (isNaN(int)) {set_val(input, event.target.max)}
+        //     }
+        // }
+        // else if (input[0].tagName === 'TEXTAREA') {
+        //     let form = input.closest('.item');
+        //     if (key === 38 && form.prev('.item').length > 0) {
+        //         form.prev().children('textarea')[0].focus()
+        //     } else if (key === 40 && form.next('.item').length > 0) {
+        //         form.next().children('textarea')[0].focus()
+        //     }
+        // }
+    }
+}
+

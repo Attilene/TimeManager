@@ -43,6 +43,7 @@ function change_theme(theme, color) {
         }, close_time('.change_theme'));
         if (theme !== user_data.theme) {
             $('#theme_choice').attr('href', `time_manager/styles/themes/${theme}.css`);
+            $('#help_body').css({'background-image': `url(${background[theme].src})`})
         }
         if (color !== user_data.color) {
             $('#color_choice').attr('href', `time_manager/styles/colors/${color}.css`);

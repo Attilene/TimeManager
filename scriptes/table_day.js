@@ -86,7 +86,6 @@ function blur_input_day(form) {
                     if (data === 'exist') {
                         del_day_task(form);
                     } else {
-                        form.data('old', get_day_data(form));
                         form.removeClass('new');
                         form.prev().prev('button').removeClass('new');
                         form.find('input').removeAttr('placeholder')
@@ -104,9 +103,6 @@ function blur_input_day(form) {
         receive('/change_day', function (data) {
             if (data === 'exist') {
                 del_day_task(form);
-            }
-            else {
-                form.data('old', new_day_data);
             }
         }, [old, new_day_data]);
     }

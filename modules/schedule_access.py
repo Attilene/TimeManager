@@ -116,7 +116,7 @@ class User(object):
             return False
         User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ?", (name,))
         num_bd = User.__all()
-        if num_bd:
+        if num_bd != [(None,)] and num_bd:
             number = num_bd[-1][0] + 1
         User.__exe(f"INSERT INTO 'list_{self._log}' (name, task, number) VALUES (?, ?, ?)",
                    (name, task, number))
@@ -132,7 +132,8 @@ class User(object):
         return True
 
     def add_month(self, digit, month, task):
-        User.__exe(f"SELECT * FROM 'month_{self._log}' WHERE digit = ? AND month = ? AND task = ?", (digit, month, task))
+        User.__exe(f"SELECT * FROM 'month_{self._log}' WHERE digit = ? AND month = ? AND task = ?",
+                   (digit, month, task))
         if User.__one() is not None:
             return False
         User.__exe(f"INSERT INTO 'month_{self._log}' (digit, month, task) VALUES (?, ?, ?)",
@@ -147,7 +148,7 @@ class User(object):
         if User.__one() is not None:
             return False
         User.__exe(f"UPDATE 'day_{self._log}' SET hour = ?, minute = ?, task = ? WHERE hour = ? AND minute = ? AND task = ?",
-                   (new['hour'], new['minute'], new['task'], old['hour'], old['minute'], old['task']))
+                    (new['hour'], new['minute'], new['task'], old['hour'], old['minute'], old['task']))
         User.__com()
         return True
 
@@ -157,7 +158,7 @@ class User(object):
         if User.__one() is not None:
             return False
         User.__exe(f"UPDATE 'month_{self._log}' SET digit = ?, month = ?, task = ? WHERE digit = ? AND month = ? AND task = ?",
-                   (new['digit'], new['month'], new['task'], old['digit'], old['month'], old['task']))
+                     (new['digit'], new['month'], new['task'], old['digit'], old['month'], old['task']))
         User.__com()
         return True
 
@@ -195,12 +196,14 @@ class User(object):
         buf[1] = new_num
         lists[name].insert(new_num - 1, buf)
         for i, value in enumerate(lists[name], 1):
-            lists[name][i - 1][1] = i
+            if lists[name][i - 1][0] is not None:
+                lists[name][i - 1][1] = i - 1
         for el in lists[name]:
-            User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, el[0]))
-            if User.__one()[0] != el[1]:
-                User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
-                           (el[1], name, el[0]))
+            if el[0] is not None:
+                User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, el[0]))
+                if User.__one()[0] != el[1]:
+                    User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
+                               (el[1], name, el[0]))
         User.__com()
         return True
 
@@ -214,15 +217,12 @@ class User(object):
                 lists[name].append([task, number])
             else:
                 lists[name] = [[task, number]]
-        if len(lists[name]) == 0:
-            User.__exe(f"DELETE FROM 'list_{self._log}' WHERE name = ?", (name,))
-        else:
-            for i, value in enumerate(lists[name], 1):
-                lists[name][i - 1][1] = i
-            for el in lists[name]:
-                print('1234', name, el, '12345')
-                User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?",
-                           (name, el[0]))
+        for i, value in enumerate(lists[name], 1):
+            if lists[name][i - 1][0] is not None:
+                lists[name][i - 1][1] = i - 1
+        for el in lists[name]:
+            if el[0] is not None:
+                User.__exe(f"SELECT number FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, el[0]))
                 if User.__one()[0] != el[1]:
                     User.__exe(f"UPDATE 'list_{self._log}' SET number = ? WHERE name = ? AND task = ?",
                                (el[1], name, el[0]))
@@ -273,8 +273,10 @@ class User(object):
     def fast_check_psw(log_email, pswsalt):
         """Быстрая проверка пароля"""
         User.__exe("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
-        try: hash_sum, login = User.__one()
-        except TypeError: return False
+        try:
+            hash_sum, login = User.__one()
+        except TypeError:
+            return False
         return set_sum(decrypt(pswsalt)[0]) == hash_sum
 
     @staticmethod
@@ -348,15 +350,21 @@ class User(object):
 # now_user.add_month(23, 1, 'dfjfkdjf')
 # now_user.add_month(24, 3, 'dfjfkdjf')
 # now_user.add_month(25, 9, 'dfjfkdjf')
-# now_user.add_list('1', 'dfjfkdjfdsfdgf')
-# now_user.add_list('2', 'dfjf')
-# now_user.add_list('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
-# now_user.add_list('1', 'werty')
+# data = {'name': 'sa fcf', 'task': 'gg'}
+# now_user.add_list('sa fcf')
+# now_user.add_list('1')
+# now_user.add_list('2')
+# now_user.add_list_task('1', 'dfjfkdjfdsfdgf')
+# now_user.add_list_task('2', 'dfjf')
+# now_user.add_list_task('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
+# now_user.add_list_task('sa fcf', 'gg')
+# now_user.add_list_task('1', 'werty')
 # print(now_user.change_list('1', '2'))
 # print(now_user.change_list_task({'name': '1', 'task': 'werty'}, {'name': '1', 'task': 'debil'}))
-# print(now_user.change_num('1', 'werty', 1))
+# print(now_user.change_num('1', 'werty', 2))
 # print(now_user.ret_lists())
-# now_user.del_list_task('1', 'werty')
+# now_user.del_list_task(**data)
+# now_user.del_list_task('1', 'dfjfkdjfdsfdgfasdfgdhfgjhjrsdv')
 # now_user.add_day(22, 33, 'jdfkjf')
 # now_user.add_day(24, 33, 'jdfkjf')
 # now_user.add_day(23, 33, 'jdfkjf')

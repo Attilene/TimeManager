@@ -145,24 +145,23 @@ div.body {
 #add_day_task.new, #add_month_task.new, #add_list.new {opacity: 0; pointer-events: none}
 
 #page_lists div.body {
+    right: 0;
     text-align: left;
-    padding: 3vh 60px 0;
+    padding: 3vh 60px 3vh;
     line-height: 0;
-    width: 1520px;
-    left: 0;
-    box-sizing: content-box;
+    width: 1640px;
 }
 
 #page_lists .alert {left: 720px}
 
-#add_list {left: 0;}
+#add_list {left: 0}
 
 @media (max-width: 1640px) {
-    #page_lists div.body {width: 1015px; text-align: left}
+    #page_lists div.body {width: 1135px}
     #page_lists .alert {left: 456px}
 }
 @media (max-width: 1135px) {
-    #page_lists div.body {width: 500px; text-align: left}
+    #page_lists div.body {width: 620px}
     #page_lists .alert {left: 204px}
 }
 
@@ -199,10 +198,6 @@ div.body {
     border-top-right-radius: 25px;
 }
 
-.back:hover {
-    transform: scale(1.03);
-}
-
 .list_task, .title {
     text-align: left !important;
     width: 460px;
@@ -231,8 +226,8 @@ div.body {
 
 .list_task textarea {
     text-align: center;
-    margin: 0;
-    padding: 5px 10px;
+    margin: 5px 0;
+    padding: 0 10px;
     resize: none;
     width: 380px;
     height: 30px;
@@ -241,6 +236,11 @@ div.body {
     background: none;
     border: none;
     overflow: hidden;
+}
+
+.list_task textarea:hover, .list_task textarea:focus {
+    margin: 0;
+    padding: 5px 10px;
 }
 
 .list_task button, .back button.del_list {
@@ -267,7 +267,8 @@ div.body {
 }
 
 .back form button:hover {transform: scale(1.2)}
-.back .list_task:hover button, .back .title:hover button {right: -5px; opacity: 1}
+.back .title:hover button {right: -5px; opacity: 1}
+.back .list_task:hover button {right: 5px; opacity: 1}
 
 .add_list_task {
     position: relative;

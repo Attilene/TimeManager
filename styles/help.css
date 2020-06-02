@@ -44,6 +44,7 @@
     line-height: 30px;
     pointer-events: none;
     opacity: 0;
+    transform-origin: center;
     transition: inherit;
 }
 
@@ -53,11 +54,10 @@
 #m_theme::before {content: "Смена темы"}
 
 .man_card.ready::before {opacity: 1}
-.man_card.ready:hover::before {opacity: 0}
+.man_card.ready:hover::before {transform: scale(1.5); opacity: 0}
 
 .man_card img {
     transform: scale(1.3);
-    filter: blur(5px) brightness(80%);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -68,7 +68,7 @@
 }
 
 .man_card.ready img {opacity: 1}
-.man_card.ready:hover img {filter: none; transform: scale(1)}
+.man_card.ready:hover img {transform: scale(1)}
 
 #try_guest {
     font-size: 1.2em;
@@ -124,6 +124,7 @@
 }
 
 #page_help * {transition: 0.2s ease-out}
+.man_card.ready::before {transition: 0.1s ease-in}
 #btn_guest_log:hover {transition: 0.1s ease}
 #subtitle:active, #try_guest:active, #btn_guest_log:active, #page_help.help_login {transform: scale(1); transition: 0.05s}
 .man_card:active {transform: scale(0.9); transition: 0.05s}
@@ -148,7 +149,7 @@
 	width: 6px;
 	position: absolute;
 	left: 57px;
-    border-radius: 5px;
+    border-radius: 6px;
     transition: inherit;
 }
 
