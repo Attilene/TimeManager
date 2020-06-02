@@ -145,24 +145,23 @@ div.body {
 #add_day_task.new, #add_month_task.new, #add_list.new {opacity: 0; pointer-events: none}
 
 #page_lists div.body {
+    right: 60px;
     text-align: left;
-    padding: 3vh 60px 0;
+    padding: 3vh 60px 3vh;
     line-height: 0;
-    width: 1520px;
-    left: 0;
-    box-sizing: content-box;
+    width: 1640px;
 }
 
 #page_lists .alert {left: 720px}
 
-#add_list {left: 0;}
+#add_list {left: 0}
 
 @media (max-width: 1640px) {
-    #page_lists div.body {width: 1015px; text-align: left}
+    #page_lists div.body {width: 1135px}
     #page_lists .alert {left: 456px}
 }
 @media (max-width: 1135px) {
-    #page_lists div.body {width: 500px; text-align: left}
+    #page_lists div.body {width: 620px}
     #page_lists .alert {left: 204px}
 }
 
