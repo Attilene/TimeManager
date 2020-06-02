@@ -90,14 +90,9 @@ function click_add_list(btn) {
         '            </div>\n' +
         '        </div>');
     btn.addClass('new').next().after(obj);
-    if (obj.next('.back_back').length > 0) {
-        obj.animate({height: '85px', width: '400px', margin: '3vh 50px 0'}, 200, 'swing', function () {
-            $(this).addClass('new').removeAttr('style').find('input.name').focus();
-        });
-    }
-    else {
-        obj.addClass('new').removeAttr('style').find('input.name').focus();
-    }
+    obj.animate({height: '85px', width: '400px', margin: '3vh 50px 0'}, 200, 'swing', function () {
+        $(this).addClass('new').removeAttr('style').find('input.name').focus();
+    });
 }
 
 function click_add_list_task(btn) {
