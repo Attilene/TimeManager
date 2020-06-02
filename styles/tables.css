@@ -198,10 +198,6 @@ div.body {
     border-top-right-radius: 25px;
 }
 
-.back:hover {
-    transform: scale(1.03);
-}
-
 .list_task, .title {
     text-align: left !important;
     width: 460px;
