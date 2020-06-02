@@ -54,7 +54,7 @@
 #m_theme::before {content: "Смена темы"}
 
 .man_card.ready::before {opacity: 1}
-.man_card.ready:hover::before {transform: scale(2); opacity: 0}
+.man_card.ready:hover::before {transform: scale(1.5); opacity: 0}
 
 .man_card img {
     transform: scale(1.3);
