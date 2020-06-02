@@ -1,6 +1,6 @@
 * {color: white}
-body , aside menu, #developers hr, #avatar hr {background-color: white}
-#hat #change_avatar {fill: white}
+body, aside menu, #developers hr, #avatar hr {background-color: white}
+#hat #change_avatar, #developers .card svg {fill: white}
 aside menu div.light {background-color: white}
 aside menu div.dark {background-color: #dbdbdb}
 @-webkit-keyframes autofill {to {color: white}}
@@ -10,7 +10,7 @@ aside menu div.dark {background-color: #dbdbdb}
 svg  {fill: white}
 #avatar:hover #avatar_inside {filter: brightness(80%) blur(2px)}
 #authorisation_menu #checkbox_remember_me:checked~label {background-color: white}
-.time.input * {color: white}
+.time.input *, .time.input input::placeholder {color: white}
 .time input::selection, .back .title input::selection {background-color: rgba(255, 255, 255, 0.2) !important}
 header .center:hover, header .center:active {background: rgba(255, 255, 255, 0.2)}
 @media (min-width: 1400px) {header .right:hover, header .right:active {background: rgba(255, 255, 255, 0.2)}}

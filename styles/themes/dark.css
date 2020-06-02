@@ -1,6 +1,6 @@
 * {color: #2c2c2c}
 body, aside menu, #developers hr, #avatar hr {background-color: #2c2c2c}
-#hat #change_avatar {fill: #2c2c2c}
+#hat #change_avatar, #developers .card svg {fill: #2c2c2c}
 aside menu div.light {background-color: #525252}
 aside menu div.dark {background-color: #2c2c2c;}
 @-webkit-keyframes autofill {to {color: #4b4b4b}}

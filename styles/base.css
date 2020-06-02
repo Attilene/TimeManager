@@ -23,6 +23,7 @@ body._START_ {transition: opacity 0.4s linear !important}
 a {text-decoration: none}
 svg {pointer-events: none}
 *:disabled {pointer-events: none}
+.ass_crack * {transform: rotate(90deg) skew(30deg)}
 
 /*Курсор*/
 header .left, header .center, header .right, footer span  {cursor: pointer}

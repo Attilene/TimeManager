@@ -158,11 +158,11 @@ div.body {
 
 @media (max-width: 1640px) {
     #page_lists div.body {width: 1135px}
-    #page_lists .alert {left: 456px}
+    #page_lists .alert {left: 460px}
 }
 @media (max-width: 1135px) {
     #page_lists div.body {width: 620px}
-    #page_lists .alert {left: 204px}
+    #page_lists .alert {left: 210px}
 }
 
 .back_back {
