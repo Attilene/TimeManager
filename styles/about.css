@@ -83,10 +83,12 @@
 }
 
 #developers .card a {
-    line-height: 100%;
+    height: 28px;
+    width: 28px;
 }
 
 #developers .card svg {
+    pointer-events: visible;
 	fill: white;
 	width: 28px;
 	height: 28px;
