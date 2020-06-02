@@ -14,6 +14,7 @@
                     <input class="name" placeholder="Название" value="{{ name }}"
                            onfocus="save_name($(this).parent())"
                            onblur="blur_list_name($(this).parent())"
+                           onkeydown="list_key_func(event)"
                     >
                     <button type="button" class="del_list"
                             onmousedown="del_list($(this).closest('.back_back'))"

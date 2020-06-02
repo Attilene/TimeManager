@@ -266,8 +266,6 @@ div.body {
     margin: 10px;
 }
 
-.list_task button {top: -5px}
-
 .back form button:hover {transform: scale(1.2)}
 .back .title:hover button {right: -5px; opacity: 1}
 .back .list_task:hover button {right: 5px; opacity: 1}
