@@ -110,6 +110,7 @@ class User(object):
         return True
 
     def add_list_task(self, name, task):
+        print(name, t)
         number = 1
         User.__exe(f"SELECT name, task FROM 'list_{self._log}' WHERE name = ? AND task = ?", (name, task))
         if User.__one() is not None:

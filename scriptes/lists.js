@@ -133,7 +133,6 @@ function blur_list_name(form) {
                     if (data === 'exist') {
                         del_list(back)
                     } else {
-                        form.data('old', get_list_name(form));
                         back.removeClass('new');
                         back.prev().prev('button').removeClass('new');
                         back.find('.add_list_task').removeClass('new')
@@ -151,47 +150,37 @@ function blur_list_name(form) {
             if (data === 'exist') {
                 del_list(back);
             }
-            else {
-                form.data('old', new_name);
-            }
         }, [old, new_name]);
     }
 }
-//
-// function blur_list_task(form) {
-//     let old = form.data('old');
-//     let new_day_data = get_day_data(form);
-//     form.data('old', new_day_data);
-//     if (form.hasClass('new')) {
-//         if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
-//             if (user_data.login !== undefined) {
-//                 receive('/add_day', function (data) {
-//                     if (data === 'exist') {
-//                         del_day_task(form);
-//                     } else {
-//                         form.data('old', get_day_data(form));
-//                         form.removeClass('new');
-//                         form.prev().prev('button').removeClass('new');
-//                         form.find('input').removeAttr('placeholder')
-//                     }
-//                 }, new_day_data)
-//             }
-//             else {
-//                 form.removeClass('new');
-//                 form.find('input').removeAttr('placeholder')
-//             }
-//         }
-//     } else if (new_day_data.hour !== old.hour ||
-//         new_day_data.minute !== old.minute ||
-//         new_day_data.task !== old.task) {
-//         receive('/change_day', function (data) {
-//             if (data === 'exist') {
-//                 del_day_task(form);
-//             }
-//             else {
-//                 form.data('old', new_day_data);
-//             }
-//         }, [old, new_day_data]);
-//     }
-// }
-//
+
+function blur_list_task(form) {
+    let old = form.data('old');
+    let new_list_data = get_list_data(form);
+    form.data('old', new_list_data);
+    if (form.hasClass('new')) {
+        if (new_list_data.task !== '') {
+            if (user_data.login !== undefined) {
+                receive('/add_list_task', function (data) {
+                    if (data === 'exist') {
+                        del_list_task(form);
+                    } else {
+                        form.removeClass('new');
+                        form.next('button').removeClass('new');
+                    }
+                }, new_list_data)
+            }
+            else {
+                form.removeClass('new');
+                form.find('input').removeAttr('placeholder')
+            }
+        }
+    } else if (old.task !== new_list_data.task) {
+        receive('/change_list_task', function (data) {
+            if (data === 'exist') {
+                del_list_task(form);
+            }
+        }, [old, new_list_data]);
+    }
+}
+
