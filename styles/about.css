@@ -82,13 +82,9 @@
     text-align: center;
 }
 
-#developers .card a {
-    height: 28px;
-    width: 28px;
-}
-
-#developers .card svg {
+svg {
     pointer-events: visible;
+    cursor: pointer;
 	fill: white;
 	width: 28px;
 	height: 28px;
@@ -96,7 +92,10 @@
 	margin-bottom: 4px;
 }
 
-
+svg:hover {
+    transform: scale(1.2);
+    transition: 0.2s ease-in;
+}
 
 @media (min-width: 1550px) {
     #developers {
@@ -126,6 +125,6 @@
 /*-----------------При нажатии----------------*/
 #developers *:active {transform: scale(1); transition: 0.05s ease-out}
 #developers .card:hover p:active {transform: scale(1); transition: 0.05s ease-out}
-#developers .card:hover img:active {transform: scale(1); transition: 0.05s ease-out}
+#developers .card:hover img:active,  svg:active {transform: scale(1); transition: 0.05s ease-out}
 /*--------------------------------------------*/
 /*--------------------------------------------*/
