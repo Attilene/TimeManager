@@ -92,8 +92,8 @@
 @media (max-width: 1150px) {  #developers {width: 100%}  }
 @media (max-width: 1050px) {  #developers {column-gap: 2%}  }
 
-@media (max-height: 680px) {  #developers {row-gap: 2%; margin: 2vh auto}  }
-@media (max-height: 620px) {
+@media (max-height: 720px) {  #developers {row-gap: 2%; margin: 2vh auto}  }
+@media (max-height: 670px) {
     #developers img {margin: 15px auto 0}
     #developers hr {margin: 0 auto}
     #developers .card {padding: 0 10px 5px}
@@ -101,8 +101,7 @@
     #dev_head {height: 0; opacity: 0}
     #developers .card, #developers .card_head {bottom: 65px}
 }
-
-@media (max-height: 550px) {
+@media (max-height: 600px) {
     .card_head {height: 0; opacity: 0}
     #developers .card, #developers .card_head {bottom: 135px}
     #developers .card p {margin: 2vh 0}
