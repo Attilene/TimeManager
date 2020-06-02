@@ -118,15 +118,15 @@ jQuery(document).ready(function () {
             img.attr('src', manuals[this.id].src);
         }
     });
-    $('.back').each(function (index, element) {
-        new Sortable(element, {
-            animation: 200,
-            filter: 'button, .title',
-            direction: 'vertical',
-            forceFallback: true,
-            ghostClass: "ghostClass",
-            chosenClass: "chosenClass",
-            dragClass: "dragClass"
-        })
-    })
+    // $('.back').each(function (index, element) {
+    //     new Sortable(element, {
+    //         animation: 200,
+    //         filter: 'button, .title',
+    //         direction: 'vertical',
+    //         forceFallback: true,
+    //         ghostClass: "ghostClass",
+    //         chosenClass: "chosenClass",
+    //         dragClass: "dragClass"
+    //     })
+    // })
 });

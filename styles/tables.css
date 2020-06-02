@@ -212,11 +212,11 @@ div.body {
 
 
 
-.list_task.ghostClass, .list_task.chosenClass, .list_task.dragClass {
-    cursor: n-resize !important;
-    transition: none !important;
-}
-.list_task.dragClass {opacity: 0 !important;}
+/*.list_task.ghostClass, .list_task.chosenClass, .list_task.dragClass {*/
+/*    cursor: n-resize !important;*/
+/*    transition: 2s !important;*/
+/*}*/
+/*.list_task.dragClass {opacity: 0 !important;}*/
 
 .back .title input {
     font-size: 1.3em;
