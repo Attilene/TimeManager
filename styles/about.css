@@ -74,9 +74,27 @@
 #developers .card hr {
     border: 2px solid white;
     border-radius: 2px;
-    width: 50%;
+    width: 60%;
     height: 0
 }
+
+#developers .card div {
+    text-align: center;
+}
+
+#developers .card a {
+    line-height: 100%;
+}
+
+#developers .card svg {
+	fill: white;
+	width: 28px;
+	height: 28px;
+	margin: 8px;
+	margin-bottom: 4px;
+}
+
+
 
 @media (min-width: 1550px) {
     #developers {
