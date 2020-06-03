@@ -30,3 +30,4 @@ aside menu form input.warning, #set_login.warning {background-color: #ff6464}
 .clock_load::after, .clock_load::before { background-color: white}
 .man_card img {filter: blur(5px) brightness(80%)}
 .man_card.ready:hover img {filter: blur(0) brightness(100%)}
+@media (max-height: 600px) {#developers img {filter: brightness(0.8)}}

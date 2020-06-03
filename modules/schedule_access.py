@@ -73,7 +73,7 @@ class User(object):
         self._log = new_log
 
     def change_email(self, email):
-        User.__exe("UPDATE users SET email = ?, link =?, activated = ? WHERE login = ?",
+        User.__conn.cursor().execute("UPDATE users SET email = ?, link =?, activated = ? WHERE login = ?",
                    (email, get_link(email), False, self.log))
         User.__com()
         self.email, self.activated = email, 0
@@ -82,7 +82,7 @@ class User(object):
         psw, salt = decrypt(pswsalt)
         hash_sum = set_sum(psw)
         hashed_psw = generate_password_hash(psw + salt[:-1])
-        User.__exe("UPDATE users SET password = ?, hash_sum = ? WHERE login = ?", (hashed_psw, hash_sum, self.log))
+        User.__conn.cursor().execute("UPDATE users SET password = ?, hash_sum = ? WHERE login = ?", (hashed_psw, hash_sum, self.log))
         User.__com()
 
     def change_theme(self, theme, color):
@@ -266,13 +266,13 @@ class User(object):
     @staticmethod
     def check_user(log_email):
         """Проверка существования пользователя"""
-        User.__exe("SELECT (salt) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        User.__conn.cursor().execute("SELECT (salt) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         return User.__one()
 
     @staticmethod
     def fast_check_psw(log_email, pswsalt):
         """Быстрая проверка пароля"""
-        User.__exe("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        User.__conn.cursor().execute("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         try:
             hash_sum, login = User.__one()
         except TypeError:
