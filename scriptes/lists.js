@@ -117,11 +117,12 @@ function click_add_list_task(btn) {
 
 function blur_list_name(form) {
     let back = form.closest('.back_back');
-    console.log(user_data.login)
     if (user_data.login === undefined) {
-        back.removeClass('new');
-        back.prev().prev('button').removeClass('new');
-        back.find('.add_list_task').removeClass('new')
+        if (form.children('input').val() !== '') {
+            back.removeClass('new');
+            back.prev().prev('button').removeClass('new');
+            back.find('.add_list_task').removeClass('new')
+        }
     }
     else {
         let old = form.data('old');
@@ -150,10 +151,11 @@ function blur_list_name(form) {
 }
 
 function blur_list_task(form) {
-    console.log(user_data.login)
     if (user_data.login === undefined) {
-        form.removeClass('new');
-        form.find('input').removeAttr('placeholder')
+        if (form.children('textarea').val() !== '') {
+            form.next('button').removeClass('new');
+            form.removeClass('new');
+        }
     }
     else {
         let old = form.data('old');

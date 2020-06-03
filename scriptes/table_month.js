@@ -77,11 +77,20 @@ function click_add_month(btn) {
 
 function blur_input_month(form) {
     let old = form.data('old');
-    let new_month_data = get_month_data(form);
-    form.data('old', new_month_data);
-    if (form.hasClass('new')) {
-        if (new_month_data.digit !== '' && new_month_data.month !== '' && new_month_data.task !== '') {
-            if (user_data.login !== undefined) {
+    if (user_data.login === undefined) {
+        if (old.digit !== '' && old.month !== '' && old.task !== '') {
+            form.removeClass('new');
+            form.find('input').removeAttr('placeholder');
+            form.prev().prev('button').removeClass('new');
+        }
+    }
+    else {
+        let new_month_data = get_month_data(form);
+        form.data('old', new_month_data);
+        if (form.hasClass('new')) {
+            if (form.find('.digit').val() !== '' &&
+            form.find('.month').val() !== '' &&
+            form.find('.task').val() !== '') {
                 receive('/add_month', function (data) {
                     if (data === 'exist') {
                         del_month_task(form);
@@ -92,20 +101,15 @@ function blur_input_month(form) {
                     }
                 }, new_month_data)
             }
-            else {
-                form.removeClass('new');
-                form.find('input').removeAttr('placeholder');
-                form.prev().prev('button').removeClass('new');
-            }
+        } else if ((user_data.login !== undefined) && (
+            new_month_data.digit !== old.digit ||
+            new_month_data.month !== old.month ||
+            new_month_data.task !== old.task)) {
+            receive('/change_month', function (data) {
+                if (data === 'exist') {
+                    del_month_task(form);
+                }
+            }, [old, new_month_data]);
         }
-    } else if  ((user_data.login !== undefined) && (
-        new_month_data.digit !== old.digit ||
-        new_month_data.month !== old.month ||
-        new_month_data.task !== old.task)) {
-        receive('/change_month', function (data) {
-            if (data === 'exist') {
-                del_month_task(form);
-            }
-        }, [old, new_month_data]);
     }
 }

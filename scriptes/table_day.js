@@ -76,12 +76,21 @@ function click_add_day(btn) {
 }
 
 function blur_input_day(form) {
-    let old = form.data('old');
-    let new_day_data = get_day_data(form);
-    form.data('old', new_day_data);
-    if (form.hasClass('new')) {
-        if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
-            if (user_data.login !== undefined) {
+    if (user_data.login === undefined) {
+        if (form.find('.hour').val() !== '' &&
+        form.find('.minute').val() !== '' &&
+        form.find('.task').val() !== '') {
+            form.removeClass('new');
+            form.find('input').removeAttr('placeholder');
+            form.prev().prev('button').removeClass('new');
+        }
+    }
+    else {
+        let old = form.data('old');
+        let new_day_data = get_day_data(form);
+        form.data('old', new_day_data);
+        if (form.hasClass('new')) {
+            if (new_day_data.hour !== '' && new_day_data.minute !== '' && new_day_data.task !== '') {
                 receive('/add_day', function (data) {
                     if (data === 'exist') {
                         del_day_task(form);
@@ -92,21 +101,16 @@ function blur_input_day(form) {
                     }
                 }, new_day_data)
             }
-            else {
-                form.removeClass('new');
-                form.find('input').removeAttr('placeholder');
-                form.prev().prev('button').removeClass('new');
-            }
+        } else if (
+            new_day_data.hour !== old.hour ||
+            new_day_data.minute !== old.minute ||
+            new_day_data.task !== old.task) {
+            receive('/change_day', function (data) {
+                if (data === 'exist') {
+                    del_day_task(form);
+                }
+            }, [old, new_day_data]);
         }
-    } else if (
-        new_day_data.hour !== old.hour ||
-        new_day_data.minute !== old.minute ||
-        new_day_data.task !== old.task) {
-        receive('/change_day', function (data) {
-            if (data === 'exist') {
-                del_day_task(form);
-            }
-        }, [old, new_day_data]);
     }
 }
 
