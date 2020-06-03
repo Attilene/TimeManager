@@ -149,7 +149,7 @@ aside menu {
     opacity: 0;
 }
 
-aside menu.opened, #settings, #authorisation_menu menu, aside menu.nonactive {display: block; opacity: 1}
+aside menu.opened, #settings, #authorisation_menu menu {display: block; opacity: 1}
 #menu_edit_psw input, #menu_edit_email input {margin: 8px 16px}
 
 #menu_confirm_delete {

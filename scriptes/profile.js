@@ -37,32 +37,30 @@ function hide_click (menu) {
 
 function toggle_set_menu(set_menu) {
     if (typeof set_menu === "string") {set_menu = $(set_menu)}
-    if (!set_menu.hasClass('nonactive')) {
-        let time = close_time($('#profile_menu menu'));
-        if (set_menu.hasClass('opened')) {
-            set_menu.removeClass('opened').stop().slideUp(time, function () {
-                set_menu.removeAttr('style')
-            });
-            let temp = set_menu.find('input');
-            fade_change(temp, function () {temp.removeClass('fill').val('')});
+    let time = close_time($('#profile_menu menu'));
+    if (set_menu.hasClass('opened')) {
+        set_menu.removeClass('opened').stop().slideUp(time, function () {
+            set_menu.removeAttr('style')
+        });
+        let temp = set_menu.find('input');
+        fade_change(temp, function () {temp.removeClass('fill').val('')});
+    }
+    else {
+        let temp = $('#profile_menu menu.opened');
+        if (temp.length > 0) {
+            temp.stop().slideUp(200, function () {
+                temp.removeAttr('style').find('input').removeClass('fill').val('');
+                set_menu.stop().slideDown(time, function () {
+                    set_menu.removeAttr('style').css({display: 'block'});
+                });
+                set_menu.addClass('opened').find('input').focus();
+            }).removeClass('opened');
         }
         else {
-            let temp = $('#profile_menu menu.opened');
-            if (temp.length > 0) {
-                temp.stop().slideUp(200, function () {
-                    temp.removeAttr('style').find('input').removeClass('fill').val('');
-                    set_menu.stop().slideDown(time, function () {
-                        set_menu.removeAttr('style').css({display: 'block'});
-                    });
-                    set_menu.addClass('opened').find('input').focus();
-                }).removeClass('opened');
-            }
-            else {
-                set_menu.stop().slideDown(time, function () {
-                    set_menu.removeAttr('style').css({display: 'block'})}).addClass('opened')
-            }
-            setTimeout(function () {set_menu.find('input').focus()}, close_time(set_menu));
+            set_menu.stop().slideDown(time, function () {
+                set_menu.removeAttr('style').css({display: 'block'})}).addClass('opened')
         }
+        setTimeout(function () {set_menu.find('input').focus()}, close_time(set_menu));
     }
 }
 
@@ -198,10 +196,7 @@ function click_remove_avatar() {
 // Кнопки
 function click_active(menu) {
     receive('/send_activation', function(data) {
-        if (data === 'active') {
-            menu.addClass('opened');
-            $('#menu_edit_email, #confirm_email').removeClass('nonactive');
-        }
+        if (data === 'active') {$('#confirm_email').removeClass('nonactive');}
         else {alert('На почту ' + data + ' выслано письмо для активации')}
     })
 }

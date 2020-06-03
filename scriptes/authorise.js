@@ -14,7 +14,7 @@ function warning(field, text='', type='empty') {
             label
                 .text(text)
                 .css({
-                    width: (25 + (text.length * 9)) + 'px'
+                    width: (30 + (text.length * 9)) + 'px'
                 });
             label.removeClass('warning achive weak empty').addClass(type);
         }
@@ -22,8 +22,8 @@ function warning(field, text='', type='empty') {
             label.removeClass('warning achive weak empty').addClass(type);
             fade_change(label, function () {
                 label.text(text).stop().animate({
-                        width: (25 + (text.length * 9)) + 'px'
-                }, 140)
+                        width: (30 + (text.length * 9)) + 'px'
+                }, 100)
             })
         }
     }
@@ -149,7 +149,7 @@ function registration() {
         // Загрузка страниц
         user_data.login = in_login.val();
         user_data.email = in_email.val();
-        $('#menu_edit_email, #confirm_email').addClass('nonactive');
+        $('#confirm_email').addClass('nonactive');
         $('#menu_edit_email').addClass('opened');
         $('#page_day').html(data.day);
         $('#page_month').html(data.month);
@@ -217,8 +217,8 @@ function authorisation(login, password) {
         $('header .center, header .right').fadeIn(0);
         $('header').removeClass('logout');
         if (!data.activated) {
-            $('#menu_edit_email, #confirm_email').addClass('nonactive');
-            $('#menu_edit_email').addClass('opened');
+            $('#confirm_email').addClass('nonactive');
+            $('#menu_edit_email').addClass('opened').css({display: 'block'});
         }
         // Сбор мусора
         setTimeout(function () {

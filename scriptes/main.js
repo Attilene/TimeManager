@@ -18,6 +18,9 @@ manuals.m_reg.src = 'time_manager/images/manual/reg.gif';
 manuals.m_act.src = 'time_manager/images/manual/act.gif';
 manuals.m_add.src = 'time_manager/images/manual/add.gif';
 manuals.m_theme.src = 'time_manager/images/manual/theme.gif';
+// Подгрузка фона
+background[user_data.theme].onload = function () {$('#help_body').addClass('ready').css({'background-image': `url(${background[user_data.theme].src})`});
+    setTimeout(function () {$('#main_clock').hide()}, close_time($('#main_clock')))};
 // Подгрузка GIF
 manuals.m_reg.onload = function () {
     $('#m_reg').addClass('ready').children('.cover')[0].src = manuals.m_reg.src;
@@ -31,9 +34,6 @@ manuals.m_add.onload = function () {
 manuals.m_theme.onload = function () {
     $('#m_theme').addClass('ready').children('.cover')[0].src = manuals.m_theme.src;
     setTimeout(function () {$('#m_theme .clock_load').hide()}, close_time($('#m_theme .clock_load')))};
-// Подгрузка фона
-background[user_data.theme].onload = function () {$('#help_body').addClass('ready').css({'background-image': `url(${background[user_data.theme].src})`});
-    setTimeout(function () {$('#main_clock').hide()}, close_time($('#main_clock')))};
 
 
 jQuery(document).ready(function () {
@@ -69,7 +69,8 @@ jQuery(document).ready(function () {
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
     if (user_logined) {
         if (!user_data.activated){
-            $('#menu_edit_email, #confirm_email').addClass('nonactive');
+            $('#menu_edit_email').addClass('opened').css({display: 'block'});
+            $('#confirm_email').addClass('nonactive');
         }
         if (restore) {
             toggle_aside($('#profile_menu'));
