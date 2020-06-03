@@ -129,6 +129,10 @@ function logout() {
     setTimeout(function () {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
+    if (sessionStorage.new_user) {
+        sessionStorage.new_user = false;
+        remove_advices()
+    }
     user_logined = false;
     clear_fields()
 }

@@ -16,19 +16,14 @@ function warning(field, text='', type='empty') {
                 .css({
                     width: (25 + (text.length * 9)) + 'px'
                 });
-            label.removeClass('warning achive empty').addClass(type);
+            label.removeClass('warning achive weak empty').addClass(type);
         }
         else {
-            label.removeClass('warning achive empty').addClass(type);
+            label.removeClass('warning achive weak empty').addClass(type);
             fade_change(label, function () {
-                if (type !== 'empty') {
-                    label
-                        .text(text)
-                        .stop()
-                        .animate({
-                            width: (25 + (text.length * 9)) + 'px'
-                        }, 140)
-                } else label.text('')
+                label.text(text).stop().animate({
+                        width: (25 + (text.length * 9)) + 'px'
+                }, 140)
             })
         }
     }
@@ -61,7 +56,7 @@ function check_cor_pass() {
     else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы', 'warning')}
     else {let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
         let len = in_pass.val().length;
-        if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive')}
+        if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive'); in_pass.prev('label').addClass('weak')}
         else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
         else if (len < 20 || len < 16 && test) {warning(in_pass, 'Очень надежный пароль', 'achive')}
         toggle_repass('on');
@@ -94,7 +89,7 @@ function try_log() {
                 if (data) {
                     warning(in_pass, 'Выполняется вход', 'achive');
                     authorisation(in_login.val(), pswsalt)
-                } else if ($('#form_password').val !== '') {
+                } else if ($('#form_password').val() !== '') {
                     warning(in_pass, 'Неверный пароль', 'warning');
                 }
             }, {'log_email': in_login.val(), 'pswsalt': pswsalt})
@@ -179,6 +174,8 @@ function registration() {
         setTimeout(function () {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
+        sessionStorage.new_user = true;
+        make_advices();
         user_logined = true;
         clear_fields()
     });
@@ -193,9 +190,9 @@ function authorisation(login, password) {
         $('#page_month').html(data.month);
         $('#page_lists').html(data.lists);
         $('#page_help').addClass('help_login');
+        // Установка высоты textarea
         $('header .center').one('mousedown', function sizing() {
-            $('main.opened .item .task').each(function (index, element) {autosize(element)});
-            $('main.opened .back_back .back .list_task textarea').each(function (index, element) {autosize_lists(element)})
+            $('main.opened div.body form textarea').each(function (index, element) {autosize(element)});
         });
         // Синхронизация данных
         change_theme(data.theme, data.color);

@@ -124,3 +124,51 @@ function guest_auth() {
     user_logined = true;
     clear_fields()
 }
+
+function make_advices() {
+    $('footer span.right').attr('title', 'Здесь мы можете больше узнать о создателях сайта');
+    $('header .left').attr('title', 'Здесь вы можете посмотреть инструкцию');
+    $('#button_lists').attr('title', 'Здесь мы можете добавить именованные списки дел');
+    $('#button_day').attr('title', 'Здесь мы можете создать список дел на сегодня');
+    $('#button_month').attr('title', 'Здесь мы можете записать сроки выполнения долговременных задач');
+    $('#button_profile').attr('title', 'Здесь мы можете изменить настройки своего профиля');
+    $('#set_login').attr('title', 'Здесь мы можете изменить никнейм');
+    $('#change_avatar').attr('title', 'Нажмите, чтобы изменить аватар');
+    $('#remove_avatar').attr('title', 'Нажмите, чтобы удалить аватар');
+    $('#btn_change_email').attr('title', 'Здесь мы можете изменить привязанный почтовый адресс');
+    $('#btn_change_pass').attr('title', 'Здесь мы можете изменить пароль');
+    $('#btn_delete_profile').attr('title', 'Здесь мы можете удалить ваш аккаунт');
+    $('#btn_exit').attr('title', 'Нажмите, чтобы выйти из аккаунта');
+    $('#set_email').attr('title', 'Для изменения почтового адреса просто наберите здесь новый');
+    $('#set_psw').attr('title', 'Для изменения пароля просто наберите здесь новый');
+    $('#settings').attr('title', 'Нажмите на кружок для того, чтобы изменить тему');
+    $('#add_day_task, #add_month_task').attr('title', 'Нажмите, чтобы создать задачу');
+    $('#add_list').attr('title', 'Нажмите, чтобы создать список');
+    $('#page_day .alert').attr('title', 'Чтобы создать новую задачу, введите время и задачу для прошлой');
+    $('#page_month .alert').attr('title', 'Чтобы создать новую задачу, введите дату и задачу для прошлой');
+    $('#page_lists .alert').attr('title', 'Чтобы создать новый список, введите название для прошлого');
+}
+
+function remove_advices() {
+    $('footer span.right').removeAttr('title');
+    $('header .left').removeAttr('title');
+    $('#button_lists').removeAttr('title');
+    $('#button_day').removeAttr('title');
+    $('#button_month').removeAttr('title');
+    $('#button_profile').removeAttr('title');
+    $('#set_login').removeAttr('title');
+    $('#change_avatar').removeAttr('title');
+    $('#remove_avatar').removeAttr('title');
+    $('#btn_change_email').removeAttr('title');
+    $('#btn_change_pass').removeAttr('title');
+    $('#btn_delete_profile').removeAttr('title');
+    $('#btn_exit').removeAttr('title');
+    $('#set_email').removeAttr('title');
+    $('#set_psw').removeAttr('title');
+    $('#settings').removeAttr('title');
+    $('#add_day_task, #add_month_task').removeAttr('title');
+    $('#add_list').removeAttr('title');
+    $('#page_day .alert').removeAttr('title');
+    $('#page_month .alert').removeAttr('title');
+    $('#page_lists .alert').removeAttr('title');
+}

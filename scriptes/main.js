@@ -75,9 +75,11 @@ jQuery(document).ready(function () {
             toggle_aside($('#profile_menu'));
             toggle_set_menu($('#menu_edit_psw'));
         }
-        $('main.opened textarea').each(function (index, element) {autosize(element)});
+        if (sessionStorage.new_user) {make_advices()}
+        // Установка высоты textarea
+        $('main.opened div.body form textarea').each(function (index, element) {autosize(element)});
         $('header .center').one('mousedown', function sizing() {
-            $('main.opened textarea').each(function (index, element) {autosize(element)});
+            $('main.opened div.body form textarea').each(function (index, element) {autosize(element)});
         });
     }
     // Настройка времени колесиком

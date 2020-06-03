@@ -64,8 +64,10 @@
 </menu>
 
 <menu id="menu_confirm_delete">
-    <p>Подтвердите удаление профиля</p  >
-    <button class="yes" type="button" onclick="
+    <p>Подтвердите удаление профиля</p>
+    <button class="yes" type="button"
+            title="Внимание! Все ваши данные будут стерты"
+            onclick="
         if (user_data.login !== undefined) { receive('/delete_user') }
         logout();
     ">

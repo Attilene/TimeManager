@@ -4,7 +4,10 @@
 <menu>
     <form id="user" onkeydown="if (event.keyCode === 13) {submit_warn($(this)); return false}">
         <label for="form_login" class="empty" autofocus></label>
-        <input id="form_login" name="login" placeholder="Подождите ..." type="email" autocomplete="on" disabled
+        <input id="form_login" name="login"
+               placeholder="Подождите ..." type="email"
+               autocomplete="on" disabled
+               title="Наберите уникальный свой уникальный никнейм"
                oninput="act_field($(this), input_login, check_empty)"
         >
         <button id="erase_login" type="button" onmousedown="click_erase($(this).prev())">
@@ -14,7 +17,9 @@
         </button>
 
         <label for="form_email" class="empty"></label>
-        <input class="hidden" name="email" id="form_email" placeholder="Почта" type="email"
+        <input class="hidden" name="email" id="form_email"
+               placeholder="Почта" type="email"
+               title="С помощью этой почты вы можете в будущем воостановить пароль"
                oninput="act_field($(this), input_email, check_empty)"
         >
         <button id="erase_email" type="button" onmousedown="click_erase($(this).prev())">
@@ -24,7 +29,8 @@
         </button>
 
         <label for="form_password" class="empty"></label>
-        <input id="form_password" name="password" placeholder="Пароль" type="password" disabled
+        <input id="form_password" name="password"
+               placeholder="Пароль" type="password" disabled
                oninput="act_field($(this), input_pass, empty_pass)"
         >
         <button id="show_pass" type="button" onmousedown="click_show_psw($(this).prev())">

@@ -4,7 +4,7 @@ let salt = '';
 receive('/get_key', function (data) {
     key = data;
     jQuery(document).ready(function () {
-        $('#form_login').attr('placeholder', 'Логин / Почта').removeAttr('disabled')
+        $('#form_login').attr('placeholder', 'Никнейм / Почта').removeAttr('disabled')
     })
 });
 

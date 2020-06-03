@@ -224,6 +224,8 @@ aside label {
 
 aside label.achive {background: #73B076}
 aside label.warning {background: #FF8B8B}
+aside label.weak {background: #d4d768
+}
 
 aside.opened label.warning.show, aside.opened label.achive.show {right: 360px; opacity: 1;}
 aside label.change {color: transparent !important}

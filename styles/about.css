@@ -103,8 +103,12 @@
 }
 @media (max-height: 600px) {
     .card_head {height: 0; opacity: 0}
+    #developers {row-gap: 4vh}
     #developers .card, #developers .card_head {bottom: 135px}
     #developers .card p {margin: 2vh 0}
+}
+@media (max-height: 480px) {
+    #developers {row-gap: 2vh}
 }
 /*-----------------Анимации--------------------*/
 /*-----------------Возврат---------------------*/
