@@ -1,3 +1,4 @@
+#page_about {overflow: hidden}
 #developers * {padding: 0; text-align: center}
 
 #developers {
@@ -52,6 +53,7 @@
 #Rasim p {margin: 0}
 
 #developers .card {border-radius: 30px}
+#developers .card:hover {transform: scale(1.05)}
 
 #developers img {
     margin: 14% auto 10px;
@@ -107,7 +109,7 @@
 @media (max-width: 1150px) {  #developers {width: 100%}  }
 @media (max-width: 1050px) {  #developers {column-gap: 2%}  }
 
-@media (max-height: 720px) {  #developers {row-gap: 2%; margin: 2vh auto}  }
+@media (max-height: 720px) {  #developers {row-gap: 3vh; margin: 2vh auto}  }
 @media (max-height: 670px) {
     #developers img {margin: 15px auto 0}
     #developers hr {margin: 0 auto}
