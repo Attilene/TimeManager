@@ -7,8 +7,8 @@
 5) Pycryptodome
 
 #  # Best team:
-## T1MON (づ￣ ³￣)づ 
-## ATTILENE ᕦ(ò_óˇ)ᕤ    
+## T1MON (づ￣ ³￣)づ
+## ATTILENE ψ(▼へ▼メ)
 ## MACMILLAN ┌(ಠ_ಠ)┘ 
 ## PRAGMATIC FRIEND (ﾉ◕ヮ◕)ﾉ 
 ## TRIIKSTER (❍ᴥ❍ʋ) 
