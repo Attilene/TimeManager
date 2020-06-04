@@ -115,23 +115,23 @@
 
 @media (min-height: 570px) {
     #subtitle {margin: 4vh 0}
-    #try_guest {margin: 11vh auto 3vh}
+    #try_guest {margin: 11vh auto 4vh}
     #btn_guest_log {width: 250px; height: 50px}
 }
 
 @media (min-height: 620px) {
     #subtitle {margin: 5vh 0}
-    #try_guest {margin: 15vh auto 3vh}
+    #try_guest {margin: 15vh auto 5vh}
 }
 
 @media (min-height: 720px) {
     #subtitle {margin: 6vh 0}
-    #try_guest {margin: 20vh auto 4vh}
+    #try_guest {margin: 18vh auto 6vh}
 }
 
 @media (min-height: 820px) {
     #subtitle {margin: 10vh 0 8vh}
-    #try_guest {margin: 20vh auto 5vh}
+    #try_guest {margin: 20vh auto 6vh}
 }
 
 

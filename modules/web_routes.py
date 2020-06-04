@@ -124,8 +124,7 @@ def req_change_pass(now, data):
 def req_change_avatar(now, file):
     """Изменение аватарки"""
     temp_path = f'images/avatars/{now.email}.png'
-    with open(temp_path, 'wb') as open_file:
-        open_file.write(file.read())
+    open(temp_path, 'wb').write(file.read())
 
 
 @user_req('/delete_avatar')
@@ -361,7 +360,6 @@ def req_fast_check_password():
 # Главная страница
 @tm.route('/')
 def page_home():
-    print(users)
     if session.get('remember') and session.get('login') and session.get('token') and users.get(session.get('login')):
         if session['token'] == users.get(session.get('login')).token:
             log = session['login']
