@@ -1,4 +1,12 @@
-# **_Time Manager_**
+![Cover](https://github.com/T1GIT/time_manager/blob/master/images/cover.jpg?raw=true)
+#
+## T1MON (づ￣ ³￣)づ
+## ATTILENE ψ(▼へ▼メ)
+## MACMILLAN ┌(ಠ_ಠ)┘ 
+## PRAGMATIC FRIEND (ﾉ◕ヮ◕)ﾉ 
+## TRIIKSTER (❍ᴥ❍ʋ) 
+
+
 #### Required Modules:
 1) Flask (full-packet)
 2) Flask-Mail
@@ -6,13 +14,10 @@
 4) Werkzeug
 5) Pycryptodome
 ## Instructions:
-
-
-### Console commands:
 1. Install [Python](https://www.python.org/ftp/python/3.8.3/python-3.8.3.exe) at least version 3.7
 3. Hold down shift and right - click on an empty space in the folder.
-4. Click "open command window" or " open powershell window here"
-5. Point to each team
+4. Click _**open command window**_ or _**open powershell window here**_
+5. Type each command
     ```
     pip install pip
     pip install --upgrade pip
@@ -27,12 +32,6 @@
 
     [Time Manger.com](http://127.0.0.1:5000/)
 
-#  # Best team:
-## T1MON (づ￣ ³￣)づ
-## ATTILENE ψ(▼へ▼メ)
-## MACMILLAN ┌(ಠ_ಠ)┘ 
-## PRAGMATIC FRIEND (ﾉ◕ヮ◕)ﾉ 
-## TRIIKSTER (❍ᴥ❍ʋ) 
 
 
 ###
