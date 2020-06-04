@@ -30,7 +30,7 @@ def user_req(url, img=None):
                                 session['login'] = new
                                 func(users[new], new)
                                 return jsonify(True)
-                        return redirect('/')
+                        return jsonify('Wrong assignment')
                     elif users[session['login']].token == session['token']:
                         if img: data = request.files.get(img)
                         else: data = request.get_json()
@@ -39,9 +39,9 @@ def user_req(url, img=None):
                         else: temp = func(users[session['login']])
                         if temp: return temp
                         else: return jsonify(True)
-                    else: return redirect('/')
-                except KeyError: return redirect('/')
-            else: return redirect('/')
+                    else: return jsonify('Wrong assignment')
+                except KeyError: jsonify('Wrong assignment')
+            else: jsonify('Wrong assignment')
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
     return wrap
 
@@ -114,7 +114,7 @@ def req_change_email(now, data):
 @user_req('/change_pass')
 def req_change_pass(now, data):
     """Изменение имени пользователя"""
-    if (not User.fast_check_psw(now.log, data)):
+    if not User.fast_check_psw(now.log, data):
         now.change_pass(data)
     users[now.log]._restore = 0
 
@@ -250,12 +250,9 @@ def req_del_list_task(now, data):
 def req_activate(link):
     temp = User.activate(link)
     if temp:
-        log = temp[0]
-        users[log] = User(log)
-        session['login'] = log
-        session['token'] = users[log].token
-        session['remember'] = True
-    return redirect('/')
+        if users.get(temp[0]):
+            users[temp[0]].activation = 1
+    return render_template('plug.html')
 
 
 @tm.route('/restore/<link>', methods=['GET'])

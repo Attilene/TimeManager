@@ -47,7 +47,7 @@ function click_add_month(btn) {
         '                   onkeydown="key_func(event)"\n' +
         '                   oninput="input_time($(this))"\n' +
         '            >\n' +
-        '            <span>:</span>\n' +
+        '            <span>.</span>\n' +
         '            <input class="month" type="text" max="12" min="1" placeholder="?"\n' +
         '                   onfocus="$(this).parent().addClass(\'input\'); save_month($(this).parent())"\n' +
         '                   onblur="$(this).parent().removeClass(\'input\');\n' +

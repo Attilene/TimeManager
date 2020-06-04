@@ -27,7 +27,7 @@
                    onkeydown="key_func(event)"
                    oninput="input_time($(this))"
             >
-            <span>:</span>
+            <span>.</span>
             <input class="month" type="text"
             {% if month < 10 %}
                 value="{{ '0' + month|string }}"

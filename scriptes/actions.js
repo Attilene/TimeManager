@@ -67,7 +67,7 @@ function change_page(page) {
         });
         // Сбор мусора
         setTimeout(function () {
-            $(`#page_${temp}`).removeAttr('class style');
+            $(`#page_${temp}`).removeAttr('style').removeClass('opened closed');
             $(`#page_${page}`).fadeIn(0, function () {
                 $(this).addClass('opened')
             });

@@ -85,6 +85,7 @@
 #developers #Rasim_title {top: 50px}
 
 #developers .card hr {
+    margin: 2vh auto;
     border: none;
     width: 60%;
     height: 4px;
@@ -109,27 +110,31 @@
 @media (max-width: 1150px) {  #developers {width: 100%}  }
 @media (max-width: 1050px) {  #developers {column-gap: 2%}  }
 
-@media (max-height: 720px) {  #developers {row-gap: 3vh; margin: 2vh auto}  }
-@media (max-height: 670px) {
+@media (max-height: 780px) {
+    #developers {row-gap: 3vh; margin: 2vh auto;}
+    #developers .card hr {margin: 2vh auto}
+}
+@media (max-height: 720px) {
     #developers img {margin: 15px auto 0}
-    #developers hr {margin: 0 auto}
     #developers .card {padding: 0 10px 5px}
+    #developers .card hr {margin: 1vh auto}
     #developers .card p {margin: 3vh 0}
     #dev_head {height: 0; opacity: 0}
     #developers .card, #developers .card_head {bottom: 65px}
     #developers .card:hover img {transform: scale(1.05)}
 }
-@media (max-height: 600px) {
+@media (max-height: 650px) {
     .card_head {height: 0; opacity: 0}
-    #developers {row-gap: 4vh}
+    #developers {row-gap: 5vh}
     #developers .card, #developers .card_head {bottom: 135px}
     #developers .card {padding: 0 10px 5px}
+    #developers .card hr {margin: 0 auto}
     #developers .card p {margin: 2vh 0}
     #developers .card_title {opacity: 1}
     #developers .card:hover .card_title {opacity: 0}
     #developers .card:hover img {filter: none}
 }
-@media (max-height: 480px) {
+@media (max-height: 520px) {
     #developers {row-gap: 2vh}
 }
 /*-----------------Анимации--------------------*/

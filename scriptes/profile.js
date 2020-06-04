@@ -124,6 +124,7 @@ function logout() {
     $('#authorisation').fadeIn(0);
     $('header').addClass('logout');
     // Сбор мусора
+    $('#confirm_email').removeClass('nonactive');
     setTimeout(function () {
         $('#authorisation, header .center, header .right').removeAttr('style')
     }, close_time('#authorisation'));
@@ -196,7 +197,10 @@ function click_remove_avatar() {
 // Кнопки
 function click_active(menu) {
     receive('/send_activation', function(data) {
-        if (data === 'active') {$('#confirm_email').removeClass('nonactive');}
+        if (data === 'active') {
+            $('#confirm_email').removeClass('nonactive');
+            toggle_set_menu($('#menu_edit_email'))
+        }
         else {alert('На почту ' + data + ' выслано письмо для активации')}
     })
 }

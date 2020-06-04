@@ -142,7 +142,7 @@
 #page_help * {transition: 0.2s ease-out}
 .man_card.ready::before {transition: 0.1s ease-in}
 #btn_guest_log:hover {transition: 0.1s ease}
-#subtitle:active, #try_guest:active, #btn_guest_log:active, #page_help.help_login {transform: scale(1); transition: 0.05s}
+#subtitle:active, #try_guest:active, #btn_guest_log:active {transform: scale(1); transition: 0.05s}
 .man_card:active {transform: scale(0.9); transition: 0.05s}
 #page_help.help_login #thank:active {transform: scale(1) skewX(-20deg); transition: 0.05s}
 #page_help.help_login #try_guest, #page_help.help_login #btn_guest_log {transition: 0.1s ease-in}
