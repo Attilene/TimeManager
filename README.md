@@ -31,5 +31,5 @@
 
 Time_Manager.com
 
-#### Version 1.4.0
+#### Version 1.5.0
 ###### 03.06.2020
