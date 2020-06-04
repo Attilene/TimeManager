@@ -146,7 +146,7 @@
 .man_card:active {transform: scale(0.9); transition: 0.05s}
 #page_help.help_login #thank:active {transform: scale(1) skewX(-20deg); transition: 0.05s}
 #page_help.help_login #try_guest, #page_help.help_login #btn_guest_log {transition: 0.1s ease-in}
-#help_body {transition: opacity 0.2s}
+#help_body {transition: 0.2s; transition-property: opacity, background}
 
 .clock_load {
 	border-radius: 70px;

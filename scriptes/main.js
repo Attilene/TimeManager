@@ -68,6 +68,9 @@ jQuery(document).ready(function () {
     // Указатель выбранной темы
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
     if (user_logined) {
+        if ($('#help_body').hasClass('ready')) {
+            $('#help_body').css({'background-image': `url(${background[user_data.theme].src})`});
+        }
         if (!user_data.activated){
             $('#confirm_email').addClass('nonactive');
             if (sessionStorage.new_user) {
