@@ -123,9 +123,8 @@ def req_change_pass(now, data):
 @user_req('/change_avatar', 'img')
 def req_change_avatar(now, file):
     """Изменение аватарки"""
-    temp_path = f'images/avatars/{now.email}.jpg'
-    with open(temp_path, 'wb') as open_file:
-        open_file.write(file.read())
+    temp_path = f'images/avatars/{now.email}.png'
+    open(temp_path, 'wb').write(file.read())
 
 
 @user_req('/delete_avatar')

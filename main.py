@@ -25,5 +25,5 @@ if __name__ == "__main__":
 #
 # <b>Time_Manager.com</b>
 #
-# Version 1.3
+# Version 1.3.5
 # 03.06.2020

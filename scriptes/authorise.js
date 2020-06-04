@@ -148,7 +148,6 @@ function registration() {
         'color':   user_data.color,
         'remember': $('#checkbox_remember_me').is(':checked')
     }, function (data) {
-        clear_fields();
         // Загрузка страниц
         $('#confirm_email').addClass('nonactive');
         $('#page_day').html(data.day);
@@ -174,13 +173,13 @@ function registration() {
         user_data.activated = 0;
         make_advices();
         user_logined = true;
+        clear_fields();
     });
 }
 
 function authorisation(login, password) {
     // Вход пользователя
     receive('/login', function (data) {
-        clear_fields();
         // Загрузка страниц
         $('#page_day').html(data.day);
         $('#page_month').html(data.month);
@@ -221,6 +220,7 @@ function authorisation(login, password) {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         user_logined = true;
+        clear_fields();
     }, [login, password, $('#checkbox_remember_me').is(':checked')]);
 }
 
