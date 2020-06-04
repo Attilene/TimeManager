@@ -40,18 +40,17 @@ def user_req(url, img=None):
                         if temp: return temp
                         else: return jsonify(True)
                     else: return jsonify('Wrong assignment')
-                except KeyError: jsonify('Wrong assignment')
-            else: jsonify('Wrong assignment')
+                except KeyError: return redirect('/')
+            else: return jsonify('Wrong assignment')
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
     return wrap
 
 
-@tm.errorhandler(505)
-def handler_assignment(error):
-    return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
-
-
-# Запасной перехватчик
+# @tm.errorhandler(505)
+# def handler_assignment(error):
+#     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
+#
+#
 # @tm.errorhandler(502)
 # def handler_assignment(error):
 #     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
@@ -101,6 +100,7 @@ def req_change_theme(now, data):
 def req_change_log(now, new):
     """Изменение имени пользователя"""
     now.change_log(new)
+    return jsonify(True)
 
 
 @user_req('/change_email')
@@ -116,7 +116,8 @@ def req_change_pass(now, data):
     """Изменение имени пользователя"""
     if not User.fast_check_psw(now.log, data):
         now.change_pass(data)
-    users[now.log]._restore = 0
+        session['token'] = now.token = gen_salt(50)
+    now._restore = 0
 
 
 @user_req('/change_avatar', 'img')
@@ -250,9 +251,13 @@ def req_del_list_task(now, data):
 def req_activate(link):
     temp = User.activate(link)
     if temp:
-        if users.get(temp[0]):
-            users[temp[0]].activation = 1
-    return render_template('plug.html')
+        log = temp[0]
+        now = users[log] = users.get(log, User(log))
+        now.activated = 1
+        session['login'] = log
+        session['token'] = now.token
+        session['remember'] = True
+    return redirect('/')
 
 
 @tm.route('/restore/<link>', methods=['GET'])
@@ -261,11 +266,11 @@ def req_restore(link):
     temp = User.restore(link)
     if temp:
         log = temp[0]
-        users[log] = User(log)
+        now = users[log] = users.get(log, User(log))
         session['login'] = log
-        session['token'] = users[log].token
+        session['token'] = now.token
         session['remember'] = True
-        users[log]._restore = 1
+        now._restore = 1
     return redirect('/')
 
 
@@ -300,21 +305,20 @@ def req_login():
     session.permanent = True
     log, pswsalt, remember = request.get_json()
     if User.check_psw(log, pswsalt):
-        u = User(log)
-        users[u.log] = u
-        session['login'] = u.log
-        session['token'] = u.token
+        now = users[log] = users.get(log, User(log))
+        session['login'] = now.log
+        session['token'] = now.token
         session['remember'] = remember
         return jsonify({
-            "login": u.log,
-            "email": u.email,
-            "theme": u.theme,
-            "color": u.color,
-            "avatar": os.path.isfile(f'images/avatars/{u.email}.png'),
-            "activated": u.activated,
-            "day": render_template('day.html', table_day=u.ret_day()),
-            "month": render_template('month.html', table_month=u.ret_month()),
-            "lists": render_template('lists.html', lists=u.ret_lists())
+            "login": now.log,
+            "email": now.email,
+            "theme": now.theme,
+            "color": now.color,
+            "avatar": os.path.isfile(f'images/avatars/{now.email}.png'),
+            "activated": now.activated,
+            "day": render_template('day.html', table_day=now.ret_day()),
+            "month": render_template('month.html', table_month=now.ret_month()),
+            "lists": render_template('lists.html', lists=now.ret_lists())
         })
     else: return redirect('/')
 
@@ -357,13 +361,14 @@ def req_fast_check_password():
 # Главная страница
 @tm.route('/')
 def page_home():
+    print(users)
     if session.get('remember') and session.get('login') and session.get('token') and users.get(session.get('login')):
         if session['token'] == users.get(session.get('login')).token:
             log = session['login']
             now = users[log]
-            if users[log]._restore:
+            if now._restore:
                 restore = 1
-                users[log]._restore = 0
+                now._restore = 0
             else: restore = 0
             if os.path.isfile(f'images/avatars/{now.email}.png'):
                 avatar = f'style="background-image: url(time_manager/images/avatars/{now.email}.png)"'

@@ -154,8 +154,11 @@ function input_set_login(in_set_log) {
 }
 
 function onblur_set_login(field) {
-    if (field.prev().hasClass('warning') || user_data.login === field.val()) {
+    if (field.prev().hasClass('warning') ||
+        field.prev().hasClass('empty') ||
+        user_data.login === field.val()) {
         field.val(user_data.login);
+        console.log(user_data.login)
         submit_warn(field.parent());
     }
     else {
