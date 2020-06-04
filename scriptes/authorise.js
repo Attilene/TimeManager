@@ -137,6 +137,8 @@ function change_auth(mode) {
 
 function registration() {
     salt = gen_salt();
+    user_data.login = in_login.val();
+    user_data.email = in_email.val();
     let temp_psw = pack_psw(in_pass.val(), salt);
     send('/register', {
         'log':     user_data.login,
@@ -146,8 +148,6 @@ function registration() {
         'color':   user_data.color,
         'remember': $('#checkbox_remember_me').is(':checked')
     }, function (data) {
-        user_data.login = in_login.val();
-        user_data.email = in_email.val();
         clear_fields();
         // Загрузка страниц
         $('#confirm_email').addClass('nonactive');
@@ -171,6 +171,7 @@ function registration() {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         sessionStorage.new_user = true;
+        user_data.activated = 0;
         make_advices();
         user_logined = true;
     });

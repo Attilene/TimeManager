@@ -158,7 +158,6 @@ function onblur_set_login(field) {
         field.prev().hasClass('empty') ||
         user_data.login === field.val()) {
         field.val(user_data.login);
-        console.log(user_data.login)
         submit_warn(field.parent());
     }
     else {
