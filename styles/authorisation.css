@@ -14,7 +14,10 @@ input:-webkit-autofill { /*Убирание желтого фона*/
 	height: 20px;
 	border-radius: 20px;
 	float: right;
+	pointer-events: none;
 }
+
+header.logout #authorisation span {pointer-events: visible}
 
 #authorisation span:hover {
 	transform: scale(1.1);

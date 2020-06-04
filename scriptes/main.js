@@ -69,14 +69,18 @@ jQuery(document).ready(function () {
     $(`aside menu .theme button[data-theme="${user_data.theme}"][data-color="${user_data.color}`).addClass('choice');
     if (user_logined) {
         if (!user_data.activated){
-            $('#menu_edit_email').addClass('opened').css({display: 'block'});
             $('#confirm_email').addClass('nonactive');
+            if (sessionStorage.new_user) {
+                $('#menu_edit_email').addClass('opened').css({display: 'block'});
+            }
         }
         if (restore) {
             toggle_aside($('#profile_menu'));
             toggle_set_menu($('#menu_edit_psw'));
         }
-        if (sessionStorage.new_user) {make_advices()}
+        if (sessionStorage.new_user) {
+            make_advices();
+        }
         // Установка высоты textarea
         $('main.opened div.body form textarea').each(function (index, element) {autosize(element)});
         $('header .center').one('mousedown', function sizing() {

@@ -136,36 +136,32 @@ function change_auth(mode) {
 }
 
 function registration() {
+    user_data.login = in_login.val();
+    user_data.email = in_email.val();
     salt = gen_salt();
     let temp_psw = pack_psw(in_pass.val(), salt);
+    clear_fields();
     send('/register', {
-        'log':     in_login.val(),
-        'email':   in_email.val(),
+        'log':     user_data.login,
+        'email':   user_data.email,
         'pswsalt': temp_psw,
         'theme':   user_data.theme,
         'color':   user_data.color,
         'remember': $('#checkbox_remember_me').is(':checked')
     }, function (data) {
         // Загрузка страниц
-        user_data.login = in_login.val();
-        user_data.email = in_email.val();
         $('#confirm_email').addClass('nonactive');
-        $('#menu_edit_email').addClass('opened');
         $('#page_day').html(data.day);
         $('#page_month').html(data.month);
         $('#page_lists').html(data.lists);
         $('#page_help').addClass('help_login');
         // Закрытие меню
-        $('#authorisation span').click();
-        let menu = $('#authorisation_menu');
-        if (menu.hasClass('opened')) {
-            menu.addClass('closed');
-            // Сбор мусора
-            setTimeout(function () {menu.removeClass('opened closed').css({display: ''})}, close_time(menu))
-        }
+        setTimeout(function () {
+                $('#menu_edit_email').addClass('opened').css({display: 'block'});
+            }, 100);
         // Установка имени пользователя
-        $('header .right a div.nickname').text(in_login.val());
-        $('#set_login').val(in_login.val());
+        $('header .right a div.nickname').text(user_data.login);
+        $('#set_login').val(user_data.login);
         // Появление кнопок
         $('#authorisation').css({display: 'block'});
         $('header .center, header .right').fadeIn(0);
@@ -177,13 +173,12 @@ function registration() {
         sessionStorage.new_user = true;
         make_advices();
         user_logined = true;
-        clear_fields()
     });
 }
 
 function authorisation(login, password) {
     // Вход пользователя
-    // Запрос
+    clear_fields();
     receive('/login', function (data) {
         // Загрузка страниц
         $('#page_day').html(data.day);
@@ -217,15 +212,14 @@ function authorisation(login, password) {
         $('header .center, header .right').fadeIn(0);
         $('header').removeClass('logout');
         if (!data.activated) {
-            $('#confirm_email').addClass('nonactive');
-            $('#menu_edit_email').addClass('opened').css({display: 'block'});
-        }
+                $('#confirm_email').addClass('nonactive');
+                $('#menu_edit_email').addClass('opened').css({display: 'block'});
+            }
         // Сбор мусора
         setTimeout(function () {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
         user_logined = true;
-        clear_fields()
     }, [login, password, $('#checkbox_remember_me').is(':checked')]);
 }
 
