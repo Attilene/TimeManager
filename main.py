@@ -1,3 +1,13 @@
+"""
+Python 3.8
+Required Modules:
+1) Flask (full-packet)
+2) Flask-Mail
+3) Flask-Script
+4) Werkzeug
+5) Pycryptodome
+"""
+
 from modules import *
 
 create_keys()  # Обновление RSA ключей

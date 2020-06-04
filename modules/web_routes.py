@@ -2,7 +2,7 @@ import os
 import sys
 from threading import Thread
 
-from flask import Flask, render_template, request, redirect, jsonify, session, abort
+from flask import Flask, render_template, request, redirect, jsonify, session
 from flask_mail import Mail, Message
 from flask_script import Manager, Shell
 
