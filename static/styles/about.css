@@ -85,7 +85,7 @@
 #developers #Rasim_title {top: 50px}
 
 #developers .card hr {
-    margin: 2vh auto;
+    margin: 1vh auto;
     border: none;
     width: 60%;
     height: 4px;
@@ -98,7 +98,7 @@
 	fill: white;
 	width: 28px;
 	height: 28px;
-	margin: 8px 2% 4px;
+	margin: 8px 2% 0;
 }
 
 #developers .card svg:hover {transform: scale(1.2)}

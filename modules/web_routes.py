@@ -13,6 +13,7 @@ from config import Config
 
 
 tm = Flask(__name__, template_folder=temp_path, static_folder=stat_path)
+
 tm.config.from_object(Config)
 mail = Mail(tm)
 manager = Manager(tm)
@@ -41,21 +42,26 @@ def user_req(url, img=None):
                         else: temp = func(users[session['login']])
                         if temp: return temp
                         else: return jsonify(True)
-                    else: return jsonify('Wrong assignment')
+                    else: return redirect('/')
                 except KeyError: return redirect('/')
-            else: return jsonify('Wrong assignment')
+            else: return redirect('/')
         tm.add_url_rule(url, func.__name__, wrapper, methods=['POST'])
     return wrap
 
 
-# @tm.errorhandler(505)
-# def handler_assignment(error):
-#     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
-#
-#
-# @tm.errorhandler(502)
-# def handler_assignment(error):
-#     return '<h1 style="text-align: center">Неверная подпись запроса</h1>'
+errors = {
+    400: 'Синтаксическая ошибка в запросе',
+    401: 'Неавторизованный доступ запрещен',
+    403: 'Неавторизованный доступ запрещен',
+    404: 'Русурс не найден',
+    405: 'Русурс не найден',
+    502: 'Сервер недоступен'
+}
+
+
+for code, info in errors.items():
+    def f(error): return render_template('error.html', error=info, desc=error)
+    tm._register_error_handler(None, code, f)
 
 
 col = {'red': '#ff6464', 'blue': '#6464ff', 'green': '#46aa46', 'purple': '#b450b4', 'sky': '#55c0bb', 'black': '#000', 'white': '#000'}
