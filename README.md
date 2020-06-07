@@ -1,14 +1,14 @@
 ![Cover](https://github.com/T1GIT/time_manager/blob/master/static/images/cover.jpg?raw=true)
 #
-## (づ￣ ³￣)づ | T1MON
-## ψ(▼へ▼メ) | ATTILENE
-## ┌(ಠ_ಠ)┘ | | MACMILLAN 
-## (ﾉ◕ヮ◕)ﾉ | | | PRAGMATIC FRIEND 
-## (❍ᴥ❍ʋ) | | | | TRIIKSTER
+##                   (づ￣ ³￣)づ 	&#160;	&#160;	&#160;          T1MON
+##                    ψ(▼へ▼メ) 	&#160;	&#160;	&#160;          ATTILENE
+##	&#160;            ┌(ಠ_ಠ)┘ 	    &#160;  &#160;  &#160;	&#160;  MACMILLAN 
+##	&#160;	&#160;   (ﾉ◕ヮ◕)ﾉ 	    &#160;	&#160;	&#160;	&#160;  PRAGMATIC FRIEND 
+##	&#160;	&#160;   (❍ᴥ❍ʋ) 	    &#160;	&#160;	&#160;	&#160;  TRIIKSTER
 
 ## Run:
 #### Basic way:
-1.  Just run __run.exe__
+&#160; 	&#160;	&#160;	&#160;  Just run __run.exe__
 #### Running source files:
 1. Install [_Python_]("https://www.python.org/") at least version 3.7
 2. Run __start.bat__
