@@ -8,10 +8,10 @@
 
 ## Run:
 #### Basic way:
-Just run _**run.exe**_
+Just run **run.exe**
 #### Running source files:
 1. Install [_Python_](https://www.python.org/) at least version 3.7
-2. Run _**start.bat**_
+2. Run **start.bat**
 ##
 ###Used sources
 * Python 3.8.3
