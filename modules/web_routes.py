@@ -8,10 +8,12 @@ from flask_script import Manager, Shell
 
 from modules.schedule_access import *
 from modules.security.crypting import get_link
+from modules.dirs import temp_path, stat_path, av_path
+from config import Config
 
 
-tm = Flask(__name__, template_folder="../templates", static_folder="../../time_manager")
-tm.config.from_object('config.Config')
+tm = Flask(__name__, template_folder=temp_path, static_folder=stat_path)
+tm.config.from_object(Config)
 mail = Mail(tm)
 manager = Manager(tm)
 users = {}
@@ -106,7 +108,7 @@ def req_change_log(now, new):
 @user_req('/change_email')
 def req_change_email(now, data):
     """Изменение имени пользователя"""
-    try: os.rename(f'images/avatars/{now.email}.png', f'images/avatars/{data}.png')
+    try: os.rename(f'{av_path}/{now.email}.png', f'{av_path}/{data}.png')
     except FileNotFoundError: pass
     now.change_email(data)
 
@@ -123,16 +125,15 @@ def req_change_pass(now, data):
 @user_req('/change_avatar', 'img')
 def req_change_avatar(now, file):
     """Изменение аватарки"""
-    temp_path = f'images/avatars/{now.email}.png'
-    open(temp_path, 'wb').write(file.read())
+    open(f'{av_path}/{now.email}.png', 'wb').write(file.read())
 
 
 @user_req('/delete_avatar')
 def req_delete_avatar(now):
     """Удаление аватарки"""
-    try: os.unlink(f'images/avatars/{now.email}.png')
+    try: os.remove(f'{av_path}/{now.email}.png')
     except FileNotFoundError: pass
-    try: os.mkdir('images/avatars/')
+    try: os.mkdir(f'{av_path}/')
     except FileExistsError: pass
 
 
@@ -148,8 +149,8 @@ def req_logout(now):
 @user_req('/delete_user')
 def req_delete_user(now):
     """Удаление учётной записи"""
-    temp_path = f'images/avatars/{now.log}.png'
-    if os.path.isfile(temp_path): os.remove(temp_path)
+    avatar_path = f'{av_path}/{now.log}.png'
+    if os.path.isfile(avatar_path): os.remove(avatar_path)
     now.del_user()
     users.pop(now.log)
     session.pop('login')
@@ -313,7 +314,7 @@ def req_login():
             "email": now.email,
             "theme": now.theme,
             "color": now.color,
-            "avatar": os.path.isfile(f'images/avatars/{now.email}.png'),
+            "avatar": os.path.isfile(f'{av_path}\\{now.email}.png'),
             "activated": now.activated,
             "day": render_template('day.html', table_day=now.ret_day()),
             "month": render_template('month.html', table_month=now.ret_month()),
@@ -368,8 +369,8 @@ def page_home():
                 restore = 1
                 now._restore = 0
             else: restore = 0
-            if os.path.isfile(f'images/avatars/{now.email}.png'):
-                avatar = f'style="background-image: url(time_manager/images/avatars/{now.email}.png)"'
+            if os.path.isfile(f'{av_path}\\{now.email}.png'):
+                avatar = f'style="background-image: url(time_manager{now.email}.png)"'
             else: avatar = ''
             data = {
                 'login':        log,
