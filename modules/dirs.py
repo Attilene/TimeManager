@@ -1,5 +1,6 @@
 from os import makedirs, path
 
+
 keys_path = path.abspath('modules/security/keys')
 db_path = path.abspath('databases')
 temp_path = path.abspath('templates')
