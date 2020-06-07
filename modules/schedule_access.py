@@ -308,8 +308,8 @@ class User(object):
         """Стирание всех пользователей"""
         User.__exe("SELECT login FROM users")
         import os
-        for the_file in os.listdir('images/avatars'):
-            file_path = os.path.join('images/avatars', the_file)
+        for the_file in os.listdir('static/images/avatars'):
+            file_path = os.path.join('static/images/avatars', the_file)
             if os.path.isfile(file_path):
                 os.remove(file_path)
         log_list = User.__all()

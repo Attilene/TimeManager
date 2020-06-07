@@ -8,7 +8,7 @@ from flask_script import Manager, Shell
 
 from modules.schedule_access import *
 from modules.security.crypting import get_link
-from modules.dirs import temp_path, stat_path, av_path
+from modules.dirs import temp_path, stat_path, av_path, keys_path
 from config import Config
 
 
@@ -108,7 +108,7 @@ def req_change_log(now, new):
 @user_req('/change_email')
 def req_change_email(now, data):
     """Изменение имени пользователя"""
-    try: os.rename(f'{av_path}/{now.email}.png', f'{av_path}/{data}.png')
+    try: os.rename(f'{av_path}\\{now.email}.png', f'{av_path}\\{data}.png')
     except FileNotFoundError: pass
     now.change_email(data)
 
@@ -125,16 +125,15 @@ def req_change_pass(now, data):
 @user_req('/change_avatar', 'img')
 def req_change_avatar(now, file):
     """Изменение аватарки"""
-    open(f'{av_path}/{now.email}.png', 'wb').write(file.read())
+    open(f'{av_path}\\{now.email}.png', 'wb').write(file.read())
 
 
 @user_req('/delete_avatar')
 def req_delete_avatar(now):
     """Удаление аватарки"""
-    try: os.remove(f'{av_path}/{now.email}.png')
-    except FileNotFoundError: pass
-    try: os.mkdir(f'{av_path}/')
-    except FileExistsError: pass
+    avatar_path = f'{av_path}\\{now.email}.png'
+    if os.path.isfile(avatar_path): os.remove(avatar_path)
+    os.makedirs(f'{av_path}', exist_ok=True)
 
 
 @user_req('/logout')
@@ -343,7 +342,7 @@ def req_register():
 @tm.route('/get_key', methods=['POST'])
 def req_get_key():
     """Отправка ключа"""
-    return jsonify(open('modules/security/public_key.pem').read())
+    return jsonify(open(f"{keys_path}/public_key.pem", "r").read())
 
 
 @tm.route('/check_user', methods=['POST'])
@@ -370,7 +369,7 @@ def page_home():
                 now._restore = 0
             else: restore = 0
             if os.path.isfile(f'{av_path}\\{now.email}.png'):
-                avatar = f'style="background-image: url(time_manager{now.email}.png)"'
+                avatar = f'style="background-image: url(static\\{now.email}.png)"'
             else: avatar = ''
             data = {
                 'login':        log,

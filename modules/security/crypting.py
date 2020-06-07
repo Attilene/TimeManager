@@ -15,7 +15,7 @@ def create_keys():
 
 
 def decrypt(pswsalt):
-    key = RSA.importKey(open(f"{keys_path}/private_key.pem").read().encode('utf-8'))
+    key = RSA.importKey(open(f"{keys_path}/private_key.pem", "r").read().encode('utf-8'))
     cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
     decrypted = cipher.decrypt(b64decode(pswsalt)).decode('utf-8')
     return decrypted[:64], decrypted[64:]

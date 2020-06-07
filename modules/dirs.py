@@ -1,16 +1,11 @@
-from os import mkdir, makedirs, path
+from os import makedirs, path
 
-keys_path = path.abspath('keys')
+keys_path = path.abspath('modules/security/keys')
 db_path = path.abspath('databases')
 temp_path = path.abspath('templates')
-stat_path = path.abspath('')
+stat_path = path.abspath('static')
 av_path = stat_path + '\\avatars'
 
-try: mkdir(keys_path)
-except FileExistsError: pass
-
-try: mkdir(db_path)
-except FileExistsError: pass
-
-try: mkdir(av_path)
-except FileExistsError: pass
+makedirs(keys_path, exist_ok=True)
+makedirs(db_path, exist_ok=True)
+makedirs(av_path, exist_ok=True)
