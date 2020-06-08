@@ -19,6 +19,9 @@
         </svg>
     </span>
     <span id="avatar"
+          ondragenter="$(this).addClass('drop')"
+          ondragleave="$(this).removeClass('drop')"
+          ondrop="drop($(this), event)"
         {% if not avatar %}
             class="none"
         {% endif %}
@@ -34,6 +37,9 @@
         <hr>
         <svg id="remove_avatar" onmousedown="click_remove_avatar()">
             <use xlink:href="static/images/sprites.svg#sprite_btn_remove"></use>
+        </svg>
+        <svg id="drop_zone" onmousedown="click_remove_avatar()">
+            <use xlink:href="static/images/sprites.svg#sprite_drop"></use>
         </svg>
     </span>
     <span id="exit">

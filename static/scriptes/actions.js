@@ -1,3 +1,17 @@
+// Сообщения
+function al_warn(text) {
+    let obj = ''
+}
+
+
+
+
+
+
+
+
+
+
 // Вычисление задержки
 function close_time(selector) {
     if (typeof selector === "string") {selector = $(selector)}

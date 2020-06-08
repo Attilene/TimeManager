@@ -168,10 +168,20 @@ function onblur_set_login(field) {
 }
 
 // Добавление/смена аватара
+function drop(area, event) {
+    if (user_data.login === undefined) {alert('Смена аватара недоступна для гостевой записи')}
+    else {
+        $(area).removeClass('drop');
+        onchange_get_file(event.dataTransfer.files[0]);
+    }
+}
+
 function onchange_get_file(file) {
     if (file) {
         let size = ((file.size) / 1024 / 1024).toFixed(1);
-        if (size <= 30) {
+        if (size > 50) {alert(`Объем данного файла (${size} МБ) превышает допустимый объём в 50 МБ`)}
+        else if (file.type.slice(0, 5) !== 'image') {alert(`Файл ${file.name} не является изображением`)}
+        else {
             reduceFileSize(file, 110, function (blob) {
                 let img = new FormData();
                 img.set('img', blob, `${user_data.email}.png`);
@@ -182,9 +192,7 @@ function onchange_get_file(file) {
                     $('#get_file').val('');
                 })
             });
-
         }
-        else {alert(`Объем данного файла (${size} МБ) превышает допустимый объём в 30 МБ`)}
     }
 }
 

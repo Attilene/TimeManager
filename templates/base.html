@@ -33,6 +33,23 @@
 </head>
 
 <body style="opacity: 0">
+
+
+
+
+    <div id="alert_back">
+    <div id="alert_body">
+        <p>Удалить профиль?</p>
+        <button class="no">Нет</button>
+        <button class="yes">Удалить</button>
+    </div>
+</div>
+
+
+
+
+
+
     <header class="logout">
         <span class="left" onmousedown="change_page('help')">
             <a>Time Manager</a>
@@ -40,7 +57,10 @@
         <a class="center" id="button_lists" onmousedown="change_page('lists')">Списки</a>
         <a class="center" id="button_day" onmousedown="change_page('day')">Расписание</a>
         <a class="center" id="button_month" onmousedown="change_page('month')">Дедлайны</a>
-        <span class="right" id="button_profile"  onmousedown="toggle_aside($('#profile_menu'))">
+        <span class="right" id="button_profile"
+              onmousedown="toggle_aside($('#profile_menu'))"
+              ondragenter="toggle_aside($('#profile_menu:not(.opened)'))"
+        >
             <a>
                 <div class="nickname"></div>
                 <picture class="avatar"></picture>

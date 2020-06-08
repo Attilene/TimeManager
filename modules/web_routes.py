@@ -113,7 +113,7 @@ def req_change_log(now, new):
 @user_req('/change_email')
 def req_change_email(now, data):
     """Изменение имени пользователя"""
-    try: os.rename(f'{av_path}\\{now.email}.png', f'{av_path}\\{data}.png')
+    try: os.rename(f'{av_path}/{now.email}.png', f'{av_path}/{data}.png')
     except FileNotFoundError: pass
     now.change_email(data)
 
@@ -130,13 +130,13 @@ def req_change_pass(now, data):
 @user_req('/change_avatar', 'img')
 def req_change_avatar(now, file):
     """Изменение аватарки"""
-    open(f'{av_path}\\{now.email}.png', 'wb').write(file.read())
+    open(f'{av_path}/{now.email}.png', 'wb').write(file.read())
 
 
 @user_req('/delete_avatar')
 def req_delete_avatar(now):
     """Удаление аватарки"""
-    avatar_path = f'{av_path}\\{now.email}.png'
+    avatar_path = f'{av_path}/{now.email}.png'
     if os.path.isfile(avatar_path): os.remove(avatar_path)
     os.makedirs(f'{av_path}', exist_ok=True)
 
@@ -318,7 +318,7 @@ def req_login():
             "email": now.email,
             "theme": now.theme,
             "color": now.color,
-            "avatar": os.path.isfile(f'{av_path}\\{now.email}.png'),
+            "avatar": os.path.isfile(f'{av_path}/{now.email}.png'),
             "activated": now.activated,
             "day": render_template('day.html', table_day=now.ret_day()),
             "month": render_template('month.html', table_month=now.ret_month()),
@@ -373,8 +373,8 @@ def page_home():
                 restore = 1
                 now._restore = 0
             else: restore = 0
-            if os.path.isfile(f'{av_path}\\{now.email}.png'):
-                avatar = f'style="background-image: url(static\\avatars\\{now.email}.png)"'
+            if os.path.isfile(f'{av_path}/{now.email}.png'):
+                avatar = f'style="background-image: url(static/avatars/{now.email}.png)"'
             else: avatar = ''
             data = {
                 'login':        log,
