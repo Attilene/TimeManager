@@ -131,7 +131,6 @@ jQuery(document).ready(function () {
     $('#avatar').on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
         e.preventDefault(); e.stopPropagation();
     })
-
     // $('.back').each(function (index, element) {
     //     new Sortable(element, {
     //         animation: 200,

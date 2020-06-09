@@ -319,6 +319,28 @@
         </g>
     </symbol>
 
+    <symbol id="sprite_mail" viewBox="0 0 500 500">
+        <circle style="stroke:none" cx="250" cy="250" r="250"/>
+        <path style="fill:none;stroke-width:21;stroke-miterlimit:10;" d="M390,358.5H103.7c-19.9,0-36-16.1-36-36V176.8c0-19.9,16.1-36,36-36H390c19.9,0,36,16.1,36,36v145.7
+            C426,342.4,409.9,358.5,390,358.5z"/>
+        <path style="fill:none;stroke-width:21;stroke-miterlimit:10;" d="M67.7,161.9l157.2,111.2c13.2,9.3,30.8,9.4,44.1,3.5l162.1-111.5"/>
+        <line style="fill:none;stroke-width:21;stroke-miterlimit:10;" x1="290.1" y1="262.1" x2="426" y2="335.5"/>
+        <line style="fill:none;stroke-width:21;stroke-miterlimit:10;" x1="67.7" y1="332.3" x2="209.2" y2="262"/>
+    </symbol>
+
+    <symbol id="sprite_ask" viewBox="0 0 500 500">
+        <circle style="stroke:none" cx="250" cy="250" r="250"/>
+        <path style="fill:none;stroke-width:53;stroke-linecap:round;stroke-miterlimit:10;" d="M156.2,169c1.6-35.1,34-82.2,92.7-82.2c55.8,0,100.7,36.7,95.1,89.9c-6.5,62.2-95.5,74.4-96.1,123.3"/>
+	    <circle style="fill:none;stroke-width:47;stroke-linecap:round;stroke-miterlimit:10;" cx="249.6" cy="393.3" r="7.7"/>
+    </symbol>
+
+    <symbol id="sprite_warn" viewBox="0 0 500 500">
+        <circle style="stroke:none" cx="250" cy="250" r="250"/>
+        <path style="stroke-width:50;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="M362.2,362.2l-76.2-76.2c-19.9-19.9-19.9-52.2,0-72.1l76.2-76.2l0,0l-76.2,76.2c-19.9,19.9-52.2,19.9-72.1,0
+            l-76.2-76.2l0,0l76.2,76.2c19.9,19.9,19.9,52.2,0,72.1l-76.2,76.2l0,0l76.2-76.2c19.9-19.9,52.2-19.9,72.1,0L362.2,362.2
+            L362.2,362.2z"/>
+    </symbol>
+
     <symbol id="sprite_instagram" viewBox="0 0 512 512">
         <path d="M512.1,363.7c-0.9-35.9-0.2-71.9-0.2-107.8c0-37.6,0-75.3,0-112.8c0-29.7-8.7-56.7-26.6-80.2
 			C453.1,20.8,409.5,0.8,357.2,0.3C289.8-0.3,222.4,0.1,155,0.1c-25.7,0.1-50.3,5.2-73,17C29.8,44.6,0.4,86.8,0.4,147.1

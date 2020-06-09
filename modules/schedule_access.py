@@ -264,15 +264,17 @@ class User(object):
     @staticmethod
     def check_user(log_email):
         """Проверка существования пользователя"""
-        User.__exe("SELECT (salt) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
-        return User.__one()
+        temp_cur = User.__conn.cursor()
+        temp_cur.execute("SELECT (salt) FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        return temp_cur.fetchone()
 
     @staticmethod
     def fast_check_psw(log_email, pswsalt):
         """Быстрая проверка пароля"""
-        User.__exe("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
+        temp_cur = User.__conn.cursor()
+        temp_cur.execute("SELECT hash_sum, login FROM users WHERE login = ? OR email = ?", (log_email, log_email))
         try:
-            hash_sum, login = User.__one()
+            hash_sum, login = temp_cur.fetchone()
         except TypeError:
             return False
         return set_sum(decrypt(pswsalt)[0]) == hash_sum

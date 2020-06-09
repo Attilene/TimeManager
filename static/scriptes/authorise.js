@@ -54,14 +54,16 @@ function check_cor_pass() {
     else if (pass.length < 8) { warning(in_pass, 'Длина пароля должна быть не меньше 8 символов', 'warning')}
     else if (!RegExp('[0-9]+').test(pass)) { warning(in_pass, 'Пароль должен содержать цифры', 'warning')}
     else if (!RegExp('[a-zA-Zа-яА-Я]+').test(pass)) { warning(in_pass, 'Пароль должен содержать буквы', 'warning')}
-    else {let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
+    else {
+        let test = !RegExp('[a-zа-я0-9]+').test(in_pass.val());
         let len = in_pass.val().length;
         if (len < 11 && !test) {warning(in_pass, 'Ненадежный пароль', 'achive'); in_pass.prev('label').addClass('weak')}
         else if (len < 16 || len < 11 && test) {warning(in_pass, 'Надежный пароль', 'achive')}
         else if (len < 20 || len < 16 && test) {warning(in_pass, 'Очень надежный пароль', 'achive')}
         toggle_repass('on');
         check_repass();
-        return true}
+        return true
+    }
     toggle_repass('off');
     return false
 }
@@ -88,7 +90,7 @@ function try_log() {
             receive('/check_password', function (data) {
                 if (data) {
                     warning(in_pass, 'Выполняется вход', 'achive');
-                    authorisation(in_login.val(), pswsalt)
+                    authorisation(in_login.val(), pswsalt);
                 } else if ($('#form_password').val() !== '') {
                     warning(in_pass, 'Неверный пароль', 'warning');
                 }
