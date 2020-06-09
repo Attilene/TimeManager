@@ -128,7 +128,7 @@ jQuery(document).ready(function () {
         }
     });
     // Загрузка
-    $('#avatar').on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
+    $('#avatar, html').on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
         e.preventDefault(); e.stopPropagation();
     })
     // $('.back').each(function (index, element) {

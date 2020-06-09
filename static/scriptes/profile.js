@@ -57,14 +57,18 @@ function toggle_set_menu(set_menu) {
                 set_menu.stop().slideDown(time, function () {
                     set_menu.removeAttr('style').css({display: 'block'});
                 });
-                set_menu.addClass('opened').find('input').focus();
+                set_menu.addClass('opened')
             }).removeClass('opened');
         }
         else {
             set_menu.stop().slideDown(time, function () {
                 set_menu.removeAttr('style').css({display: 'block'})}).addClass('opened')
         }
-        setTimeout(function () {set_menu.find('input').focus()}, close_time(set_menu));
+        setTimeout(function () {
+            if (set_menu.children('.nonactive').length === 0) {
+                set_menu.find('input').focus()
+            }
+        }, close_time(set_menu));
     }
 }
 
@@ -143,6 +147,7 @@ function logout() {
 // Изменение никнейма
 function input_set_login(in_set_log) {
     let temp = in_set_log.val();
+    $('div.nickname').text(temp);
     in_set_log.data('new', temp);
     if (temp === '') {warning(in_set_log, 'Введите никнейм')}
     else if (temp === user_data.login) {warning(in_set_log, 'Ваш никнейм', 'achive')}
@@ -165,9 +170,13 @@ function onblur_set_login(field) {
         !user_data.login !== temp &&
         user_data.login !== undefined &&
         temp
-    ) {
+    )
+    {
         send('/change_log', [user_data.login, temp]);
         user_data.login = temp
+    }
+    else {
+        $('div.nickname').text(user_data.login);
     }
     warning(field);
 }
@@ -257,7 +266,6 @@ function click_show_psw(field) {
 function input_set_email(in_set_email) {
     validate(in_set_email);
     let temp = in_set_email.val();
-    console.log(temp, user_data.email);
     if (/[a-zA-Z0-9-]+@([a-zA-Z]{2,10}[.]){1,3}(com|by|ru|cc|net|ws})$/.test(temp) && temp.length < 100) {
         receive('/check_user', function (data) {
             if (user_data.email === temp) {

@@ -11,9 +11,7 @@ function warning(field, text='', type='empty') {
     let label = field.prev();
     if (label.hasClass('empty') || label.text() !== text) {
         if (label.hasClass('empty')) {
-            label
-                .text(text)
-                .css({
+            label.stop().text(text).css({
                     width: (30 + (text.length * 9)) + 'px'
                 });
             label.removeClass('warning achive weak empty').addClass(type);
@@ -21,7 +19,7 @@ function warning(field, text='', type='empty') {
         else {
             label.removeClass('warning achive weak empty').addClass(type);
             fade_change(label, function () {
-                label.text(text).stop().animate({
+                label.stop().text(text).animate({
                         width: (30 + (text.length * 9)) + 'px'
                 }, 100)
             })
@@ -221,6 +219,7 @@ function authorisation(login, password) {
         setTimeout(function () {
             $('#authorisation, header .center, header .right').removeAttr('style')
         }, close_time('#authorisation'));
+        remove_advices();
         user_logined = true;
         clear_fields();
     }, [login, password, $('#checkbox_remember_me').is(':checked')]);
@@ -260,12 +259,12 @@ function click_show_repsw(field) {
     if (in_login.val().length <= 33) {
         receive('/check_user', function (data) {
             if (data) {
-                in_pass.focus();
                 warning(in_login, 'Пользователь существует', 'achive');
                 change_auth('login');
                 in_email.val('');
                 in_email.removeClass('fill');
                 salt = data[0];
+                in_pass.focus();
             } else {
                 change_auth('register');
                 warning(in_login, 'Никнейм свободен', 'achive');

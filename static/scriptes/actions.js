@@ -199,8 +199,6 @@ function make_advices() {
     $('#button_month').attr('title', 'Здесь мы можете записать сроки выполнения долговременных задач');
     $('#button_profile').attr('title', 'Здесь мы можете изменить настройки своего профиля');
     $('#set_login').attr('title', 'Здесь мы можете изменить никнейм');
-    $('#change_avatar').attr('title', 'Нажмите, чтобы изменить аватар');
-    $('#remove_avatar').attr('title', 'Нажмите, чтобы удалить аватар');
     $('#btn_change_email').attr('title', 'Здесь мы можете изменить привязанный почтовый адресс');
     $('#btn_change_pass').attr('title', 'Здесь мы можете изменить пароль');
     $('#btn_delete_profile').attr('title', 'Здесь мы можете удалить ваш аккаунт');
@@ -223,8 +221,6 @@ function remove_advices() {
     $('#button_month').removeAttr('title');
     $('#button_profile').removeAttr('title');
     $('#set_login').removeAttr('title');
-    $('#change_avatar').removeAttr('title');
-    $('#remove_avatar').removeAttr('title');
     $('#btn_change_email').removeAttr('title');
     $('#btn_change_pass').removeAttr('title');
     $('#btn_delete_profile').removeAttr('title');
