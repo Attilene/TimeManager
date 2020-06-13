@@ -111,6 +111,7 @@ function try_reg() {
 function change_auth(mode) {
     let temp_menu = $('#authorisation_menu');
     if (temp_menu.hasClass(mode)) {return}
+    else {$('#form_password, #form_repass').attr('type', 'password')}
     if (temp_menu.hasClass('login')) {temp_menu.addClass(mode).removeClass('login')}
     else if (temp_menu.hasClass('register')) {temp_menu.addClass(mode).removeClass('register')}
     else if (temp_menu.hasClass('empty')) {

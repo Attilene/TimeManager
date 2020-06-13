@@ -5,7 +5,7 @@ from modules.dirs import db_path
 
 
 class User(object):
-    __conn = sqlite3.connect(f"{db_path}/schedule.db", check_same_thread=False)
+    __conn = sqlite3.connect(f"{db_path}/database.db", check_same_thread=False)
     __cur = __conn.cursor()
     __exe = __cur.execute  # Создать одиночный запрос
     __scr = __cur.executescript  # Создать скрипт

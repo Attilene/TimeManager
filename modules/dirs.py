@@ -2,7 +2,7 @@ from os import makedirs, path
 
 
 keys_path = path.abspath('modules/security/keys')
-db_path = path.abspath('databases')
+db_path = path.abspath('')
 temp_path = path.abspath('templates')
 stat_path = path.abspath('static')
 av_path = stat_path + '/images/avatars'
