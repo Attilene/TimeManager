@@ -85,12 +85,16 @@ function hide_alert() {
 // Форма при нажатии Enter
 function submit_warn(form) {
     let warn_inputs = form.children('label.warning, label.empty').next('input');
-    if (warn_inputs.length === 0) {form.children('input:focus').blur()}
+    if (warn_inputs.length === 0) {
+        form.children('input:focus').blur();
+        return true
+    }
     else {
         warn_inputs.addClass('warning');
         setTimeout(function () {
             warn_inputs.removeClass('warning');
         }, 300);
+        return false
     }
 }
 
