@@ -127,7 +127,6 @@ function blur_list_name(form) {
     else {
         let old = form.data('old');
         let new_name = get_list_name(form);
-        console.log(old, new_name)
         form.data('old', new_name);
         if (back.hasClass('new')) {
             if (new_name !== '') {
@@ -188,7 +187,6 @@ function list_key_func(event) {
     if (key === 13 && event.target.tagName === 'INPUT') {
         event.preventDefault();
         event.stopPropagation();
-        $(event.target).blur();
     }
     else if ((key === 38 && event.target.selectionStart === 0) ||
         (key === 40 && event.target.selectionStart === $(event.target).val().length) ||

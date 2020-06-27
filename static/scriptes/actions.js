@@ -152,8 +152,8 @@ function guest_auth() {
     $('header .center, header .right').fadeIn(0);
     $('header').removeClass('logout');
     // Установка имени
-    $('header .right a div.nickname').text('Guest');
-    $('#set_login').val('Guest');
+    $('header .right a div.nickname').text('Гость');
+    $('#set_login').val('Гость');
     // Вставка страниц
     $('#page_day')[0].innerHTML = '<div class="body">\n' +
         '<button id="add_day_task" onmousedown="click_add_day($(this))">\n' +
