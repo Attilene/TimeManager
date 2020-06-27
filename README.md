@@ -1,10 +1,10 @@
 ![Cover](https://github.com/T1GIT/time_manager/blob/master/static/images/cover.png?raw=true)
 #
-## (づ￣ ³￣)づ  >>> T1MON
-## ψ(▼へ▼メ) >>> ATTILENE
-## ┌(ಠ_ಠ)┘ >>>> MACMILLAN 
-## (ﾉ◕ヮ◕)ﾉ >>>> PRAGMATIC FRIEND 
-## (❍ᴥ❍ʋ) >>>>> TRIIKSTER
+## (づ￣ ³￣)づ  >>> T1MON <<<<<<<<<<<<<< [ 50% ]
+## ψ(▼へ▼メ) >>> ATTILENE <<<<<<<<<< [ 35% ]
+## ┌(ಠ_ಠ)┘ >>>> MACMILLAN <<<<<<< [ 10% ]
+## (ﾉ◕ヮ◕)ﾉ >>>> PRAGMATIC FRIEND <<< [ 4% ]
+## (❍ᴥ❍ʋ) >>>>> TRIIKSTER <<<<<<<<<< [ 1% ]
 
 ## Run:
 #### Basic way:
